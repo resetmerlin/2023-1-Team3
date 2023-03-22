@@ -1,7 +1,7 @@
 package DKUDCoding20231Team3.VISTA.domain.entity;
 
 
-import DKUDCoding20231Team3.VISTA.domain.entity.enumerations.Gender;
+import DKUDCoding20231Team3.VISTA.domain.enumerations.Gender;
 
 import jakarta.persistence.*;
 import lombok.*;
