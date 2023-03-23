@@ -5,6 +5,7 @@ import lombok.*;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @Table(name = "LIKE_TABLE")
 public class Like {
 

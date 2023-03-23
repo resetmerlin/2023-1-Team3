@@ -1,7 +1,7 @@
 package DKUDCoding20231Team3.VISTA.domain.entity;
 
 import DKUDCoding20231Team3.VISTA.domain.enumerations.Gender;
-
+import DKUDCoding20231Team3.VISTA.dto.request.MemberRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -10,6 +10,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor @NoArgsConstructor
 @Table(name = "MEMBER_TABLE")
 public class Member {
 
@@ -35,5 +37,27 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Like> likes;
+
+    public static Member of(MemberRequest memberRequest) {
+        return Member.builder()
+                .mail(memberRequest.getMail())
+                .password(memberRequest.getPassword())
+                .name(memberRequest.getName())
+                .gender(memberRequest.getGender())
+                .birth(memberRequest.getBirth())
+                .school(memberRequest.getSchool())
+                .region(memberRequest.getRegion())
+                .build();
+    }
+
+    public void updateMember(MemberRequest memberRequest) {
+        this.mail = memberRequest.getMail();
+        this.password = memberRequest.getPassword();
+        this.name = memberRequest.getName();
+        this.gender = memberRequest.getGender();
+        this.birth = memberRequest.getBirth();
+        this.school = memberRequest.getSchool();
+        this.region = memberRequest.getRegion();
+    }
 
 }
