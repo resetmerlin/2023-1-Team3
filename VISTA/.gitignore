@@ -38,3 +38,6 @@ out/
 
 ### application.yaml ###
 application.yaml
+
+### config ###
+/src/main/java/DKUDCoding20231Team3/VISTA/config/
