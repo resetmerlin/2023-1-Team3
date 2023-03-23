@@ -1,20 +1,22 @@
 package DKUDCoding20231Team3.VISTA.domain.entity;
 
-
 import DKUDCoding20231Team3.VISTA.domain.enumerations.Gender;
 
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
 @Getter
+@Table(name = "MEMBER_TABLE")
 public class Member {
 
     @Id
     @GeneratedValue
-    private Long userId;
+    @Column(name = "member_id")
+    private Long memberId;
 
     private String mail;
 
@@ -31,6 +33,7 @@ public class Member {
 
     private String region;
 
-    // private likes
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Like> likes;
 
 }
