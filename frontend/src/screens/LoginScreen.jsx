@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 const LoginSceen = () => {
+  const smallDesktop = useMediaQuery({
+    query: "(min-width: 1025px)",
+  });
+  const bigDesktop = useMediaQuery({ query: "(min-width: 1281px)" });
   const {
     register,
     handleSubmit,
@@ -13,6 +17,7 @@ const LoginSceen = () => {
   const submitHandler = (data) => console.log(data);
   return (
     <section className="form">
+      {bigDesktop && <span className="logo">VISTA</span>}
       <div className="form__container">
         <div className="form__wrap">
           <div className="form__logo">
