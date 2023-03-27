@@ -11,6 +11,10 @@ const RegisterScreen = () => {
     getValues,
     formState: { errors },
   } = useForm();
+  const smallDesktop = useMediaQuery({
+    query: "(min-width: 1025px)",
+  });
+  const bigDesktop = useMediaQuery({ query: "(min-width: 1281px)" });
 
   const [userPassword, setUserPassword] = useState("");
 
@@ -21,6 +25,8 @@ const RegisterScreen = () => {
   };
   return (
     <section className="form">
+      {bigDesktop && <span className="logo">VISTA</span>}
+
       <div className="form__container">
         <div className="form__wrap">
           <div className="form__logo">
