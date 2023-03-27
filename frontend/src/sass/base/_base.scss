@@ -1,0 +1,24 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+html,
+body {
+  height: 100%;
+}
+html {
+  font-size: 62.5%; //1rem == 10px
+}
+body {
+  min-height: 100vh;
+  height: 100vh;
+}
+
+// 1vw = 1% of viewport width
+// 1vh = 1% of viewport height
+// 1vmin = 1vw or 1vh, whichever is smaller
+// 1vmax = 1vw or 1vh, whichever is larger
