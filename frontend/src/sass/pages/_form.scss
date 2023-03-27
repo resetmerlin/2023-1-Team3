@@ -1,0 +1,149 @@
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  padding: 2rem;
+  font-size: 1rem;
+  @include respond(big-desktop) {
+    position: absolute;
+    padding: 0;
+    width: 100%;
+    flex-direction: column;
+
+    height: 100%;
+    justify-content: center;
+  }
+  &__span {
+    margin-bottom: 0.4rem;
+  }
+  @include respond(big-desktop) {
+    position: absolute;
+    padding: 0;
+    width: 100%;
+    flex-direction: row;
+    height: 100%;
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 80%;
+
+    @include respond(big-desktop) {
+      position: absolute;
+      width: 40%;
+      height: 90%;
+      height: auto;
+
+      /* border-radius: 14px; */
+      left: 0;
+    }
+  }
+  &__background {
+    display: none;
+
+    @include respond(small-desktop) {
+      background-image: url("/public/images/login-background-640.jpg");
+      position: absolute;
+      right: 0;
+      display: flex;
+      background-repeat: no-repeat;
+      width: 70%;
+      height: 100%;
+      background-position: cover;
+      background-size: cover;
+    }
+
+    @include respond(big-desktop) {
+      background-image: url("/public/images/login-background-640.jpg");
+      position: absolute;
+      right: 0;
+      display: flex;
+      background-repeat: no-repeat;
+      width: 60%;
+      height: 100%;
+      background-position: cover;
+      background-size: cover;
+    }
+  }
+
+  /** form styling*/
+
+  .form__wrap {
+    height: 84%;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    justify-content: flex-start;
+    width: 100%;
+    @include respond(small-desktop) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @include respond(big-desktop) {
+      display: flex;
+      align-items: center;
+      width: 70%;
+      height: 100%;
+      justify-content: center;
+    }
+
+    .form__logo {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: center;
+      height: 20%;
+      width: 100%;
+      @include respond(big-desktop) {
+        height: 15%;
+        width: 76%;
+      }
+      &-big {
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+
+      &-small {
+        font-weight: 400;
+        font-size: 0.8rem;
+        color: $primary-silver-dark;
+        margin-top: 0.4rem;
+        margin-left: 0.2rem;
+      }
+    }
+  }
+
+  .form__wrap__link {
+    font-size: 0.8rem;
+    font-weight: 400;
+    text-decoration: none;
+    color: $color-black;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-top: 0.3rem;
+    color: $color-black;
+    cursor: pointer;
+  }
+}
+
+.form-default-height {
+  height: 3rem;
+}
+.logo {
+  font-family: "Righteous", cursive;
+
+  position: fixed;
+  top: 2%;
+  left: 2%;
+  color: $color-black;
+  padding: 0;
+  font-size: 2rem;
+}
