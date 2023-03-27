@@ -1,0 +1,51 @@
+@mixin respond($breakpoint) {
+  @if $breakpoint == smartphones-port {
+    @media screen and (min-width: 320px) and (max-width: 479px) {
+      //320px/16
+      /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+
+      @content;
+    }
+  }
+  @if $breakpoint == smartphones-land {
+    @media screen and (min-width: 480px) and (max-width: 599px) {
+      //480px/16
+      /* smartphones, Android phones, landscape iPhone */
+
+      @content;
+    }
+  }
+  @if $breakpoint == tab-port {
+    @media screen and (min-width: 600px) and (max-width: 800px) {
+      //600px/16
+      /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+
+      @content;
+    }
+  }
+
+  @if $breakpoint == tab-land {
+    @media screen and (min-width: 801px) and (max-width: 1024px) {
+      //801px/16
+      /* tablet, landscape iPad, lo-res laptops ands desktops */
+
+      @content;
+    }
+  }
+  @if $breakpoint == small-desktop {
+    @media screen and (min-width: 1025px) and (max-width: 1280px) {
+      //1025px/16
+      /* big landscape tablets, laptops, and desktops */
+
+      @content;
+    }
+  }
+  @if $breakpoint == big-desktop {
+    @media screen and (min-width: 1281px) {
+      //1281/16
+      /* hi-res laptops and desktops */
+
+      @content;
+    }
+  }
+}
