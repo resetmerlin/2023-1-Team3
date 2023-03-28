@@ -300,6 +300,11 @@ body {
   font-size: 1.5rem;
   font-family: "Noto Sans KR", sans-serif;
 }
+.home #home__img__slide {
+  top: 50%;
+  right: 2%;
+  position: absolute;
+}
 @media screen and (min-width: 480px) and (max-width: 599px) {
   .home {
     /* smartphones, Android phones, landscape iPhone */
@@ -420,13 +425,6 @@ body {
     border-radius: 0.5rem;
   }
 }
-.home__main__img__slide {
-  top: 50%;
-  right: 3%;
-  font-size: 3rem;
-  color: rgba(255, 255, 255, 0.7);
-  position: absolute;
-}
 .home__main__button__wrap {
   height: 40%;
   width: 100%;
@@ -486,7 +484,7 @@ body {
   }
 }
 .home__main__information {
-  width: 85%;
+  width: 75%;
   border-radius: 11px;
   margin-bottom: 1rem;
   display: flex;

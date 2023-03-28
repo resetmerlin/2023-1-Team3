@@ -6,6 +6,8 @@ import DesktopMain from "../components/homeMain/DesktopMain";
 import MobileBottom from "../components/homeBottom/MobileBottom";
 import DesktopBottom from "../components/homeBottom/DesktopBottom";
 import DesktopNav from "../components/homeNav/DesktopNav";
+import { BoxIconElement } from "boxicons";
+
 const HomeScreen = () => {
   const isMobile = useMediaQuery({
     minWidth: 320,
@@ -26,10 +28,21 @@ const HomeScreen = () => {
             htmlFor="profile-checkbox"
             className="home__top__profile__wrap"
           >
-            <box-icon type="solid" color="white" name="user"></box-icon>
+            <box-icon
+              type="solid"
+              size="1.5rem"
+              color="white"
+              name="user"
+            ></box-icon>
           </label>
         </div>
 
+        <box-icon
+          name="chevron-right"
+          id="home__img__slide"
+          color="#ffffffa1"
+          size="2.5rem"
+        ></box-icon>
         {/* Responsive Main */}
         {isMobile && <MobileMain />}
         {isDesktop && <DesktopMain />}

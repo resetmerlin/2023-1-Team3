@@ -8,6 +8,12 @@
   align-items: center;
   font-size: 1.5rem;
   font-family: "Noto Sans KR", sans-serif;
+
+  #home__img__slide {
+    top: 50%;
+    right: 2%;
+    position: absolute;
+  }
   @include respond(smartphones-land) {
     justify-content: flex-end;
 
@@ -125,13 +131,6 @@
       display: flex;
       justify-content: center;
       align-items: end;
-      &__slide {
-        top: 50%;
-        right: 3%;
-        font-size: 3rem;
-        color: rgba($color-white, 0.7);
-        position: absolute;
-      }
     }
     &__button__wrap {
       height: 40%;
@@ -181,7 +180,7 @@
       }
     }
     &__information {
-      width: 85%;
+      width: 75%;
       border-radius: 11px;
       margin-bottom: 1rem;
       display: flex;
