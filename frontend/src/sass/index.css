@@ -741,6 +741,17 @@ body {
   background-color: black;
 }
 
+.form-header {
+  height: 10rem !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-header__logo {
+  font-size: 3rem !important;
+  position: static !important;
+}
+
 .form__wrap form {
   height: 84%;
   display: flex;
@@ -877,4 +888,22 @@ body {
 .form__wrap form button:focus {
   background-color: rgb(247, 181, 247);
   color: black;
+}
+
+.footer {
+  top: 90%;
+  height: 6rem;
+  position: static;
+  width: 100%;
+  border-top: none;
+  display: flex;
+  justify-content: space-around;
+  /* align-items: center; */
+  text-align: center;
+  align-items: center;
+  font-size: 2rem;
+}
+.footer a {
+  color: black;
+  width: 25%;
 }/*# sourceMappingURL=index.css.map */
