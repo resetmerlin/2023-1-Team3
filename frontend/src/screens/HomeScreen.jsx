@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import MobileMain from "../components/homeMain/MobileMain";
 import DesktopMain from "../components/homeMain/DesktopMain";
-import MobileBottom from "../components/homeBottom/MobileBottom";
-import DesktopBottom from "../components/homeBottom/DesktopBottom";
+i;
 import DesktopNav from "../components/homeNav/DesktopNav";
 const HomeScreen = () => {
   const isMobile = useMediaQuery({
@@ -33,10 +32,6 @@ const HomeScreen = () => {
         {/* Responsive Main */}
         {isMobile && <MobileMain />}
         {isDesktop && <DesktopMain />}
-
-        {/* Responsive Bottom */}
-        {isMobile && <MobileBottom />}
-        {isDesktop && <DesktopBottom />}
       </section>
       {/* Responsive Nav */}
       {isDesktop && <DesktopNav />}
