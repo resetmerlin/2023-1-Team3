@@ -1,13 +1,13 @@
 import React from "react";
 import Messages from "../components/Messages";
-import MobileBottom from "../components/homeBottom/MobileBottom";
+import Footer from "../components/Footer";
 const MessageScreen = () => {
   return (
     <>
       <section className="message">
         <span className="message__title">Your conversation</span>
         <Messages />
-        <MobileBottom />
+        <Footer />
       </section>
     </>
   );
