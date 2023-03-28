@@ -1,0 +1,66 @@
+///to order to fix grid for responsive design, we're simplay gonna set the width
+/// of all the columns to 100%
+
+.row {
+  width: 100%;
+  margin: 0 auto;
+
+  &:not(:last-child) {
+    //not does Opposite..
+    //so instead of selecting last-child, we are selecting except last-child
+    margin-bottom: $gutter-vertical;
+  }
+
+  @include clearfix;
+
+  //attribute selector
+  // all the class start with "col-"
+
+  [class^="col-"] {
+    float: left;
+
+    &:not(:last-child) {
+      margin-right: $gutter-horizontal;
+    }
+  }
+
+  // [class*="col-"]{
+  //any class ends with "col-"
+  // }
+  .col-1-of-2 {
+    //In css there is an extremely powerful function  which is called calc.
+    width: calc((100% - #{$gutter-horizontal}) / 2);
+    //this allow us to make calculations where we can mix units.
+    //we cannot mix rem with pixels, with percentages.
+  }
+
+  .col-1-of-3 {
+    width: calc((100% - 2 *#{$gutter-horizontal}) / 3);
+  }
+
+  .col-2-of-3 {
+    width: calc(
+      2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal}
+    );
+  }
+
+  .col-1-of-4 {
+    width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+    // -뒤에 무조건 space....
+  }
+
+  // .col-1-of-4 {
+  //     width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+  // }
+
+  .col-2-of-4 {
+    width: calc(
+      2 * ((100% - 3 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal}
+    );
+  }
+  .col-3-of-4 {
+    width: calc(
+      3 * ((100% - 3 * #{$gutter-horizontal}) / 4) + 2 * #{$gutter-horizontal}
+    );
+  }
+}
