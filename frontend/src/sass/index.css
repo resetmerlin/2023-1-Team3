@@ -348,18 +348,28 @@ body {
 .home__top {
   position: fixed;
   top: 0;
-  right: 5%;
+  align-items: center;
   padding: 0 1rem;
   display: flex;
+  height: 6rem;
+  width: 100%;
   width: 100%;
   color: white;
 }
+.home__top #profile-checkbox {
+  display: none;
+}
 .home__top__profile__wrap {
-  width: 10%;
-  height: 100%;
+  width: 2.5rem;
+  height: 2.4rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  right: 4%;
+  border: 1px solid rgba(255, 255, 255, 0.368627451);
+  border-radius: 13px;
+  cursor: pointer;
 }
 .home__top__profile {
   font-size: 2.2rem;
@@ -429,6 +439,7 @@ body {
   border-radius: 50%;
   width: 3.5rem;
   height: 3.5rem;
+  cursor: pointer;
   border: none;
   margin: 0 0.5rem;
 }
@@ -461,10 +472,10 @@ body {
   }
 }
 .home__main__button__wrap .home__main__button--save {
-  background-color: white;
+  background-color: rgba(67, 69, 70, 0.6);
   border-radius: 50%;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 4.2rem;
+  height: 4.2rem;
   border: none;
   margin: 0 2rem;
 }
@@ -493,7 +504,7 @@ body {
   height: 25%;
   width: 92%;
   color: white;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 .home__main__information__desc__wrap {
   height: 50%;

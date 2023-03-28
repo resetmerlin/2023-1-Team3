@@ -57,20 +57,30 @@
   &__top {
     position: fixed;
     top: 0;
-    right: 5%;
+
+    align-items: center;
     padding: 0 1rem;
     display: flex;
-
+    height: 6rem;
+    width: 100%;
     width: 100%;
     color: $color-white;
+    #profile-checkbox {
+      display: none;
+    }
     &__profile__wrap {
-      width: 10%;
-      height: 100%;
-
+      width: 2.5rem;
+      height: 2.4rem;
       display: flex;
       justify-content: center;
       align-items: center;
+      position: absolute;
+      right: 4%;
+      border: 1px solid #ffffff5e;
+      border-radius: 13px;
+      cursor: pointer;
     }
+
     &__profile {
       font-size: 2.2rem;
       color: $primary-silver-dark;
@@ -134,7 +144,7 @@
         border-radius: 50%;
         width: 3.5rem;
         height: 3.5rem;
-
+        cursor: pointer;
         border: none;
         margin: 0 0.5rem;
 
@@ -158,10 +168,10 @@
         }
       }
       .home__main__button--save {
-        background-color: rgba($color-white, 1);
+        background-color: rgb(67 69 70 / 60%);
         border-radius: 50%;
-        width: 4.5rem;
-        height: 4.5rem;
+        width: 4.2rem;
+        height: 4.2rem;
 
         border: none;
         margin: 0 2rem;
@@ -191,8 +201,7 @@
         height: 25%;
         width: 92%;
         color: $color-white;
-        font-size: 1rem;
-
+        font-size: 0.8rem;
         &__wrap {
           height: 50%;
           width: 100%;
