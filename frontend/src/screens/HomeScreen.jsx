@@ -18,6 +18,25 @@ const HomeScreen = () => {
   return (
     <>
       <section className="home">
+        {/* <div className="home__top">
+          <input
+            type="checkbox"
+            className="form__checkbox"
+            id="profile-checkbox"
+          />
+          <label
+            htmlFor="profile-checkbox"
+            className="home__top__profile__wrap"
+          >
+            <box-icon
+              type="solid"
+              size="1.5rem"
+              color="white"
+              name="user"
+            ></box-icon>
+          </label>
+        </div> */}
+
         <box-icon
           name="chevron-right"
           id="home__img__slide"
