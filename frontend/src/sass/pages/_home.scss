@@ -21,7 +21,7 @@
     background-position: center;
     background-image: linear-gradient(
         359deg,
-        rgba(0, 0, 0, 0.829) 0%,
+        rgba(0, 0, 0, 0.829) 40%,
 
         rgba(0, 0, 0, 0.144) 100%
       ),
@@ -36,7 +36,7 @@
     background-position: center;
     background-image: linear-gradient(
         359deg,
-        rgba(0, 0, 0, 0.829) 0%,
+        rgba(0, 0, 0, 0.829) 40%,
 
         rgba(0, 0, 0, 0.144) 100%
       ),
@@ -218,7 +218,7 @@
   }
   &__bottom {
     top: 90%;
-    height: 10%;
+    height: 6rem;
     position: absolute;
     width: 100%;
     border-top: 1px solid rgb(238, 240, 244);
@@ -231,10 +231,12 @@
     @include respond(smartphones-land) {
       border-top: none;
       position: static;
+      height: 6rem;
     }
     @include respond(smartphones-port) {
       border-top: none;
       position: static;
+      height: 6rem;
     }
     @include respond(big-desktop) {
       height: 18%;
