@@ -1,0 +1,44 @@
+$female-color: rgb(230, 107, 144);
+$male-color: rgb(101, 174, 223);
+$secondary-silver: rgb(238, 240, 244);
+$primary-silver: rgb(141 145 157);
+$primary-silver-dark: rgb(128, 132, 143);
+$primary-silver-2: rgb(196, 196, 196);
+
+$color-black: black;
+$color-white: white;
+
+//GRID
+$grid-width: 114rem;
+$gutter-vertical: 8rem;
+$gutter-vertical-small: 6rem;
+$gutter-horizontal: 6rem;
+//Margin
+.margin-top-10px {
+  margin-top: 1rem;
+}
+//Font-szie
+
+$default-font-size: 1.6rem;
+
+//border-radius
+$border-radius-small: 3px;
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    //standard version of the clearfix
+
+    //this clearfix is the clear property.
+    //this would clear both floats, so float left and float right so that
+    //it's gonna work no matter if we use flat left or float right
+
+    clear: both;
+  }
+}
+//display flex
+.display-flex {
+  display: flex;
+  align-items: center;
+}
