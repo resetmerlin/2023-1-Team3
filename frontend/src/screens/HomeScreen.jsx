@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import MobileMain from "../components/homeMain/MobileMain";
 import DesktopMain from "../components/homeMain/DesktopMain";
-import MobileBottom from "../components/homeBottom/MobileBottom";
-import DesktopBottom from "../components/homeBottom/DesktopBottom";
 import DesktopNav from "../components/homeNav/DesktopNav";
 import { BoxIconElement } from "boxicons";
-
+import Footer from "../components/Footer";
 const HomeScreen = () => {
   const isMobile = useMediaQuery({
     minWidth: 320,
@@ -47,9 +45,7 @@ const HomeScreen = () => {
         {isMobile && <MobileMain />}
         {isDesktop && <DesktopMain />}
 
-        {/* Responsive Bottom */}
-        {isMobile && <MobileBottom />}
-        {isDesktop && <DesktopBottom />}
+        <Footer />
       </section>
       {/* Responsive Nav */}
       {isDesktop && <DesktopNav />}
