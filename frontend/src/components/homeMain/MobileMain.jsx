@@ -43,7 +43,7 @@ const MobileMain = () => {
             <box-icon
               color="white"
               name="message-rounded"
-              size="2rem"
+              size="1.5rem"
               type="solid"
             ></box-icon>
           </button>
