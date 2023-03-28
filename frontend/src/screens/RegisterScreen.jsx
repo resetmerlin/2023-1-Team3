@@ -128,7 +128,7 @@ const RegisterScreen = () => {
                   <p
                     className="form__wrap__input-error"
                     style={{
-                      fontSize: "1.7rem",
+                      fontSize: "0.7rem",
                       fontWeight: "400",
                       color: "red",
                     }}
