@@ -18,7 +18,7 @@ const HomeScreen = () => {
   return (
     <>
       <section className="home">
-        <div className="home__top">
+        {/* <div className="home__top">
           <input
             type="checkbox"
             className="form__checkbox"
@@ -35,7 +35,7 @@ const HomeScreen = () => {
               name="user"
             ></box-icon>
           </label>
-        </div>
+        </div> */}
 
         <box-icon
           name="chevron-right"

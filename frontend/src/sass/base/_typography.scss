@@ -39,7 +39,7 @@ body {
   min-height: 100vh;
   box-sizing: border-box;
   position: relative;
-
+  flex-direction: column;
   @include respond(smartphones-port) {
     min-width: 320px;
     max-width: 479px;
