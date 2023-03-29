@@ -129,6 +129,14 @@ body {
   align-items: center;
 }
 
+@keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
 .form {
   display: flex;
   justify-content: center;
@@ -689,6 +697,147 @@ body {
   text-align: center;
 }
 
+.conversation {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.5rem;
+  font-family: "Noto Sans KR", sans-serif;
+  color: white;
+  background-color: black;
+}
+.conversation #partner {
+  margin-right: 2rem;
+  background-color: black;
+}
+.conversation #client-justify {
+  justify-content: flex-end;
+}
+.conversation #client {
+  margin-left: 2rem;
+  background-color: rgba(96, 99, 106, 0.4);
+  border: none;
+}
+.conversation__header {
+  height: 9%;
+  width: 100%;
+  top: 0;
+  position: fixed;
+  display: flex;
+  padding: 0.7rem 1rem;
+  align-items: center;
+}
+.conversation__header__back {
+  width: 10%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  line-height: 0rem;
+}
+.conversation__header__information__wrap {
+  width: 90%;
+  justify-content: flex-start;
+  margin-left: 0.6rem;
+  display: flex;
+  align-items: center;
+}
+.conversation__header__information__wrap .conversation__header__user-image {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-right: 0.8rem;
+}
+.conversation__header__information__wrap .conversation__header__information {
+  display: flex;
+  align-items: center;
+}
+.conversation__header__information__wrap .conversation__header__information__name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.conversation__content {
+  height: 85%;
+  width: 100%;
+  top: 9%;
+  position: absolute;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+.conversation__content .time {
+  justify-content: center;
+  font-size: 0.8rem;
+}
+.conversation__content__message__wrap {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0.8rem;
+}
+.conversation__content__message__wrap .conversation__content__message {
+  white-space: normal;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid rgba(141, 145, 157, 0.4);
+  align-items: stretch;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  margin: 0;
+  border-radius: 1rem;
+  width: auto;
+  margin: 0 0.8rem;
+}
+.conversation__content__message__wrap .conversation__content__profile {
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+}
+.conversation__bottom {
+  height: 6%;
+  width: 100%;
+  top: 93.7%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+}
+.conversation__bottom__keyboard-input {
+  display: flex;
+  height: 100%;
+  width: 95%;
+  border: 1px solid white;
+  border-radius: 2.7rem;
+  padding: 0.5rem;
+}
+.conversation__bottom__keyboard-input input {
+  width: 87%;
+  margin-left: 1rem;
+  background: transparent;
+  border: none;
+  animation: blink 1s steps(2) infinite;
+  animation: 1s blink step-end infinite;
+}
+.conversation__bottom__keyboard-input input:focus {
+  outline: none;
+  color: white;
+}
+.conversation__bottom__message-send {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 1281px) {
   .home__nav {
     /* hi-res laptops and desktops */
@@ -739,6 +888,17 @@ body {
   font-family: "Noto Sans KR", sans-serif;
   color: white;
   background-color: black;
+}
+
+.form-header {
+  height: 10rem !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-header__logo {
+  font-size: 3rem !important;
+  position: static !important;
 }
 
 .form__wrap form {
@@ -877,4 +1037,22 @@ body {
 .form__wrap form button:focus {
   background-color: rgb(247, 181, 247);
   color: black;
+}
+
+.footer {
+  top: 90%;
+  height: 6rem;
+  position: static;
+  width: 100%;
+  border-top: none;
+  display: flex;
+  justify-content: space-around;
+  /* align-items: center; */
+  text-align: center;
+  align-items: center;
+  font-size: 2rem;
+}
+.footer a {
+  color: black;
+  width: 25%;
 }/*# sourceMappingURL=index.css.map */
