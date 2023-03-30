@@ -39,7 +39,8 @@ body {
   }
 }
 @media screen and (min-width: 801px) and (max-width: 1024px) {
-  html { /* tablet, landscape iPad, lo-res laptops ands desktops */
+  html {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
     font-size: 118.75%;
   }
 }
@@ -130,7 +131,8 @@ body {
 }
 
 @keyframes blink {
-  from, to {
+  from,
+  to {
     color: transparent;
   }
   50% {
@@ -180,7 +182,8 @@ body {
   height: 80%;
 }
 @media screen and (min-width: 1281px) {
-  .form__container { /* hi-res laptops and desktops */
+  .form__container {
+    /* hi-res laptops and desktops */
     position: absolute;
     width: 40%;
     height: 90%;
@@ -320,7 +323,12 @@ body {
     justify-content: flex-end;
     font-size: 1.5rem;
     background-position: center;
-    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
+    background-image: linear-gradient(
+        359deg,
+        rgba(0, 0, 0, 0.829) 40%,
+        rgba(0, 0, 0, 0.144) 100%
+      ),
+      url(/public/images/userImage/user-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -331,7 +339,12 @@ body {
     justify-content: flex-end;
     font-size: 1.5rem;
     background-position: center;
-    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
+    background-image: linear-gradient(
+        359deg,
+        rgba(0, 0, 0, 0.829) 40%,
+        rgba(0, 0, 0, 0.144) 100%
+      ),
+      url(/public/images/userImage/user-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -614,13 +627,19 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
+  background-image: linear-gradient(
+    359deg,
+    rgba(26, 25, 25, 0.829) 40%,
+    rgba(0, 0, 0, 0.144) 100%
+  );
 }
 .message__title {
-  font-size: 1rem;
+  font-size: 1.3rem;
   margin-bottom: 0.5rem;
   margin-top: 3rem;
   padding: 0 2rem;
+  font-weight: 600;
+  color: rgb(128, 132, 143);
 }
 .message__row {
   display: flex;
@@ -645,11 +664,12 @@ body {
   border-radius: 50%;
 }
 .message__column .message__desc {
-  font-size: 0.9rem;
+  font-size: 1rem;
   width: 70%;
   height: 84%;
   margin: 0 1.5rem;
   display: flex;
+  font-weight: 600;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
@@ -755,7 +775,8 @@ body {
   display: flex;
   align-items: center;
 }
-.conversation__header__information__wrap .conversation__header__information__name {
+.conversation__header__information__wrap
+  .conversation__header__information__name {
   font-size: 1rem;
   font-weight: 600;
 }
@@ -965,16 +986,34 @@ body {
 .form__wrap form .form__checkbox-wrap .form__checkbox {
   display: none;
 }
-.form__wrap form .form__checkbox-wrap #female:checked + .form__checkbox--female-label {
+.form__wrap
+  form
+  .form__checkbox-wrap
+  #female:checked
+  + .form__checkbox--female-label {
   background-color: rgb(230, 107, 144);
 }
-.form__wrap form .form__checkbox-wrap #female:checked + .form__checkbox--female-label i {
+.form__wrap
+  form
+  .form__checkbox-wrap
+  #female:checked
+  + .form__checkbox--female-label
+  i {
   color: white;
 }
-.form__wrap form .form__checkbox-wrap #male:checked + .form__checkbox--male-label {
+.form__wrap
+  form
+  .form__checkbox-wrap
+  #male:checked
+  + .form__checkbox--male-label {
   background-color: rgb(101, 174, 223);
 }
-.form__wrap form .form__checkbox-wrap #male:checked + .form__checkbox--male-label i {
+.form__wrap
+  form
+  .form__checkbox-wrap
+  #male:checked
+  + .form__checkbox--male-label
+  i {
   color: white;
 }
 .form__wrap form .form__checkbox-wrap label {
@@ -1055,4 +1094,4 @@ body {
 .footer a {
   color: black;
   width: 25%;
-}/*# sourceMappingURL=index.css.map */
+} /*# sourceMappingURL=index.css.map */
