@@ -1,7 +1,7 @@
 .footer {
   top: 90%;
   height: 6rem;
-  position: static;
+  position: fixed;
   width: 100%;
   border-top: none;
   display: flex;
@@ -10,7 +10,7 @@
   text-align: center;
   align-items: center;
   font-size: 2rem;
-
+  position: fixed;
   a {
     color: $color-black;
     width: 25%;
