@@ -112,6 +112,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    position: absolute;
+    top: 68%;
 
     @include respond(big-desktop) {
       top: 0;
