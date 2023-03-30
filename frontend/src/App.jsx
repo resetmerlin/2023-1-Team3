@@ -6,6 +6,7 @@ import MessageScreen from "./screens/MessageScreen";
 import ConversationScreen from "./screens/ConversationScreen";
 import Header from "./components/Header";
 import { useMediaQuery } from "react-responsive";
+import SaveScreen from "./screens/SaveScreen";
 import "./sass/index.css";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             element={<ConversationScreen />}
             exact
           ></Route>
+          <Route path="/save" element={<SaveScreen />} exact></Route>
 
           <Route path="/login" element={<LoginSceen />} exact></Route>
 
