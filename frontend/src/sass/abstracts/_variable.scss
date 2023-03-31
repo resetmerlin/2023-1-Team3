@@ -92,3 +92,13 @@ $border-radius-small: 3px;
     color: $color-white;
   }
 }
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-direction-col {
+  flex-direction: column;
+}
