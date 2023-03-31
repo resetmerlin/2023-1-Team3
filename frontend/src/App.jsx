@@ -7,8 +7,10 @@ import ConversationScreen from "./screens/ConversationScreen";
 import Header from "./components/Header";
 import { useMediaQuery } from "react-responsive";
 import SaveScreen from "./screens/SaveScreen";
+import SettingScreen from "./screens/SettingScreen";
 import "./sass/index.css";
-
+import SecurityEditScreen from "./screens/SecurityEditScreen";
+import ProfileEditScreen from "./screens/ProfileEditScreen";
 function App() {
   const isMobile = useMediaQuery({
     minWidth: 320,
@@ -29,8 +31,19 @@ function App() {
             exact
           ></Route>
           <Route path="/save" element={<SaveScreen />} exact></Route>
+          <Route path="/setting" element={<SettingScreen />} exact></Route>
 
           <Route path="/login" element={<LoginSceen />} exact></Route>
+          <Route
+            path="/setting/profile"
+            element={<ProfileEditScreen />}
+            exact
+          ></Route>
+          <Route
+            path="/setting/security"
+            element={<SecurityEditScreen />}
+            exact
+          ></Route>
 
           <Route path="/register" element={<RegisterScreen />} exact></Route>
         </Routes>
