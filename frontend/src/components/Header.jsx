@@ -14,6 +14,10 @@ const Header = () => {
         <div className="header">
           <h1>Save</h1>
         </div>
+      ) : location == "/setting" ? (
+        <div className="header">
+          <h1>Setting</h1>
+        </div>
       ) : location == "/register" ? (
         <div
           className="header form-header"
