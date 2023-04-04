@@ -3,12 +3,15 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   userRegisterReducers,
-  emailVerifiyReducers,
+  sendEmailReducers,
   userLoginReducers,
+  codeVerificationReducers,
 } from "./reducers/userReducer";
 const reducer = combineReducers({
-  codeStatus: emailVerifiyReducers,
-  userInfo: userRegisterReducers,
+  emailInfo: sendEmailReducers,
+  registerInfo: userRegisterReducers,
+  codeInfo: codeVerificationReducers,
+
   loginInfo: userLoginReducers,
 });
 const initialState = {};
