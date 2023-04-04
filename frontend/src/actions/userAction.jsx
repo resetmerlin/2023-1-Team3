@@ -20,7 +20,7 @@ export const emailVerifyAction = (email) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "http://138.2.127.153:8080/api/member/mail",
+      "http://138.2.127.153:8080/member/mail",
       { email },
       config
     );
@@ -46,7 +46,7 @@ export const registerAction = (userInfo) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "/api/member/signup",
+      "http://138.2.127.153:8080/member/signup",
       { userInfo },
       config
     );
