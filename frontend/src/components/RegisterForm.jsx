@@ -65,9 +65,9 @@ const RegisterForm = () => {
 
   const emailVerifiyHandler = () => {
     if (!errorCheck.email) {
-      dispatch(emailVerifyAction({ mail: email }));
-      handleClick();
+      dispatch(emailVerifyAction({ mail: emailValue }));
     }
+    handleClick();
   };
 
   /** 인증코드 전송 후 state */
