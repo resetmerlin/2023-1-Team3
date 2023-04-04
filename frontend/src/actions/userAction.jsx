@@ -42,7 +42,6 @@ export const emailVerifyAction = (email) => async (dispatch) => {
 export const registerAction = (userInfo) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
-    console.log(userInfo);
     const config = {
       headers: {
         "Content-Type": "application/json",
