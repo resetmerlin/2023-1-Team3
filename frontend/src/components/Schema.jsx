@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const schema = yup
+export const registerSchema = yup
   .object({
     name: yup
       .string()
@@ -30,5 +30,19 @@ export const schema = yup
         "19살 이상만 이용가능합니다."
       ),
     gender: yup.string().required("성별은 필수 입력란 입니다."),
+  })
+  .required();
+
+export const loginSchema = yup
+  .object({
+    email: yup
+      .string()
+      .required("이메일을 입력하세요")
+      .matches(/\S+@dankook\.ac\.kr/, "@dankook.ac.kr 형식에 맞게 작성하세요"),
+
+    password: yup
+      .string()
+      .required("비밀번호를 입력해 주세요")
+      .min(8, "비밀번호는 최소 8글자입니다"),
   })
   .required();

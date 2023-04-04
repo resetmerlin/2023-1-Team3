@@ -4,9 +4,12 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   userRegisterReducers,
   emailVerifiyReducers,
+  userLoginReducers,
 } from "./reducers/userReducer";
 const reducer = combineReducers({
   codeStatus: emailVerifiyReducers,
+  userInfo: userRegisterReducers,
+  loginInfo: userLoginReducers,
 });
 const initialState = {};
 const middleware = [thunk];

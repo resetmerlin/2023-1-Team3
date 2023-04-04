@@ -2,6 +2,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAIL,
   USER_EMAIL_REQUEST,
   USER_EMAIL_SUCCESS,
   USER_EMAIL_FAIL,
@@ -39,7 +42,6 @@ export const emailVerifyAction = (email) => async (dispatch) => {
 export const registerAction = (userInfo) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
-    console.log(userInfo);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -55,6 +57,32 @@ export const registerAction = (userInfo) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.messge,
+    });
+  }
+};
+
+export const loginAction = (mail, password) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_LOGIN_REQUEST });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.post(
+      "http://138.2.127.153:8080/member/signup",
+      { mail, password },
+      config
+    );
+
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_LOGIN_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
