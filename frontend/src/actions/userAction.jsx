@@ -72,6 +72,7 @@ export const codeVerificationAction = (mail, code) => async (dispatch) => {
 /** 회원가입 Action */
 export const registerAction = (userInfo) => async (dispatch) => {
   try {
+    console.log(JSON.stringify(userInfo));
     dispatch({ type: USER_REGISTER_REQUEST });
 
     const config = {
