@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const location = useLocation().pathname;
-  console.log(location);
   return (
     <>
       {location == "/message" ? (
