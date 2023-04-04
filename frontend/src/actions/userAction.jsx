@@ -13,10 +13,10 @@ import axios from "axios";
 
 //action creator
 //Redux thunk
-export const emailVerifyAction = (email) => async (dispatch) => {
+export const emailVerifyAction = (mail) => async (dispatch) => {
   try {
+    console.log(mail);
     dispatch({ type: USER_EMAIL_REQUEST });
-
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const emailVerifyAction = (email) => async (dispatch) => {
     };
     const { data } = await axios.post(
       "http://138.2.127.153:8080/member/mail",
-      { email },
+      JSON.stringify(mail),
       config
     );
 
@@ -39,9 +39,12 @@ export const emailVerifyAction = (email) => async (dispatch) => {
     });
   }
 };
+
 export const registerAction = (userInfo) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
+    console.log(JSON.stringify(userInfo));
+
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +52,8 @@ export const registerAction = (userInfo) => async (dispatch) => {
     };
     const { data } = await axios.post(
       "http://138.2.127.153:8080/member/signup",
-      { userInfo },
+      JSON.stringify(userInfo),
+
       config
     );
 
@@ -68,6 +72,7 @@ export const registerAction = (userInfo) => async (dispatch) => {
 export const loginAction = (mail, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
+    console.log(mail, password);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +80,8 @@ export const loginAction = (mail, password) => async (dispatch) => {
     };
     const { data } = await axios.post(
       "http://138.2.127.153:8080/member/signup",
-      { mail, password },
+      JSON.stringify(mail, password),
+
       config
     );
 
