@@ -8,14 +8,18 @@ import {
   USER_EMAIL_REQUEST,
   USER_EMAIL_SUCCESS,
   USER_EMAIL_FAIL,
+  USER_VERIFY_REQUEST,
+  USER_VERIFY_SUCCESS,
+  USER_VERIFY_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
 //action creator
 //Redux thunk
-export const emailVerifyAction = (mail) => async (dispatch) => {
+
+/** 이메일에 인증코드 전송 Action */
+export const sendEmailCodeAction = (mail) => async (dispatch) => {
   try {
-    console.log(mail);
     dispatch({ type: USER_EMAIL_REQUEST });
     const config = {
       headers: {
@@ -39,11 +43,36 @@ export const emailVerifyAction = (mail) => async (dispatch) => {
     });
   }
 };
+/** 인증코드 확인 Action*/
+export const codeVerificationAction = (mail, code) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_VERIFY_REQUEST });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.post(
+      "http://138.2.127.153:8080/member/code",
+      JSON.stringify(mail, code),
+      config
+    );
 
+    dispatch({ type: USER_VERIFY_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_VERIFY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.messge,
+    });
+  }
+};
+/** 회원가입 Action */
 export const registerAction = (userInfo) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
-    console.log(JSON.stringify(userInfo));
 
     const config = {
       headers: {
