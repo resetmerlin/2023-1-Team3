@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import { schema } from "../components/Schema";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const LoginSceen = () => {
   const smallDesktop = useMediaQuery({
@@ -13,8 +15,20 @@ const LoginSceen = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
-  const submitHandler = (data) => console.log(data);
+  } = useForm({ resolver: yupResolver(schema) });
+  /** Form 제출 state*/
+  const onSubmit = (data) => {
+    const { email, password } = data;
+
+    if (data) {
+      dispatch(
+        registerAction({
+          mail: email,
+          password: password,
+        })
+      );
+    }
+  };
   return (
     <section className="form">
       {bigDesktop && <span className="logo">VISTA</span>}
@@ -26,48 +40,40 @@ const LoginSceen = () => {
               Broaden your connection via VISTA
             </span>
           </div>
-          <form
-            onSubmit={handleSubmit((data) => {
-              console.log(data);
-            })}
-          >
+          <form onSubmit={handleSubmit(onSubmit, onError)}>
             <input
               className="form-default-height"
               type="email"
               id="email"
               placeholder="Email"
-              {...register("email", {
-                required: "Please enter your email correctly",
-              })}
+              {...register("email")}
+              style={{
+                border: errors?.email?.message ? "1px solid red" : "",
+                borderRadius: errors?.email?.message ? "5px" : "",
+              }}
             />
-            <p
-              className="form__wrap__input-error"
-              style={{ fontSize: ".8rem", fontWeight: "400", color: "red" }}
-            >
-              {errors.email?.message}
-            </p>
+            <p className="form__wrap__input-error">{errors.email?.message}</p>
 
             <input
               className="form-default-height"
               type="password"
               id="password"
               placeholder="Password"
-              {...register("password", {
-                required: "Your password is less than 10 words",
-
-                maxLength: 10,
-              })}
+              {...register("password")}
+              style={{
+                border: errors?.email?.message ? "1px solid red" : "",
+                borderRadius: errors?.email?.message ? "5px" : "",
+              }}
             />
             {errors.password?.message && (
-              <p
-                className="form__wrap__input-error"
-                style={{ fontSize: ".8rem", fontWeight: "400", color: "red" }}
-              >
+              <p className="form__wrap__input-error">
                 {errors.password?.message}
               </p>
             )}
 
-            <button className="form-default-height">Sign in </button>
+            <button className="form-default-height" type="submit">
+              Sign in
+            </button>
             <Link to="/register" className="form__wrap__link">
               Not a member yet?
             </Link>
