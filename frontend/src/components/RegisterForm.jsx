@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
-import { emailVerifyAction } from "../actions/userAction";
-import { registerAction } from "../actions/userAction";
+import { sendEmailCodeAction } from "../actions/userAction";
+import { registerAction, codeVerificationAction } from "../actions/userAction";
 import { useForm } from "react-hook-form";
-import { schema } from "../components/Schema";
+import { registerSchema } from "../components/Schema";
 const RegisterForm = () => {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
     getValues,
     setValue,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({ resolver: yupResolver(registerSchema) });
 
   const [countdown, setCountdown] = useState(60);
   const [intervalId, setIntervalId] = useState(null);
@@ -41,15 +43,18 @@ const RegisterForm = () => {
     const { birthday, code, email, name, password, gender } = data;
 
     if (data) {
-      dispatch(
-        registerAction({
-          mail: email,
-          password: password,
-          name: name,
-          gender: gender,
-          birth: birthday?.toISOString().split("T")[0],
-        })
-      );
+      dispatch(codeVerificationAction({ mail: email, code: code }));
+      if (!codeError) {
+        dispatch(
+          registerAction({
+            mail: email,
+            password: password,
+            name: name,
+            gender: gender,
+            birth: birthday?.toISOString().split("T")[0],
+          })
+        );
+      }
     }
   };
 
@@ -61,18 +66,26 @@ const RegisterForm = () => {
   const emailValue = getValues("email");
 
   /** 인증코드 전송 함수*/
-  const dispatch = useDispatch();
-
   const emailVerifiyHandler = () => {
-    if (!errorCheck.email) {
-      dispatch(emailVerifyAction({ mail: emailValue }));
+    if (emailValue) {
+      if (!errorCheck.email) {
+        dispatch(sendEmailCodeAction({ mail: emailValue }));
+        handleClick();
+      }
     }
-    handleClick();
   };
 
-  /** 인증코드 전송 후 state */
-  const emailSentStatus = useSelector((state) => state.codeStatus);
-  const { error, loading, codeStatus } = emailSentStatus;
+  /** 이메일 전송 후 state */
+  const emailSentStatus = useSelector((state) => state.emailInfo);
+  const { error, loading, emailStatus } = emailSentStatus;
+
+  /** 인증코드 입력 후 state */
+  const codeStatusSentStatus = useSelector((state) => state.codeInfo);
+  const { loading: codeLoading, error: codeError } = codeStatusSentStatus;
+  /** 회원가입 후 state */
+  const registerSentStatus = useSelector((state) => state.registerInfo);
+  const { error: registerError } = registerSentStatus;
+
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
       {/** 이메일 입력 핸들러*/}
@@ -104,7 +117,7 @@ const RegisterForm = () => {
 
       {errors.email ? (
         <p className="form__wrap__input-error">{errors.email.message}</p>
-      ) : !codeStatus && !loading && error ? (
+      ) : !emailStatus && !loading && error ? (
         <p className="form__wrap__input-error">server error</p>
       ) : (
         <></>
