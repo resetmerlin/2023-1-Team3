@@ -72,14 +72,14 @@ export const registerAction = (userInfo) => async (dispatch) => {
 export const loginAction = (mail, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
-    console.log(mail, password);
+    console.log(JSON.stringify(mail, password));
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
     const { data } = await axios.post(
-      "http://138.2.127.153:8080/member/signup",
+      "http://138.2.127.153:8080/member/signin",
       JSON.stringify(mail, password),
 
       config
