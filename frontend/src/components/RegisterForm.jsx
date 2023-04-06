@@ -43,7 +43,7 @@ const RegisterForm = () => {
   const onSubmit = (data) => {
     const { birthday, code, email, name, password, gender } = data;
 
-    if (data && emailError && !emailLoading) {
+    if (data && !emailError && !emailLoading) {
       dispatch(codeVerificationAction({ mail: email, code: code }));
       if (!codeError) {
         dispatch(
@@ -81,7 +81,7 @@ const RegisterForm = () => {
 
   /** 회원가입 후 state */
   const registerSentStatus = useSelector((state) => state.registerInfo);
-  const { error: registerError } = registerSentStatus;
+  const { error: registerError, loading: registerLoading } = registerSentStatus;
 
   /** 인증코드 전송 함수*/
   const emailVerifiyHandler = () => {
@@ -89,6 +89,10 @@ const RegisterForm = () => {
     if (emailValue) {
       if (!errorCheck.email) {
         dispatch(sendEmailCodeAction({ mail: emailValue }));
+
+        if (!emailError && !emailLoading) {
+          handleClick();
+        }
       }
     }
   };
@@ -280,6 +284,18 @@ const RegisterForm = () => {
       <button className="form-default-height" type="submit">
         회원가입
       </button>
+
+      {registerError && !registerLoading && (
+        <p
+          className="form__wrap__input-error"
+          style={{
+            textAlign: "center",
+            margin: ".4rem 0",
+          }}
+        >
+          {registerError}
+        </p>
+      )}
     </form>
   );
 };
