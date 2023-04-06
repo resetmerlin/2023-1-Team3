@@ -14,6 +14,7 @@ const RegisterForm = () => {
     getValues,
     setValue,
     formState: { errors },
+    setFocus,
   } = useForm({ resolver: yupResolver(registerSchema) });
 
   const [countdown, setCountdown] = useState(60);
@@ -42,7 +43,7 @@ const RegisterForm = () => {
   const onSubmit = (data) => {
     const { birthday, code, email, name, password, gender } = data;
 
-    if (data) {
+    if (data && emailError && !emailLoading) {
       dispatch(codeVerificationAction({ mail: email, code: code }));
       if (!codeError) {
         dispatch(
@@ -63,28 +64,34 @@ const RegisterForm = () => {
   const onError = (errors) => setErrorCheck(errors);
 
   /** 이메일 값 변수 */
-  const emailValue = getValues("email");
-
-  /** 인증코드 전송 함수*/
-  const emailVerifiyHandler = () => {
-    if (emailValue) {
-      if (!errorCheck.email) {
-        dispatch(sendEmailCodeAction({ mail: emailValue }));
-        handleClick();
-      }
-    }
-  };
+  let emailValue = getValues("email");
 
   /** 이메일 전송 후 state */
   const emailSentStatus = useSelector((state) => state.emailInfo);
-  const { error, loading, emailStatus } = emailSentStatus;
+
+  const {
+    error: emailError,
+    loading: emailLoading,
+    emailStatus,
+  } = emailSentStatus;
 
   /** 인증코드 입력 후 state */
   const codeStatusSentStatus = useSelector((state) => state.codeInfo);
   const { loading: codeLoading, error: codeError } = codeStatusSentStatus;
+
   /** 회원가입 후 state */
   const registerSentStatus = useSelector((state) => state.registerInfo);
   const { error: registerError } = registerSentStatus;
+
+  /** 인증코드 전송 함수*/
+  const emailVerifiyHandler = () => {
+    emailValue = getValues("email");
+    if (emailValue) {
+      if (!errorCheck.email) {
+        dispatch(sendEmailCodeAction({ mail: emailValue }));
+      }
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -117,19 +124,19 @@ const RegisterForm = () => {
 
       {errors.email ? (
         <p className="form__wrap__input-error">{errors.email.message}</p>
-      ) : !emailStatus && !loading && error ? (
-        <p className="form__wrap__input-error">server error</p>
       ) : (
-        <></>
+        !emailLoading &&
+        emailError && <p className="form__wrap__input-error">{emailError}</p>
       )}
       {/** 이메일 인증코드 handler*/}
       {/** submit 버튼 핸들러*/}
-      {emailValue && !errorCheck.email ? (
+      {emailValue && !errorCheck.email && (
         <div className="form-input-wrap">
           <input
             className="form-default-height"
             id="code"
             type="text"
+            autoComplete="off"
             placeholder="인증 코드"
             style={{
               border: errors?.code?.message ? "1px solid red" : "",
@@ -148,8 +155,6 @@ const RegisterForm = () => {
             </p>
           )}
         </div>
-      ) : (
-        ""
       )}
 
       {/** 이름 입력 핸들러*/}
@@ -176,6 +181,7 @@ const RegisterForm = () => {
         <input
           className="form-default-height"
           type="password"
+          autoComplete="off"
           id="password"
           {...register("password")}
           placeholder="Password"
@@ -242,14 +248,14 @@ const RegisterForm = () => {
           </label>
         </div>
       </div>
-      {error?.gender && (
+      {errors?.gender && (
         <p
           className="form__wrap__input-error"
           style={{
             textAlign: "center",
           }}
         >
-          {error?.gender.message}
+          {errors?.gender.message}
         </p>
       )}
 
