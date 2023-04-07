@@ -43,19 +43,16 @@ const RegisterForm = () => {
   const onSubmit = (data) => {
     const { birthday, code, email, name, password, gender } = data;
 
-    if (data && !emailError && !emailLoading) {
-      dispatch(codeVerificationAction({ mail: email, code: code }));
-      if (!codeError) {
-        dispatch(
-          registerAction({
-            mail: email,
-            password: password,
-            name: name,
-            gender: gender,
-            birth: birthday?.toISOString().split("T")[0],
-          })
-        );
-      }
+    if (!codeError) {
+      dispatch(
+        registerAction({
+          mail: email,
+          password: password,
+          name: name,
+          gender: gender,
+          birth: birthday?.toISOString().split("T")[0],
+        })
+      );
     }
   };
 
@@ -65,7 +62,7 @@ const RegisterForm = () => {
 
   /** 이메일 값 변수 */
   let emailValue = getValues("email");
-
+  let codeValue = getValues("code");
   /** 이메일 전송 후 state */
   const emailSentStatus = useSelector((state) => state.emailInfo);
 
@@ -96,7 +93,16 @@ const RegisterForm = () => {
       }
     }
   };
+  /** 코드 확인 function */
 
+  const codeVerifyHandler = () => {
+    if (!emailError && !emailLoading) {
+      emailValue = getValues("email");
+      codeValue = getValues("code");
+
+      dispatch(codeVerificationAction({ mail: emailValue, code: codeValue }));
+    }
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
       {/** 이메일 입력 핸들러*/}
@@ -119,9 +125,9 @@ const RegisterForm = () => {
           <button
             className="form-default-height email-verify-button"
             onClick={emailVerifiyHandler}
-            type="submit"
+            type="button"
           >
-            인증
+            코드 전송
           </button>
         )}
       </div>
@@ -135,28 +141,43 @@ const RegisterForm = () => {
       {/** 이메일 인증코드 handler*/}
       {/** submit 버튼 핸들러*/}
       {emailValue && !errorCheck.email && (
-        <div className="form-input-wrap">
-          <input
-            className="form-default-height"
-            id="code"
-            type="text"
-            autoComplete="off"
-            placeholder="인증 코드"
-            style={{
-              border: errors?.code?.message ? "1px solid red" : "",
-              borderRadius: errors?.email?.message ? "5px" : "",
-            }}
-            aria-invalid={errors.code ? "true" : "false"}
-            {...register("code")}
-          />
-          {errors?.code && (
-            <p className="form__wrap__input-error">
-              {countdown == 0
-                ? "인증 시간이 만료되었습니다. 이메일을 제대로 입력했는지 확인하세요."
-                : `${errors.code.message}, ${
-                    countdown == 60 ? " " : countdown
-                  }`}
-            </p>
+        <div className="form-input-wrap form-input-email__wrap ">
+          <div className="form-input-wrap form-input-email">
+            <input
+              className="form-default-height"
+              id="code"
+              type="text"
+              autoComplete="off"
+              placeholder="인증 코드"
+              style={{
+                border: errors?.code?.message ? "1px solid red" : "",
+                borderRadius: errors?.email?.message ? "5px" : "",
+              }}
+              aria-invalid={errors.code ? "true" : "false"}
+              {...register("code")}
+            />
+            {errors?.code && !codeError && !codeLoading ? (
+              <p className="form__wrap__input-error">
+                {countdown == 0
+                  ? "인증 시간이 만료되었습니다. 이메일을 제대로 입력했는지 확인하세요."
+                  : `${errors.code.message}, ${
+                      countdown == 60 ? " " : countdown
+                    }`}
+              </p>
+            ) : (
+              !(!codeError && !codeLoading) && (
+                <p className="form__wrap__input-error">{codeError}</p>
+              )
+            )}
+          </div>
+          {!emailLoading && !emailError && (
+            <button
+              className="form-default-height email-verify-button"
+              onClick={codeVerifyHandler}
+              type="button"
+            >
+              인증
+            </button>
           )}
         </div>
       )}
