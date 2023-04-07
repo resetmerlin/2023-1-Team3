@@ -2,9 +2,10 @@ import React from "react";
 import { loginSchema } from "../components/Schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginAction } from "../actions/userAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+
 const LoginForm = () => {
   const dispatch = useDispatch();
 
@@ -16,6 +17,9 @@ const LoginForm = () => {
   } = useForm({ resolver: yupResolver(loginSchema) });
   /** Form 제출 state*/
 
+  const loginStatus = useSelector((state) => state.loginInfo);
+
+  const { error: loginEror, loading: loginLoading } = loginStatus;
   const onError = (errors) => {
     console.log(errors);
   };
@@ -44,7 +48,14 @@ const LoginForm = () => {
           borderRadius: errors?.email?.message ? "5px" : "",
         }}
       />
-      <p className="form__wrap__input-error">{errors.email?.message}</p>
+
+      {errors?.email ? (
+        <p className="form__wrap__input-error">{errors.email?.message}</p>
+      ) : loginEror && !loginLoading ? (
+        <p className="form__wrap__input-error">{loginEror}</p>
+      ) : (
+        ""
+      )}
 
       <input
         className="form-default-height"
