@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { emailVerifyAction } from "../actions/userAction";
 import { registerAction } from "../actions/userAction";
 import { useForm } from "react-hook-form";
-import { schema } from "../components/Schema";
+import { registerSchema } from "../components/Schema";
 const RegisterForm = () => {
   const {
     register,
@@ -12,7 +12,7 @@ const RegisterForm = () => {
     getValues,
     setValue,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({ resolver: yupResolver(registerSchema) });
 
   const [countdown, setCountdown] = useState(60);
   const [intervalId, setIntervalId] = useState(null);
