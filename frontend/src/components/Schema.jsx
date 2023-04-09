@@ -15,15 +15,19 @@ export const registerSchema = yup
 
     password: yup
       .string()
-      .required("비밀번호를 입력해 주세요")
-      .min(8, "비밀번호는 최소 8글자입니다"),
+      .required("필수 항목란 입니다.")
+      .min(8, "비밀번호는 최소 8글자입니다")
+      .matches(
+        /^(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+$/,
+        "비밀번호에 특수문자와 숫자가 최소 1개 기입되어야 합니다"
+      ),
     secondPassword: yup
       .string()
-      .required()
+      .required("필수 항목란 입니다.")
       .oneOf([yup.ref("password")], "비밀번호가 일치하지 않습니다."),
     code: yup.string().required("이메일을 확인하세요"),
     birthday: yup
-      .date()
+      .date("필수 항목란 입니다.")
       .required("필수 항목란 입니다.")
       .max(
         new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
