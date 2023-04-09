@@ -5,7 +5,6 @@ import { sendEmailCodeAction } from "../actions/userAction";
 import { registerAction, codeVerificationAction } from "../actions/userAction";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "../components/Schema";
-import { registerSchema } from "../components/Schema";
 const RegisterForm = () => {
   const dispatch = useDispatch();
 
