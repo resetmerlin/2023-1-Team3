@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BoxIconElement } from "boxicons";
-
+import { saveUserAction } from "../actions/buttonAction";
+import { useDispatch, useSelector } from "react-redux";
+// useEffect(() => {
+//   window.addEventListener('popstate', ()=>));
+//   return () => {
+//     window.removeEventListener('popstate', handleUrlChange);
+//   };
+// }, []);
 const HomeMain = ({ userDetail }) => {
+  const dispatch = useDispatch();
+  const user = userDetail.name;
+
+  const saveButtonHandler = (e) => {
+    // dispatch(saveUserAction({
+    //   user: userDetail.name,
+    //   user
+    // }))
+  };
+
   return (
     <div className="home__main">
       <div className="home__main__information">
@@ -23,7 +40,10 @@ const HomeMain = ({ userDetail }) => {
           <button className="home__main__button">
             <box-icon name="x" color="white" size="2rem"></box-icon>
           </button>
-          <button className="home__main__button--save">
+          <button
+            className="home__main__button--save"
+            onClick={(e) => saveButtonHandler(e.target.value)}
+          >
             <box-icon
               color="white"
               name="heart"
