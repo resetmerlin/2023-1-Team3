@@ -7,11 +7,12 @@ import {
   userLoginReducers,
   codeVerificationReducers,
 } from "./reducers/userReducer";
+import { saveUserReducers } from "./reducers/buttonReducer";
 const reducer = combineReducers({
   emailInfo: sendEmailReducers,
   registerInfo: userRegisterReducers,
   codeInfo: codeVerificationReducers,
-
+  saveInfo: saveUserReducers,
   loginInfo: userLoginReducers,
 });
 const initialState = {};
