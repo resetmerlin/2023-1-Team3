@@ -5,6 +5,7 @@ import { sendEmailCodeAction } from "../actions/userAction";
 import { registerAction, codeVerificationAction } from "../actions/userAction";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "../components/Schema";
+import { registerInput } from "./Inputs";
 const RegisterForm = () => {
   const dispatch = useDispatch();
 
@@ -19,11 +20,13 @@ const RegisterForm = () => {
   const [countdown, setCountdown] = useState(60);
   const [intervalId, setIntervalId] = useState(null);
 
+  const codeWaitingTime = 1000;
+
   const startCountdown = () => {
     setIntervalId(
       setInterval(() => {
         setCountdown((prevCountdown) => prevCountdown - 1);
-      }, 1000)
+      }, codeWaitingTime)
     );
   };
 
@@ -42,16 +45,18 @@ const RegisterForm = () => {
   const onSubmit = (data) => {
     const { birthday, code, email, name, password, gender } = data;
 
+    //회원가입 입력 된 값
+    const registerValue = {
+      mail: email,
+      password: password,
+      name: name,
+      gender: gender,
+      birth: birthday?.toISOString().split("T")[0],
+    };
+
+    //인증 코드를 통해 이메일이 유효한다면 회원가입 액션 실행
     if (!codeError) {
-      dispatch(
-        registerAction({
-          mail: email,
-          password: password,
-          name: name,
-          gender: gender,
-          birth: birthday?.toISOString().split("T")[0],
-        })
-      );
+      dispatch(registerAction(registerValue));
     }
   };
 
@@ -99,7 +104,12 @@ const RegisterForm = () => {
       emailValue = getValues("email");
       codeValue = getValues("code");
 
-      dispatch(codeVerificationAction({ mail: emailValue, code: codeValue }));
+      const codeVerifyValue = {
+        mail: emailValue,
+        code: codeValue,
+      };
+
+      dispatch(codeVerificationAction(codeVerifyValue));
     }
   };
   return (
@@ -146,7 +156,6 @@ const RegisterForm = () => {
               className="form-default-height"
               id="code"
               type="text"
-              autoComplete="off"
               placeholder="인증 코드"
               style={{
                 border: errors?.code?.message ? "1px solid red" : "",
@@ -181,96 +190,68 @@ const RegisterForm = () => {
         </div>
       )}
 
-      {/** 이름 입력 핸들러*/}
-      <div className="form-input-wrap">
-        <input
-          className="form-default-height"
-          type="name"
-          id="name"
-          placeholder="Name"
-          {...register("name")}
-          style={{
-            border: errors?.name?.message ? "1px solid red" : "",
-            borderRadius: errors?.email?.message ? "5px" : "",
-          }}
-        />
-
-        {errors?.name && (
-          <p className="form__wrap__input-error">{errors.name.message}</p>
-        )}
-      </div>
-
-      {/** 비밀번호 입력 핸들러*/}
-      <div className="form-input-wrap">
-        <input
-          className="form-default-height"
-          type="password"
-          autoComplete="off"
-          id="password"
-          {...register("password")}
-          placeholder="Password"
-          style={{
-            border: errors?.password?.message ? "1px solid red" : "",
-            borderRadius: errors?.email?.message ? "5px" : "",
-          }}
-        />
-        {errors?.password && (
-          <p className="form__wrap__input-error">{errors.password.message}</p>
-        )}
-      </div>
-
-      {/** 비밀번호 재입력 핸들러*/}
-      <div className="form-input-wrap">
-        <input
-          className="form-default-height"
-          type="password"
-          id="secondPassword"
-          {...register("secondPassword")}
-          placeholder="Check Password"
-          style={{
-            border: errors?.secondPassword?.message ? "1px solid red" : "",
-            borderRadius: errors?.email?.message ? "5px" : "",
-          }}
-        />
-        {errors?.secondPassword && (
-          <p className="form__wrap__input-error">
-            {errors.secondPassword.message}
-          </p>
-        )}
-      </div>
+      {/* 비밀번호 및 비밀번호 재 압력 칸 및 이름 */}
+      {registerInput
+        .filter(
+          (input) =>
+            input.name == "password" ||
+            input.name == "secondPassword" ||
+            input.name == "name"
+        )
+        .map((input) => {
+          return (
+            <div className="form-input-wrap" key={input.name}>
+              <input
+                className="form-default-height"
+                type={input.tyoe}
+                autoComplete="off"
+                id={input.id}
+                name={input.name}
+                {...register(input.name)}
+                placeholder={input.placeholder}
+                style={{
+                  border: errors?.[input.name]?.message ? "1px solid red" : "",
+                  borderRadius: errors?.[input.name]?.message ? "5px" : "",
+                }}
+              />
+              {errors?.[input.name] && (
+                <p className="form__wrap__input-error">
+                  {errors?.[input.name].message}
+                </p>
+              )}
+            </div>
+          );
+        })}
 
       {/** 성별 선택 핸들러*/}
       <span className="form-span">성별을 고르세요</span>
-
       <div className="form__checkbox-wrap">
-        <div className="form__checkbox-wrap--female">
-          <input
-            className="form__checkbox"
-            type="radio"
-            id="female"
-            name="gender"
-            value="FEMALE"
-            onChange={() => setValue("gender", "FEMALE")}
-            {...register("gender")}
-          />
-          <label htmlFor="female" className="form__checkbox--female-label">
-            <i className="bx bx-female"></i>
-          </label>
-        </div>
-        <div className="form__checkbox-wrap--male">
-          <input
-            type="radio"
-            className="form__checkbox"
-            id="male"
-            name="gender"
-            value="MALE"
-            {...register("gender")}
-            onChange={() => setValue("gender", "MALE")}
-          />
-          <label htmlFor="male" className="form__checkbox--male-label">
-            <i className="bx bx-male"></i>
-          </label>
-        </div>
+        {registerInput
+          .filter((input) => input.id == "female" || input.id == "male")
+          .map((input) => {
+            return (
+              <div
+                className={`form__checkbox-wrap--${input.id}`}
+                key={input.id}
+              >
+                <input
+                  className="form__checkbox"
+                  type={input.type}
+                  id={input.id}
+                  name={input.name}
+                  value={input.value}
+                  onChange={() => setValue(input.name, input.value)}
+                  {...register(input.name)}
+                />
+                <label
+                  htmlFor={`${input.id}`}
+                  className={`form__checkbox--${input.id}-label`}
+                >
+                  <i className={`bx bx-${input.id}`}></i>
+                </label>
+              </div>
+            );
+          })}
       </div>
       {errors?.gender && (
         <p
