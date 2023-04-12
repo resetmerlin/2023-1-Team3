@@ -8,12 +8,14 @@ import {
   codeVerificationReducers,
 } from "./reducers/userReducer";
 import { saveUserReducers } from "./reducers/buttonReducer";
+import { peopleListReducers } from "./reducers/peopleReducer";
 const reducer = combineReducers({
   emailInfo: sendEmailReducers,
   registerInfo: userRegisterReducers,
   codeInfo: codeVerificationReducers,
   saveInfo: saveUserReducers,
   loginInfo: userLoginReducers,
+  peopleListInfo: peopleListReducers,
 });
 const initialState = {};
 const middleware = [thunk];
