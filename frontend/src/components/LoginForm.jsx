@@ -5,14 +5,13 @@ import { loginAction } from "../actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-
+import { loginInput } from "./Inputs";
 const LoginForm = () => {
   const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
   /** Form 제출 state*/
@@ -37,40 +36,37 @@ const LoginForm = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
-      <input
-        className="form-default-height"
-        type="email"
-        id="email"
-        placeholder="Email"
-        {...register("email")}
-        style={{
-          border: errors?.email?.message ? "1px solid red" : "",
-          borderRadius: errors?.email?.message ? "5px" : "",
-        }}
-      />
-
-      {errors?.email ? (
-        <p className="form__wrap__input-error">{errors.email?.message}</p>
-      ) : loginEror && !loginLoading ? (
-        <p className="form__wrap__input-error">{loginEror}</p>
-      ) : (
-        ""
-      )}
-
-      <input
-        className="form-default-height"
-        type="password"
-        id="password"
-        placeholder="Password"
-        {...register("password")}
-        style={{
-          border: errors?.email?.message ? "1px solid red" : "",
-          borderRadius: errors?.email?.message ? "5px" : "",
-        }}
-      />
-      {errors.password?.message && (
-        <p className="form__wrap__input-error">{errors.password?.message}</p>
-      )}
+      {loginInput.map((input) => {
+        return (
+          <div key={input.name}>
+            <input
+              className="form-default-height"
+              type={input.type}
+              id={input.name}
+              placeholder={input.placeholder}
+              {...register(input.name)}
+              style={{
+                border: errors?.[input.name]?.message ? "1px solid red" : "",
+                borderRadius: errors?.[input.name]?.message ? "5px" : "",
+                width: "100%",
+              }}
+            />
+            {errors?.[input.name] ? (
+              <p className="form__wrap__input-error">
+                {input.name == "password"
+                  ? errors?.password?.message
+                  : errors?.email?.message}
+              </p>
+            ) : (
+              loginEror &&
+              !loginLoading &&
+              input.name == "email" && (
+                <p className="form__wrap__input-error">{loginEror}</p>
+              )
+            )}
+          </div>
+        );
+      })}
 
       <button className="form-default-height" type="submit">
         Sign in
