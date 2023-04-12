@@ -102,7 +102,7 @@ export const registerAction = (userInfo) => async (dispatch) => {
 export const loginAction = (mail, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
-    console.log(JSON.stringify(mail, password));
+
     const config = {
       headers: {
         "Content-Type": "application/json",
