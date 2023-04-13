@@ -27,7 +27,7 @@ export const sendEmailCodeAction = (mail) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "http://138.2.127.153:8080/member/mail",
+      `${import.meta.env.VITE_API_URL}/member/mail`,
       JSON.stringify(mail),
       config
     );
@@ -53,7 +53,8 @@ export const codeVerificationAction = (mail, code) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "http://138.2.127.153:8080/member/code",
+      `${import.meta.env.VITE_API_URL}/member/code`,
+
       JSON.stringify(mail, code),
       config
     );
@@ -81,7 +82,8 @@ export const registerAction = (userInfo) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "http://138.2.127.153:8080/member/signup",
+      `${import.meta.env.VITE_API_URL}/member/signup`,
+
       JSON.stringify(userInfo),
 
       config
@@ -108,14 +110,17 @@ export const loginAction = (mail, password) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
+
     const { data } = await axios.post(
-      "http://138.2.127.153:8080/member/signin",
+      `${import.meta.env.VITE_API_URL}/member/signin`,
+
       JSON.stringify(mail, password),
 
       config
     );
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    sessionStorage.setItem("sessfbs_ffa0934", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
