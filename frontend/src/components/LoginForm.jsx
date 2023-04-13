@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { loginSchema } from "../components/Schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginAction } from "../actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginInput } from "./Inputs";
+
 const LoginForm = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,11 +18,17 @@ const LoginForm = () => {
   /** Form 제출 state*/
 
   const loginStatus = useSelector((state) => state.loginInfo);
-
+  useEffect(() => {
+    if (!loginEror && loginLoading === false) {
+      navigate("/");
+    }
+  });
   const { error: loginEror, loading: loginLoading } = loginStatus;
+
   const onError = (errors) => {
     console.log(errors);
   };
+
   const onSubmit = (data) => {
     const { email, password } = data;
     console.log(data);
