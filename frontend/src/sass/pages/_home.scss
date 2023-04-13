@@ -1,6 +1,5 @@
 .home {
-  height: 100%;
-
+  height: 100vh;
   width: 100%;
   position: absolute;
   display: flex;
@@ -8,42 +7,18 @@
   align-items: center;
   font-size: 1.5rem;
   font-family: "Noto Sans KR", sans-serif;
-
-  #home__img__slide {
+  &__slide__btn {
     top: 50%;
     right: 2%;
+    width: 2rem;
+    height: 3rem;
+    border: none;
     position: absolute;
+    background-color: transparent;
   }
-  @include respond(smartphones-land) {
-    justify-content: flex-end;
-
-    font-size: 1.5rem;
-    background-position: center;
-    background-image: linear-gradient(
-        359deg,
-        rgba(0, 0, 0, 0.829) 40%,
-
-        rgba(0, 0, 0, 0.144) 100%
-      ),
-      url(/public/images/userImage/user-1.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+  #home__img__slide {
   }
-  @include respond(smartphones-port) {
-    justify-content: flex-end;
 
-    font-size: 1.5rem;
-    background-position: center;
-    background-image: linear-gradient(
-        359deg,
-        rgba(0, 0, 0, 0.829) 40%,
-
-        rgba(0, 0, 0, 0.144) 100%
-      ),
-      url(/public/images/userImage/user-1.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
   @include respond(tab-port) {
     width: 599px;
     align-items: center;
@@ -59,7 +34,30 @@
     align-items: center;
     height: 80%;
   }
+  &__splide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+  }
+  &__content {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
 
+    font-size: 1.5rem;
+    background-position: center;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
   &__top {
     position: fixed;
     top: 0;
@@ -290,4 +288,38 @@
       width: 25%;
     }
   }
+}
+
+#Splide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#SplideSlide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#Splide-track {
+  height: 100%;
+}
+
+.splide__arrow {
+  background-color: transparent;
+  color: white;
+  font-size: 1rem;
+}
+
+.splide__arrow svg {
+  fill: white;
+}
+
+.splide__arrow--prev {
+  display: none;
+  left: 0.5rem;
+}
+.splide__arrow--next {
+  right: 0.5rem;
 }

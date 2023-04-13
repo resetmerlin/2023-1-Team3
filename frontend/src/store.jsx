@@ -7,12 +7,15 @@ import {
   userLoginReducers,
   codeVerificationReducers,
 } from "./reducers/userReducer";
+import { saveUserReducers } from "./reducers/buttonReducer";
+import { peopleListReducers } from "./reducers/peopleReducer";
 const reducer = combineReducers({
   emailInfo: sendEmailReducers,
   registerInfo: userRegisterReducers,
   codeInfo: codeVerificationReducers,
-
+  saveInfo: saveUserReducers,
   loginInfo: userLoginReducers,
+  peopleListInfo: peopleListReducers,
 });
 
 const userInfoFromStorage = sessionStorage.getItem("sessfbs_ffa0934")

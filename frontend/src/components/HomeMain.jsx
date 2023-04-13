@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BoxIconElement } from "boxicons";
+import { saveUserAction } from "../actions/buttonAction";
+import { useDispatch, useSelector } from "react-redux";
+// useEffect(() => {
+//   window.addEventListener('popstate', ()=>));
+//   return () => {
+//     window.removeEventListener('popstate', handleUrlChange);
+//   };
+// }, []);
+const HomeMain = ({ userDetail }) => {
+  const dispatch = useDispatch();
+  const user = userDetail.name;
 
-const MobileMain = () => {
+  const saveButtonHandler = (e) => {
+    // dispatch(saveUserAction({
+    //   user: userDetail.name,
+    //   user
+    // }))
+  };
+
   return (
     <div className="home__main">
       <div className="home__main__information">
-        <span className="home__main__information__name">Chloe, 24</span>
+        <span className="home__main__information__name">
+          {userDetail.name} {userDetail.age}
+        </span>
         <div className="home__main__information__desc">
           <div className="home__main__information__desc__wrap">
             <box-icon
@@ -14,14 +33,17 @@ const MobileMain = () => {
               color="white"
               style={{ marginRight: ".4rem" }}
             ></box-icon>
-            DKU Computer-Science
+            DKU {userDetail.major}
           </div>
         </div>
         <div className="home__main__button__wrap">
           <button className="home__main__button">
             <box-icon name="x" color="white" size="2rem"></box-icon>
           </button>
-          <button className="home__main__button--save">
+          <button
+            className="home__main__button--save"
+            onClick={(e) => saveButtonHandler(e.target.value)}
+          >
             <box-icon
               color="white"
               name="heart"
@@ -43,4 +65,4 @@ const MobileMain = () => {
   );
 };
 
-export default MobileMain;
+export default HomeMain;
