@@ -18,7 +18,8 @@ export const saveUserAction = (users) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "URLaboutSaveList",
+      `${import.meta.env.VITE_API_URL}/member/choice`,
+
       JSON.stringify(users),
       config
     );
