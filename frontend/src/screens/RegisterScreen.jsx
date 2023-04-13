@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import RegisterForm from "../components/RegisterForm";
 const RegisterScreen = () => {
   /** Form 입력란 schema*/
@@ -17,11 +16,6 @@ const RegisterScreen = () => {
             </span>
           </div>
           <RegisterForm />
-          <div className="form__link__wrap">
-            <Link to="/login" className="form__wrap__link">
-              Have an Account?
-            </Link>
-          </div>
         </div>
       </div>
 
