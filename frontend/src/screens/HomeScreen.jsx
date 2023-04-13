@@ -7,11 +7,15 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { useDispatch, useSelector } from "react-redux";
 import { peopleListAction } from "../actions/peopleAction";
+import { Link, useNavigate } from "react-router-dom";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const peopleList = useSelector((state) => state.peopleListInfo);
+  const loginStatus = useSelector((state) => state.loginInfo);
+
+  const { sessfbs_ffa0934 } = loginStatus;
 
   const {
     peopleListStatus,
@@ -20,18 +24,21 @@ const HomeScreen = () => {
   } = peopleList;
 
   useEffect(() => {
-    if (!peopleListStatus) {
+    if (!peopleListStatus?.memberResponses) {
       dispatch(peopleListAction());
+    } else if (!peopleListStatus?.memberResponses && !sessfbs_ffa0934) {
+      navigate("/login");
     }
-  }, [dispatch]);
+  }, [dispatch, sessfbs_ffa0934, peopleListStatus?.memberResponses]);
 
-  console.log(peopleListStatus);
   const options = {
     type: "loop",
     perPage: 1,
     perMove: 1,
     pagination: false,
   };
+
+  console.log(peopleListStatus?.memberResponses);
   return (
     <>
       <section className="home">
