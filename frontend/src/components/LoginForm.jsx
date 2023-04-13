@@ -18,12 +18,13 @@ const LoginForm = () => {
   /** Form 제출 state*/
 
   const loginStatus = useSelector((state) => state.loginInfo);
+  const { error: loginEror, loading: loginLoading, loginInfo } = loginStatus;
+
   useEffect(() => {
-    if (!loginEror && loginLoading === false) {
+    if (loginInfo) {
       navigate("/");
     }
-  });
-  const { error: loginEror, loading: loginLoading } = loginStatus;
+  }, [loginInfo]);
 
   const onError = (errors) => {
     console.log(errors);
