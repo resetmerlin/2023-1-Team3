@@ -1,17 +1,5 @@
 export const registerInput = [
   {
-    id: "email",
-    name: "email",
-    type: "email",
-    placeholder: "Email",
-  },
-  {
-    id: "code",
-    name: "code",
-    type: "text",
-    placeholder: "인증 코드",
-  },
-  {
     id: "name",
     name: "name",
     type: "text",
@@ -29,6 +17,8 @@ export const registerInput = [
     type: "password",
     placeholder: "Check Password",
   },
+];
+export const genderInput = [
   {
     id: "female",
     name: "gender",
@@ -41,14 +31,7 @@ export const registerInput = [
     type: "radio",
     value: "MALE",
   },
-
-  {
-    id: "birthday",
-    name: "birthday",
-    type: "date",
-  },
 ];
-
 export const loginInput = [
   {
     id: "email",
