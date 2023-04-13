@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BoxIconElement } from "boxicons";
 import { saveUserAction } from "../actions/buttonAction";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+
 // useEffect(() => {
 //   window.addEventListener('popstate', ()=>));
 //   return () => {
@@ -11,14 +13,25 @@ import { useDispatch, useSelector } from "react-redux";
 const HomeMain = ({ userDetail }) => {
   const dispatch = useDispatch();
   const user = userDetail.name;
+  const [saveState, setSaveState] = useState(true);
 
   const saveButtonHandler = (e) => {
-    // dispatch(saveUserAction({
-    //   user: userDetail.name,
-    //   user
-    // }))
+    setSaveState((current) => !current);
+    console.log(saveState);
+  };
+  const params = {
+    told: "bar",
+    signal: "qux",
   };
 
+  axios
+    .get("https://example.com/api", { params })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   return (
     <div className="home__main">
       <div className="home__main__information">
@@ -37,12 +50,14 @@ const HomeMain = ({ userDetail }) => {
           </div>
         </div>
         <div className="home__main__button__wrap">
-          <button className="home__main__button">
+          <button className="home__main__button" type="button">
             <box-icon name="x" color="white" size="2rem"></box-icon>
           </button>
           <button
+            value={saveState}
+            type="button"
             className="home__main__button--save"
-            onClick={(e) => saveButtonHandler(e.target.value)}
+            onClick={saveButtonHandler}
           >
             <box-icon
               color="white"
@@ -51,7 +66,7 @@ const HomeMain = ({ userDetail }) => {
               type="solid"
             ></box-icon>
           </button>
-          <button className="home__main__button">
+          <button className="home__main__button" type="button">
             <box-icon
               color="white"
               name="message-rounded"
