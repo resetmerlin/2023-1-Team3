@@ -14,7 +14,16 @@ const reducer = combineReducers({
 
   loginInfo: userLoginReducers,
 });
-const initialState = {};
+
+const userInfoFromStorage = sessionStorage.getItem("sessfbs_ffa0934")
+  ? JSON.parse(sessionStorage.getItem("sessfbs_ffa0934"))
+  : null;
+
+const initialState = {
+  loginInfo: {
+    sessfbs_ffa0934: userInfoFromStorage,
+  },
+};
 const middleware = [thunk];
 const store = createStore(
   reducer,
