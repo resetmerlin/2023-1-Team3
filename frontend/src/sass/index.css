@@ -39,8 +39,7 @@ body {
   }
 }
 @media screen and (min-width: 801px) and (max-width: 1024px) {
-  html {
-    /* tablet, landscape iPad, lo-res laptops ands desktops */
+  html { /* tablet, landscape iPad, lo-res laptops ands desktops */
     font-size: 118.75%;
   }
 }
@@ -131,8 +130,7 @@ body {
 }
 
 @keyframes blink {
-  from,
-  to {
+  from, to {
     color: transparent;
   }
   50% {
@@ -298,7 +296,7 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  margin-top: 0.3rem;
+  margin-top: 0.8rem;
   color: black;
   cursor: pointer;
 }
@@ -685,11 +683,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
+  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .message__title {
   font-size: 1.3rem;
@@ -834,8 +828,7 @@ body {
   display: flex;
   align-items: center;
 }
-.conversation__header__information__wrap
-  .conversation__header__information__name {
+.conversation__header__information__wrap .conversation__header__information__name {
   font-size: 1rem;
   font-weight: 600;
 }
@@ -931,11 +924,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
+  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .save__title {
   font-size: 1.2rem;
@@ -1062,11 +1051,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
+  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .setting__content {
   width: 100%;
@@ -1130,11 +1115,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
+  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .securityEdit__top {
   justify-content: space-between;
@@ -1221,12 +1202,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-      359deg,
-      rgba(0, 0, 0, 0.829) 40%,
-      rgba(0, 0, 0, 0.144) 100%
-    ),
-    url(/public/images/userImage/user-1.jpg);
+  background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1590,34 +1566,16 @@ body {
 .form__wrap form .form__checkbox-wrap .form__checkbox {
   display: none;
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #female:checked
-  + .form__checkbox--female-label {
+.form__wrap form .form__checkbox-wrap #female:checked + .form__checkbox--female-label {
   background-color: rgb(230, 107, 144);
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #female:checked
-  + .form__checkbox--female-label
-  i {
+.form__wrap form .form__checkbox-wrap #female:checked + .form__checkbox--female-label i {
   color: white;
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #male:checked
-  + .form__checkbox--male-label {
+.form__wrap form .form__checkbox-wrap #male:checked + .form__checkbox--male-label {
   background-color: rgb(101, 174, 223);
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #male:checked
-  + .form__checkbox--male-label
-  i {
+.form__wrap form .form__checkbox-wrap #male:checked + .form__checkbox--male-label i {
   color: white;
 }
 .form__wrap form .form__checkbox-wrap label {
@@ -1721,12 +1679,7 @@ body {
     justify-content: flex-end;
     font-size: 1.5rem;
     background-position: center;
-    background-image: linear-gradient(
-        359deg,
-        rgba(0, 0, 0, 0.829) 40%,
-        rgba(0, 0, 0, 0.144) 100%
-      ),
-      url(/public/images/userImage/user-1.jpg);
+    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -1737,12 +1690,7 @@ body {
     justify-content: flex-end;
     font-size: 1.5rem;
     background-position: center;
-    background-image: linear-gradient(
-        359deg,
-        rgba(0, 0, 0, 0.829) 40%,
-        rgba(0, 0, 0, 0.144) 100%
-      ),
-      url(/public/images/userImage/user-1.jpg);
+    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -1832,4 +1780,4 @@ body {
 .popup__main__information__desc__wrap i {
   margin: 0 0.3rem;
   font-size: 1.4rem;
-} /*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */
