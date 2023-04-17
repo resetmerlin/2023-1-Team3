@@ -60,11 +60,9 @@ const RegisterForm = () => {
     if (!codeError) {
       dispatch(registerAction(registerValue));
     }
-
-    // if (!registerError && registerLoading === false) {
-    //   return redirect("/login");
-    // }
   };
+
+  
   useEffect(() => {
     if (!registerError && registerLoading === false) {
       navigate("/login");
