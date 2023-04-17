@@ -77,7 +77,7 @@ export const userLoginReducers = (state = {}, action) => {
     case USER_LOGIN_SUCCESS:
       return {
         loading: false,
-        loginInfo: action.payload,
+        sessfbs_ffa0934: action.payload,
       };
 
     case USER_LOGIN_FAIL:
