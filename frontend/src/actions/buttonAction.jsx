@@ -9,18 +9,22 @@ import axios from "axios";
 //Redux thunk
 
 /** 이메일에 인증코드 전송 Action */
-export const saveUserAction = (users) => async (dispatch) => {
+export const saveUserAction = (told, signal) => async (dispatch, getState) => {
   try {
     dispatch({ type: BUTTON_SAVE_REQUEST });
+
+    const {
+      loginInfo: { sessfbs_ffa0934 },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
       },
     };
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_API_URL}/member/choice`,
-
-      JSON.stringify(users),
+    const { data } = await axios.put(
+      `${import.meta.env.VITE_API_URL}/choice?toId=${told}&signal=${signal}`,
       config
     );
 
