@@ -2,29 +2,22 @@ import React, { useEffect } from "react";
 import { loginSchema } from "../components/Schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginAction } from "../actions/userAction";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { loginInput } from "./Inputs";
 
-const LoginForm = () => {
+const LoginForm = ({ loginProps }) => {
+  console.log(loginProps.error);
+  const loginEror = loginProps.error;
+  const loginLoading = loginProps.loading;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
   /** Form 제출 state*/
-
-  const loginStatus = useSelector((state) => state.loginInfo);
-  const { error: loginEror, loading: loginLoading, loginInfo } = loginStatus;
-
-  useEffect(() => {
-    if (loginInfo) {
-      navigate("/");
-    }
-  }, [loginInfo]);
 
   const onError = (errors) => {
     console.log(errors);
