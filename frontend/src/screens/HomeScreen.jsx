@@ -1,21 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 import Footer from "../components/Footer";
 import HomeContent from "../components/HomeContent";
-import { demoUser } from "../Index";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { useDispatch, useSelector } from "react-redux";
 import { peopleListAction } from "../actions/peopleAction";
 import { Link, useNavigate } from "react-router-dom";
-
+import AlertCover from "../components/AlertCover";
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const peopleList = useSelector((state) => state.peopleListInfo);
-  const loginStatus = useSelector((state) => state.loginInfo);
 
-  const { sessfbs_ffa0934 } = loginStatus;
+  /** Redux에서 가져온 로그인 정보 */
+  const loginInfo = useSelector((state) => state.loginInfo);
+
+  /** loginInfo에서의 token값  */
+  const { sessfbs_ffa0934 } = loginInfo;
+
+  /** Redux에서 가져온 유저 리스트 */
+  const peopleList = useSelector((state) => state.peopleListInfo);
+
+  const saveInfo = useSelector((state) => state.saveInfo);
+
+  const { loading, error, saveStatus } = saveInfo;
+  console.log(loading);
+  console.log(error);
+  console.log(saveStatus);
 
   const {
     peopleListStatus,
@@ -24,33 +35,71 @@ const HomeScreen = () => {
   } = peopleList;
 
   useEffect(() => {
-    if (!peopleListStatus?.memberResponses) {
-      dispatch(peopleListAction());
-    } else if (!peopleListStatus?.memberResponses && !sessfbs_ffa0934) {
+    if (!sessfbs_ffa0934) {
       navigate("/login");
+    } else if (!peopleListStatus && !peopleListStatus?.memberResponses) {
+      dispatch(peopleListAction());
     }
-  }, [dispatch, sessfbs_ffa0934, peopleListStatus?.memberResponses]);
+  }, [sessfbs_ffa0934, dispatch, peopleListStatus]);
 
   const options = {
-    type: "loop",
+    rewind: false,
+    type: "slide",
     perPage: 1,
     perMove: 1,
     pagination: false,
   };
 
-  console.log(peopleListStatus?.memberResponses);
+  const lastValueIndex = peopleListStatus?.memberResponses.length - 1;
+  const lasValueUser =
+    peopleListStatus?.memberResponses[lastValueIndex]?.memberId;
+
+  const [checkSlide, setCheckSlide] = useState(-1);
+
+  const test = useRef(-1);
+  const getMoreUserHandler = (e) => {
+    if (e !== test.current) {
+      test.current = e;
+    } else if (test.current == 4) {
+      dispatch(peopleListAction());
+      test.current = -1;
+
+      console.log(test.current);
+    }
+  };
+  const inputRef = useRef(null);
+
   return (
     <>
       <section className="home">
-        <Splide options={options} id="Splide">
-          {demoUser.map((user) => {
-            return (
-              <SplideSlide key={user.id} id="SplideSlide">
-                <HomeContent user={user} />;
-              </SplideSlide>
-            );
-          })}
+        <Splide
+          ref={inputRef}
+          hasTrack={false}
+          options={options}
+          id="Splide"
+          onMoved={(e) =>
+            getMoreUserHandler(e.Components.Controller.getIndex())
+          }
+          onMove={(e) => {
+            if (test.current == -1 && e == 4) {
+              e.Components.Move.toIndex(0);
+            }
+          }}
+        >
+          <SplideTrack>
+            {peopleListStatus &&
+              peopleListStatus?.memberResponses.map((user) => {
+                return (
+                  <SplideSlide key={user.memberId} id="SplideSlide">
+                    <HomeContent user={user} lastValue={lasValueUser} />
+                  </SplideSlide>
+                );
+              })}
+          </SplideTrack>
         </Splide>
+        {peopleListStatus?.endPageSignal && (
+          <AlertCover endPageSignal={peopleListStatus?.endPageSignal} />
+        )}
 
         <Footer />
       </section>
