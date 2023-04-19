@@ -1,12 +1,13 @@
 import {
-  SECURITY_PASSWORD_FAIL,
-  SECURITY_PASSWORD_SUCCESS,
   SECURITY_PASSWORD_REQUEST,
+  SECURITY_PASSWORD_SUCCESS,
+  SECURITY_PASSWORD_FAIL,
 } from "../constants/securityEditConstants";
+import axios from "axios";
 
 /** 회원가입 Action */
 export const passwordEditAction =
-  (currentPassword, futurePassword) => async (dispatch, getState) => {
+  (passwordEditValue) => async (dispatch, getState) => {
     try {
       dispatch({ type: SECURITY_PASSWORD_REQUEST });
 
@@ -23,11 +24,11 @@ export const passwordEditAction =
 
       const { data } = await axios.post(
         `${import.meta.env.VITE_API_URL}/member/reset`,
-
-        JSON.stringify(currentPassword, futurePassword),
-
+        passwordEditValue,
         config
       );
+
+      console.log(data);
 
       dispatch({ type: SECURITY_PASSWORD_SUCCESS, payload: data });
     } catch (error) {
