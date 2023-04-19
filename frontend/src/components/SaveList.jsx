@@ -38,9 +38,9 @@ const SaveList = ({ saveListStatus, pageState, pageFunc }) => {
         ""
       )}
       <div className="save__row">
-        {/* {saveListStatus.map((user) => {
-          return <SaveUserColumn key={user} saveListStatus={saveListStatus} />;
-        })} */}
+        {saveListStatus?.memberResponses.map((user) => {
+          return <SaveUserColumn key={user.memberId} saveListStatus={user} />;
+        })}
 
         {saveListStatus?.endPageSignal == false && (
           <button
