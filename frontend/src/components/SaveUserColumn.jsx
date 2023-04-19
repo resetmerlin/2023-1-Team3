@@ -1,13 +1,13 @@
 import React from "react";
 
-const SaveUserColumn = () => {
+const SaveUserColumn = ({ user }) => {
   return (
     <div className="save__column">
       <div className="save__profile">
         <img src="./public/images/userImage/user-1.jpg" alt="save-profile" />
       </div>
       <div className="save__desc">
-        <span className="save__desc__name">Jordyn Dokidos</span>
+        <span className="save__desc__name">{user.name}</span>
       </div>
       <div className="save__delete">
         <button>
