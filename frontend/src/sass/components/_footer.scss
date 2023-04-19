@@ -1,0 +1,18 @@
+.footer {
+  bottom: 0;
+  height: 9vh;
+  position: fixed;
+  width: 100%;
+  border-top: none;
+  display: flex;
+  justify-content: space-around;
+  /* align-items: center; */
+  text-align: center;
+  align-items: center;
+  font-size: 2rem;
+  position: fixed;
+  a {
+    color: $color-black;
+    width: 25%;
+  }
+}

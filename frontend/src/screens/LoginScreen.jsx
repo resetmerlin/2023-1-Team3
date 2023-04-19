@@ -1,23 +1,27 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+
 import { useMediaQuery } from "react-responsive";
+import LoginForm from "../components/LoginForm";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginSceen = () => {
   const smallDesktop = useMediaQuery({
     query: "(min-width: 1025px)",
   });
-  const bigDesktop = useMediaQuery({ query: "(min-width: 1281px)" });
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const submitHandler = (data) => console.log(data);
+  const navigate = useNavigate();
+
+  const loginInfo = useSelector((state) => state.loginInfo);
+  const { error, loading, sessfbs_ffa0934 } = loginInfo;
+
+  useEffect(() => {
+    if (sessfbs_ffa0934) {
+      navigate("/");
+    }
+  }, [sessfbs_ffa0934]);
   return (
     <section className="form">
-      {bigDesktop && <span className="logo">VISTA</span>}
+      {/* {bigDesktop && <span className="logo">VISTA</span>} */}
       <div className="form__container">
         <div className="form__wrap">
           <div className="form__logo">
@@ -26,52 +30,7 @@ const LoginSceen = () => {
               Broaden your connection via VISTA
             </span>
           </div>
-          <form
-            onSubmit={handleSubmit((data) => {
-              console.log(data);
-            })}
-          >
-            <input
-              className="form-default-height"
-              type="email"
-              id="email"
-              placeholder="Email"
-              {...register("email", {
-                required: "Please enter your email correctly",
-              })}
-            />
-            <p
-              className="form__wrap__input-error"
-              style={{ fontSize: ".8rem", fontWeight: "400", color: "red" }}
-            >
-              {errors.email?.message}
-            </p>
-
-            <input
-              className="form-default-height"
-              type="password"
-              id="password"
-              placeholder="Password"
-              {...register("password", {
-                required: "Your password is less than 10 words",
-
-                maxLength: 10,
-              })}
-            />
-            {errors.password?.message && (
-              <p
-                className="form__wrap__input-error"
-                style={{ fontSize: ".8rem", fontWeight: "400", color: "red" }}
-              >
-                {errors.password?.message}
-              </p>
-            )}
-
-            <button className="form-default-height">Sign in </button>
-            <Link to="/register" className="form__wrap__link">
-              Not a member yet?
-            </Link>
-          </form>
+          <LoginForm loginProps={loginInfo} />
         </div>
       </div>
 

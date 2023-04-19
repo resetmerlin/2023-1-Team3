@@ -1,0 +1,101 @@
+.securityEdit {
+  height: 100%;
+  top: 0%;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1rem;
+  color: $color-white;
+  background-color: $color-black;
+  align-self: start;
+  background-image: linear-gradient(
+    359deg,
+    rgba(26, 25, 25, 0.829) 40%,
+
+    rgba(0, 0, 0, 0.144) 100%
+  );
+  &__top {
+    justify-content: space-between;
+    width: 100%;
+    height: 4rem;
+    padding: 1rem;
+    span {
+      font-size: 1.1rem;
+      color: $primary-silver-2;
+    }
+    a {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__content {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1rem;
+
+    &__profile__wrap {
+      width: 100%;
+      height: auto;
+      .securityEdit__content__profile__img {
+        height: 10rem;
+        width: 10rem;
+        border-radius: 50%;
+      }
+      .securityEdit__content__profile__name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0.6rem 0;
+      }
+    }
+
+    &__row {
+      width: 100%;
+      height: auto;
+    }
+    &__column {
+      padding: 1.5rem;
+
+      width: 100%;
+      height: 3rem;
+      font-size: 1.1rem;
+      justify-content: flex-start;
+      //   background-color: rgb(25, 30, 36);
+      //   border-bottom: 1px solid rgba($secondary-silver, 0.3);
+
+      span {
+        margin-left: 0.5rem;
+      }
+    }
+
+    &__column__title {
+      padding: 1.5rem;
+
+      width: 100%;
+      height: 3rem;
+      font-size: 1.1rem;
+      color: $primary-silver-dark;
+      justify-content: flex-start;
+    }
+  }
+}
+// border-radius: 6px;
+.security-edit-form {
+  width: 80%;
+}
+
+.security-edit-input-wrap {
+  input {
+    border-radius: 6px !important;
+    height: 3.5rem;
+    padding: 1rem;
+    color: $color-white;
+    background-color: rgb(32, 41, 52);
+    border-bottom: none !important;
+  }
+}
