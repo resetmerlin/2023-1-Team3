@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-const SaveList = () => {
+import SaveUserColumn from "./SaveUserColumn";
+const SaveList = ({ saveListStatus, pageState, pageFunc }) => {
   const [popupChecked, setPopupChecked] = useState(false);
   const handlePopupChechekd = (e) => {
     setPopupChecked(e.target.checked);
   };
+
   return (
     <>
       {popupChecked ? (
@@ -36,76 +38,22 @@ const SaveList = () => {
         ""
       )}
       <div className="save__row">
-        <div className="save__column">
-          <div className="save__profile">
-            <img
-              src="./public/images/userImage/user-1.jpg"
-              alt="save-profile"
-            />
-          </div>
-          <div className="save__desc">
-            <span className="save__desc__name">Jordyn Dokidos</span>
-          </div>
-          <div className="save__delete">
-            <button>
-              <box-icon
-                type="solid"
-                name="trash-alt"
-                color=" rgb(141, 145, 157)"
-                size="1.5rem"
-              ></box-icon>
-            </button>
-          </div>
-        </div>
-        <div className="save__column">
-          <div className="save__profile">
-            <input
-              type="checkbox"
-              id="popup-profile"
-              onChange={handlePopupChechekd}
-            />
-            <label htmlFor="popup-profile">
-              <img
-                src="./public/images/userImage/radom2.jpeg"
-                alt="save-profile"
-              />
-            </label>
-          </div>
-          <div className="save__desc">
-            <span className="save__desc__name">Michael roscsa</span>
-          </div>
-          <div className="save__delete">
-            <button>
-              <box-icon
-                type="solid"
-                name="trash-alt"
-                color=" rgb(141, 145, 157)"
-                size="1.5rem"
-              ></box-icon>
-            </button>
-          </div>
-        </div>
-        <div className="save__column">
-          <div className="save__profile">
-            <img
-              src="./public/images/userImage/random4.jpg"
-              alt="save-profile"
-            />
-          </div>
-          <div className="save__desc">
-            <span className="save__desc__name">James linn</span>
-          </div>
-          <div className="save__delete">
-            <button>
-              <box-icon
-                type="solid"
-                name="trash-alt"
-                color=" rgb(141, 145, 157)"
-                size="1.5rem"
-              ></box-icon>
-            </button>
-          </div>
-        </div>
+        {/* {saveListStatus.map((user) => {
+          return <SaveUserColumn key={user} saveListStatus={saveListStatus} />;
+        })} */}
+
+        {saveListStatus?.endPageSignal == false && (
+          <button
+            className="save__load"
+            type="button"
+            onClick={() => {
+              pageState++;
+              pageFunc(pageState);
+            }}
+          >
+            <box-icon type="solid" name="chevron-down"></box-icon>
+          </button>
+        )}
       </div>
     </>
   );
