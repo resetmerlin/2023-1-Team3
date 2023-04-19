@@ -1,0 +1,4 @@
+export const SAVE_LIST_REQUEST = "SAVE_LIST_REQUEST";
+
+export const SAVE_LIST_SUCCESS = "SAVE_LIST_SUCCESS";
+export const SAVE_LIST_FAIL = "SAVE_LIST_FAIL";
