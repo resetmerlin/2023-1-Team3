@@ -47,3 +47,24 @@ export const loginInput = [
     placeholder: "Password",
   },
 ];
+
+export const securityEditInput = [
+  {
+    id: "pastPassword",
+    name: "pastPassword",
+    type: "password",
+    placeholder: "pastPassword",
+  },
+  {
+    id: "password",
+    name: "password",
+    type: "password",
+    placeholder: "Password",
+  },
+  {
+    id: "secondPassword",
+    name: "secondPassword",
+    type: "password",
+    placeholder: "Check Password",
+  },
+];
