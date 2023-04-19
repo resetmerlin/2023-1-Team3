@@ -1,7 +1,7 @@
 import {
-  SECURITY_PASSWORD_FAIL,
-  SECURITY_PASSWORD_SUCCESS,
   SECURITY_PASSWORD_REQUEST,
+  SECURITY_PASSWORD_SUCCESS,
+  SECURITY_PASSWORD_FAIL,
 } from "../constants/securityEditConstants";
 
 /** 유저들 불러오기 reducers */
