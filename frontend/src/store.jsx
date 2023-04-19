@@ -18,14 +18,21 @@ const reducer = combineReducers({
   peopleListInfo: peopleListReducers,
 });
 
-const userInfoFromStorage = sessionStorage.getItem("sessfbs_ffa0934")
+const tokenFromStorage = sessionStorage.getItem("sessfbs_ffa0934")
   ? JSON.parse(sessionStorage.getItem("sessfbs_ffa0934"))
   : null;
 
+// const userListFromStorage = localStorage.getItem("peopleListStatus")
+//   ? JSON.parse(localStorage.getItem("peopleListStatus"))
+//   : null;
+
 const initialState = {
   loginInfo: {
-    sessfbs_ffa0934: userInfoFromStorage,
+    sessfbs_ffa0934: tokenFromStorage,
   },
+  // peopleListInfo: {
+  //   peopleListStatus: userListFromStorage,
+  // },
 };
 const middleware = [thunk];
 const store = createStore(

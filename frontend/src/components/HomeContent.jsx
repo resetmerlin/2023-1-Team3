@@ -15,7 +15,7 @@ const HomeContent = ({ user }) => {
 
         rgba(0, 0, 0, 0.144) 100%
       ),
-      url(${user.img})`,
+      url(./public/profile/User-1.png)`,
       }}
     >
       <HomeMain userDetail={user} />

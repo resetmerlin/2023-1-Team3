@@ -4,27 +4,27 @@ import {
   PEOPLE_LIST_FAIL,
 } from "../constants/peopleConstants";
 import axios from "axios";
-
 //action creator
 //Redux thunk
 
-/** 이메일에 인증코드 전송 Action */
-export const peopleListAction = () => async (dispatch) => {
+/** 리스트 가졍 Action */
+export const peopleListAction = () => async (dispatch, getState) => {
   try {
     dispatch({ type: PEOPLE_LIST_REQUEST });
 
     const {
-      loginInfo: { userInfo },
+      loginInfo: { sessfbs_ffa0934 },
     } = getState();
 
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.accessToken}`,
+        Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
       },
     };
     const { data } = await axios.get(
-      "http://138.2.127.153:8080/member/suggest",
+      `${import.meta.env.VITE_API_URL}/member/suggest`,
+
       config
     );
 
