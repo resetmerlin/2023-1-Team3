@@ -21,19 +21,17 @@ const SecurityEditScreen = () => {
   const onSubmit = (passwordInfo) => {
     const { pastPassword, password, secondPassword } = passwordInfo;
 
-    dispatch(
-      passwordEditAction({
-        currentPassword: pastPassword,
-        futurePassword: password,
-      })
-    );
+    const passwordEditValue = {
+      currentPassword: pastPassword,
+      futurePassword: password,
+    };
+    dispatch(passwordEditAction(passwordEditValue));
   };
 
-  console.log(loading);
-  console.log(passwordEditStatus);
   const onError = (e) => {
     console.log(e);
   };
+
   return (
     <section className="securityEdit">
       <div className="securityEdit__top center">
