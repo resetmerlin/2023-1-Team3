@@ -11,7 +11,6 @@ import axios from "axios";
 export const getSaveListAction = (page) => async (dispatch, getState) => {
   try {
     dispatch({ type: SAVE_LIST_REQUEST });
-
     const {
       loginInfo: { sessfbs_ffa0934 },
     } = getState();
@@ -23,12 +22,8 @@ export const getSaveListAction = (page) => async (dispatch, getState) => {
       },
     };
 
-    const params = {
-      pages: page,
-    };
     const { data } = await axios.get(
       `${import.meta.env.VITE_API_URL}/member/likes?page=${page}`,
-      params,
       config
     );
 
