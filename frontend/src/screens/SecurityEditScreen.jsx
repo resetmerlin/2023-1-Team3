@@ -1,14 +1,37 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-
+import { securityEditPassword } from "../components/Schema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { securityEditInput } from "../components/Inputs";
+import { useDispatch, useSelector } from "react-redux";
+import { passwordEditAction } from "../actions/securityEditAction";
 const SecurityEditScreen = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(securityEditPassword) });
+
+  const passwordEditInfo = useSelector((state) => state.passwordEditInfo);
+  const { error, loading, passwordEditStatus } = passwordEditInfo;
+
+  const onSubmit = (passwordInfo) => {
+    const { pastPassword, password, secondPassword } = passwordInfo;
+
+    const passwordEditValue = {
+      currentPassword: pastPassword,
+      futurePassword: password,
+    };
+    dispatch(passwordEditAction(passwordEditValue));
+  };
+
+  const onError = (e) => {
+    console.log(e);
+  };
+
   return (
     <section className="securityEdit">
       <div className="securityEdit__top center">
@@ -28,173 +51,44 @@ const SecurityEditScreen = () => {
       <div className="securityEdit__content">
         <div className="form__container">
           <div className="form__wrap security-edit-form ">
-            <form>
-              <div className="form-input-wrap security-edit-input-wrap ">
-                <label htmlFor="name">유저 이름</label>
-                <input
-                  className="form-default-height"
-                  type="text"
-                  id="name"
-                  {...register("name", {
-                    required: true,
-                  })}
-                  placeholder="이름"
-                />
-                {errors?.name?.type === "required" && (
-                  <p
-                    className="form__wrap__input-error"
-                    style={{
-                      fontSize: "0.7rem",
-                      fontWeight: "400",
-                      color: "red",
-                    }}
+            <form onSubmit={handleSubmit(onSubmit, onError)}>
+              {/* 비밀번호 및 비밀번호 재 압력 칸 및 이름 */}
+              {securityEditInput.map((input) => {
+                return (
+                  <div
+                    className="form-input-wrap security-edit-input-wrap"
+                    key={input.name}
                   >
-                    이름을 작성하세요
-                  </p>
-                )}
-              </div>
-              <div className="form-input-wrap security-edit-input-wrap ">
-                <label htmlFor="password">현재 비밀번호</label>
-                <input
-                  className="form-default-height"
-                  type="password"
-                  id="password"
-                  {...register("password", {
-                    required: true,
-                    minLength: 8,
-                  })}
-                  placeholder="Password"
-                />
-                {errors?.password?.type === "required" ? (
-                  <p
-                    className="form__wrap__input-error"
-                    style={{
-                      fontSize: "0.7rem",
-                      fontWeight: "400",
-                      color: "red",
-                    }}
-                  >
-                    Please enter your password
-                  </p>
-                ) : (
-                  errors?.password?.type === "minLength" && (
-                    <p
-                      className="form__wrap__input-error"
+                    <input
+                      className="form-default-height"
+                      type={input.type}
+                      id={input.id}
+                      name={input.name}
+                      placeholder={input.placeholder}
+                      {...register(input.name)}
                       style={{
-                        fontSize: "0.7rem",
-                        fontWeight: "400",
-                        color: "red",
+                        border: errors?.[input.name]?.message
+                          ? "1px solid red"
+                          : "",
+                        borderRadius: errors?.[input.name]?.message
+                          ? "5px"
+                          : "",
                       }}
-                    >
-                      Your passsword should be more than 8 words
-                    </p>
-                  )
-                )}
-              </div>
+                    />
+                    {errors?.[input.name] && (
+                      <p className="form__wrap__input-error">
+                        {errors?.[input.name].message}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
 
-              <div className="form-input-wrap security-edit-input-wrap ">
-                <label htmlFor="password">새 비밀번호</label>
-                <input
-                  className="form-default-height"
-                  type="password"
-                  id="password"
-                  {...register("password", {
-                    required: true,
-                    minLength: 8,
-                  })}
-                  placeholder="Password"
-                />
-                {errors?.password?.type === "required" ? (
-                  <p
-                    className="form__wrap__input-error"
-                    style={{
-                      fontSize: "0.7rem",
-                      fontWeight: "400",
-                      color: "red",
-                    }}
-                  >
-                    Please enter your password
-                  </p>
-                ) : (
-                  errors?.password?.type === "minLength" && (
-                    <p
-                      className="form__wrap__input-error"
-                      style={{
-                        fontSize: "0.7rem",
-                        fontWeight: "400",
-                        color: "red",
-                      }}
-                    >
-                      Your passsword should be more than 8 words
-                    </p>
-                  )
-                )}
-              </div>
-
-              <div className="form-input-wrap security-edit-input-wrap">
-                {/** 비밀번호 재입력 핸들러*/}
-                <input
-                  className="form-default-height"
-                  type="password"
-                  id="secondPassword"
-                  {...register("secondPassword", {
-                    required: "Your password is less than 10 words",
-                    minLength: 8,
-                  })}
-                  placeholder="Check Password"
-                />
-                <p
-                  className="form__wrap__input-error"
-                  style={{
-                    fontSize: "1.7rem",
-                    fontWeight: "400",
-                    color: "red",
-                  }}
-                >
-                  {errors.password?.message}
-                </p>
-              </div>
-
-              {/** 성 별 선택 핸들러*/}
-              <span className="form-span margin-top-10px ">성별 선택</span>
-
-              <div className="form__checkbox-wrap margin-top-10px">
-                <div className="form__checkbox-wrap--female">
-                  <input
-                    className="form__checkbox"
-                    type="checkbox"
-                    id="female"
-                    {...register("femaleCheckbox", {
-                      required: true,
-                    })}
-                  />
-                  <label
-                    htmlFor="female"
-                    className="form__checkbox--female-label"
-                  >
-                    <i className="bx bx-female"></i>
-                  </label>
-                </div>
-                <div className="form__checkbox-wrap--male">
-                  <input
-                    type="checkbox"
-                    className="form__checkbox"
-                    id="male"
-                    {...register("maleCheckbox", {
-                      required: true,
-                    })}
-                  />
-                  <label htmlFor="male" className="form__checkbox--male-label">
-                    <i className="bx bx-male"></i>
-                  </label>
-                </div>
-              </div>
-              <p
-                className="form__wrap__input-err7r"
-                style={{ fontSize: "0.8rem", fontWeight: "400", color: "red" }}
-              >
-                {errors.password?.message}
-              </p>
+              {/** submit 버튼 핸들러*/}
+              <button className="form-default-height" type="submit">
+                회원가입
+              </button>
+              {error && <p className="form__wrap__input-error">{error}</p>}
             </form>
           </div>
         </div>

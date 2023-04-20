@@ -31,20 +31,20 @@ function App() {
             exact
           ></Route>
           <Route path="/save" element={<SaveScreen />} exact></Route>
-          <Route path="/setting" element={<SettingScreen />} exact></Route>
 
           <Route path="/login" element={<LoginSceen />} exact></Route>
-          <Route
-            path="/setting/profile"
-            element={<ProfileEditScreen />}
-            exact
-          ></Route>
-          <Route
-            path="/setting/security"
-            element={<SecurityEditScreen />}
-            exact
-          ></Route>
 
+          <Route path="/setting">
+            <Route path="" element={<SettingScreen />} />
+            <Route
+              path="/setting/profile"
+              element={<ProfileEditScreen />}
+            ></Route>
+            <Route
+              path="/setting/security"
+              element={<SecurityEditScreen />}
+            ></Route>
+          </Route>
           <Route path="/register" element={<RegisterScreen />} exact></Route>
         </Routes>
       </div>
