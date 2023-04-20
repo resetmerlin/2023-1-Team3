@@ -10,6 +10,7 @@ import {
 import { saveUserReducers } from "./reducers/buttonReducer";
 import { peopleListReducers } from "./reducers/peopleReducer";
 import { getSaveListReducers } from "./reducers/saveReducer";
+import { deleteSaveReducers } from "./reducers/saveReducer";
 const reducer = combineReducers({
   emailInfo: sendEmailReducers,
   registerInfo: userRegisterReducers,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   loginInfo: userLoginReducers,
   peopleListInfo: peopleListReducers,
   saveListInfo: getSaveListReducers,
+  deleteSaveInfo: deleteSaveReducers,
 });
 
 const tokenFromStorage = sessionStorage.getItem("sessfbs_ffa0934")
