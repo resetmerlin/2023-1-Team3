@@ -18,30 +18,21 @@ const SaveScreen = () => {
   /** Redux에서 가져온 유저의 save list 정보 */
   const saveListInfo = useSelector((state) => state.saveListInfo);
   const { loading, error, saveListStatus } = saveListInfo;
-
-  const [page, setPage] = useState(0);
-
-  const nextPageHandler = (e) => {
-    setPage(e);
-  };
+  const endPageBoolean = saveListStatus?.endPageSignal;
 
   useEffect(() => {
     if (!sessfbs_ffa0934) {
       navigate("/login");
-    } else if (!saveListStatus) {
-      dispatch(getSaveListAction(page));
+    } else if (sessfbs_ffa0934 && !saveListStatus) {
+      dispatch(getSaveListAction(0));
     }
-  }, [sessfbs_ffa0934, dispatch, saveListStatus, page]);
+  }, [sessfbs_ffa0934, dispatch, saveListStatus, endPageBoolean]);
 
   return (
     <section className="save">
       <span className="save__title">Your save list</span>
 
-      <SaveList
-        saveListStatus={saveListStatus}
-        pageState={page}
-        pageFunc={nextPageHandler}
-      />
+      <SaveList saveListStatus={saveListStatus} />
       <Footer />
     </section>
   );
