@@ -10,11 +10,6 @@ import { loginInput } from "./Inputs";
 const LoginForm = ({ loginInfo }) => {
   const dispatch = useDispatch();
 
-  /** En: loading state while Login
-   *
-   * Kr: 로그인 동안의 로딩 상태 */
-  const loginLoading = loginInfo.loading;
-
   /** En; React-hook-form to handle form submit
    *
    *  Kr: form 제출을 handle 하기 위해 React-hook-form 사용 */
@@ -43,7 +38,6 @@ const LoginForm = ({ loginInfo }) => {
     }
   };
 
-  console.log(loginValue);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* Mapping the loginInput array */}
@@ -70,7 +64,7 @@ const LoginForm = ({ loginInfo }) => {
               </p>
             ) : (
               loginInfo.error &&
-              !loginLoading &&
+              !loginInfo.loading &&
               input.name == "email" && (
                 <p className="form__wrap__input-error">{loginInfo.error}</p>
               )
