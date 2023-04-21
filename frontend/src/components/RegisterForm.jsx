@@ -15,10 +15,11 @@ const RegisterForm = () => {
     register,
     handleSubmit,
     getValues,
+    setFocus,
+    getFieldState,
     setValue,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(registerSchema) });
-
+  } = useForm({ mode: "onChange", resolver: yupResolver(registerSchema) });
   /** 이메일 코드 입력 후 발생되는 Countdown */
   const [countdown, setCountdown] = useState(60);
   const [intervalId, setIntervalId] = useState(null);
@@ -101,17 +102,12 @@ const RegisterForm = () => {
   const registerSentStatus = useSelector((state) => state.registerInfo);
   const { error: registerError, loading: registerLoading } = registerSentStatus;
 
-  /** 인증코드 전송 함수*/
-  const emailVerifiyHandler = () => {
-    emailValue = getValues("email");
-    if (emailValue) {
-      if (!errorCheck.email) {
-        dispatch(sendEmailCodeAction({ mail: emailValue }));
+  /** 이메일 전송 함수*/
+  const sendEmailData = (emailValue) => {
+    dispatch(sendEmailCodeAction({ mail: emailValue }));
 
-        if (!emailError && !emailLoading) {
-          handleClick();
-        }
-      }
+    if (emailSentStatus) {
+      handleClick();
     }
   };
 
@@ -129,6 +125,7 @@ const RegisterForm = () => {
       dispatch(codeVerificationAction(codeVerifyValue));
     }
   };
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -139,6 +136,9 @@ const RegisterForm = () => {
               className="form-default-height"
               id="email"
               type="email"
+              onChange={() => {
+                setFocus("email");
+              }}
               placeholder="Email"
               aria-invalid={errors.email ? "true" : "false"}
               {...register("email")}
@@ -151,7 +151,9 @@ const RegisterForm = () => {
           {!errors?.email && (
             <button
               className="form-default-height email-verify-button"
-              onClick={emailVerifiyHandler}
+              onClick={() => {
+                sendEmailData(getValues("email"));
+              }}
               type="button"
             >
               코드 전송
