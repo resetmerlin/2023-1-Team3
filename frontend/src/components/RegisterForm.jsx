@@ -23,15 +23,16 @@ const RegisterForm = () => {
   /** 이메일 코드 입력 후 발생되는 Countdown */
   const [countdown, setCountdown] = useState(60);
   const [intervalId, setIntervalId] = useState(null);
-
   const codeWaitingTime = 1000;
 
   const handleClick = () => {
-    setCountdown(60);
-    if (intervalId !== null) {
-      clearInterval(intervalId);
+    if (emailStatus && !emailLoading) {
+      setCountdown(60);
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
+      startCountdown();
     }
-    startCountdown();
   };
 
   const startCountdown = () => {
@@ -105,24 +106,13 @@ const RegisterForm = () => {
   /** 이메일 전송 함수*/
   const sendEmailData = (emailValue) => {
     dispatch(sendEmailCodeAction({ mail: emailValue }));
-
-    if (emailSentStatus) {
-      handleClick();
-    }
+    handleClick();
   };
 
   /** 코드 verify function */
-  const codeVerifyHandler = () => {
-    if (!emailError && !emailLoading) {
-      emailValue = getValues("email");
-      codeValue = getValues("code");
-
-      const codeVerifyValue = {
-        mail: emailValue,
-        code: codeValue,
-      };
-
-      dispatch(codeVerificationAction(codeVerifyValue));
+  const sendCodeData = (emailValue, codeValue) => {
+    if (emailStatus) {
+      dispatch(codeVerificationAction({ mail: emailValue, code: codeValue }));
     }
   };
 
@@ -184,24 +174,21 @@ const RegisterForm = () => {
                 aria-invalid={errors.code ? "true" : "false"}
                 {...register("code")}
               />
-              {errors?.code && !codeError && !codeLoading ? (
+
+              {emailStatus && (
                 <p className="form__wrap__input-error">
                   {countdown == 0
-                    ? "인증 시간이 만료되었습니다. 이메일을 제대로 입력했는지 확인하세요."
-                    : `${errors.code.message}, ${
-                        countdown == 60 ? " " : countdown
-                      }`}
+                    ? "인증 시간이 만료되었습니다. 이메일을 제대로 입력했는지확인하세요."
+                    : countdown}
                 </p>
-              ) : (
-                !(!codeError && !codeLoading) && (
-                  <p className="form__wrap__input-error">{codeError}</p>
-                )
               )}
             </div>
             {!emailLoading && !emailError && (
               <button
                 className="form-default-height email-verify-button"
-                onClick={codeVerifyHandler}
+                onClick={() => {
+                  sendCodeData(getValues("email"), getValues("code"));
+                }}
                 type="button"
               >
                 인증
