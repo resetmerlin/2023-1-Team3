@@ -19,23 +19,20 @@ const LoginForm = ({ loginInfo }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
 
-  /**
-   * @param data En: The Input data After u sumbit successfully/ Kr: form제출이 성공적으로 된 후 보내는 Input 데이터
-   */
+  /** submit성공 후 input data 값 */
   const onSubmit = (data) => {
-    const { email, password } = data;
+    /** 이메일, 비밀번호 값을 arguments로 보냄 */
+    sendLoginData(data.email, data.password);
+  };
 
-    /** En: Login value that client gonna send to server
-     *
-     *  Kr: 클라이언트가 서버에게 보낼 로그인 값*/
-    const loginValue = {
-      mail: email,
-      password: password,
-    };
-
-    if (loginValue) {
-      dispatch(loginAction(loginValue));
-    }
+  /** input값을 받아 loginAction으로 보냄*/
+  const sendLoginData = (email, password) => {
+    dispatch(
+      loginAction({
+        mail: email,
+        password: password,
+      })
+    );
   };
 
   return (
