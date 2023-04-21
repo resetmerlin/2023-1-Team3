@@ -10,16 +10,14 @@ import { loginInput } from "./Inputs";
 const LoginForm = ({ loginInfo }) => {
   const dispatch = useDispatch();
 
-  /**  Error while Login
-   * 로그인 실패 시 얻는 에러 값 */
-  const loginEror = loginInfo.error;
-
-  /**  loading state while Login
-   * 로그인 동안의 로딩 상태 */
+  /** En: loading state while Login
+   *
+   * Kr: 로그인 동안의 로딩 상태 */
   const loginLoading = loginInfo.loading;
 
-  /**  React-hook-form to handle form submit
-   * form 제출을 handle 하기 위해 React-hook-form 사용 */
+  /** En; React-hook-form to handle form submit
+   *
+   *  Kr: form 제출을 handle 하기 위해 React-hook-form 사용 */
   const {
     register,
     handleSubmit,
@@ -27,13 +25,14 @@ const LoginForm = ({ loginInfo }) => {
   } = useForm({ resolver: yupResolver(loginSchema) });
 
   /**
-   * @param data The Input data After u sumbit successfully(form제출이 성공적으로 된 후 보내는 Input 데이터)
+   * @param data En: The Input data After u sumbit successfully/ Kr: form제출이 성공적으로 된 후 보내는 Input 데이터
    */
   const onSubmit = (data) => {
     const { email, password } = data;
 
-    /** Login value that client gonna send to server
-     * 클라이언트가 서버에게 보낼 로그인 값*/
+    /** En: Login value that client gonna send to server
+     *
+     *  Kr: 클라이언트가 서버에게 보낼 로그인 값*/
     const loginValue = {
       mail: email,
       password: password,
@@ -43,6 +42,8 @@ const LoginForm = ({ loginInfo }) => {
       dispatch(loginAction(loginValue));
     }
   };
+
+  console.log(loginValue);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* Mapping the loginInput array */}
@@ -68,10 +69,10 @@ const LoginForm = ({ loginInfo }) => {
                   : errors?.email?.message}
               </p>
             ) : (
-              loginEror &&
+              loginInfo.error &&
               !loginLoading &&
               input.name == "email" && (
-                <p className="form__wrap__input-error">{loginEror}</p>
+                <p className="form__wrap__input-error">{loginInfo.error}</p>
               )
             )}
           </div>
