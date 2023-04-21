@@ -83,9 +83,6 @@ const RegisterForm = () => {
   const [errorCheck, setErrorCheck] = useState("");
   const onError = (errors) => setErrorCheck(errors);
 
-  /** 이메일 값 변수 */
-  let emailValue = getValues("email");
-  let codeValue = getValues("code");
   /** 이메일 전송 후 state */
   const emailSentStatus = useSelector((state) => state.emailInfo);
 
