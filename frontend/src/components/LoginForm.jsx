@@ -15,7 +15,7 @@ const LoginForm = ({ loginInfo }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(loginSchema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(loginSchema) });
 
   /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
   const onSubmit = (data) => {
