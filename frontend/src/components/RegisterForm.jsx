@@ -19,10 +19,19 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerSchema) });
 
+  /** 이메일 코드 입력 후 발생되는 Countdown */
   const [countdown, setCountdown] = useState(60);
   const [intervalId, setIntervalId] = useState(null);
 
   const codeWaitingTime = 1000;
+
+  const handleClick = () => {
+    setCountdown(60);
+    if (intervalId !== null) {
+      clearInterval(intervalId);
+    }
+    startCountdown();
+  };
 
   const startCountdown = () => {
     setIntervalId(
@@ -32,37 +41,37 @@ const RegisterForm = () => {
     );
   };
 
-  const handleClick = () => {
-    setCountdown(60);
-    if (intervalId !== null) {
-      clearInterval(intervalId);
-    }
-    startCountdown();
-  };
   // Stop the countdown when countdown reaches 0
   if (countdown === 0) {
     clearInterval(intervalId);
   }
-  /** Form 제출 state*/
+
+  /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
   const onSubmit = (data) => {
-    const { birthday, code, email, name, password, gender } = data;
-
-    //회원가입 입력 된 값
-    const registerValue = {
-      mail: email,
-      password: password,
-      name: name,
-      gender: gender,
-      birth: birthday?.toISOString().split("T")[0],
-    };
-
-    //인증 코드를 통해 이메일이 유효한다면 회원가입 액션 실행
-    if (!codeError) {
-      dispatch(registerAction(registerValue));
-    }
+    sendRegisterData(
+      data.email,
+      data.password,
+      data.name,
+      data.gender,
+      data.birthday?.toISOString().split("T")[0]
+    );
   };
 
-  
+  /** Send data to registerAction after getting the params(params를 받고 난 후 registerAction 보냄)*/
+  const sendRegisterData = (email, password, name, gender, birth) => {
+    /** if no code error, dispatch register action(이메일 코드 에러가 없을 시 register action를 dispatch) */
+    if (!codeError) {
+      dispatch(
+        registerAction({
+          mail: email,
+          password: password,
+          name: name,
+          gender: gender,
+          birth: birth,
+        })
+      );
+    }
+  };
   useEffect(() => {
     if (!registerError && registerLoading === false) {
       navigate("/login");
@@ -105,8 +114,8 @@ const RegisterForm = () => {
       }
     }
   };
-  /** 코드 확인 function */
 
+  /** 코드 verify function */
   const codeVerifyHandler = () => {
     if (!emailError && !emailLoading) {
       emailValue = getValues("email");
@@ -158,7 +167,7 @@ const RegisterForm = () => {
         )}
         {/** 이메일 인증코드 handler*/}
         {/** submit 버튼 핸들러*/}
-        {emailValue && !errorCheck.email && (
+        {emailStatus && !errors.email && (
           <div className="form-input-wrap form-input-email__wrap ">
             <div className="form-input-wrap form-input-email">
               <input
