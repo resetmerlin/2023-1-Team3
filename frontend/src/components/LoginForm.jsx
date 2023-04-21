@@ -10,22 +10,20 @@ import { loginInput } from "./Inputs";
 const LoginForm = ({ loginInfo }) => {
   const dispatch = useDispatch();
 
-  /** En; React-hook-form to handle form submit
-   *
-   *  Kr: form 제출을 handle 하기 위해 React-hook-form 사용 */
+  /**React-hook-form to handle form submit(form 제출을 handle 하기 위해 React-hook-form 사용) */
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
 
-  /** submit성공 후 input data 값 */
+  /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
   const onSubmit = (data) => {
-    /** 이메일, 비밀번호 값을 arguments로 보냄 */
+    /** Passing email and password as an arument(이메일, 비밀번호 값을 arguments로 보냄 )*/
     sendLoginData(data.email, data.password);
   };
 
-  /** input값을 받아 loginAction으로 보냄*/
+  /** Send data to loginAction after getting the params(params를 받고 난 후 loginAction으로 보냄)*/
   const sendLoginData = (email, password) => {
     dispatch(
       loginAction({
