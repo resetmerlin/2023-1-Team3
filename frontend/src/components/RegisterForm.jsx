@@ -26,7 +26,7 @@ const RegisterForm = () => {
   const codeWaitingTime = 1000;
 
   const handleClick = () => {
-    if (emailStatus && !emailLoading) {
+    if (emailStatus == true) {
       setCountdown(60);
       if (intervalId !== null) {
         clearInterval(intervalId);
@@ -79,9 +79,6 @@ const RegisterForm = () => {
       navigate("/login");
     }
   });
-  /** 에러 저장 state*/
-  const [errorCheck, setErrorCheck] = useState("");
-  const onError = (errors) => setErrorCheck(errors);
 
   /** 이메일 전송 후 state */
   const emailSentStatus = useSelector((state) => state.emailInfo);
@@ -93,8 +90,8 @@ const RegisterForm = () => {
   } = emailSentStatus;
 
   /** 인증코드 입력 후 state */
-  const codeStatusSentStatus = useSelector((state) => state.codeInfo);
-  const { loading: codeLoading, error: codeError } = codeStatusSentStatus;
+  const codeInfo = useSelector((state) => state.codeInfo);
+  const { loading: codeLoading, error: codeError } = codeInfo;
 
   /** 회원가입 후 state */
   const registerSentStatus = useSelector((state) => state.registerInfo);
@@ -103,6 +100,7 @@ const RegisterForm = () => {
   /** 이메일 전송 함수*/
   const sendEmailData = (emailValue) => {
     dispatch(sendEmailCodeAction({ mail: emailValue }));
+    codeInfo.error = "";
     handleClick();
   };
 
@@ -115,7 +113,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {/** 이메일 입력 핸들러*/}
         <div className="form-input-wrap form-input-email__wrap">
           <div className="form-input-wrap form-input-email">
@@ -172,12 +170,12 @@ const RegisterForm = () => {
                 {...register("code")}
               />
 
-              {emailStatus && (
-                <p className="form__wrap__input-error">
-                  {countdown == 0
-                    ? "인증 시간이 만료되었습니다. 이메일을 제대로 입력했는지확인하세요."
-                    : countdown}
-                </p>
+              {emailStatus && !codeLoading && codeError ? (
+                <p className="form__wrap__input-error">{codeError}</p>
+              ) : emailStatus ? (
+                <p className="form__wrap__input-error">{countdown}</p>
+              ) : (
+                ""
               )}
             </div>
             {!emailLoading && !emailError && (
