@@ -21,13 +21,6 @@ const HomeScreen = () => {
   /** Redux에서 가져온 유저 리스트 */
   const peopleList = useSelector((state) => state.peopleListInfo);
 
-  const saveInfo = useSelector((state) => state.saveInfo);
-
-  const { loading, error, saveStatus } = saveInfo;
-  console.log(loading);
-  console.log(error);
-  console.log(saveStatus);
-
   const {
     peopleListStatus,
     error: peopleListError,
@@ -35,9 +28,17 @@ const HomeScreen = () => {
   } = peopleList;
 
   useEffect(() => {
+    /** If there is no accessToken, go to Login page
+     * (AccessToken이 없으면 로그인 페이지로 간다.) */
     if (!sessfbs_ffa0934) {
       navigate("/login");
-    } else if (!peopleListStatus && !peopleListStatus?.memberResponses) {
+    } else if (
+      /** If there is accessToken, but no lists of people, Dispatch Action to get data from server
+       * (Accesstoken이 있으나 사람들 리스트가 없으면 dispatch Action으로 서버에 데이터를 가져온다.) */
+      !peopleListStatus &&
+      !peopleListStatus?.memberResponses &&
+      sessfbs_ffa0934
+    ) {
       dispatch(peopleListAction());
     }
   }, [sessfbs_ffa0934, dispatch, peopleListStatus]);
@@ -50,7 +51,14 @@ const HomeScreen = () => {
     pagination: false,
   };
 
+  /** Last index of people lists array
+   * (사람들 리스트 중 마지막 인덱스 값)
+   */
   const lastValueIndex = peopleListStatus?.memberResponses.length - 1;
+
+  /** memberId of the Last value about people lists
+   * (Array안 사람 리스트 중 마지막 사람의 memberId 값)
+   */
   const lasValueUser =
     peopleListStatus?.memberResponses[lastValueIndex]?.memberId;
 
