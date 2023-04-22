@@ -23,31 +23,28 @@ const RegisterForm = () => {
   const registerInfo = useSelector((state) => state.registerInfo);
   const { error: registerError, loading: registerLoading } = registerInfo;
 
-  const [minutes, setMinutes] = useState(1);
-  const [seconds, setSeconds] = useState(0);
+  /** seconds state for 60sec countdown(60초 countdown을 위한 second state) */
+  const [seconds, setSeconds] = useState(60);
 
-  /** Code count down start */
+  /** Code count down start state(코드 카운트 다운 시작에 대한 상태 ) */
   const [isCoundown, setIsCountdown] = useState(false);
+
   useEffect(() => {
     /**If there is no error and loading after register, navigate to login page(만약 로그인 후 에러,로딩이 false일 시 login page로 navigate) */
     if (!registerError && registerLoading === false) {
       navigate("/login");
-    }
-
-    if (isCoundown && emailStatus) {
+    } else if (
+      /** if Count down is true && email response is true(만약 이메일 카운트 다운이 true && email res가 trure일시)  */
+      isCoundown &&
+      emailStatus
+    ) {
+      /** Countdown interval function */
       const interval = setInterval(() => {
-        if (seconds > 0) {
-          setSeconds(seconds - 1);
-        }
-
         if (seconds === 0) {
-          if (minutes === 0) {
-            clearInterval(interval);
-            setIsCountdown(false);
-          } else {
-            setSeconds(59);
-            setMinutes(minutes - 1);
-          }
+          clearInterval(interval);
+          setIsCountdown(false);
+        } else {
+          setSeconds(seconds - 1);
         }
       }, 1000);
       return () => {
@@ -64,12 +61,17 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(registerSchema) });
 
-  /** 이메일 전송 함수*/
+  /** sending email data function(이메일 주소 전송 함수)*/
   const sendEmailData = (emailValue) => {
     dispatch(sendEmailCodeAction({ mail: emailValue }));
-    // codeInfo.error = "";
-    setMinutes(1);
-    setSeconds(0);
+
+    /** Erase Code Error State to see Rerender countdown(Rerender된 카운트다운을 다시 보기 위해 code error 지움*/
+    codeInfo.error = "";
+
+    /** Set seconds to 60 seconds(60초로 설정) */
+    setSeconds(60);
+
+    /** Set Countdown state to true(Countdown 상태를 true값으로 설정)*/
     setIsCountdown(true);
   };
 
@@ -83,26 +85,15 @@ const RegisterForm = () => {
 
   /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
   const onSubmit = (data) => {
-    sendRegisterData(
-      data.email,
-      data.password,
-      data.name,
-      data.gender,
-      data.birthday?.toISOString().split("T")[0]
-    );
-  };
-
-  /** Send data to registerAction after getting the params(params를 받고 난 후 registerAction 보냄)*/
-  const sendRegisterData = (email, password, name, gender, birth) => {
     /** if no code error, dispatch register action(이메일 코드 에러가 없을 시 register action를 dispatch) */
     if (!codeError) {
       dispatch(
         registerAction({
-          mail: email,
-          password: password,
-          name: name,
-          gender: gender,
-          birth: birth,
+          mail: data.email,
+          password: data.password,
+          name: data.name,
+          gender: data.gender,
+          birth: data.birthday?.toISOString().split("T")[0],
         })
       );
     }
@@ -166,12 +157,12 @@ const RegisterForm = () => {
 
               {emailStatus && !codeLoading && codeError ? (
                 <p className="form__wrap__input-error">{codeError}</p>
-              ) : emailStatus ? (
+              ) : emailStatus && seconds == 0 ? (
                 <p className="form__wrap__input-error">
-                  {minutes}:{seconds}
+                  입력기간이 만료되었습니다. 코드 전송 버튼을 다시 눌러주세요
                 </p>
               ) : (
-                ""
+                <p className="form__wrap__input-error">{seconds}</p>
               )}
             </div>
             {!emailLoading && !emailError && (
