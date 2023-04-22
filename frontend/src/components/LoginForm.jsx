@@ -1,42 +1,36 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { loginSchema } from "../components/Schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginAction } from "../actions/userAction";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { loginInput } from "./Inputs";
 
-const LoginForm = ({ loginProps }) => {
-  console.log(loginProps.error);
-  const loginEror = loginProps.error;
-  const loginLoading = loginProps.loading;
+const LoginForm = ({ loginInfo }) => {
   const dispatch = useDispatch();
+
+  /**React-hook-form to handle form submit(form 제출을 handle 하기 위해 React-hook-form 사용) */
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(loginSchema) });
-  /** Form 제출 state*/
+  } = useForm({ mode: "onChange", resolver: yupResolver(loginSchema) });
 
-  const onError = (errors) => {
-    console.log(errors);
-  };
-
+  /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
   const onSubmit = (data) => {
-    const { email, password } = data;
-    console.log(data);
-    if (data) {
-      dispatch(
-        loginAction({
-          mail: email,
-          password: password,
-        })
-      );
-    }
+    /** Send data to loginAction after getting the params(params를 받고 난 후 loginAction으로 보냄)*/
+    dispatch(
+      loginAction({
+        mail: data.email,
+        password: data.password,
+      })
+    );
   };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit, onError)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {/* Mapping the loginInput array */}
       {loginInput.map((input) => {
         return (
           <div key={input.name}>
@@ -59,16 +53,17 @@ const LoginForm = ({ loginProps }) => {
                   : errors?.email?.message}
               </p>
             ) : (
-              loginEror &&
-              !loginLoading &&
+              loginInfo.error &&
+              !loginInfo.loading &&
               input.name == "email" && (
-                <p className="form__wrap__input-error">{loginEror}</p>
+                <p className="form__wrap__input-error">{loginInfo.error}</p>
               )
             )}
           </div>
         );
       })}
 
+      {/* Submit button */}
       <button className="form-default-height" type="submit">
         Sign in
       </button>

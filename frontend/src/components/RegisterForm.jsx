@@ -6,10 +6,52 @@ import { registerAction, codeVerificationAction } from "../actions/userAction";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "../components/Schema";
 import { registerInput } from "./Inputs";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { genderInput } from "./Inputs";
 const RegisterForm = () => {
   const dispatch = useDispatch();
+
+  /** Get emailInfo state from Redux(Redux에서 emailInfo state 가져옴) */
+  const emailInfo = useSelector((state) => state.emailInfo);
+  const { error: emailError, loading: emailLoading, emailStatus } = emailInfo;
+
+  /** Get codeInfo state from Redux(Redux에서 codeInfo state 가져옴) */
+  const codeInfo = useSelector((state) => state.codeInfo);
+  const { loading: codeLoading, error: codeError } = codeInfo;
+
+  /** Get registerInfo state from Redux(Redux에서 registerInfo state 가져옴) */
+  const registerInfo = useSelector((state) => state.registerInfo);
+  const { error: registerError, loading: registerLoading } = registerInfo;
+
+  /** seconds state for 60sec countdown(60초 countdown을 위한 second state) */
+  const [seconds, setSeconds] = useState(60);
+
+  /** Code count down start state(코드 카운트 다운 시작에 대한 상태 ) */
+  const [isCoundown, setIsCountdown] = useState(false);
+
+  useEffect(() => {
+    /**If there is no error and loading after register, navigate to login page(만약 로그인 후 에러,로딩이 false일 시 login page로 navigate) */
+    if (!registerError && registerLoading === false) {
+      navigate("/login");
+    } else if (
+      /** if Count down is true && email response is true(만약 이메일 카운트 다운이 true && email res가 trure일시)  */
+      isCoundown &&
+      emailStatus
+    ) {
+      /** Countdown interval function */
+      const interval = setInterval(() => {
+        if (seconds === 0) {
+          clearInterval(interval);
+          setIsCountdown(false);
+        } else {
+          setSeconds(seconds - 1);
+        }
+      }, 1000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [seconds, registerError, registerLoading, isCoundown, emailStatus]);
 
   const {
     register,
@@ -17,112 +59,49 @@ const RegisterForm = () => {
     getValues,
     setValue,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(registerSchema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(registerSchema) });
 
-  const [countdown, setCountdown] = useState(60);
-  const [intervalId, setIntervalId] = useState(null);
+  /** sending email data function(이메일 주소 전송 함수)*/
+  const sendEmailData = (emailValue) => {
+    dispatch(sendEmailCodeAction({ mail: emailValue }));
 
-  const codeWaitingTime = 1000;
+    /** Erase Code Error State to see Rerender countdown(Rerender된 카운트다운을 다시 보기 위해 code error 지움*/
+    codeInfo.error = "";
 
-  const startCountdown = () => {
-    setIntervalId(
-      setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1);
-      }, codeWaitingTime)
-    );
+    /** Set seconds to 60 seconds(60초로 설정) */
+    setSeconds(60);
+
+    /** Set Countdown state to true(Countdown 상태를 true값으로 설정)*/
+    setIsCountdown(true);
   };
 
-  const handleClick = () => {
-    setCountdown(60);
-    if (intervalId !== null) {
-      clearInterval(intervalId);
+  /** send email,code to codeVerification action(codeVerification action에 email, code 보냄) */
+  const sendCodeData = (emailValue, codeValue) => {
+    /** If email response status is true, dispatch(만약 이메일 response status 값이 true일 경우 dispatch)*/
+    if (emailStatus) {
+      dispatch(codeVerificationAction({ mail: emailValue, code: codeValue }));
     }
-    startCountdown();
   };
-  // Stop the countdown when countdown reaches 0
-  if (countdown === 0) {
-    clearInterval(intervalId);
-  }
-  /** Form 제출 state*/
+
+  /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
   const onSubmit = (data) => {
-    const { birthday, code, email, name, password, gender } = data;
-
-    //회원가입 입력 된 값
-    const registerValue = {
-      mail: email,
-      password: password,
-      name: name,
-      gender: gender,
-      birth: birthday?.toISOString().split("T")[0],
-    };
-
-    //인증 코드를 통해 이메일이 유효한다면 회원가입 액션 실행
+    /** if no code error, dispatch register action(이메일 코드 에러가 없을 시 register action를 dispatch) */
     if (!codeError) {
-      dispatch(registerAction(registerValue));
+      dispatch(
+        registerAction({
+          mail: data.email,
+          password: data.password,
+          name: data.name,
+          gender: data.gender,
+          birth: data.birthday?.toISOString().split("T")[0],
+        })
+      );
     }
   };
 
-  
-  useEffect(() => {
-    if (!registerError && registerLoading === false) {
-      navigate("/login");
-    }
-  });
-  /** 에러 저장 state*/
-  const [errorCheck, setErrorCheck] = useState("");
-  const onError = (errors) => setErrorCheck(errors);
-
-  /** 이메일 값 변수 */
-  let emailValue = getValues("email");
-  let codeValue = getValues("code");
-  /** 이메일 전송 후 state */
-  const emailSentStatus = useSelector((state) => state.emailInfo);
-
-  const {
-    error: emailError,
-    loading: emailLoading,
-    emailStatus,
-  } = emailSentStatus;
-
-  /** 인증코드 입력 후 state */
-  const codeStatusSentStatus = useSelector((state) => state.codeInfo);
-  const { loading: codeLoading, error: codeError } = codeStatusSentStatus;
-
-  /** 회원가입 후 state */
-  const registerSentStatus = useSelector((state) => state.registerInfo);
-  const { error: registerError, loading: registerLoading } = registerSentStatus;
-
-  /** 인증코드 전송 함수*/
-  const emailVerifiyHandler = () => {
-    emailValue = getValues("email");
-    if (emailValue) {
-      if (!errorCheck.email) {
-        dispatch(sendEmailCodeAction({ mail: emailValue }));
-
-        if (!emailError && !emailLoading) {
-          handleClick();
-        }
-      }
-    }
-  };
-  /** 코드 확인 function */
-
-  const codeVerifyHandler = () => {
-    if (!emailError && !emailLoading) {
-      emailValue = getValues("email");
-      codeValue = getValues("code");
-
-      const codeVerifyValue = {
-        mail: emailValue,
-        code: codeValue,
-      };
-
-      dispatch(codeVerificationAction(codeVerifyValue));
-    }
-  };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {/** 이메일 입력 핸들러*/}
         <div className="form-input-wrap form-input-email__wrap">
           <div className="form-input-wrap form-input-email">
@@ -142,7 +121,9 @@ const RegisterForm = () => {
           {!errors?.email && (
             <button
               className="form-default-height email-verify-button"
-              onClick={emailVerifiyHandler}
+              onClick={() => {
+                sendEmailData(getValues("email"));
+              }}
               type="button"
             >
               코드 전송
@@ -158,7 +139,7 @@ const RegisterForm = () => {
         )}
         {/** 이메일 인증코드 handler*/}
         {/** submit 버튼 핸들러*/}
-        {emailValue && !errorCheck.email && (
+        {emailStatus && !errors.email && (
           <div className="form-input-wrap form-input-email__wrap ">
             <div className="form-input-wrap form-input-email">
               <input
@@ -173,24 +154,23 @@ const RegisterForm = () => {
                 aria-invalid={errors.code ? "true" : "false"}
                 {...register("code")}
               />
-              {errors?.code && !codeError && !codeLoading ? (
+
+              {emailStatus && !codeLoading && codeError ? (
+                <p className="form__wrap__input-error">{codeError}</p>
+              ) : emailStatus && seconds == 0 ? (
                 <p className="form__wrap__input-error">
-                  {countdown == 0
-                    ? "인증 시간이 만료되었습니다. 이메일을 제대로 입력했는지 확인하세요."
-                    : `${errors.code.message}, ${
-                        countdown == 60 ? " " : countdown
-                      }`}
+                  입력기간이 만료되었습니다. 코드 전송 버튼을 다시 눌러주세요
                 </p>
               ) : (
-                !(!codeError && !codeLoading) && (
-                  <p className="form__wrap__input-error">{codeError}</p>
-                )
+                <p className="form__wrap__input-error">{seconds}</p>
               )}
             </div>
             {!emailLoading && !emailError && (
               <button
                 className="form-default-height email-verify-button"
-                onClick={codeVerifyHandler}
+                onClick={() => {
+                  sendCodeData(getValues("email"), getValues("code"));
+                }}
                 type="button"
               >
                 인증
