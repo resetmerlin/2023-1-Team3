@@ -6,47 +6,80 @@ import { registerAction, codeVerificationAction } from "../actions/userAction";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "../components/Schema";
 import { registerInput } from "./Inputs";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { genderInput } from "./Inputs";
 const RegisterForm = () => {
   const dispatch = useDispatch();
+
+  /** Get emailInfo state from Redux(Redux에서 emailInfo state 가져옴) */
+  const emailInfo = useSelector((state) => state.emailInfo);
+  const { error: emailError, loading: emailLoading, emailStatus } = emailInfo;
+
+  /** Get codeInfo state from Redux(Redux에서 codeInfo state 가져옴) */
+  const codeInfo = useSelector((state) => state.codeInfo);
+  const { loading: codeLoading, error: codeError } = codeInfo;
+
+  /** Get registerInfo state from Redux(Redux에서 registerInfo state 가져옴) */
+  const registerInfo = useSelector((state) => state.registerInfo);
+  const { error: registerError, loading: registerLoading } = registerInfo;
+
+  const [minutes, setMinutes] = useState(1);
+  const [seconds, setSeconds] = useState(0);
+
+  /** Code count down start */
+  const [isCoundown, setIsCountdown] = useState(false);
+  useEffect(() => {
+    /**If there is no error and loading after register, navigate to login page(만약 로그인 후 에러,로딩이 false일 시 login page로 navigate) */
+    if (!registerError && registerLoading === false) {
+      navigate("/login");
+    }
+
+    if (isCoundown && emailStatus) {
+      const interval = setInterval(() => {
+        if (seconds > 0) {
+          setSeconds(seconds - 1);
+        }
+
+        if (seconds === 0) {
+          if (minutes === 0) {
+            clearInterval(interval);
+            setIsCountdown(false);
+          } else {
+            setSeconds(59);
+            setMinutes(minutes - 1);
+          }
+        }
+      }, 1000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [seconds, registerError, registerLoading, isCoundown, emailStatus]);
 
   const {
     register,
     handleSubmit,
     getValues,
-    setFocus,
-    getFieldState,
     setValue,
     formState: { errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(registerSchema) });
-  /** 이메일 코드 입력 후 발생되는 Countdown */
-  const [countdown, setCountdown] = useState(60);
-  const [intervalId, setIntervalId] = useState(null);
-  const codeWaitingTime = 1000;
 
-  const handleClick = () => {
-    if (emailStatus == true) {
-      setCountdown(60);
-      if (intervalId !== null) {
-        clearInterval(intervalId);
-      }
-      startCountdown();
+  /** 이메일 전송 함수*/
+  const sendEmailData = (emailValue) => {
+    dispatch(sendEmailCodeAction({ mail: emailValue }));
+    // codeInfo.error = "";
+    setMinutes(1);
+    setSeconds(0);
+    setIsCountdown(true);
+  };
+
+  /** send email,code to codeVerification action(codeVerification action에 email, code 보냄) */
+  const sendCodeData = (emailValue, codeValue) => {
+    /** If email response status is true, dispatch(만약 이메일 response status 값이 true일 경우 dispatch)*/
+    if (emailStatus) {
+      dispatch(codeVerificationAction({ mail: emailValue, code: codeValue }));
     }
   };
-
-  const startCountdown = () => {
-    setIntervalId(
-      setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1);
-      }, codeWaitingTime)
-    );
-  };
-
-  // Stop the countdown when countdown reaches 0
-  if (countdown === 0) {
-    clearInterval(intervalId);
-  }
 
   /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
   const onSubmit = (data) => {
@@ -74,42 +107,6 @@ const RegisterForm = () => {
       );
     }
   };
-  useEffect(() => {
-    if (!registerError && registerLoading === false) {
-      navigate("/login");
-    }
-  });
-
-  /** 이메일 전송 후 state */
-  const emailSentStatus = useSelector((state) => state.emailInfo);
-
-  const {
-    error: emailError,
-    loading: emailLoading,
-    emailStatus,
-  } = emailSentStatus;
-
-  /** 인증코드 입력 후 state */
-  const codeInfo = useSelector((state) => state.codeInfo);
-  const { loading: codeLoading, error: codeError } = codeInfo;
-
-  /** 회원가입 후 state */
-  const registerSentStatus = useSelector((state) => state.registerInfo);
-  const { error: registerError, loading: registerLoading } = registerSentStatus;
-
-  /** 이메일 전송 함수*/
-  const sendEmailData = (emailValue) => {
-    dispatch(sendEmailCodeAction({ mail: emailValue }));
-    codeInfo.error = "";
-    handleClick();
-  };
-
-  /** 코드 verify function */
-  const sendCodeData = (emailValue, codeValue) => {
-    if (emailStatus) {
-      dispatch(codeVerificationAction({ mail: emailValue, code: codeValue }));
-    }
-  };
 
   return (
     <>
@@ -121,9 +118,6 @@ const RegisterForm = () => {
               className="form-default-height"
               id="email"
               type="email"
-              onChange={() => {
-                setFocus("email");
-              }}
               placeholder="Email"
               aria-invalid={errors.email ? "true" : "false"}
               {...register("email")}
@@ -173,7 +167,9 @@ const RegisterForm = () => {
               {emailStatus && !codeLoading && codeError ? (
                 <p className="form__wrap__input-error">{codeError}</p>
               ) : emailStatus ? (
-                <p className="form__wrap__input-error">{countdown}</p>
+                <p className="form__wrap__input-error">
+                  {minutes}:{seconds}
+                </p>
               ) : (
                 ""
               )}
