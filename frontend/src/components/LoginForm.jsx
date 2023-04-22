@@ -19,16 +19,11 @@ const LoginForm = ({ loginInfo }) => {
 
   /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
   const onSubmit = (data) => {
-    /** Passing email and password as an arument(이메일, 비밀번호 값을 arguments로 보냄 )*/
-    sendLoginData(data.email, data.password);
-  };
-
-  /** Send data to loginAction after getting the params(params를 받고 난 후 loginAction으로 보냄)*/
-  const sendLoginData = (email, password) => {
+    /** Send data to loginAction after getting the params(params를 받고 난 후 loginAction으로 보냄)*/
     dispatch(
       loginAction({
-        mail: email,
-        password: password,
+        mail: data.email,
+        password: data.password,
       })
     );
   };
