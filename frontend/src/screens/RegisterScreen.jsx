@@ -23,37 +23,37 @@ const RegisterScreen = () => {
   /** 회원가입 후 response값을 보기 위해 가져옴*/
   const registerInfo = useSelector((state) => state.registerInfo);
 
-  /** 60초 countdown을 위한  state*/
+  /** 코드 인증 시간 60초 countdown을 위한 state*/
   const [seconds, setSeconds] = useState(60);
 
-  /** 코드 카운트 다운 시작에 대한 상태 ) */
+  /** 코드 카운트 다운 시작에 대한 false or true 상태*/
   const [isCountdown, setIsCountdown] = useState(false);
 
-  /** sending email data function(이메일 주소 전송 함수)*/
+  /** 이메일 주소를 서버에 전송하기 위한 함수*/
   const sendEmailData = (emailValue) => {
     dispatch(sendEmailCodeAction({ mail: emailValue }));
 
-    /** Erase Code Error State to see Rerender countdown(Rerender된 카운트다운을 다시 보기 위해 code error 지움*/
+    /** 리렌더 이후 60초 카운트 다운 대신 코드 에러 response값이 보이는 상황 방지*/
     codeInfo.error = "";
 
-    /** Set seconds to 60 seconds(60초로 설정) */
+    /** countdown 60초로 설정 */
     setSeconds(60);
 
-    /** Set Countdown state to true(Countdown 상태를 true값으로 설정)*/
+    /** Countdown 시작(true)*/
     setIsCountdown(true);
   };
 
-  /** send email,code to codeVerification action(codeVerification action에 email, code 보냄) */
+  /**  이메일, 코드를 서버에 전송하여 유효한 계정인지 확인하기 위한 함수 */
   const sendCodeData = (emailValue, codeValue) => {
-    /** If email response status is true, dispatch(만약 이메일 response status 값이 true일 경우 dispatch)*/
+    /** 이메일이 유효한지 확인 */
     if (emailInfo.emailStatus) {
       dispatch(codeVerificationAction({ mail: emailValue, code: codeValue }));
     }
   };
 
-  /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
+  /** 폼 제출 후 input에러 없을 시 input 데이터를 서버에 전송하는 함수*/
   const onSubmit = (data) => {
-    /** if no code error, dispatch register action(이메일 코드 에러가 없을 시 register action를 dispatch) */
+    /** 유효한 계정일 시 서버에 작성한 폼 정보 전송 */
     if (!codeError) {
       dispatch(
         registerAction({
@@ -68,6 +68,7 @@ const RegisterScreen = () => {
   };
 
   useEffect(() => {
+    /** 회원가입 성공할 시 로그인 화면으로 navigate*/
     if (
       !registerInfo?.registerError &&
       registerInfo?.registerLoading === false
@@ -77,6 +78,7 @@ const RegisterScreen = () => {
   }, [registerInfo?.registerError, registerInfo?.registerLoading]);
 
   useEffect(() => {
+    /**  코드 countdown 작동 */
     if (isCountdown && emailInfo?.emailStatus) {
       const interval = setInterval(() => {
         if (seconds === 0) {
