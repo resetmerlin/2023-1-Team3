@@ -1,9 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { securityEditPassword } from "../components/Schema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { securityEditInput } from "../components/Inputs";
+import { securityEditInput } from "../components/Input/InputsDefine";
+import { securityEditPassword } from "../components/Form/Schema";
 import { useDispatch, useSelector } from "react-redux";
 import { passwordEditAction } from "../actions/securityEditAction";
 const SecurityEditScreen = () => {
