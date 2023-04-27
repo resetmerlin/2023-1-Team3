@@ -16,12 +16,12 @@ import {
 export const sendEmailReducers = (state = {}, action) => {
   switch (action.type) {
     case USER_EMAIL_REQUEST:
-      return { loading: true, ...state };
+      return { loading: true, ...state, emailStatus: false };
 
     case USER_EMAIL_SUCCESS:
       return {
         loading: false,
-        emailStatus: action.payload,
+        emailStatus: true,
       };
 
     case USER_EMAIL_FAIL:

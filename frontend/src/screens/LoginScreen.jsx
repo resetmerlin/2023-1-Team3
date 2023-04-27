@@ -1,27 +1,37 @@
 import React, { useEffect } from "react";
-
-import { useMediaQuery } from "react-responsive";
-import LoginForm from "../components/LoginForm";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginAction } from "../actions/userAction";
+import { LoginFormHook } from "../hooks/FormHoooks";
+import { loginSchema } from "../components/Form/Schema";
 
 const LoginSceen = () => {
-  const smallDesktop = useMediaQuery({
-    query: "(min-width: 1025px)",
-  });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  /** Get loginInfo from Redux(loginInfo를 redux에서 가져옴)*/
   const loginInfo = useSelector((state) => state.loginInfo);
-  const { error, loading, sessfbs_ffa0934 } = loginInfo;
 
   useEffect(() => {
-    if (sessfbs_ffa0934) {
+    /** Go to "/" route if there is an Access token(Access token이 있을 시 바로 "/" route로 감)*/
+    if (loginInfo?.sessfbs_ffa0934) {
       navigate("/");
     }
-  }, [sessfbs_ffa0934]);
+  }, [loginInfo?.sessfbs_ffa0934]);
+
+  /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
+  const onSubmit = (data) => {
+    /** Send data to loginAction after getting the params(params를 받고 난 후 loginAction으로 보냄)*/
+    dispatch(
+      loginAction({
+        mail: data.email,
+        password: data.password,
+      })
+    );
+  };
+
   return (
     <section className="form">
-      {/* {bigDesktop && <span className="logo">VISTA</span>} */}
       <div className="form__container">
         <div className="form__wrap">
           <div className="form__logo">
@@ -30,7 +40,11 @@ const LoginSceen = () => {
               Broaden your connection via VISTA
             </span>
           </div>
-          <LoginForm loginProps={loginInfo} />
+          <LoginFormHook
+            schema={loginSchema}
+            onSubmit={onSubmit}
+            loginInfo={loginInfo}
+          />
         </div>
       </div>
 

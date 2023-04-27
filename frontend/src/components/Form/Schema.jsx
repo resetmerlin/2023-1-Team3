@@ -1,5 +1,6 @@
 import * as yup from "yup";
 
+/** Schema for register form(회원가입 Form을 위한 스키마) */
 export const registerSchema = yup
   .object({
     name: yup
@@ -37,6 +38,7 @@ export const registerSchema = yup
   })
   .required();
 
+/** Schema for login form(로그인 Form을 위한 스키마) */
 export const loginSchema = yup
   .object({
     email: yup
@@ -55,6 +57,7 @@ export const loginSchema = yup
   })
   .required();
 
+/** Schema for edit password form(비밀번호 재설정 Form을 위한 스키마) */
 export const securityEditPassword = yup
   .object({
     pastPassword: yup
