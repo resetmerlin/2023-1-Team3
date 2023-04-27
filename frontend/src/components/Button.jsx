@@ -8,7 +8,13 @@ export const SubmitButton = ({ page }) => {
 
 export const VerifyButton = ({ sendEmailData, getValues }) => {
   return (
-    <button className="form-default-height email-verify-button" type="button">
+    <button
+      className="form-default-height email-verify-button"
+      type="button"
+      onClick={() => {
+        sendEmailData(getValues);
+      }}
+    >
       코드 전송
     </button>
   );
