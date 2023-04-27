@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
-import LoginForm from "../components/LoginForm";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginAction } from "../actions/userAction";
+import { LoginFormHook } from "../hooks/FormHoooks";
+import { loginSchema } from "../components/Form/Schema";
 
 const LoginSceen = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   /** Get loginInfo from Redux(loginInfo를 redux에서 가져옴)*/
   const loginInfo = useSelector((state) => state.loginInfo);
@@ -16,6 +19,17 @@ const LoginSceen = () => {
     }
   }, [loginInfo?.sessfbs_ffa0934]);
 
+  /** Getting input data via Submit(Submit을 통해 input data를 가져옴)*/
+  const onSubmit = (data) => {
+    /** Send data to loginAction after getting the params(params를 받고 난 후 loginAction으로 보냄)*/
+    dispatch(
+      loginAction({
+        mail: data.email,
+        password: data.password,
+      })
+    );
+  };
+
   return (
     <section className="form">
       <div className="form__container">
@@ -26,7 +40,11 @@ const LoginSceen = () => {
               Broaden your connection via VISTA
             </span>
           </div>
-          <LoginForm loginInfo={loginInfo} />
+          <LoginFormHook
+            schema={loginSchema}
+            onSubmit={onSubmit}
+            loginInfo={loginInfo}
+          />
         </div>
       </div>
 
