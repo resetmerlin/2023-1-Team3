@@ -51,9 +51,8 @@ const RegisterForm = ({
 
         {!errors?.email && (
           <VerifyButton
-            onClick={() => {
-              sendEmailData(getValues(emailInput.name));
-            }}
+            getValues={getValues(emailInput.name)}
+            sendEmailData={sendEmailData}
           />
         )}
       </div>
