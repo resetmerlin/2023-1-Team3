@@ -38,8 +38,12 @@
     }
     &__center {
       width: 60%;
+
       font-size: 1.3rem !important;
       color: $color-white !important;
+      button {
+        background-color: transparent;
+      }
     }
     &__checked {
       justify-content: flex-end;

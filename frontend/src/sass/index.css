@@ -1252,6 +1252,9 @@ body {
   font-size: 1.3rem !important;
   color: white !important;
 }
+.profileEdit__top__center button {
+  background-color: transparent;
+}
 .profileEdit__top__checked {
   justify-content: flex-end;
 }

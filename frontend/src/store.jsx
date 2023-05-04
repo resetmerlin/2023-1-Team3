@@ -9,7 +9,10 @@ import {
 } from "./reducers/userReducer";
 import { saveUserReducers } from "./reducers/buttonReducer";
 import { peopleListReducers } from "./reducers/peopleReducer";
-import { passwordEditReducers } from "./reducers/securityEditReducer";
+import {
+  passwordEditReducers,
+  profileEditReducers,
+} from "./reducers/securityEditReducer";
 import { getSaveListReducers } from "./reducers/saveReducer";
 import { deleteSaveReducers } from "./reducers/saveReducer";
 const reducer = combineReducers({
@@ -21,6 +24,7 @@ const reducer = combineReducers({
   peopleListInfo: peopleListReducers,
   passwordEditInfo: passwordEditReducers,
   saveListInfo: getSaveListReducers,
+  profileEditInfo: profileEditReducers,
   deleteSaveInfo: deleteSaveReducers,
 });
 
