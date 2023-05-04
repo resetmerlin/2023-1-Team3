@@ -1,30 +1,3 @@
-import imageCompression from "browser-image-compression";
-
-export async function handleImageUpload(event) {
-  const imageFile = event.target.files[0];
-
-  console.log("originalFile instanceof Blob", imageFile instanceof Blob); // true
-  console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
-
-  const options = {
-    maxSizeMB: 1,
-    maxWidthOrHeight: 1920,
-    useWebWorker: true,
-  };
-  try {
-    const compressedFile = await imageCompression(imageFile, options);
-    console.log(
-      "compressedFile instanceof Blob",
-      compressedFile instanceof Blob
-    ); // true
-    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
-
-    await uploadToServer(compressedFile); // write your own logic
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 export const imageFormatHandler = (file) => {
   const isPNG = file.type === "image/png";
   if (!isPNG) {
@@ -33,4 +6,11 @@ export const imageFormatHandler = (file) => {
   return isPNG;
 };
 
-// 1080 1090
+// 1080 1920
+
+const downloadImage = (compressedFile) => {
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(compressedFile);
+  link.download = "compressed-image.png";
+  link.click();
+};
