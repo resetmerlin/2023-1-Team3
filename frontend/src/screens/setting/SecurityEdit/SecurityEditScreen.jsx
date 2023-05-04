@@ -2,10 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { securityEditInput } from "../components/Input/InputsDefine";
-import { securityEditPassword } from "../components/Form/Schema";
+import { securityEditInput } from "../../../components/Input/InputsDefine";
+import { securityEditPassword } from "../../../components/Form/Schema";
 import { useDispatch, useSelector } from "react-redux";
-import { passwordEditAction } from "../actions/securityEditAction";
+import { passwordEditAction } from "../../../actions/securityEditAction";
+
 const SecurityEditScreen = () => {
   const dispatch = useDispatch();
   const {
@@ -28,9 +29,7 @@ const SecurityEditScreen = () => {
     dispatch(passwordEditAction(passwordEditValue));
   };
 
-  const onError = (e) => {
-    console.log(e);
-  };
+  const onError = console.log;
 
   return (
     <section className="securityEdit">
