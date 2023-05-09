@@ -38,3 +38,24 @@ export const VerifyCodeButton = ({
     </button>
   );
 };
+
+export const BackButton = ({ returnToPage, pageName = "Setting" }) => {
+  return (
+    <button onClick={returnToPage}>
+      <box-icon name="arrow-back" color="rgb(196, 196, 196)"></box-icon>
+      <span>{pageName}</span>
+    </button>
+  );
+};
+
+export const SaveCheckButton = ({ sendImageToServer }) => {
+  return (
+    <button onClick={sendImageToServer}>
+      <box-icon
+        name="check"
+        color="rgb(196, 196, 196)"
+        size="2.3rem"
+      ></box-icon>
+    </button>
+  );
+};
