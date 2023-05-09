@@ -1,11 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { securityEditInput } from "../../../components/Input/InputsDefine";
 import { securityEditPassword } from "../../../components/Form/Schema";
 import { useDispatch, useSelector } from "react-redux";
 import { passwordEditAction } from "../../../actions/securityEditAction";
+import SettingHeader from "../../../components/SettingHeader";
 
 const SecurityEditScreen = () => {
   const dispatch = useDispatch();
@@ -32,21 +32,9 @@ const SecurityEditScreen = () => {
   const onError = console.log;
 
   return (
-    <section className="securityEdit">
-      <div className="securityEdit__top center">
-        <Link to="/setting">
-          <box-icon name="arrow-back" color="rgb(196, 196, 196)"></box-icon>
-          <span>Setting</span>
-        </Link>
+    <section className="securityEdit default-layout">
+      <SettingHeader />
 
-        <Link to="/setting">
-          <box-icon
-            name="check"
-            color="rgb(196, 196, 196)"
-            size="2.3rem"
-          ></box-icon>
-        </Link>
-      </div>
       <div className="securityEdit__content">
         <div className="form__container">
           <div className="form__wrap security-edit-form ">
