@@ -1,10 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { BackButton, SaveCheckButton } from "./Button";
 
-export default SettingHeader = () => {
+const SettingHeader = ({ sendImageToServer }) => {
+  const navigate = useNavigate();
+  const onBackPage = () => navigate("/setting");
   return (
-    <Link to="/setting">
-      <box-icon name="arrow-back" color="rgb(196, 196, 196)"></box-icon>
-      <span>Setting</span>
-    </Link>
+    <div className="default-layout__top center">
+      <BackButton returnToPage={onBackPage} />
+      <SaveCheckButton saveClick={sendImageToServer} />
+    </div>
   );
 };
+export default SettingHeader;
