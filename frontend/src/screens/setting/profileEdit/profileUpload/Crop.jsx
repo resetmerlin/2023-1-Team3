@@ -1,6 +1,7 @@
 import React from "react";
 import "react-image-crop/dist/ReactCrop.css";
-const ProfileUpload = ({ readFileImage }) => {
+
+const Crop = ({ readFileImage }) => {
   return (
     <div className="Crop-Controls">
       <label
@@ -18,7 +19,7 @@ const ProfileUpload = ({ readFileImage }) => {
         type="file"
         name="profile"
         id="profile"
-        accept="image/*"
+        accept="image/jpg, image/gif, image/png , image/bmp, image/jpeg,"
         style={{ display: "none" }}
         onChange={readFileImage}
       />
@@ -26,4 +27,4 @@ const ProfileUpload = ({ readFileImage }) => {
   );
 };
 
-export default ProfileUpload;
+export default Crop;

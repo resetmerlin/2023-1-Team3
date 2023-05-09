@@ -1118,39 +1118,6 @@ body {
   justify-content: flex-start;
 }
 
-.securityEdit {
-  height: 100%;
-  top: 0%;
-  position: absolute;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
-  font-size: 1rem;
-  color: white;
-  background-color: black;
-  align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
-}
-.securityEdit__top {
-  justify-content: space-between;
-  width: 100%;
-  height: 4rem;
-  padding: 1rem;
-}
-.securityEdit__top span {
-  font-size: 1.1rem;
-  color: rgb(196, 196, 196);
-}
-.securityEdit__top a {
-  display: flex;
-  align-items: center;
-}
 .securityEdit__content {
   width: 100%;
   height: auto;
@@ -1210,65 +1177,15 @@ body {
 }
 
 .profileEdit {
-  height: 100%;
-  top: 0%;
-  position: absolute;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
-  font-size: 1rem;
-  color: white;
-  background-color: black;
-  align-self: start;
   background-image: linear-gradient(
       359deg,
       rgba(0, 0, 0, 0.829) 40%,
       rgba(0, 0, 0, 0.144) 100%
     ),
-    url(/public/images/userImage/user-1.jpg);
+    url(/public/images/userImage/user-1.jpg) !important;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-}
-.profileEdit__top {
-  justify-content: space-between;
-  width: 100%;
-  height: 5rem;
-  padding: 1rem;
-}
-.profileEdit__top span {
-  font-size: 1.1rem;
-  color: rgb(196, 196, 196);
-}
-.profileEdit__top a {
-  display: flex;
-  align-items: center;
-  width: 20%;
-}
-.profileEdit__top__center {
-  width: 60%;
-  font-size: 1.3rem !important;
-  color: white !important;
-}
-.profileEdit__top__center button {
-  background-color: transparent;
-}
-.profileEdit__top__checked {
-  justify-content: flex-end;
-}
-.profileEdit .profileEdit__content__profile__camera {
-  background-color: white;
-  position: absolute;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  top: 90%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  border: 3px solid black;
 }
 .profileEdit__main {
   height: 22%;
@@ -1277,25 +1194,6 @@ body {
   justify-content: center;
   position: absolute;
   top: 74%;
-}
-.profileEdit__main__img {
-  z-index: -1000;
-  width: 100%;
-  height: 100%;
-  background-image: url(/public/images/userImage/user-1.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 1rem;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: end;
-}
-@media screen and (min-width: 1281px) {
-  .profileEdit__main__img {
-    /* hi-res laptops and desktops */
-    border-radius: 0.5rem;
-  }
 }
 .profileEdit__main__information {
   width: 75%;
@@ -1368,82 +1266,6 @@ body {
 .profileEdit__main__information__desc__wrap input::placeholder {
   color: white !important;
 }
-.profileEdit__bottom {
-  top: 90%;
-  height: 6rem;
-  position: absolute;
-  width: 100%;
-  border-top: 1px solid rgb(238, 240, 244);
-  display: flex;
-  justify-content: space-around;
-  /* align-items: center; */
-  text-align: center;
-  align-items: center;
-  font-size: 2rem;
-}
-@media screen and (min-width: 480px) and (max-width: 599px) {
-  .profileEdit__bottom {
-    /* smartphones, Android phones, landscape iPhone */
-    border-top: none;
-    position: static;
-    height: 6rem;
-  }
-}
-@media screen and (min-width: 320px) and (max-width: 479px) {
-  .profileEdit__bottom {
-    /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
-    border-top: none;
-    position: static;
-    height: 6rem;
-  }
-}
-@media screen and (min-width: 1281px) {
-  .profileEdit__bottom {
-    /* hi-res laptops and desktops */
-    height: 18%;
-    justify-content: center;
-    flex-direction: column;
-    display: flex;
-  }
-}
-@media screen and (min-width: 1281px) {
-  .profileEdit__bottom__information {
-    /* hi-res laptops and desktops */
-    height: 50%;
-    width: 98%;
-    border-radius: 11px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-  .profileEdit__bottom__information__name {
-    height: 20%;
-    color: black;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-  }
-  .profileEdit__bottom__information__desc {
-    height: 40%;
-    width: 92%;
-    color: black;
-    font-size: 0.6rem;
-  }
-  .profileEdit__bottom__information__desc__wrap {
-    height: 50%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-  .profileEdit__bottom__information__desc__wrap i {
-    margin: 0 0.3rem;
-    font-size: 1rem;
-  }
-}
-.profileEdit__bottom a {
-  color: black;
-  width: 25%;
-}
 
 #profile {
   display: none;
@@ -1459,6 +1281,40 @@ body {
   width: 100%;
   padding: 0 0.5rem;
   transition: all 0.1s ease-in;
+}
+
+.default-layout {
+  height: 100%;
+  top: 0%;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1rem;
+  color: white;
+  background-color: black;
+  align-self: start;
+  background-image: linear-gradient(
+    359deg,
+    rgba(26, 25, 25, 0.829) 40%,
+    rgba(0, 0, 0, 0.144) 100%
+  );
+}
+.default-layout__top {
+  justify-content: space-between;
+  width: 100%;
+  height: 4rem;
+  padding: 1rem;
+}
+.default-layout__top span {
+  font-size: 1.1rem;
+  color: rgb(196, 196, 196);
+}
+.default-layout__top a {
+  display: flex;
+  align-items: center;
 }
 
 @media screen and (min-width: 1281px) {
@@ -1853,4 +1709,17 @@ body {
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.profileEdit__content__profile__camera {
+  background-color: white;
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  border: 3px solid black;
 } /*# sourceMappingURL=index.css.map */

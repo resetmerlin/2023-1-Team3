@@ -1,66 +1,14 @@
 .profileEdit {
-  height: 100%;
-  top: 0%;
-  position: absolute;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
-  font-size: 1rem;
-  color: $color-white;
-  background-color: $color-black;
-  align-self: start;
   background-image: linear-gradient(
       359deg,
       rgba(0, 0, 0, 0.829) 40%,
 
       rgba(0, 0, 0, 0.144) 100%
     ),
-    url(/public/images/userImage/user-1.jpg);
+    url(/public/images/userImage/user-1.jpg) !important;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-
-  &__top {
-    justify-content: space-between;
-    width: 100%;
-    height: 5rem;
-    padding: 1rem;
-    span {
-      font-size: 1.1rem;
-      color: $primary-silver-2;
-    }
-    a {
-      display: flex;
-      align-items: center;
-      width: 20%;
-    }
-    &__center {
-      width: 60%;
-
-      font-size: 1.3rem !important;
-      color: $color-white !important;
-      button {
-        background-color: transparent;
-      }
-    }
-    &__checked {
-      justify-content: flex-end;
-    }
-  }
-  .profileEdit__content__profile__camera {
-    background-color: $color-white;
-    position: absolute;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    top: 90%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    border: 3px solid $color-black;
-  }
 
   &__main {
     height: 22%;
@@ -69,23 +17,6 @@
     justify-content: center;
     position: absolute;
     top: 74%;
-
-    &__img {
-      z-index: -1000;
-      width: 100%;
-      height: 100%;
-      background-image: url(/public/images/userImage/user-1.jpg);
-      background-size: cover;
-      background-repeat: no-repeat;
-      border-radius: 1rem;
-      @include respond(big-desktop) {
-        border-radius: 0.5rem;
-      }
-      background-position: center;
-      display: flex;
-      justify-content: center;
-      align-items: end;
-    }
 
     &__information {
       width: 75%;
@@ -157,78 +88,6 @@
           }
         }
       }
-    }
-  }
-  &__bottom {
-    top: 90%;
-    height: 6rem;
-    position: absolute;
-    width: 100%;
-    border-top: 1px solid rgb(238, 240, 244);
-    display: flex;
-    justify-content: space-around;
-    /* align-items: center; */
-    text-align: center;
-    align-items: center;
-    font-size: 2rem;
-    @include respond(smartphones-land) {
-      border-top: none;
-      position: static;
-      height: 6rem;
-    }
-    @include respond(smartphones-port) {
-      border-top: none;
-      position: static;
-      height: 6rem;
-    }
-    @include respond(big-desktop) {
-      height: 18%;
-      justify-content: center;
-      flex-direction: column;
-      display: flex;
-    }
-    &__information {
-      @include respond(big-desktop) {
-        height: 50%;
-
-        width: 98%;
-        border-radius: 11px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-
-        &__name {
-          height: 20%;
-          color: $color-black;
-          font-size: 1.2rem;
-          display: flex;
-          align-items: center;
-        }
-
-        &__desc {
-          height: 40%;
-          width: 92%;
-          color: $color-black;
-          font-size: 0.6rem;
-
-          &__wrap {
-            height: 50%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-
-            i {
-              margin: 0 0.3rem;
-              font-size: 1rem;
-            }
-          }
-        }
-      }
-    }
-
-    a {
-      color: $color-black;
-      width: 25%;
     }
   }
 }

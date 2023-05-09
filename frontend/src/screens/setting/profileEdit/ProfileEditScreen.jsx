@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import ProfileUpload from "./profileUpload/ProfileUpload";
 import { useDispatch, useSelector } from "react-redux";
 import {
   onImageLoad,
@@ -11,6 +10,8 @@ import imageCompression from "browser-image-compression";
 
 import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import { profileEditAction } from "../../../actions/securityEditAction";
+import SettingHeader from "../../../components/SettingHeader";
+import Crop from "./profileUpload/Crop";
 const ProfileEditScreen = () => {
   const dispatch = useDispatch();
   const [imgSrc, setImgSrc] = useState("");
@@ -38,7 +39,6 @@ const ProfileEditScreen = () => {
 
     reader.readAsDataURL(e.target.files[0]);
   };
-  console.log(completedCrop);
 
   const sendImageToServer = () => {
     const croppedImage = cropImageHandler(completedCrop, canvasRef, imgRef);
@@ -65,26 +65,11 @@ const ProfileEditScreen = () => {
   };
 
   return (
-    <section className="profileEdit">
-      <div className="profileEdit__top center">
-        <Link to="/setting">
-          <box-icon name="arrow-back" color="rgb(196, 196, 196)"></box-icon>
-          <span>Setting</span>
-        </Link>
-        <span className="profileEdit__top__center center">프로필 설정</span>
-        <button
-          className="profileEdit__top__checked"
-          onClick={sendImageToServer}
-        >
-          <box-icon
-            name="check"
-            color="rgb(196, 196, 196)"
-            size="2.3rem"
-          ></box-icon>
-        </button>
-      </div>
+    <section className="profileEdit default-layout">
+      <SettingHeader sendImageToServer={sendImageToServer} />
 
-      <ProfileUpload readFileImage={getImageHandler} />
+      <Crop readFileImage={getImageHandler} />
+
       {!!imgSrc && (
         <ReactCrop
           crop={crop}
