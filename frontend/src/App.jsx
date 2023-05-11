@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import RegisterScreen from "./screens/RegisterScreen";
+import RegisterScreen from "./screens/register/RegisterScreen";
 import LoginSceen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import MessageScreen from "./screens/MessageScreen";
