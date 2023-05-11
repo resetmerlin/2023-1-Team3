@@ -39,8 +39,7 @@ body {
   }
 }
 @media screen and (min-width: 801px) and (max-width: 1024px) {
-  html {
-    /* tablet, landscape iPad, lo-res laptops ands desktops */
+  html { /* tablet, landscape iPad, lo-res laptops ands desktops */
     font-size: 118.75%;
   }
 }
@@ -131,8 +130,7 @@ body {
 }
 
 @keyframes blink {
-  from,
-  to {
+  from, to {
     color: transparent;
   }
   50% {
@@ -315,18 +313,6 @@ body {
   color: black;
   padding: 0;
   font-size: 2rem;
-}
-
-#email {
-  width: 100%;
-}
-
-.email-verify-button {
-  width: 20%;
-  margin: 0 0.5rem !important;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 1rem;
 }
 
 .home {
@@ -686,11 +672,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
+  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .message__title {
   font-size: 1.3rem;
@@ -835,8 +817,7 @@ body {
   display: flex;
   align-items: center;
 }
-.conversation__header__information__wrap
-  .conversation__header__information__name {
+.conversation__header__information__wrap .conversation__header__information__name {
   font-size: 1rem;
   font-weight: 600;
 }
@@ -932,11 +913,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
+  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .save__title {
   font-size: 1.2rem;
@@ -1063,11 +1040,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
+  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .setting__content {
   width: 100%;
@@ -1177,12 +1150,7 @@ body {
 }
 
 .profileEdit {
-  background-image: linear-gradient(
-      359deg,
-      rgba(0, 0, 0, 0.829) 40%,
-      rgba(0, 0, 0, 0.144) 100%
-    ),
-    url(/public/images/userImage/user-1.jpg) !important;
+  background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg) !important;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1296,11 +1264,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
+  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .default-layout__top {
   justify-content: space-between;
@@ -1390,19 +1354,6 @@ body {
   /** form check box for select gender */
   /** form button for submit */
 }
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
-  .form__wrap form {
-    /* big landscape tablets, laptops, and desktops */
-    width: 72%;
-  }
-}
-@media screen and (min-width: 1281px) {
-  .form__wrap form {
-    /* hi-res laptops and desktops */
-    width: 76%;
-    font-size: 90% !important;
-  }
-}
 .form__wrap form label {
   margin-top: 1rem;
   font-weight: 400;
@@ -1450,34 +1401,16 @@ body {
 .form__wrap form .form__checkbox-wrap .form__checkbox {
   display: none;
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #female:checked
-  + .form__checkbox--female-label {
+.form__wrap form .form__checkbox-wrap #female:checked + .form__checkbox--female-label {
   background-color: rgb(230, 107, 144);
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #female:checked
-  + .form__checkbox--female-label
-  i {
+.form__wrap form .form__checkbox-wrap #female:checked + .form__checkbox--female-label i {
   color: white;
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #male:checked
-  + .form__checkbox--male-label {
+.form__wrap form .form__checkbox-wrap #male:checked + .form__checkbox--male-label {
   background-color: rgb(101, 174, 223);
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #male:checked
-  + .form__checkbox--male-label
-  i {
+.form__wrap form .form__checkbox-wrap #male:checked + .form__checkbox--male-label i {
   color: white;
 }
 .form__wrap form .form__checkbox-wrap label {
@@ -1514,29 +1447,6 @@ body {
 }
 .form__wrap form .form__checkbox-wrap--male i {
   color: rgb(101, 174, 223);
-}
-.form__wrap form button {
-  margin-top: 1.3rem;
-  border-radius: 0.3rem;
-  background-color: black;
-  color: white;
-  border: none;
-  transition: all 0.1s ease;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
-  .form__wrap form button {
-    /* big landscape tablets, laptops, and desktops */
-    font-size: 0.9rem;
-  }
-}
-@media screen and (min-width: 1281px) {
-  .form__wrap form button {
-    /* hi-res laptops and desktops */
-    font-size: 0.9rem;
-  }
 }
 
 .form__wrap__input-error {
@@ -1581,12 +1491,7 @@ body {
     justify-content: flex-end;
     font-size: 1.5rem;
     background-position: center;
-    background-image: linear-gradient(
-        359deg,
-        rgba(0, 0, 0, 0.829) 40%,
-        rgba(0, 0, 0, 0.144) 100%
-      ),
-      url(/public/images/userImage/user-1.jpg);
+    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -1597,12 +1502,7 @@ body {
     justify-content: flex-end;
     font-size: 1.5rem;
     background-position: center;
-    background-image: linear-gradient(
-        359deg,
-        rgba(0, 0, 0, 0.829) 40%,
-        rgba(0, 0, 0, 0.144) 100%
-      ),
-      url(/public/images/userImage/user-1.jpg);
+    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -1722,4 +1622,39 @@ body {
   transform: translate(-50%, -50%);
   z-index: 1000;
   border: 3px solid black;
-} /*# sourceMappingURL=index.css.map */
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.progress {
+  width: 25%;
+  position: absolute;
+  left: 0;
+  height: 1rem;
+}
+
+.default-form-button {
+  border-radius: 1.4rem;
+  background-color: black;
+  color: white;
+  border: none;
+  transition: all 0.1s ease;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+}
+
+.form__button__go-login {
+  border: none;
+  background-color: transparent;
+}/*# sourceMappingURL=index.css.map */

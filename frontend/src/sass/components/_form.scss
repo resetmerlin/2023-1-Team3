@@ -7,13 +7,6 @@
     justify-content: flex-start;
     width: 100%;
 
-    @include respond(small-desktop) {
-      width: 72%;
-    }
-    @include respond(big-desktop) {
-      width: 76%;
-      font-size: 90% !important;
-    }
     label {
       margin-top: 1rem;
       font-weight: 400;
@@ -123,25 +116,6 @@
     }
 
     /** form button for submit */
-
-    button {
-      margin-top: 1.3rem;
-      border-radius: 0.3rem;
-      background-color: $color-black;
-      color: $color-white;
-      border: none;
-      transition: all 0.1s ease;
-      font-size: 0.9rem;
-      font-weight: 600;
-
-      cursor: pointer;
-      @include respond(small-desktop) {
-        font-size: 0.9rem;
-      }
-      @include respond(big-desktop) {
-        font-size: 0.9rem;
-      }
-    }
   }
 }
 .form__wrap__input-error {
