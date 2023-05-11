@@ -17,17 +17,6 @@ const Header = () => {
         <div className="header">
           <h1>Setting</h1>
         </div>
-      ) : location == "/register" ? (
-        <div
-          className="header form-header"
-          style={{
-            color: "black",
-            backgroundColor: "white",
-            position: "static",
-          }}
-        >
-          <span className="form-header__logo logo">VISTA</span>
-        </div>
       ) : location == "/login" ? (
         <div
           className="header form-header"
