@@ -8,20 +8,25 @@ import {
   codeVerificationAction,
   registerAction,
 } from "../../actions/userAction";
+import Logo from "../../components/Logo";
+import ProgressBar from "../../components/ProgressBar";
+import {
+  memoizedCodeInfo,
+  memoizedRegisterInfo,
+  memoizedEmailInfo,
+} from "../../hooks/MemoizedRedux";
 
 const RegisterScreen = () => {
   const dispatch = useDispatch();
+  const [progress, setProgress] = useState(0);
 
-  /** Redux에서 emailInfo state 가져옴 */
-  const emailInfo = useSelector((state) => state.emailInfo);
+  const emailInfo = useSelector(memoizedEmailInfo);
 
   /** code 인증 이후 에러를 보여주기 위해 codeInfo 가져옴*/
-  const codeInfo = useSelector((state) => state.codeInfo);
-  /** 코드에러가 있을 시 submit 기능 방지 위해 가져옴 */
-  const { error: codeError } = codeInfo;
+  const codeInfo = useSelector(memoizedCodeInfo);
 
   /** 회원가입 후 response값을 보기 위해 가져옴*/
-  const registerInfo = useSelector((state) => state.registerInfo);
+  const registerInfo = useSelector(memoizedRegisterInfo);
 
   /** 코드 인증 시간 60초 countdown을 위한 state*/
   const [seconds, setSeconds] = useState(60);
@@ -54,7 +59,7 @@ const RegisterScreen = () => {
   /** 폼 제출 후 input에러 없을 시 input 데이터를 서버에 전송하는 함수*/
   const onSubmit = (data) => {
     /** 유효한 계정일 시 서버에 작성한 폼 정보 전송 */
-    if (!codeError) {
+    if (!codeInfo?.error) {
       dispatch(
         registerAction({
           mail: data.email,
@@ -93,27 +98,19 @@ const RegisterScreen = () => {
 
   return (
     <section className="form">
-      {/* {bigDesktop && <span className="logo">VISTA</span>} */}
-
-      <div className="form__container">
-        <div className="form__wrap">
-          <div className="form__logo">
-            <span className="form__logo-big">Register</span>
-            <span className="form__logo-small">
-              Broaden your connection via VISTA
-            </span>
-          </div>
-          <RegisterFormHook
-            schema={registerSchema}
-            onSubmit={onSubmit}
-            emailInfo={emailInfo}
-            registerInfo={registerInfo}
-            sendEmailData={sendEmailData}
-            sendCodeData={sendCodeData}
-            seconds={seconds}
-            codeInfo={codeInfo}
-          />
-        </div>
+      <ProgressBar progress={"idl"} />
+      <Logo />
+      <div className="form__wrap">
+        <RegisterFormHook
+          schema={registerSchema}
+          onSubmit={onSubmit}
+          emailInfo={emailInfo}
+          registerInfo={registerInfo}
+          sendEmailData={sendEmailData}
+          sendCodeData={sendCodeData}
+          seconds={seconds}
+          codeInfo={codeInfo}
+        />
       </div>
 
       <div className="form__background"></div>
