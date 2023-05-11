@@ -6,7 +6,34 @@ import {
   InputEmailRegisterError,
 } from "./InputError";
 import { CodeInput, DefaultInput, GenderInput } from "./Input";
-
+export const HandleInputChunk = ({
+  input,
+  register,
+  errors,
+  page,
+  emailInfo,
+}) => {
+  return (
+    <>
+      {input.id == "email" && page == "register" ? (
+        <EmailRegisterInputChunk
+          input={input}
+          register={register}
+          emailInfo={emailInfo}
+          errors={errors}
+        />
+      ) : input.id == "email" && page == "login" ? (
+        <EmailInputChunk input={input} register={register} errors={errors} />
+      ) : input.id == "female" || input.id == "male" ? (
+        <GenderInputChunk input={input} register={register} errors={errors} />
+      ) : input.id == "code" ? (
+        <CodeInputChunk input={input} register={register} errors={errors} />
+      ) : (
+        <DefaultInputChunk input={input} register={register} errors={errors} />
+      )}
+    </>
+  );
+};
 export const DefaultInputChunk = ({ input, register, errors }) => {
   return (
     <>
@@ -25,7 +52,7 @@ export const CodeInputChunk = ({
 }) => {
   return (
     <>
-      <CodeInput input={input} register={register} errors={errors} />
+      <DefaultInput input={input} register={register} errors={errors} />
       <InputCodeError
         emailStatus={emailStatus}
         codeLoading={codeInfo.loading}
