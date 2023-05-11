@@ -5,7 +5,7 @@ import {
   InputCodeError,
   InputEmailRegisterError,
 } from "./InputError";
-import { CodeInput, DefaultInput, GenderInput } from "./Input";
+import { DefaultInput, GenderInput } from "./Input";
 export const HandleInputChunk = ({
   input,
   register,
