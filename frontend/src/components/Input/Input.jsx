@@ -1,5 +1,5 @@
 import React from "react";
-
+import { selectInput } from "./InputsDefine";
 export const DefaultInput = ({ input, register, errors }) => {
   const formStyle = {
     border: errors?.[input.name]?.message ? "1px solid red" : "",
@@ -43,23 +43,12 @@ export const GenderInput = ({ input, register, setValue }) => {
   );
 };
 
-export const CodeInput = ({ input, register, errors }) => {
-  const formStyle = {
-    border: errors?.[input.name]?.message ? "1px solid red" : "",
-    borderRadius: errors?.[input.name]?.message ? "5px" : "",
-    width: "100%",
-  };
-
+export const PersonalMajorInput = ({ register }) => {
   return (
-    <div className="form-input-wrap form-input-email">
-      <input
-        className="form-default-height"
-        type={input.type}
-        id={input.name}
-        placeholder={input.placeholder}
-        {...register(input.name)}
-        style={formStyle}
-      />
-    </div>
+    <select {...register("major")}>
+      {selectInput.map((option) => {
+        return <option value={option.value}>{option.value}</option>;
+      })}
+    </select>
   );
 };
