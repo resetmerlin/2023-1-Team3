@@ -47,6 +47,7 @@ export const sendEmailCodeAction = (mail) => async (dispatch) => {
 export const codeVerificationAction = (mail, code) => async (dispatch) => {
   try {
     dispatch({ type: USER_VERIFY_REQUEST });
+
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +75,7 @@ export const codeVerificationAction = (mail, code) => async (dispatch) => {
 export const registerAction = (userInfo) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
-
+    console.log(userInfo);
     const config = {
       headers: {
         "Content-Type": "application/json",
