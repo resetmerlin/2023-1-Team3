@@ -17,8 +17,6 @@ export const saveUserAction = (toId, signal) => async (dispatch, getState) => {
       loginInfo: { sessfbs_ffa0934 },
     } = getState();
 
-    console.log(sessfbs_ffa0934.accessToken);
-
     const params = {
       toId: toId,
       signal: signal,
@@ -29,11 +27,10 @@ export const saveUserAction = (toId, signal) => async (dispatch, getState) => {
         Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
       },
     };
-    console.log(config);
     const { data } = await axios.put(
       `${import.meta.env.VITE_API_URL}/member/choice?toId=${
         params.toId
-      }&signal=${params.signal}`,
+      }&likeSignal=${params.signal}`,
       params,
       config
     );
