@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: center;
   font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
   &__slide__btn {
     top: 50%;
     right: 2%;
@@ -15,8 +14,6 @@
     border: none;
     position: absolute;
     background-color: transparent;
-  }
-  #home__img__slide {
   }
 
   @include respond(tab-port) {
@@ -41,23 +38,7 @@
     display: flex;
     overflow: hidden;
   }
-  &__content {
-    height: 100vh;
-    width: 100%;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
 
-    font-size: 1.5rem;
-    background-position: center;
-
-    background-size: cover;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    transition: all 0.2s ease;
-  }
   &__top {
     position: fixed;
     top: 0;
@@ -290,12 +271,6 @@
   }
 }
 
-#Splide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
 #SplideSlide {
   position: absolute;
   width: 100%;
@@ -324,4 +299,10 @@
   display: none;
 
   right: 0.5rem;
+}
+
+#Splide {
+  position: relative;
+  height: 80vh;
+  width: 100%;
 }
