@@ -1,6 +1,29 @@
 import React from "react";
 import styled from "styled-components";
 
+export const LogoImageMedium = () => {
+  return <LogoImageM src="/logo.svg" alt="logo-white-1" />;
+};
+
+export const LogoImageLarge = () => {
+  return <LogoImageL src="/logo.svg" alt="logo-white-1" />;
+};
+export const LogoSizeL = () => {
+  return (
+    <LogoWrap>
+      <LogoImageLarge />
+    </LogoWrap>
+  );
+};
+
+export const LogoSizeM = () => {
+  return (
+    <LogoWrap>
+      <LogoImageMedium />
+    </LogoWrap>
+  );
+};
+
 const LogoWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -8,21 +31,15 @@ const LogoWrap = styled.div`
   justify-content: center;
   height: auto;
   width: 100%;
+  overflow: hidden;
 `;
 
-const LogoImage = styled.img`
-  width: 11rem;
-  height: 11rem;
+const LogoImageL = styled.img`
+  width: 13rem;
+  height: 13rem;
 `;
-const Logo = () => {
-  return (
-    <LogoWrap>
-      <LogoImage
-        src=" ../public/2023_VISTA/logo-white-1.png"
-        alt="logo-white-1"
-      />
-    </LogoWrap>
-  );
-};
 
-export default Logo;
+const LogoImageM = styled.img`
+  width: 7rem;
+  height: 7rem;
+`;
