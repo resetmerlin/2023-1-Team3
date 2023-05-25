@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+name: CI
+
+# "frontend" branch에 push, pull 이벤트가 발생하게 되면 workflows를 동작하게 합니다.
+on:
+  push:
+    branches: [ "frontend" ]
+  pull_request:
+    branches: [ "frontend" ]
+
+jobs:
+  build:
+    # 리눅스 환경 설정
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # 해당 프로젝트를 리눅스 환경에 checkout하고 나서 실행
+      - uses: actions/checkout@v3
+
+      # Node.js 위에서 실행
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+
+      # Secrets에 명시한 node version 사용
+        with:
+          node-version: ${{ secrets.NODE_VERSION }}
+
+      # node_modules 변화가 있을때만 npm install
+      - name: Cache node modules
+        uses: actions/cache@v2
+        
+      # 해당 step을 대표하는 id로 cache
+        id: cache
+        with:
+          # node_modules라는 폴더를 검사하여
+          path: node_modules
+          # 아래 키값으로 cache가 돼있는지 확인
+          key: npm-packages-${{ hashFiles('**/package-lock.json') }}
+  
+      - name: Install Dependencies
+        # 위 step에서 모듈에 변한 게 있다면 `npm install`을 실행하고 아니면 해당 step을 건너뛰게 된다
+        # if 키워드는 해당 스텝을 실행할지 말지를 결정하여 `steps.cache.outputs.cache-hit`으로 cache가 hit 됐는지 확인
+        # 그 값이 true가 아닐 때만 npm install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - run: npm run build
+        if: ${{ always() }}
