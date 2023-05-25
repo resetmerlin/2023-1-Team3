@@ -1,5 +1,5 @@
 # This is a basic workflow to help you get started with Actions
-name: CI
+name: test-react-application
 
 # "frontend" branch에 push, pull 이벤트가 발생하게 되면 workflows를 동작하게 합니다.
 on:
@@ -20,7 +20,7 @@ jobs:
 
       # Node.js 위에서 실행
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
 
       # Secrets에 명시한 node version 사용
         with:
@@ -28,7 +28,7 @@ jobs:
 
       # node_modules 변화가 있을때만 npm install
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         
       # 해당 step을 대표하는 id로 cache
         id: cache
