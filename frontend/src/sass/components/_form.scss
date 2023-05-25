@@ -12,26 +12,6 @@
       font-weight: 400;
     }
 
-    input {
-      margin: 0.5rem 0;
-      border: 1px solid rgb(141 145 157);
-      font-size: 1rem;
-      border: none;
-      border-bottom: 1px solid rgb(141 145 157);
-      transition: all 0.1s ease;
-      padding: 0 0.5rem;
-      input.required {
-        border: 1px solid red;
-        padding: 8px;
-      }
-      &:focus {
-        border-radius: 5px;
-      }
-      @include respond(big-desktop) {
-        font-size: 0.8rem;
-      }
-    }
-
     .form-input-wrap {
       display: flex;
       flex-direction: column;
@@ -39,11 +19,6 @@
       // input:invalid[focused="true"] ~ span {
       //   display: block;
       // }
-    }
-    .form-input-email__wrap {
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
     }
 
     .form-input-email {
