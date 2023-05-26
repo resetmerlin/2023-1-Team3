@@ -9,25 +9,30 @@ const selectCodeInfo = (state) => state.codeInfo;
 
 export const memoizedRegisterInfo = createSelector(
   [registerInfo],
-  (registerInfo) => {
-    return registerInfo;
-  }
+  (registerInfo) => registerInfo
 );
 
-export const memoizedCodeInfo = createSelector([selectCodeInfo], (codeInfo) => {
-  return codeInfo;
-});
+export const memoizedCodeInfo = createSelector(
+  [selectCodeInfo],
+  (codeInfo) => codeInfo
+);
 
 export const memoizedEmailInfo = createSelector(
   [selelctEmailInfo],
-  (emailInfo) => {
-    return emailInfo;
-  }
+  (emailInfo) => emailInfo
 );
 
 export const selectLoginToken = createSelector(
   [selectLoginInfo],
-  (loginInfo) => {
-    return loginInfo;
-  }
+  (loginInfo) => loginInfo
+);
+
+export const authToken = createSelector(
+  [selectLoginInfo],
+  (loginInfo) => loginInfo?.sessfbs_ffa0934
+);
+
+export const reAuthToken = createSelector(
+  [selectLoginInfo],
+  (loginInfo) => loginInfo?.sessfbs_ffa0934?.refreshToken
 );
