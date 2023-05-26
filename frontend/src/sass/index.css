@@ -58,7 +58,7 @@ body {
 
 body {
   display: block;
-  font-family: "Roboto", sans-serif;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 .container {
@@ -135,6 +135,23 @@ body {
   }
   50% {
     color: white;
+  }
+}
+@keyframes horizontal-shaking {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 .center {
@@ -306,7 +323,6 @@ body {
 }
 
 .logo {
-  font-family: "Righteous", cursive;
   position: fixed;
   top: 2%;
   left: 2%;
@@ -323,7 +339,6 @@ body {
   flex-direction: column;
   align-items: center;
   font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
 }
 .home__slide__btn {
   top: 50%;
@@ -363,21 +378,6 @@ body {
   height: 100%;
   display: flex;
   overflow: hidden;
-}
-.home__content {
-  height: 100vh;
-  width: 100%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  font-size: 1.5rem;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  overflow: hidden;
-  transition: all 0.2s ease;
 }
 .home__top {
   position: fixed;
@@ -623,12 +623,6 @@ body {
   width: 25%;
 }
 
-#Splide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
 #SplideSlide {
   position: absolute;
   width: 100%;
@@ -659,20 +653,20 @@ body {
   right: 0.5rem;
 }
 
+#Splide {
+  position: relative;
+  height: 80vh;
+  width: 100%;
+}
+
 .message {
-  height: 90%;
-  top: 10%;
+  height: 100%;
   position: absolute;
   width: 100%;
   display: flex;
   flex-direction: column;
-  font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
   font-size: 1rem;
-  color: white;
-  background-color: black;
   align-self: start;
-  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .message__title {
   font-size: 1.3rem;
@@ -767,7 +761,6 @@ body {
   flex-direction: column;
   align-items: center;
   font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
   color: white;
   background-color: black;
 }
@@ -901,19 +894,15 @@ body {
 }
 
 .save {
-  height: 90%;
-  top: 10%;
+  height: 100%;
   position: absolute;
   width: 100%;
   display: flex;
   flex-direction: column;
   font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
   font-size: 1rem;
-  color: white;
-  background-color: black;
+  color: black;
   align-self: start;
-  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .save__title {
   font-size: 1.2rem;
@@ -923,66 +912,11 @@ body {
   font-weight: 600;
   color: rgb(128, 132, 143);
 }
-.save__row {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  padding: 0 2rem;
-}
-.save__column {
-  display: flex;
-  width: 100%;
-  height: 4rem;
-  margin: 0.7rem 0;
-  align-items: center;
-  transition: all 0.1s ease-in;
-  cursor: pointer;
-}
 .save__column:hover {
   background-color: rgb(41, 41, 41);
 }
-.save__column .save__profile {
-  width: 15%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
 .save__column .save__profile #popup-profile {
   display: none;
-}
-.save__column .save__profile label {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-.save__column .save__profile img {
-  width: 3.8rem;
-  height: 3.8rem;
-  border-radius: 50%;
-  padding: 0px;
-  line-height: 3.8rem;
-  text-align: center;
-}
-.save__column .save__desc {
-  font-size: 1rem;
-  width: 70%;
-  height: 84%;
-  margin: 0 1.5rem;
-  display: flex;
-  font-weight: 600;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-}
-.save__column .save__desc a {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  text-decoration: none;
-  color: white;
 }
 .save__column .save__desc__conversation {
   width: 100%;
@@ -990,24 +924,6 @@ body {
   white-space: normal;
   overflow: hidden;
   color: rgb(196, 196, 196);
-}
-.save__column .save__delete {
-  font-size: 0.9rem;
-  width: 15%;
-  height: 90%;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 0;
-}
-.save__column .save__delete button {
-  background-color: transparent;
-  border: none;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
 }
 .save__column .save__delete__time {
   width: 100%;
@@ -1035,7 +951,6 @@ body {
   display: flex;
   flex-direction: column;
   font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
   font-size: 1rem;
   color: white;
   background-color: black;
@@ -1259,7 +1174,6 @@ body {
   display: flex;
   flex-direction: column;
   font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
   font-size: 1rem;
   color: white;
   background-color: black;
@@ -1320,19 +1234,6 @@ body {
   }
 }
 
-.header {
-  display: flex;
-  position: absolute;
-  width: 100%;
-  height: 10%;
-  padding: 0 2rem;
-  justify-content: flex-start;
-  align-items: center;
-  font-family: "Noto Sans KR", sans-serif;
-  color: white;
-  background-color: black;
-}
-
 .form-header {
   height: 10rem !important;
   display: flex;
@@ -1358,36 +1259,9 @@ body {
   margin-top: 1rem;
   font-weight: 400;
 }
-.form__wrap form input {
-  margin: 0.5rem 0;
-  border: 1px solid rgb(141, 145, 157);
-  font-size: 1rem;
-  border: none;
-  border-bottom: 1px solid rgb(141, 145, 157);
-  transition: all 0.1s ease;
-  padding: 0 0.5rem;
-}
-.form__wrap form input input.required {
-  border: 1px solid red;
-  padding: 8px;
-}
-.form__wrap form input:focus {
-  border-radius: 5px;
-}
-@media screen and (min-width: 1281px) {
-  .form__wrap form input {
-    /* hi-res laptops and desktops */
-    font-size: 0.8rem;
-  }
-}
 .form__wrap form .form-input-wrap {
   display: flex;
   flex-direction: column;
-}
-.form__wrap form .form-input-email__wrap {
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
 }
 .form__wrap form .form-input-email {
   width: 100%;
@@ -1481,7 +1355,6 @@ body {
   flex-direction: column;
   align-items: center;
   font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
   top: 0;
   z-index: 10000 !important;
 }
@@ -1622,6 +1495,20 @@ body {
   transform: translate(-50%, -50%);
   z-index: 1000;
   border: 3px solid black;
+}
+
+.ReactCrop__crop-selection {
+  border: 1px solid #fff !important;
+}
+
+.ReactCrop__drag-handle::after {
+  width: 10px !important;
+  height: 10px !important;
+  background-color: white !important;
+}
+
+.ReactCrop__child-wrapper {
+  height: 100% !important;
 }
 
 .progress-bar {
