@@ -3,7 +3,8 @@ import Footer from "../components/Footer";
 import SaveList from "../components/SaveList";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
+import { SaveHeader } from "../components/Header";
+import { BackButton } from "../components/Button";
 import { getSaveListAction } from "../actions/saveAction";
 const SaveScreen = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,8 @@ const SaveScreen = () => {
 
   return (
     <section className="save">
-      <span className="save__title">Your save list</span>
+      <BackButton />
+      <SaveHeader />
 
       <SaveList saveListStatus={saveListStatus} />
       <Footer />
