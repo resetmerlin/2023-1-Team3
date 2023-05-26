@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SaveUserColumn from "./SaveUserColumn";
 import { useDispatch, useSelector } from "react-redux";
 import { getSaveListAction } from "../actions/saveAction";
-
+import { styled } from "styled-components";
 const SaveList = ({ saveListStatus }) => {
   const [popupChecked, setPopupChecked] = useState(false);
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const SaveList = ({ saveListStatus }) => {
       ) : (
         ""
       )}
-      <div className="save__row">
+      <SaveRow>
         {saveListStatus?.memberResponses.map((user) => {
           return <SaveUserColumn key={user.memberId} user={user} />;
         })}
@@ -74,9 +74,37 @@ const SaveList = ({ saveListStatus }) => {
             <box-icon name="chevron-up"></box-icon>{" "}
           </button>
         )}
-      </div>
+      </SaveRow>
     </>
   );
 };
 
+const SaveRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0 0.8rem;
+  height: 82vh;
+  position: absolute;
+  align-items: start;
+  overflow: scroll;
+  justify-content: start;
+  flex: 1;
+  top: 9%;
+
+  // .save-column:nth-child(2n) {
+  //   height: 40%;
+  // }
+  .save-column:nth-child(2) {
+  }
+  // .flex-item:nth-child(1) {
+  //   order: 2; /* Change the order of the first flex item */
+  // }
+
+  // .flex-item:nth-child(2) {
+  //   order: 3; /* Change the order of the second flex item */
+  // }
+`;
 export default SaveList;
