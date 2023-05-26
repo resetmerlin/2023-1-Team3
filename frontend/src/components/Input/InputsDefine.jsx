@@ -9,7 +9,7 @@ export const emailInput = {
   id: "email",
   name: "email",
   type: "email",
-  placeholder: "Email",
+  placeholder: "example@dankook.ac.kr",
 };
 
 export const nameInput = {
@@ -18,7 +18,10 @@ export const nameInput = {
   type: "text",
   placeholder: "Name",
 };
-
+export const majorInput = {
+  id: "major",
+  name: "major",
+};
 export const passwordInput = {
   id: "password",
   name: "password",
@@ -48,6 +51,18 @@ export const maleInput = {
 
 export const birthdayInput = { id: "birthday", name: "birthday", type: "date" };
 
+export const profileInput = {
+  id: "profile",
+  name: "profile",
+  type: "file",
+  accept: "image/*",
+};
+export const descriptionInput = {
+  id: "description",
+  name: "description",
+  type: "text",
+  placeholder: "오후 8시에 같이 놀 사람 곰상 앞에 모여요.",
+};
 export const securityEditInput = [
   {
     id: "pastPassword",
