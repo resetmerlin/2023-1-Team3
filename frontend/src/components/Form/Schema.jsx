@@ -12,7 +12,10 @@ export const registerSchema = yup
     email: yup
       .string()
       .required("이메일을 입력하세요")
-      .matches(/\S+@dankook\.ac\.kr/, "@dankook.ac.kr 형식에 맞게 작성하세요"),
+      .matches(
+        /^[^\s@]+@dankook\.ac\.kr$/,
+        "@dankook.ac.kr 형식에 맞게 작성하세요"
+      ),
 
     password: yup
       .string()
@@ -35,6 +38,8 @@ export const registerSchema = yup
         "19살 이상만 이용가능합니다."
       ),
     gender: yup.string().required("성별은 필수 입력란 입니다."),
+    major: yup.string().required("학과는 필수 입력란 입니다."),
+    description: yup.string(),
   })
   .required();
 
@@ -44,7 +49,10 @@ export const loginSchema = yup
     email: yup
       .string()
       .required("이메일을 입력하세요")
-      .matches(/\S+@dankook\.ac\.kr/, "@dankook.ac.kr 형식에 맞게 작성하세요"),
+      .matches(
+        /^[^\s@]+@dankook\.ac\.kr$/,
+        "@dankook.ac.kr 형식에 맞게 작성하세요"
+      ),
 
     password: yup
       .string()
