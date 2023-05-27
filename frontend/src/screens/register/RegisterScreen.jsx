@@ -10,10 +10,7 @@ import {
   loginAction,
 } from "../../actions/userAction";
 import ProgressBar from "../../components/ProgressBar";
-import {
-  memoizedCodeInfo,
-  memoizedRegisterInfo,
-} from "../../hooks/MemoizedRedux";
+import { memoizedRegisterInfo } from "../../hooks/MemoizedRedux";
 import Loading from "../../components/Loading";
 import { styled } from "styled-components";
 import {
@@ -22,6 +19,12 @@ import {
   GoFormButton,
 } from "../../components/Button";
 import { HorizontalLine } from "../../components/HorizontalLine";
+
+import {
+  registerCodeResetAction,
+  registerEmailResetAction,
+  registerResetAction,
+} from "../../actions/resetAction";
 const RegisterScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -100,27 +103,33 @@ const RegisterScreen = () => {
           birth: data.birthday?.toISOString().split("T")[0],
         })
       );
-      dispatch(
-        loginAction({
-          mail: data.email,
-          password: data.password,
-        })
-      );
+
+      startLogin(data);
     }
+  };
+
+  const startLogin = (data) => {
+    dispatch(
+      loginAction({
+        mail: data.email,
+        password: data.password,
+      })
+    );
   };
   useEffect(() => {
     /** 회원가입 성공할 시 로그인 화면으로 navigate*/
-    if (
-      registerInfo?.registerStatus &&
-      registerInfo?.registerLoading === false
-    ) {
-      setCurrentStep(6);
+    if (registerInfo?.registerStatus && registerInfo?.loading === false) {
+      setCurrentStep(7);
     }
-  }, [
-    registerInfo?.registerStatus,
-    setCurrentStep,
-    registerInfo?.registerLoading,
-  ]);
+  }, [registerInfo?.registerStatus, setCurrentStep, registerInfo?.loading]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(registerResetAction());
+      dispatch(registerEmailResetAction());
+      dispatch(registerCodeResetAction());
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     /**  코드 countdown 작동 */
