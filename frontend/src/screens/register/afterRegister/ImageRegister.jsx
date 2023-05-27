@@ -91,6 +91,7 @@ const ImageRegister = ({ handleNext, dispatch }) => {
   return (
     <>
       <SetImageDefault
+        type="button"
         onClick={() => {
           setImgSrc("");
         }}
