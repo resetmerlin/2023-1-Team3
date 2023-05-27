@@ -12,7 +12,6 @@ import {
 import ProgressBar from "../../components/ProgressBar";
 import {
   memoizedCodeInfo,
-  memoizedEmailInfo,
   memoizedRegisterInfo,
 } from "../../hooks/MemoizedRedux";
 import Loading from "../../components/Loading";
@@ -26,10 +25,10 @@ import { HorizontalLine } from "../../components/HorizontalLine";
 const RegisterScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const emailInfo = useSelector(memoizedEmailInfo);
+  const emailInfo = useSelector((state) => state.emailInfo);
 
   /** code 인증 이후 에러를 보여주기 위해 codeInfo 가져옴*/
-  const codeInfo = useSelector(memoizedCodeInfo);
+  const codeInfo = useSelector((state) => state.codeInfo);
 
   /** 회원가입 후 response값을 보기 위해 가져옴*/
   const registerInfo = useSelector(memoizedRegisterInfo);
