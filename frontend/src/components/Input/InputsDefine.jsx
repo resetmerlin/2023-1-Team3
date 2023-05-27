@@ -61,7 +61,7 @@ export const descriptionInput = {
   id: "description",
   name: "description",
   type: "text",
-  placeholder: "오후 8시에 같이 놀 사람 곰상 앞에 모여요.",
+  placeholder: "",
 };
 export const securityEditInput = [
   {
