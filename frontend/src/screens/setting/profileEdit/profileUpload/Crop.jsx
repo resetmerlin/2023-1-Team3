@@ -19,7 +19,7 @@ const Crop = ({ readFileImage }) => {
         type="file"
         name="profile"
         id="profile"
-        accept="image/jpg, image/gif, image/png , image/bmp, image/jpeg,"
+        accept="image/*"
         style={{ display: "none" }}
         onChange={readFileImage}
       />
