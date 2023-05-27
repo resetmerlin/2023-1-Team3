@@ -2,7 +2,6 @@ import React from "react";
 
 import {
   EmailNextStepButton,
-  NextStepButton,
   VerifyButton,
   VerifyCodeButton,
 } from "../../../components/Button";
