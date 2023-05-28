@@ -81,7 +81,7 @@ const RegisterScreen = () => {
     }
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (
       !codeInfo?.error &&
       data.email &&
@@ -92,7 +92,7 @@ const RegisterScreen = () => {
       data.gender &&
       data.birthday
     ) {
-      dispatch(
+      await dispatch(
         registerAction({
           mail: data.email,
           department: data.major,
