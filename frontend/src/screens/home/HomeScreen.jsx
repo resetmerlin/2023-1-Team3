@@ -50,7 +50,7 @@ const HomeScreen = () => {
   const getMoreUserHandler = (e) => {
     if (e !== previousPage.current) {
       previousPage.current = e;
-    } else if (previousPage.current == 4) {
+    } else if (previousPage.current == peopleListStatus?.count - 1) {
       getUserFromServer();
     }
   };
@@ -64,9 +64,9 @@ const HomeScreen = () => {
 
   const getPreviousUserHandler = () => {
     const getNextPage =
-      splideRef.current.splide.Components.Controller.getNext();
+      splideRef?.current.splide.Components.Controller.getNext();
 
-    if (previousPage.current == 4) {
+    if (previousPage?.current == peopleListStatus?.count - 1) {
       getUserFromServer();
     } else {
       splideRef.current.splide.Components.Controller.go(getNextPage);
