@@ -35,6 +35,9 @@ function App() {
             <Route path="/" element={<HomeScreen />} exact></Route>
           </Route>
           <Route element={<RequireAuth />}>
+            <Route path="/save" element={<SaveScreen />} exact></Route>
+          </Route>
+          <Route element={<RequireAuth />}>
             <Route path="/message" element={<MessageScreen />} exact></Route>
           </Route>
 
@@ -44,10 +47,6 @@ function App() {
               element={<ConversationScreen />}
               exact
             ></Route>
-          </Route>
-
-          <Route element={<RequireAuth />}>
-            <Route path="/save" element={<SaveScreen />} exact></Route>
           </Route>
 
           <Route element={<RequireAuth />}>
