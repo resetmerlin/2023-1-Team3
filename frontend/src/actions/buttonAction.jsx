@@ -37,12 +37,40 @@ export const saveUserAction = (toId, signal) => async (dispatch, getState) => {
 
     dispatch({ type: BUTTON_SAVE_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({
-      type: BUTTON_SAVE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.messge,
-    });
+    try {
+      dispatch({ type: BUTTON_SAVE_REQUEST });
+
+      const {
+        loginInfo: { sessfbs_ffa0934 },
+      } = getState();
+
+      const params = {
+        toId: toId,
+        signal: signal,
+      };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessfbs_ffa0934.refreshToken}`,
+        },
+      };
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_API_URL}/member/choice?toId=${
+          params.toId
+        }&likeSignal=${params.signal}`,
+        params,
+        config
+      );
+
+      dispatch({ type: BUTTON_SAVE_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: BUTTON_SAVE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.messge,
+      });
+    }
   }
 };
