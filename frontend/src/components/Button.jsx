@@ -191,6 +191,31 @@ export const UserDeleteButton = memo(function UserDeleteButton({
   );
 });
 
+export const RecapUserListsButton = memo(function UserDeleteButton({
+  getPeopleList,
+}) {
+  return (
+    <SmallNextButton>
+      <NextButton
+        style={{
+          fontSize: "1rem",
+          fontWeight: "800",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        type="button"
+        onClick={() => {
+          getPeopleList();
+        }}
+      >
+        유저 다시보기
+        <box-icon name="chevron-right" color="white" size="2rem"></box-icon>
+      </NextButton>
+    </SmallNextButton>
+  );
+});
+
 export const UserMessageButton = () => {
   return (
     <SmallUserButton type="button">
@@ -278,6 +303,13 @@ export const GoFormButton = ({ page, navigate }) => {
   );
 };
 
+const SmallNextButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.3rem;
+  width: 45%;
+`;
 const GoAnotherForm = styled.button`
   height: 2rem;
   color: rgb(128, 113, 252);
