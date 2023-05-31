@@ -73,8 +73,8 @@ const NoValueWrap = styled.div`
   flex-direction: column;
   padding: 0.7rem 0;
   align-items: center;
-  box-shadow: 0px 0px 17px 6px rgb(236, 234, 247, 1);
-  -webkit-box-shadow: 0px 0px 17px 6px rgb(236, 234, 247, 1);
-  -moz-box-shadow: 0px 0px 17px 6px rgb(236, 234, 247, 1);
+  // box-shadow: 0px 0px 17px 6px rgb(236, 234, 247, 1);
+  // -webkit-box-shadow: 0px 0px 17px 6px rgb(236, 234, 247, 1);
+  // -moz-box-shadow: 0px 0px 17px 6px rgb(236, 234, 247, 1);
 `;
 export default NoValueUser;
