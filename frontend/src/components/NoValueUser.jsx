@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { styled } from "styled-components";
 import { HomeWrap } from "../screens/home/HomeContent";
 import { RecapUserListsButton } from "./Button";
-const NoValueUser = ({ getPeopleList }) => {
+const NoValueUser = memo(function NoValueUser({ getPeopleList }) {
   return (
     <HomeWrap>
       <NoValueWrap>
@@ -30,7 +30,7 @@ const NoValueUser = ({ getPeopleList }) => {
       </NoValueWrap>
     </HomeWrap>
   );
-};
+});
 
 const NoValueTextBig = styled.span`
   font-size: 1.6rem;
