@@ -41,8 +41,6 @@ const SaveScreen = () => {
         (entries) => {
           const observedPage = entries[0];
           if (observedPage?.isIntersecting) {
-            /** 다시 위로 ,아래로 스크롤 할 시 발생되는 API 방지  */
-            observer.unobserve(ScrollRowRef?.current);
             /** 새로운 유저 리스트 call */
             getSaveList(savePage);
           }
@@ -51,32 +49,30 @@ const SaveScreen = () => {
       );
 
       /** Ref로 지정한 마지막 element 관찰 */
-      observer.observe(ScrollRowRef?.current);
+      let targetElement = ScrollRowRef.current;
+      observer.observe(targetElement);
 
       return () => {
         /**  element 관찰 취소 */
-        observer.unobserve(ScrollRowRef?.current);
+        observer.unobserve(targetElement);
       };
     }
   }, [ScrollRowRef?.current, getSaveList, saveListStatus?.endPageSignal]);
 
   return (
     <section className="save">
-      <BackButton navigate={navigate} />
-      <SaveHeader />
+      <SaveHeader navigate={navigate} />
       <SaveRow>
         {saveListStatus?.memberResponses &&
           saveListStatus?.memberResponses?.map((user, index) => {
-            return (
+            return index == saveListStatus?.memberResponses?.length - 1 ? (
               <UserCardColumn
                 key={user.memberId}
                 user={user}
-                ref={
-                  index == saveListStatus?.memberResponses?.length - 1
-                    ? ScrollRowRef
-                    : null
-                }
+                ref={ScrollRowRef}
               />
+            ) : (
+              <UserCardColumn key={user.memberId} user={user} />
             );
           })}
       </SaveRow>
