@@ -1,11 +1,8 @@
 import React from "react";
-import { peopleListAction } from "../actions/peopleAction";
-import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
 import { HomeWrap } from "../screens/home/HomeContent";
-const NoValueUser = ({ endPageSignal }) => {
-  const dispatch = useDispatch();
-
+import { RecapUserListsButton } from "./Button";
+const NoValueUser = ({ getPeopleList }) => {
   return (
     <HomeWrap>
       <NoValueWrap>
@@ -17,15 +14,18 @@ const NoValueUser = ({ endPageSignal }) => {
           <NoValueTextBig>더 볼 유저가 없습니다.. </NoValueTextBig>
           <NoValueTextSmall>처음부터 유저를 다시 볼까요?</NoValueTextSmall>
         </NoValueTextWrap>
-        <NoValueTextWrap>
-          <button onClick={() => dispatch(peopleListAction())}>
-            마지막 페이지입니다, 다시 보겠습니까? 클릭!
-          </button>
-          <NoValueTextSmall
-            style={{ fontSize: "0.8rem", color: "rgb(128, 113, 252)" }}
+        <NoValueTextWrap style={{ height: "27%" }}>
+          <RecapUserListsButton getPeopleList={getPeopleList} />
+
+          {/* <NoValueTextSmall
+            style={{
+              fontSize: "0.8rem",
+              color: "rgb(128, 113, 252)",
+              marginTop: "1rem",
+            }}
           >
-            유저 다시보기가 안된다면 저장화면에 가보세요!
-          </NoValueTextSmall>
+            다시보기가 되지 않으면 저장화면에 가보세요!
+          </NoValueTextSmall> */}
         </NoValueTextWrap>
       </NoValueWrap>
     </HomeWrap>
@@ -33,7 +33,7 @@ const NoValueUser = ({ endPageSignal }) => {
 };
 
 const NoValueTextBig = styled.span`
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
   padding: 0.7rem 0;
 `;
@@ -43,10 +43,10 @@ const NoValueTextWrap = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 25%;
+  height: 23%;
 `;
 const NoValueTextSmall = styled.span`
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
 `;
 
