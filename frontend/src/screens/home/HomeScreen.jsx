@@ -132,7 +132,7 @@ const HomeScreen = () => {
 
             {peopleListStatus?.endPageSignal && (
               <SplideSlide>
-                <NoValueUser />{" "}
+                <NoValueUser getPeopleList={getPeopleList} />{" "}
               </SplideSlide>
             )}
           </SplideTrack>
