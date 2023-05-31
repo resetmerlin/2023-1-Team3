@@ -84,7 +84,7 @@ const HomeScreen = () => {
     splideRef.current.splide.Components.Controller.go(0);
   };
 
-  const getPreviousUserHandler = useCallback(() => {
+  const goNextSlideHandler = useCallback(() => {
     const getNextPage =
       splideRef?.current.splide.Components.Controller.getNext();
 
@@ -123,7 +123,7 @@ const HomeScreen = () => {
                         peopleListLoading={peopleListLoading}
                         dispatch={dispatch}
                         sendLikeUser={sendLikeUser}
-                        getPreviousUserHandler={getPreviousUserHandler}
+                        goNextSlideHandler={goNextSlideHandler}
                       />
                     </SplideSlide>
                   </Suspense>
