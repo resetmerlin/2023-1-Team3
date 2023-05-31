@@ -1,11 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import { styled } from "styled-components";
 import { BoxIconElement } from "boxicons";
 import { UserDeleteButton, UserLikeButton, UserMessageButton } from "./Button";
 const UserCard = ({
   userDetail,
   sendLikeUser,
-  getPreviousUserHandler,
+  goNextSlideHandler,
   saveValue,
   setSaveValue,
   age,
@@ -28,7 +28,7 @@ const UserCard = ({
         <UserInfoDesc>{userDetail?.department}</UserInfoDesc>
       </UserInfoContent>
       <ButtonWrap>
-        <UserDeleteButton getPreviousUserHandler={getPreviousUserHandler} />
+        <UserDeleteButton goNextSlideHandler={goNextSlideHandler} />
         <UserLikeButton
           saveValue={saveValue}
           setSaveValue={setSaveValue}
