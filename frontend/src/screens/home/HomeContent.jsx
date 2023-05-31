@@ -7,7 +7,7 @@ const HomeContent = ({
   user,
   sendLikeUser,
   peopleListLoading,
-  getPreviousUserHandler,
+  goNextSlideHandler,
 }) => {
   const age =
     new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
@@ -24,7 +24,7 @@ const HomeContent = ({
         ) : (
           <HomeInfo>
             <UserCard
-              getPreviousUserHandler={getPreviousUserHandler}
+              goNextSlideHandler={goNextSlideHandler}
               userDetail={user}
               saveValue={saveValue}
               setSaveValue={setSaveValue}
