@@ -1,94 +1,44 @@
-import React from "react";
-import "@splidejs/react-splide/css";
-import HomeMain from "./HomeMain";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import Loading from "../../components/Loading";
+import UserCard from "../../components/UserCard";
+import UserCardImage from "../../components/UserCardImage";
 const HomeContent = ({
   user,
-  dispatch,
-  saveUserAction,
+  sendLikeUser,
   peopleListLoading,
   getPreviousUserHandler,
 }) => {
+  const age =
+    new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
+
+  const [saveValue, setSaveValue] =
+    useState(false); /** 좋아요 버튼 Handler 함수 */
   return (
     <HomeWrap>
       <HomeContentWrap>
-        {user?.image == "DEFAULT" && user?.gender == "MALE" ? (
-          <HomeCard
-            className="home__content"
-            style={{
-              backgroundImage: `
-    url('../public/default/default-men.png')`,
-              backgroundRepeat: "none",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          ></HomeCard>
-        ) : user?.image == "DEFAULT" && user?.gender == "FEMALE" ? (
-          <HomeCard
-            className="home__content"
-            style={{
-              backgroundImage: `
-  url('../public/default/default-women.png')`,
-              backgroundRepeat: "none",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          ></HomeCard>
-        ) : (
-          <HomeCard
-            className="home__content"
-            style={{
-              backgroundImage: `linear-gradient(
-  359deg,
-  rgba(0, 0, 0, 0.829) 20%,
-
-  rgba(0, 0, 0, 0.629) 30%,
-
-  rgba(0, 0, 0, 0.144) 100%
-),
-url(${user?.image}`,
-            }}
-          ></HomeCard>
-        )}
+        <UserCardImage user={user} />
 
         {peopleListLoading ? (
           <Loading />
         ) : (
-          <>
-            <HomeInfo>
-              <HomeMain
-                getPreviousUserHandler={getPreviousUserHandler}
-                userDetail={user}
-                dispatch={dispatch}
-                saveUserAction={saveUserAction}
-              />
-            </HomeInfo>
-          </>
+          <HomeInfo>
+            <UserCard
+              getPreviousUserHandler={getPreviousUserHandler}
+              userDetail={user}
+              saveValue={saveValue}
+              setSaveValue={setSaveValue}
+              age={age}
+              sendLikeUser={sendLikeUser}
+            />
+          </HomeInfo>
         )}
       </HomeContentWrap>
     </HomeWrap>
   );
 };
 
-const HomeCard = styled.div`
-  height: 77%;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  font-size: 1.5rem;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  overflow: hidden;
-  transition: all 0.2s ease;
-  border-radius: 12px;
-`;
-
-const HomeWrap = styled.div`
+export const HomeWrap = styled.div`
   position: absolute;
   height: 96%;
   width: 100%;
