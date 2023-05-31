@@ -1,52 +1,54 @@
-import React from "react";
+import React, { forwardRef, memo } from "react";
 
 import { styled } from "styled-components";
 
-const UserCardColumn = ({ user }) => {
-  return (
-    <ColumnBig>
-      {user?.image == "DEFAULT" && user?.gender == "MALE" ? (
-        <UserColumnProfile
-          style={{
-            backgroundImage: `
+const UserCardColumn = memo(
+  forwardRef(({ user }, ref) => {
+    return (
+      <ColumnBig ref={ref}>
+        {user?.image == "DEFAULT" && user?.gender == "MALE" ? (
+          <UserColumnProfile
+            style={{
+              backgroundImage: `
     url('./default/default-men.png')`,
-            backgroundRepeat: "none",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-          alt="save-profile"
-        ></UserColumnProfile>
-      ) : user?.image == "DEFAULT" && user?.gender == "FEMALE" ? (
-        <UserColumnProfile
-          style={{
-            backgroundImage: `
+              backgroundRepeat: "none",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            alt="save-profile"
+          ></UserColumnProfile>
+        ) : user?.image == "DEFAULT" && user?.gender == "FEMALE" ? (
+          <UserColumnProfile
+            style={{
+              backgroundImage: `
     url('./default/default-women.png')`,
-            backgroundRepeat: "none",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-          alt="save-profile"
-        ></UserColumnProfile>
-      ) : (
-        <UserColumnProfile
-          style={{
-            backgroundImage: `
+              backgroundRepeat: "none",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            alt="save-profile"
+          ></UserColumnProfile>
+        ) : (
+          <UserColumnProfile
+            style={{
+              backgroundImage: `
   url(${user?.image}`,
-            backgroundRepeat: "none",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-          alt="save-profile"
-        ></UserColumnProfile>
-      )}
+              backgroundRepeat: "none",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            alt="save-profile"
+          ></UserColumnProfile>
+        )}
 
-      <UserColumnDescWrap>
-        <UserColumnName>{user?.name}</UserColumnName>
-        <UserColumnMajor>{user?.department}</UserColumnMajor>
-      </UserColumnDescWrap>
-    </ColumnBig>
-  );
-};
+        <UserColumnDescWrap>
+          <UserColumnName>{user?.name}</UserColumnName>
+          <UserColumnMajor>{user?.department}</UserColumnMajor>
+        </UserColumnDescWrap>
+      </ColumnBig>
+    );
+  })
+);
 const ColumnBig = styled.div`
   display: flex;
   width: 47%;
