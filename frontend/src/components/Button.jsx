@@ -207,8 +207,7 @@ export const UserMessageButton = () => {
 export const UserLikeButton = memo(function UserLikeButton({
   saveValue,
   setSaveValue,
-  dispatch,
-  saveUserAction,
+  sendLikeUser,
   memberId,
 }) {
   return (
@@ -225,7 +224,7 @@ export const UserLikeButton = memo(function UserLikeButton({
       onClick={async () => {
         setSaveValue((state) => !state);
 
-        await dispatch(saveUserAction(memberId, !saveValue));
+        await sendLikeUser(memberId, !saveValue);
       }}
     >
       {saveValue == false && (
