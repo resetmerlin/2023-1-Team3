@@ -2,7 +2,7 @@ import React from "react";
 import { AfterRegisterButton } from "../../../components/Button";
 import { styled } from "styled-components";
 
-const Final = ({ currentStep }) => {
+const Final = ({ currentStep, navigate }) => {
   return (
     <FinalRegisterWrap>
       <FinalRegisterSpan> 가입 완료!</FinalRegisterSpan>
@@ -12,6 +12,7 @@ const Final = ({ currentStep }) => {
         style={{ width: "60%", height: "90%" }}
       />
       <AfterRegisterButton
+        navigate={navigate}
         content={"DLink 이용하러 가기"}
         currentStep={currentStep}
       />
