@@ -177,13 +177,13 @@ export const PreviousStepButton = memo(function PreviousStepButton({
   );
 });
 export const UserDeleteButton = memo(function UserDeleteButton({
-  getPreviousUserHandler,
+  goNextSlideHandler,
 }) {
   return (
     <SmallUserButton
       type="button"
       onClick={() => {
-        getPreviousUserHandler();
+        goNextSlideHandler();
       }}
     >
       <box-icon name="x" color="rgb(128, 113, 252)" size="2.5rem"></box-icon>
