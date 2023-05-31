@@ -111,7 +111,7 @@ const ImageRegister = ({ handleNext, dispatch }) => {
 
       {!!imgSrc && (
         <ReactCrop
-          style={{ height: "30rem", width: "100%" }}
+          style={{ height: "26rem", width: "100%" }}
           crop={crop}
           onChange={(crop, _) => {
             setCrop(crop);
