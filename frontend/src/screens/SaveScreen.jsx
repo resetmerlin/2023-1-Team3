@@ -33,10 +33,12 @@ const SaveScreen = () => {
     if (saveListStatus?.memberResponses.length === 0) {
       getSaveList(0);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    if (saveListStatus?.endPageSignal === false && ScrollRowRef?.current) {
+    let targetElement = ScrollRowRef.current;
+
+    if (saveListStatus?.endPageSignal === false && targetElement) {
       const observer = new IntersectionObserver(
         (entries) => {
           const observedPage = entries[0];
@@ -49,7 +51,6 @@ const SaveScreen = () => {
       );
 
       /** Ref로 지정한 마지막 element 관찰 */
-      let targetElement = ScrollRowRef.current;
       observer.observe(targetElement);
 
       return () => {
