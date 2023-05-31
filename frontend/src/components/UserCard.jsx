@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import { BoxIconElement } from "boxicons";
 import { UserDeleteButton, UserLikeButton, UserMessageButton } from "./Button";
 const UserCard = ({
   userDetail,
-  dispatch,
-  saveUserAction,
+  sendLikeUser,
   getPreviousUserHandler,
+  saveValue,
+  setSaveValue,
+  age,
 }) => {
-  const age =
-    new Date().getFullYear() - new Date(userDetail?.birth).getFullYear() + 1;
-
-  const [saveValue, setSaveValue] =
-    useState(false); /** 좋아요 버튼 Handler 함수 */
-
   return (
     <UserInfoWrap>
       <UserInfoContent>
@@ -36,8 +32,7 @@ const UserCard = ({
         <UserLikeButton
           saveValue={saveValue}
           setSaveValue={setSaveValue}
-          dispatch={dispatch}
-          saveUserAction={saveUserAction}
+          sendLikeUser={sendLikeUser}
           memberId={userDetail?.memberId}
         />
         <UserMessageButton />
