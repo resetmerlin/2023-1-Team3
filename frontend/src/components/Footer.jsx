@@ -1,10 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { styled } from "styled-components";
 import { BoxIconElement } from "boxicons";
 
-const Footer = () => {
+const Footer = memo(function Footer() {
   const location = useLocation().pathname;
 
   return (
@@ -88,12 +88,11 @@ const Footer = () => {
       )}
     </>
   );
-};
+});
 
 const FooterContent = styled.div`
   bottom: 0;
   height: 9vh;
-  position: fixed;
   width: 100%;
   border-top: none;
   display: flex;
@@ -102,7 +101,7 @@ const FooterContent = styled.div`
   align-items: center;
   background-color: white;
   font-size: 2rem;
-  position: fixed;
+  position: absolute;
   box-shadow: -1px 0px 17px 6px rgb(236, 234, 247, 1);
   -webkit-box-shadow: -1px 0px 17px 6px rgb(236, 234, 247, 1);
   -moz-box-shadow: -1px 0px 17px 6px rgb(236, 234, 247, 1);
