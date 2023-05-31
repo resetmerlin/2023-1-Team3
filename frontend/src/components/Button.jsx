@@ -68,7 +68,7 @@ export const BackButton = memo(function BackButton({ navigate }) {
         navigate(-1);
       }}
     >
-      <box-icon name="chevron-left" color="black" size="3rem"></box-icon>
+      <box-icon name="chevron-left" color="black" size="2.5rem"></box-icon>
     </BackArrowButton>
   );
 });
@@ -356,12 +356,7 @@ const NextButton = styled.button`
   cursor: pointer;
 `;
 const BackArrowButton = styled.button`
-  position: fixed;
-  top: 3%;
-  left: 3%;
-
   background-color: transparent;
-
   border: none;
   cursor: pointer;
 `;
