@@ -1,38 +1,33 @@
-import React from "react";
-
-import { Link } from "react-router-dom";
-
-import {
-  codeInput,
-  emailInput,
-  nameInput,
-  passwordInput,
-  secondPasswordInput,
-  femaleInput,
-  maleInput,
-  birthdayInput,
-} from "../../../components/Input/InputsDefine";
-
+import React, { Suspense } from "react";
 import { useFormContext } from "react-hook-form";
+import Step1 from "../progress/Step1";
+import Step3 from "../progress/Step3";
+import Step4 from "../progress/Step4";
+import Step5 from "../progress/Step5";
+import Loading from "../../../components/Loading";
+import { styled } from "styled-components";
+import Step2 from "../progress/Step2";
+import { Form } from "../../login/form/LoginForm";
+import { SubmitButton } from "../../../components/Button";
 import {
-  CodeInputChunk,
-  DefaultInputChunk,
-  EmailRegisterInputChunk,
-  GenderInputChunk,
-} from "../../../components/Input/InputChunk";
-import {
-  SubmitButton,
-  VerifyButton,
-  VerifyCodeButton,
-} from "../../../components/Button";
-import { RegisterError } from "../../../components/Input/InputError";
+  FormLoadingMessage,
+  RegisterError,
+} from "../../../components/Input/InputError";
+import ImageRegister from "../afterRegister/ImageRegister";
+import PersonalDesc from "../afterRegister/PersonalDesc";
+import Final from "../progress/Final";
+
 const RegisterForm = ({
   onSubmit,
   emailInfo,
   registerInfo,
   sendEmailData,
   sendCodeData,
+  handleNext,
+  dispatch,
+  navigate,
   seconds,
+  currentStep,
   codeInfo,
 }) => {
   const {
@@ -40,102 +35,127 @@ const RegisterForm = ({
     handleSubmit,
     getValues,
     setValue,
+
     formState: { errors },
   } = useFormContext();
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/** 이메일 입력 핸들러*/}
-      <div className="form-input-wrap form-input-email__wrap">
-        <EmailRegisterInputChunk
-          input={emailInput}
-          errors={errors}
-          register={register}
-          emailInfo={emailInfo}
-        />
-
-        {!errors?.email && (
-          <VerifyButton
-            getValues={getValues(emailInput.name)}
-            sendEmailData={sendEmailData}
-          />
-        )}
-      </div>
-
-      {/** 이메일 인증코드 handler*/}
-      {/** submit 버튼 핸들러*/}
-      {emailInfo?.emailStatus && !errors.email && (
-        <div className="form-input-wrap form-input-email__wrap ">
-          <CodeInputChunk
-            input={codeInput}
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <Suspense fallback={<Loading />}>
+        {currentStep == 1 && (
+          <Step1
             errors={errors}
             register={register}
+            emailInfo={emailInfo}
+            getValues={getValues}
+            sendEmailData={sendEmailData}
             seconds={seconds}
             codeInfo={codeInfo}
-            emailStatus={emailInfo.emailStatus}
+            sendCodeData={sendCodeData}
+            getValueEmail={getValues("email")}
+            getValueCode={getValues("code")}
+            handleNext={handleNext}
           />
+        )}
+      </Suspense>
 
-          {!emailInfo?.emailLoading && !emailInfo?.emailError && (
-            <VerifyCodeButton
-              sendCodeData={sendCodeData}
-              getValueEmail={getValues("email")}
-              getValueCode={getValues("code")}
+      <Suspense fallback={<Loading />}>
+        {currentStep == 2 && (
+          <Step2
+            errors={errors}
+            register={register}
+            handleNext={handleNext}
+            getValueName={getValues("name")}
+            getValueBirth={getValues("birthday")}
+          />
+        )}
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        {currentStep == 3 && (
+          <Step3
+            errors={errors}
+            getValuePassword={getValues("password")}
+            getValueSecond={getValues("secondPassword")}
+            register={register}
+            handleNext={handleNext}
+          />
+        )}
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        {currentStep == 4 && (
+          <Step4
+            errors={errors}
+            setValue={setValue}
+            register={register}
+            handleNext={handleNext}
+            getValues={getValues("gender")}
+          />
+        )}
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
+        {currentStep == 5 && (
+          <Step5
+            errors={errors}
+            getValueMajor={getValues("major")}
+            register={register}
+            registerInfo={registerInfo}
+            handleNext={handleNext}
+          />
+        )}
+      </Suspense>
+
+      <Suspense fallback={<Loading />}>
+        {currentStep == 6 && <PersonalDesc register={register} />}
+      </Suspense>
+      {currentStep == 6 && (
+        <>
+          <SubmitButton page={"register"} />
+          {!registerInfo?.loading && registerInfo?.registerStatus ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <FormLoadingMessage>
+                회원가입을 성공하였습니다!
+              </FormLoadingMessage>
+            </div>
+          ) : (
+            <RegisterError
+              registerError={registerInfo?.error}
+              registerLoading={registerInfo?.loading}
             />
           )}
-        </div>
+        </>
       )}
 
-      <DefaultInputChunk
-        input={nameInput}
-        errors={errors}
-        register={register}
-      />
-      <DefaultInputChunk
-        input={passwordInput}
-        errors={errors}
-        register={register}
-      />
-      <DefaultInputChunk
-        input={secondPasswordInput}
-        errors={errors}
-        register={register}
-      />
+      <Suspense fallback={<Loading />}>
+        {currentStep == 7 &&
+          !registerInfo?.loading &&
+          registerInfo?.registerStatus && (
+            <ImageRegister handleNext={handleNext} dispatch={dispatch} />
+          )}
+      </Suspense>
 
-      <span className="form-span">성별을 고르세요</span>
-      <div className="form__checkbox-wrap">
-        <GenderInputChunk
-          input={femaleInput}
-          errors={errors}
-          setValue={setValue}
-          register={register}
-        />
-        <GenderInputChunk
-          input={maleInput}
-          errors={errors}
-          setValue={setValue}
-          register={register}
-        />
-      </div>
-
-      <DefaultInputChunk
-        input={birthdayInput}
-        errors={errors}
-        register={register}
-      />
-
-      <SubmitButton page={"회원가입"} />
-
-      <RegisterError
-        registerError={registerInfo?.error}
-        registerLoading={registerInfo?.loading}
-      />
-
-      <div className="form__link__wrap">
-        <Link to="/login" className="form__wrap__link">
-          Have an Account?
-        </Link>
-      </div>
-    </form>
+      <Suspense fallback={<Loading />}>
+        {currentStep == 8 &&
+          !registerInfo?.loading &&
+          registerInfo?.registerStatus && (
+            <Final currentStep={currentStep} navigate={navigate} />
+          )}
+      </Suspense>
+    </Form>
   );
 };
+export const InputAndErrorWrap = styled.div`
+  display: flex;
+  height: auto;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: center;
+`;
 
 export default RegisterForm;
