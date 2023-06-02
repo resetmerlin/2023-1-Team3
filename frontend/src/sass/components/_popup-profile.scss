@@ -39,10 +39,7 @@
     background-size: cover;
     background-repeat: no-repeat;
   }
-  @include respond(tab-port) {
-    width: 599px;
-    align-items: center;
-  }
+
   &__back {
     position: absolute;
     top: 3%;
@@ -65,9 +62,6 @@
     justify-content: center;
     position: absolute;
 
-    @include respond(big-desktop) {
-      top: 0;
-    }
     &__img {
       z-index: -1000;
       width: 100%;
@@ -76,9 +70,7 @@
       background-size: cover;
       background-repeat: no-repeat;
       border-radius: 1rem;
-      @include respond(big-desktop) {
-        border-radius: 0.5rem;
-      }
+
       background-position: center;
       display: flex;
       justify-content: center;
