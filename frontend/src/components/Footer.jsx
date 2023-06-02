@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { styled } from "styled-components";
 import { BoxIconElement } from "boxicons";
 
-const Footer = memo(function Footer() {
+const Footer = memo(function Footer({ style }) {
   const location = useLocation().pathname;
 
   return (
@@ -14,7 +14,7 @@ const Footer = memo(function Footer() {
       ) : location == "/login" ? (
         <></>
       ) : (
-        <FooterContent>
+        <FooterContent style={style}>
           <Link to="/" className="footer__link--home">
             {location == "/" ? (
               <box-icon
