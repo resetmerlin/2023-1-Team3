@@ -1,42 +1,119 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { styled } from "styled-components";
 import Loading from "../../components/Loading";
 import UserCard from "../../components/UserCard";
-import UserCardImage from "../../components/UserCardImage";
+import UserCardDetails from "../../components/UserCardDetails";
 const HomeContent = ({
+  sendBlockUser,
   user,
   sendLikeUser,
   peopleListLoading,
   goNextSlideHandler,
+  getUserFromChild,
 }) => {
   const age =
     new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
 
   const [saveValue, setSaveValue] =
     useState(false); /** 좋아요 버튼 Handler 함수 */
-  return (
-    <HomeWrap>
-      <HomeContentWrap>
-        <UserCardImage user={user} />
+  const [userChildCardPopup, setUserChildCardPopup] = useState(false);
 
-        {peopleListLoading ? (
-          <Loading />
-        ) : (
-          <HomeInfo>
-            <UserCard
-              goNextSlideHandler={goNextSlideHandler}
-              userDetail={user}
-              saveValue={saveValue}
-              setSaveValue={setSaveValue}
-              age={age}
-              sendLikeUser={sendLikeUser}
-            />
-          </HomeInfo>
-        )}
-      </HomeContentWrap>
-    </HomeWrap>
+  /** 유저 삭제 state */
+  const [blockValue, setBlockValue] = useState(false);
+
+  /** 삭제 state를 변경 후 서버에 보냄 */
+  const blockAction = useCallback(async () => {
+    await setBlockValue((value) => !value);
+
+    sendBlockUser(user?.memberId, !blockValue);
+  });
+
+  /** 다시 Slide로 돌아감 */
+  const goBackToSlide = () => {
+    setUserChildCardPopup(false);
+    getUserFromChild(false);
+  };
+
+  const userCardImageStyle = {
+    backgroundImage:
+      user?.image == "DEFAULT" && user?.gender == "MALE"
+        ? `
+  url('./default/default-men.png')`
+        : user?.image == "DEFAULT" && user?.gender == "FEMALE"
+        ? `
+  url('./default/default-women.png')`
+        : `
+  url(${user?.image}`,
+  };
+  return (
+    <>
+      <HomeWrap
+        style={{
+          display: userChildCardPopup ? "none" : "flex",
+        }}
+      >
+        <HomeContentWrap
+          style={{
+            display: userChildCardPopup ? "none" : "flex",
+          }}
+        >
+          <UserCardProfile style={userCardImageStyle} />
+
+          {peopleListLoading ? (
+            <Loading />
+          ) : (
+            <HomeInfo>
+              <UserCard
+                goNextSlideHandler={goNextSlideHandler}
+                userDetail={user}
+                saveValue={saveValue}
+                setSaveValue={setSaveValue}
+                setUserChildCardPopup={setUserChildCardPopup}
+                age={age}
+                sendLikeUser={sendLikeUser}
+                getUserFromChild={getUserFromChild}
+              />
+            </HomeInfo>
+          )}
+        </HomeContentWrap>
+      </HomeWrap>
+      {userChildCardPopup && (
+        <UserCardDetails
+          user={user}
+          blockAction={blockAction}
+          sendBlockUser={sendBlockUser}
+          age={age}
+          blockValue={blockValue}
+          saveValue={saveValue}
+          setSaveValue={setSaveValue}
+          sendLikeUser={sendLikeUser}
+          goBackToSlide={goBackToSlide}
+          style={userCardImageStyle}
+        />
+      )}
+    </>
   );
 };
+const UserCardProfile = styled.div`
+  height: 77%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 1.5rem;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  background-repeat: none,
+  background-size: cover,
+  background-position: center,
+  overflow: hidden;
+  transition: all 0.2s ease;
+  border-radius: 12px;
+`;
 
 export const HomeWrap = styled.div`
   position: absolute;
