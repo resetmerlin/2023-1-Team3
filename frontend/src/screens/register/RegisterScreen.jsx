@@ -9,6 +9,9 @@ import {
   registerAction,
   loginAction,
 } from "../../actions/userAction";
+
+import { batch } from "react-redux";
+
 import ProgressBar from "../../components/ProgressBar";
 import { memoizedRegisterInfo } from "../../hooks/MemoizedRedux";
 import Loading from "../../components/Loading";
@@ -124,12 +127,12 @@ const RegisterScreen = () => {
   }, [registerInfo?.registerStatus, setCurrentStep, registerInfo?.loading]);
 
   useEffect(() => {
-    return () => {
+    return batch(() => {
       dispatch(registerResetAction());
       dispatch(registerEmailResetAction());
       dispatch(registerCodeResetAction());
-    };
-  }, [dispatch]);
+    });
+  }, [dispatch, batch]);
 
   useEffect(() => {
     /**  코드 countdown 작동 */
@@ -154,8 +157,10 @@ const RegisterScreen = () => {
         <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
         {currentStep == 1 ? (
           <BackButton navigate={navigate} />
-        ) : (
+        ) : currentStep !== 8 ? (
           <BackFormButton handlePrevious={handlePrevious} />
+        ) : (
+          ""
         )}
 
         <>
