@@ -32,11 +32,6 @@ const UserCard = ({
               <UserInfoAge> {age}</UserInfoAge>
             </UserInfoName>
           </label>{" "}
-          <box-icon
-            name="dots-horizontal-rounded"
-            color="black"
-            size="2.3rem"
-          ></box-icon>
         </UserInfoNameWrap>
 
         <UserInfoDesc>{userDetail?.department}</UserInfoDesc>
