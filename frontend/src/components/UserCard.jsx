@@ -9,15 +9,29 @@ const UserCard = ({
   saveValue,
   setSaveValue,
   age,
+  setUserChildCardPopup,
+  getUserFromChild,
 }) => {
   return (
     <UserInfoWrap>
       <UserInfoContent>
         <UserInfoNameWrap>
-          <UserInfoName>
-            {userDetail?.name}
-            <UserInfoAge> {age}</UserInfoAge>
-          </UserInfoName>{" "}
+          <label htmlFor={userDetail?.memberId}>
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                setUserChildCardPopup(e.target.checked);
+                getUserFromChild(e.target.checked);
+              }}
+              id={userDetail?.memberId}
+              style={{ display: "none" }}
+            />
+
+            <UserInfoName>
+              {userDetail?.name}
+              <UserInfoAge> {age}</UserInfoAge>
+            </UserInfoName>
+          </label>{" "}
           <box-icon
             name="dots-horizontal-rounded"
             color="black"
@@ -40,7 +54,7 @@ const UserCard = ({
     </UserInfoWrap>
   );
 };
-const UserInfoWrap = styled.div`
+export const UserInfoWrap = styled.div`
   height: 100%;
   width: 85%;
   display: flex;
@@ -53,12 +67,12 @@ const UserInfoContent = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const UserInfoName = styled.span`
+export const UserInfoName = styled.span`
   font-size: 2rem;
   display: flex;
   font-weight: 600;
 `;
-const UserInfoAge = styled.span`
+export const UserInfoAge = styled.span`
   margin-left: 0.6rem;
   font-size: 1.5rem;
   display: flex;
@@ -66,14 +80,14 @@ const UserInfoAge = styled.span`
   font-weight: 500;
 `;
 
-const UserInfoNameWrap = styled.div`
+export const UserInfoNameWrap = styled.div`
   color: black;
   font-size: 2.3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
-const UserInfoDesc = styled.span`
+export const UserInfoDesc = styled.span`
   color: black;
   font-size: 1rem;
   margin: 0.3rem 0;
