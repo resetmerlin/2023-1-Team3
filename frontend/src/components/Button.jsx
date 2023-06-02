@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import React, { memo } from "react";
-import { isObjectEmpty } from "./TypeFunction";
 import { BoxIconElement } from "boxicons";
 
 export const SubmitButton = ({ page }) => {
@@ -79,6 +78,26 @@ export const BackFormButton = ({ handlePrevious }) => {
     </BackArrowButton>
   );
 };
+
+export const BackToSlideCardButton = memo(function BackFormButton({
+  goBackToSlide,
+}) {
+  return (
+    <button onClick={goBackToSlide}>
+      <box-icon
+        name="x"
+        color="black"
+        size="3rem"
+        style={{
+          /* margin-bottom: 0rem; */ position: "absolute",
+          top: "1%",
+          right: "2%",
+        }}
+      ></box-icon>{" "}
+    </button>
+  );
+});
+
 export const SaveCheckButton = ({ sendImageToServer }) => {
   return (
     <button onClick={sendImageToServer}>
@@ -176,6 +195,7 @@ export const PreviousStepButton = memo(function PreviousStepButton({
     </NextButton>
   );
 });
+
 export const UserDeleteButton = memo(function UserDeleteButton({
   goNextSlideHandler,
 }) {
@@ -216,7 +236,7 @@ export const RecapUserListsButton = memo(function UserDeleteButton({
   );
 });
 
-export const UserMessageButton = () => {
+export const UserMessageButton = memo(function UserMessageButton() {
   return (
     <SmallUserButton type="button">
       <box-icon
@@ -227,8 +247,31 @@ export const UserMessageButton = () => {
       ></box-icon>
     </SmallUserButton>
   );
-};
-
+});
+export const UserDetailsMessageButton = memo(
+  function UserDetailsMessageButton() {
+    return (
+      <UserDetailButton
+        type="button"
+        style={{
+          backgroundColor: "#868E96",
+          color: "white",
+        }}
+      >
+        <box-icon
+          color="white"
+          name="message-rounded"
+          size="2rem"
+          type="solid"
+          style={{
+            marginRight: "1rem",
+          }}
+        ></box-icon>
+        메세지 보내기
+      </UserDetailButton>
+    );
+  }
+);
 export const UserLikeButton = memo(function UserLikeButton({
   saveValue,
   setSaveValue,
@@ -272,6 +315,78 @@ export const UserLikeButton = memo(function UserLikeButton({
     </MediumUserButton>
   );
 });
+export const BlockButton = memo(function BlockButton({
+  blockValue,
+  blockAction,
+}) {
+  return (
+    <PopupButton
+      type="button"
+      style={{
+        color: blockValue ? "rgb(128, 113, 252)" : "black",
+        fontWeight: blockValue ? "600" : "400",
+
+        borderBottomLeftRadius: "8px",
+        borderBottomRightRadius: "8px",
+      }}
+      onClick={() => {
+        blockAction();
+      }}
+    >
+      삭제하기
+    </PopupButton>
+  );
+});
+export const UserDetailLikeButton = memo(function UserLikeButton({
+  saveValue,
+  setSaveValue,
+  sendLikeUser,
+  memberId,
+}) {
+  return (
+    <UserDetailButton
+      style={{
+        backgroundColor: !saveValue ? "white" : "rgb(128, 113, 252)",
+        color: !saveValue ? "rgb(128, 113, 252)" : "white",
+      }}
+      onClick={async () => {
+        setSaveValue((state) => !state);
+
+        await sendLikeUser(memberId, !saveValue);
+      }}
+    >
+      {saveValue == false && (
+        <>
+          <box-icon
+            color="rgb(128, 113, 252)"
+            name="heart"
+            size="2.2rem"
+            style={{
+              marginRight: "1rem",
+            }}
+            type="solid"
+          ></box-icon>
+          Like에 저장
+        </>
+      )}
+
+      {saveValue == true && (
+        <>
+          <box-icon
+            color="white"
+            name="heart"
+            size="2.2rem"
+            type="solid"
+            style={{
+              marginRight: "1rem",
+            }}
+          ></box-icon>
+          Like에서 삭제
+        </>
+      )}
+    </UserDetailButton>
+  );
+});
 
 export const FullStepButton = memo(function FullStepButton({
   handlePrevious,
@@ -303,6 +418,26 @@ export const GoFormButton = ({ page, navigate }) => {
   );
 };
 
+const PopupButton = styled.button`
+  width: 100%;
+  height: 50%;
+`;
+const UserDetailButton = styled.div`
+  background-color: white;
+  width: 40%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  height: 3rem;
+  border: 1.5px solid rgb(128, 113, 252);
+  color: rgb(128, 113, 252);
+  transition: all 0.2s ease-in-out;
+
+  font-weight: 700;
+  font-size: 1rem;
+`;
 const SmallNextButton = styled.div`
   display: flex;
   justify-content: center;
