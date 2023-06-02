@@ -28,9 +28,9 @@ const Header = () => {
   );
 };
 
-export const HomeHeader = ({ navigate }) => {
+export const HomeHeader = ({ navigate, style }) => {
   return (
-    <HeaderLogoWrap>
+    <HeaderLogoWrap style={style}>
       <HeaderButtonWrap>
         <BackButton navigate={navigate} />
       </HeaderButtonWrap>
