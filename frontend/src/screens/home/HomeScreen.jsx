@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, Suspense, useCallback } from "react";
+import React, {
+  useEffect,
+  useRef,
+  Suspense,
+  useCallback,
+  useState,
+} from "react";
 import Footer from "../../components/Footer";
 import HomeContent from "./HomeContent";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
@@ -8,10 +14,12 @@ import { peopleListAction } from "../../actions/peopleAction";
 import Loading from "../../components/Loading";
 import { saveUserAction } from "../../actions/buttonAction";
 import { HomeHeader } from "../../components/Header";
-import { BackButton } from "../../components/Button";
 import NoValueUser from "../../components/NoValueUser";
+import { useNavigate } from "react-router-dom";
+import { blockUserAction } from "../../actions/buttonAction";
 const HomeScreen = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   /** Redux에서 가져온 유저 리스트 */
   const peopleListInfo = useSelector((state) => state.peopleListInfo);
@@ -25,6 +33,13 @@ const HomeScreen = () => {
   /** user Lists 불러오는 함수*/
   const getPeopleList = useCallback(
     () => dispatch(peopleListAction()),
+    [dispatch]
+  );
+
+  /** 유저 차단 및 삭제  */
+  const sendBlockUser = useCallback(
+    (memberId, blockBoolean) =>
+      dispatch(blockUserAction(memberId, blockBoolean)),
     [dispatch]
   );
 
@@ -53,6 +68,17 @@ const HomeScreen = () => {
     pagination: false,
   };
 
+  /** 자식 Popup boolean을 체크 후 style를 props로 주기위한 state */
+  const [userCardPopup, setUserCardPopup] = useState(null);
+
+  /** checked state(true or false)를 parameter로 받아 state로 저장 */
+  const getUserFromChild = useCallback(
+    (e) => {
+      setUserCardPopup(e);
+    },
+    [setUserCardPopup]
+  );
+
   /** 슬라이드 Reference */
   const splideRef = useRef(null);
 
@@ -77,13 +103,15 @@ const HomeScreen = () => {
     [previousPage?.current, peopleListStatus?.count]
   );
 
-  const nextPeopleListsHandler = () => {
+  /** 새로운 유저 리스트 가져오는 프로세스 핸들 */
+  const nextPeopleListsHandler = useCallback(() => {
     getPeopleList();
     previousPage.current = -1;
 
     splideRef.current.splide.Components.Controller.go(0);
-  };
+  }, [splideRef]);
 
+  /** 다음 슬라이드로 이동 */
   const goNextSlideHandler = useCallback(() => {
     const getNextPage =
       splideRef?.current.splide.Components.Controller.getNext();
@@ -102,14 +130,18 @@ const HomeScreen = () => {
   return (
     <>
       <section className="home">
-        <HomeHeader />
-        <BackButton />
+        <HomeHeader
+          navigate={navigate}
+          style={{ display: userCardPopup ? "none" : "flex" }}
+        />
+
         <Splide
           ref={splideRef}
           hasTrack={false}
-          options={options}
+          options={{ ...options, drag: userCardPopup ? false : true }}
           id="Splide"
           onMoved={(e) => slidePageHandler(e.Components.Controller.getIndex())}
+          style={{ height: userCardPopup ? "100vh" : "80vh" }}
         >
           <SplideTrack>
             {peopleListStatus &&
@@ -121,9 +153,11 @@ const HomeScreen = () => {
                         user={user}
                         key={user.memberId}
                         peopleListLoading={peopleListLoading}
-                        dispatch={dispatch}
                         sendLikeUser={sendLikeUser}
                         goNextSlideHandler={goNextSlideHandler}
+                        userCardPopup={userCardPopup}
+                        sendBlockUser={sendBlockUser}
+                        getUserFromChild={getUserFromChild}
                       />
                     </SplideSlide>
                   </Suspense>
@@ -138,7 +172,7 @@ const HomeScreen = () => {
           </SplideTrack>
         </Splide>
 
-        <Footer />
+        <Footer style={{ display: userCardPopup ? "none" : "flex" }} />
       </section>
     </>
   );
