@@ -2,6 +2,7 @@ import {
   SAVE_LIST_REQUEST,
   SAVE_LIST_SUCCESS,
   SAVE_LIST_FAIL,
+  SAVE_LIST_RESET,
   DELETE_LIST_REQUEST,
   DELETE_LIST_SUCCESS,
   DELETE_LIST_FAIL,
@@ -32,6 +33,8 @@ export const getSaveListReducers = (
 
     case SAVE_LIST_FAIL:
       return { loading: false, error: action.payload };
+    case SAVE_LIST_RESET:
+      return { saveListStatus: { memberResponses: [] } };
 
     default:
       return state;
