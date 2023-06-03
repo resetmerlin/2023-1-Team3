@@ -274,8 +274,7 @@ export const UserDetailsMessageButton = memo(
 );
 export const UserLikeButton = memo(function UserLikeButton({
   saveValue,
-  setSaveValue,
-  sendLikeUser,
+  likeAction,
   memberId,
 }) {
   return (
@@ -289,10 +288,8 @@ export const UserLikeButton = memo(function UserLikeButton({
         MozBoxShadow:
           saveValue == true && " 0px 0px 33px 10px rgba(128,113,252,0.46)",
       }}
-      onClick={async () => {
-        setSaveValue((state) => !state);
-
-        await sendLikeUser(memberId, !saveValue);
+      onClick={() => {
+        likeAction(memberId);
       }}
     >
       {saveValue == false && (
@@ -337,22 +334,20 @@ export const BlockButton = memo(function BlockButton({
     </PopupButton>
   );
 });
-export const UserDetailLikeButton = memo(function UserLikeButton({
+
+export const UserDetailLikeButton = memo(function UserDetailLikeButton({
   saveValue,
-  setSaveValue,
-  sendLikeUser,
+  likeAction,
   memberId,
 }) {
   return (
     <UserDetailButton
       style={{
-        backgroundColor: !saveValue ? "white" : "rgb(128, 113, 252)",
-        color: !saveValue ? "rgb(128, 113, 252)" : "white",
+        backgroundColor: saveValue == false ? "white" : "rgb(128, 113, 252)",
+        color: saveValue == false ? "rgb(128, 113, 252)" : "white",
       }}
-      onClick={async () => {
-        setSaveValue((state) => !state);
-
-        await sendLikeUser(memberId, !saveValue);
+      onClick={() => {
+        likeAction(memberId);
       }}
     >
       {saveValue == false && (
