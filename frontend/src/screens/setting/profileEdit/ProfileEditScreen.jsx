@@ -56,7 +56,18 @@ const ProfileEditScreen = () => {
       useWebWorker: true,
     };
     try {
+      console.log("originalFile instanceof Blob", imgFile instanceof Blob); // true
+      console.log(`originalFile size ${imgFile.size / 1024 / 1024} MB`);
+
       const compressedFile = await imageCompression(imgFile, options);
+      console.log(
+        "compressedFile instanceof Blob",
+        compressedFile instanceof Blob
+      ); // true
+      console.log(
+        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+      ); // smaller than maxSizeMB
+
       dispatch(profileEditAction(compressedFile));
       //compressedFiled을 store할 수 없음.. 왜?
     } catch (error) {
@@ -67,7 +78,10 @@ const ProfileEditScreen = () => {
   return (
     <section className="profileEdit default-layout">
       <SettingHeader sendImageToServer={sendImageToServer} />
-
+      <button
+        style={{ width: "3rem", height: "3rem" }}
+        onClick={sendImageToServer}
+      ></button>
       <Crop readFileImage={getImageHandler} />
 
       {!!imgSrc && (

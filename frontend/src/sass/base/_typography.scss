@@ -30,7 +30,10 @@ html {
 }
 body {
   display: block;
-  font-family: "Roboto", sans-serif;
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 .container {
@@ -50,29 +53,38 @@ body {
   }
 
   @include respond(tab-port) {
-    min-width: 600px;
-    max-width: 800px;
-    display: flex;
-    justify-content: center;
+    width: 599px;
+    height: 100%;
+    // min-width: 600px;
+    // max-width: 800px;
+    // display: flex;
+    // justify-content: center;
   }
 
   @include respond(tab-land) {
-    min-width: 801px;
-    max-width: 1024px;
-    display: flex;
-    justify-content: center;
+    width: 599px;
+    height: 100%;
+
+    // min-width: 801px;
+    // max-width: 1024px;
+    // display: flex;
+    // justify-content: center;
   }
   @include respond(small-desktop) {
-    min-width: 1025px;
-    max-width: 1280px;
-    display: flex;
-    justify-content: center;
+    width: 599px;
+    height: 100%;
+    // min-width: 1025px;
+    // max-width: 1280px;
+    // display: flex;
+    // justify-content: center;
   }
 
   @include respond(big-desktop) {
-    min-width: 1281px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 599px;
+    height: 100%;
+    // min-width: 1281px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
   }
 }

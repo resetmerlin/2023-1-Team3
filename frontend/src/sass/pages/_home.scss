@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: center;
   font-size: 1.5rem;
-  font-family: "Noto Sans KR", sans-serif;
   &__slide__btn {
     top: 50%;
     right: 2%;
@@ -16,24 +15,12 @@
     position: absolute;
     background-color: transparent;
   }
-  #home__img__slide {
-  }
 
   @include respond(tab-port) {
     width: 599px;
     align-items: center;
   }
-  @include respond(small-desktop) {
-    width: 599px;
-    align-items: center;
-    height: 677px;
-  }
 
-  @include respond(big-desktop) {
-    width: 26%;
-    align-items: center;
-    height: 80%;
-  }
   &__splide {
     position: absolute;
     width: 100%;
@@ -41,23 +28,7 @@
     display: flex;
     overflow: hidden;
   }
-  &__content {
-    height: 100vh;
-    width: 100%;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
 
-    font-size: 1.5rem;
-    background-position: center;
-
-    background-size: cover;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    transition: all 0.2s ease;
-  }
   &__top {
     position: fixed;
     top: 0;
@@ -113,9 +84,6 @@
     position: absolute;
     top: 68%;
 
-    @include respond(big-desktop) {
-      top: 0;
-    }
     &__img {
       z-index: -1000;
       width: 100%;
@@ -124,9 +92,7 @@
       background-size: cover;
       background-repeat: no-repeat;
       border-radius: 1rem;
-      @include respond(big-desktop) {
-        border-radius: 0.5rem;
-      }
+
       background-position: center;
       display: flex;
       justify-content: center;
@@ -153,18 +119,6 @@
         @include respond(smartphones-land) {
           width: 3.5rem;
         }
-        @include respond(big-desktop) {
-          width: 2.5rem;
-          height: 2.5rem;
-        }
-
-        i {
-          @include respond(big-desktop) {
-            font-size: 1.2rem;
-          }
-
-          font-size: 1.5rem;
-        }
       }
       .home__main__button--save {
         background-color: rgb(67 69 70 / 60%);
@@ -174,9 +128,6 @@
 
         border: none;
         margin: 0 2rem;
-      }
-      @include respond(big-desktop) {
-        height: 50%;
       }
     }
     &__information {
@@ -238,62 +189,12 @@
       position: static;
       height: 6rem;
     }
-    @include respond(big-desktop) {
-      height: 18%;
-      justify-content: center;
-      flex-direction: column;
-      display: flex;
-    }
-    &__information {
-      @include respond(big-desktop) {
-        height: 50%;
-
-        width: 98%;
-        border-radius: 11px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-
-        &__name {
-          height: 20%;
-          color: $color-black;
-          font-size: 1.2rem;
-          display: flex;
-          align-items: center;
-        }
-
-        &__desc {
-          height: 40%;
-          width: 92%;
-          color: $color-black;
-          font-size: 0.6rem;
-
-          &__wrap {
-            height: 50%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-
-            i {
-              margin: 0 0.3rem;
-              font-size: 1rem;
-            }
-          }
-        }
-      }
-    }
 
     a {
       color: $color-black;
       width: 25%;
     }
   }
-}
-
-#Splide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
 }
 
 #SplideSlide {
@@ -324,4 +225,10 @@
   display: none;
 
   right: 0.5rem;
+}
+
+#Splide {
+  position: relative;
+  height: 80vh;
+  width: 100%;
 }

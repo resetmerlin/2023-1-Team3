@@ -7,7 +7,7 @@ import {
   userLoginReducers,
   codeVerificationReducers,
 } from "./reducers/userReducer";
-import { saveUserReducers } from "./reducers/buttonReducer";
+import { saveUserReducers, blockUserReducers } from "./reducers/buttonReducer";
 import { peopleListReducers } from "./reducers/peopleReducer";
 import {
   passwordEditReducers,
@@ -20,6 +20,7 @@ const reducer = combineReducers({
   registerInfo: userRegisterReducers,
   codeInfo: codeVerificationReducers,
   saveInfo: saveUserReducers,
+  blockInfo: blockUserReducers,
   loginInfo: userLoginReducers,
   peopleListInfo: peopleListReducers,
   passwordEditInfo: passwordEditReducers,

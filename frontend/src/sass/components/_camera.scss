@@ -10,3 +10,14 @@
   z-index: 1000;
   border: 3px solid $color-black;
 }
+.ReactCrop__crop-selection {
+  border: 1px solid #fff !important;
+}
+.ReactCrop__drag-handle::after {
+  width: 10px !important;
+  height: 10px !important;
+  background-color: white !important;
+}
+.ReactCrop__child-wrapper {
+  height: 100% !important;
+}

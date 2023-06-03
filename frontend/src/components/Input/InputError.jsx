@@ -1,12 +1,11 @@
-import React from "react";
+import React, { memo, useCallback } from "react";
+import styled from "styled-components";
 
 export const DefaultInputError = ({ input, errors }) => {
   return (
     <>
       {errors?.[input.name] && (
-        <p className="form__wrap__input-error">
-          {errors?.[input.name].message}
-        </p>
+        <FormErrorMessage>{errors?.[input.name].message}</FormErrorMessage>
       )}
     </>
   );
@@ -16,11 +15,11 @@ export const InputEmailError = ({ input, loginInfo, errors }) => {
   return (
     <>
       {errors?.[input.name] ? (
-        <p className="form__wrap__input-error">{errors?.email?.message}</p>
+        <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
       ) : (
         loginInfo.error &&
         !loginInfo.loading && (
-          <p className="form__wrap__input-error">{loginInfo.error}</p>
+          <FormErrorMessage>{loginInfo.error}</FormErrorMessage>
         )
       )}
     </>
@@ -30,11 +29,17 @@ export const InputEmailRegisterError = ({ input, errors, emailInfo }) => {
   return (
     <>
       {errors?.[input.name] ? (
-        <p className="form__wrap__input-error">{errors?.email?.message}</p>
+        <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
+      ) : !emailInfo?.loading &&
+        emailInfo?.emailStatus == true &&
+        !emailInfo?.error ? (
+        <FormLoadingMessage>
+          코드가 전송되었습니다! 이메일을 확인해 주세요.
+        </FormLoadingMessage>
       ) : (
-        emailInfo.error &&
-        !emailInfo.loading && (
-          <p className="form__wrap__input-error">{emailInfo.error}</p>
+        emailInfo?.error &&
+        !emailInfo?.loading && (
+          <FormErrorMessage>{emailInfo?.error}</FormErrorMessage>
         )
       )}
     </>
@@ -45,34 +50,50 @@ export const InputCodeError = ({
   codeLoading,
   codeError,
   seconds,
+  codeBoolean,
 }) => {
   return (
     <>
-      {emailStatus && !codeLoading && codeError ? (
-        <p className="form__wrap__input-error">{codeError}</p>
-      ) : emailStatus && seconds == 0 ? (
-        <p className="form__wrap__input-error">
-          입력기간이 만료되었습니다. 코드 전송 버튼을 다시 눌러주세요
-        </p>
+      {codeBoolean == true ? (
+        <FormLoadingMessage>인증이 성공되었습니다!</FormLoadingMessage>
+      ) : emailStatus && !codeLoading && codeError ? (
+        <FormErrorMessage>{codeError}</FormErrorMessage>
+      ) : emailStatus ? (
+        <InputCodeCountdownError seconds={seconds} />
       ) : (
-        <p className="form__wrap__input-error">{seconds}</p>
+        ""
       )}
     </>
   );
 };
 
+export const InputCodeCountdownError = memo(({ seconds }) => {
+  return (
+    <>
+      {seconds == 0 ? (
+        <FormErrorMessage>
+          입력기간이 만료되었습니다. 전송 버튼을 다시 눌러주세요
+        </FormErrorMessage>
+      ) : (
+        <FormErrorMessage>{seconds}</FormErrorMessage>
+      )}
+    </>
+  );
+});
+
 export const InputGenderError = ({ input, errors }) => {
   return (
     <>
       {errors?.[input?.name] && (
-        <p
-          className="form__wrap__input-error"
+        <FormErrorMessage
           style={{
+            marginTop: "1rem",
+
             textAlign: "center",
           }}
         >
           {errors?.[input?.name].message}
-        </p>
+        </FormErrorMessage>
       )}
     </>
   );
@@ -82,16 +103,27 @@ export const RegisterError = ({ registerError, registerLoading }) => {
   return (
     <>
       {registerError && !registerLoading && (
-        <p
-          className="form__wrap__input-error"
+        <FormErrorMessage
           style={{
             textAlign: "center",
             margin: ".4rem 0",
           }}
         >
           {registerError}
-        </p>
+        </FormErrorMessage>
       )}
     </>
   );
 };
+const FormErrorMessage = styled.p`
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #d93025;
+`;
+
+export const FormLoadingMessage = styled.p`
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: rgb(128, 113, 252);
+  font-weight: 600;
+`;

@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, FormProvider } from "react-hook-form";
-import LoginForm from "../components/Form/LoginForm";
-import RegisterForm from "../components/Form/RegisterForm";
+import LoginForm from "../screens/login/form/LoginForm";
+import RegisterForm from "../screens/register/form/RegisterForm";
+import { memo } from "react";
 
-export const LoginFormHook = ({ schema, onSubmit, loginInfo }) => {
+export const LoginFormHook = ({ schema, onSubmit, loginInfo, navigate }) => {
   const methods = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -17,7 +18,11 @@ export const LoginFormHook = ({ schema, onSubmit, loginInfo }) => {
 
   return (
     <FormProvider {...methods}>
-      <LoginForm onSubmit={onSubmit} loginInfo={loginInfo} />
+      <LoginForm
+        onSubmit={onSubmit}
+        loginInfo={loginInfo}
+        navigate={navigate}
+      />
     </FormProvider>
   );
 };
@@ -29,11 +34,20 @@ export const RegisterFormHook = ({
   registerInfo,
   sendEmailData,
   sendCodeData,
+  handleNext,
+  handlePrevious,
   seconds,
+  currentStep,
   codeInfo,
+  navigate,
+  dispatch,
 }) => {
+  const defaultValues = {
+    major: { value: "국어국문학과" },
+  };
   const methods = useForm({
     mode: "onChange",
+    defaultValues,
     resolver: yupResolver(schema),
   });
 
@@ -48,13 +62,18 @@ export const RegisterFormHook = ({
   return (
     <FormProvider {...methods}>
       <RegisterForm
-        seconds={seconds}
         onSubmit={onSubmit}
         emailInfo={emailInfo}
         registerInfo={registerInfo}
         sendEmailData={sendEmailData}
         sendCodeData={sendCodeData}
+        handleNext={handleNext}
+        handlePrevious={handlePrevious}
+        seconds={seconds}
+        currentStep={currentStep}
         codeInfo={codeInfo}
+        dispatch={dispatch}
+        navigate={navigate}
       />
     </FormProvider>
   );

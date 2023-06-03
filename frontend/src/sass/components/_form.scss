@@ -7,36 +7,9 @@
     justify-content: flex-start;
     width: 100%;
 
-    @include respond(small-desktop) {
-      width: 72%;
-    }
-    @include respond(big-desktop) {
-      width: 76%;
-      font-size: 90% !important;
-    }
     label {
       margin-top: 1rem;
       font-weight: 400;
-    }
-
-    input {
-      margin: 0.5rem 0;
-      border: 1px solid rgb(141 145 157);
-      font-size: 1rem;
-      border: none;
-      border-bottom: 1px solid rgb(141 145 157);
-      transition: all 0.1s ease;
-      padding: 0 0.5rem;
-      input.required {
-        border: 1px solid red;
-        padding: 8px;
-      }
-      &:focus {
-        border-radius: 5px;
-      }
-      @include respond(big-desktop) {
-        font-size: 0.8rem;
-      }
     }
 
     .form-input-wrap {
@@ -46,11 +19,6 @@
       // input:invalid[focused="true"] ~ span {
       //   display: block;
       // }
-    }
-    .form-input-email__wrap {
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
     }
 
     .form-input-email {
@@ -123,25 +91,6 @@
     }
 
     /** form button for submit */
-
-    button {
-      margin-top: 1.3rem;
-      border-radius: 0.3rem;
-      background-color: $color-black;
-      color: $color-white;
-      border: none;
-      transition: all 0.1s ease;
-      font-size: 0.9rem;
-      font-weight: 600;
-
-      cursor: pointer;
-      @include respond(small-desktop) {
-        font-size: 0.9rem;
-      }
-      @include respond(big-desktop) {
-        font-size: 0.9rem;
-      }
-    }
   }
 }
 .form__wrap__input-error {
