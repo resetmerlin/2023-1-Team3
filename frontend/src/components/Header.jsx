@@ -42,9 +42,9 @@ export const HomeHeader = ({ navigate, style }) => {
   );
 };
 
-export const SaveHeader = ({ navigate }) => {
+export const SaveHeader = ({ navigate, style }) => {
   return (
-    <SaveHeaderWrap>
+    <SaveHeaderWrap style={style}>
       <HeaderButtonWrap style={{ left: "0%", top: "3%" }}>
         <BackButton navigate={navigate} />
       </HeaderButtonWrap>
