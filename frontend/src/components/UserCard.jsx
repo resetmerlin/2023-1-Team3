@@ -2,16 +2,15 @@ import React, { memo } from "react";
 import { styled } from "styled-components";
 import { BoxIconElement } from "boxicons";
 import { UserDeleteButton, UserLikeButton, UserMessageButton } from "./Button";
-const UserCard = ({
+const UserCard = memo(function UserCard({
   userDetail,
-  sendLikeUser,
   goNextSlideHandler,
   saveValue,
-  setSaveValue,
+  likeAction,
   age,
   setUserChildCardPopup,
   getUserFromChild,
-}) => {
+}) {
   return (
     <UserInfoWrap>
       <UserInfoContent>
@@ -39,16 +38,15 @@ const UserCard = ({
       <ButtonWrap>
         <UserDeleteButton goNextSlideHandler={goNextSlideHandler} />
         <UserLikeButton
+          likeAction={likeAction}
           saveValue={saveValue}
-          setSaveValue={setSaveValue}
-          sendLikeUser={sendLikeUser}
           memberId={userDetail?.memberId}
         />
         <UserMessageButton />
       </ButtonWrap>
     </UserInfoWrap>
   );
-};
+});
 export const UserInfoWrap = styled.div`
   height: 100%;
   width: 85%;
