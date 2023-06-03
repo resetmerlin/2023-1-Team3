@@ -49,16 +49,10 @@ const HomeScreen = () => {
     [dispatch]
   );
 
+  /** 해당 페이지에 이동할때마다 서버로부터 사람 리스트 불러옴*/
   useEffect(() => {
-    if (
-      /** if no lists of people, call function to get data from server
-       * 사람들 리스트가 없으면 콜백함수로 데이터를 가져온다.) */
-      !peopleListStatus &&
-      !peopleListStatus?.memberResponses
-    ) {
-      getPeopleList();
-    }
-  }, [getPeopleList, peopleListStatus]);
+    getPeopleList();
+  }, [getPeopleList]);
 
   const options = {
     rewind: false,
