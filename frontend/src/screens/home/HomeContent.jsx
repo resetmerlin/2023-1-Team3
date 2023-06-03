@@ -21,6 +21,12 @@ const HomeContent = ({
   /** 유저 삭제 state */
   const [blockValue, setBlockValue] = useState(false);
 
+  /** 유저 state 변경 후 서버에 보냄 */
+  const savAction = useCallback(() => {
+    setSaveValue((save) => !save);
+    sendLikeUser(user?.memberId, !saveValue);
+  });
+
   /** 삭제 state를 변경 후 서버에 보냄 */
   const blockAction = useCallback(async () => {
     await setBlockValue((value) => !value);
@@ -67,10 +73,9 @@ const HomeContent = ({
                 goNextSlideHandler={goNextSlideHandler}
                 userDetail={user}
                 saveValue={saveValue}
-                setSaveValue={setSaveValue}
+                likeAction={savAction}
                 setUserChildCardPopup={setUserChildCardPopup}
                 age={age}
-                sendLikeUser={sendLikeUser}
                 getUserFromChild={getUserFromChild}
               />
             </HomeInfo>
@@ -81,12 +86,10 @@ const HomeContent = ({
         <UserCardDetails
           user={user}
           blockAction={blockAction}
-          sendBlockUser={sendBlockUser}
+          likeAction={savAction}
           age={age}
           blockValue={blockValue}
           saveValue={saveValue}
-          setSaveValue={setSaveValue}
-          sendLikeUser={sendLikeUser}
           goBackToSlide={goBackToSlide}
           style={userCardImageStyle}
         />
