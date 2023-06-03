@@ -1,53 +1,89 @@
-import React, { forwardRef, memo } from "react";
+import React, { forwardRef, memo, useState, useCallback } from "react";
 
 import { styled } from "styled-components";
+import UserCardDetails from "./UserCardDetails";
 
 const UserCardColumn = memo(
-  forwardRef(({ user }, ref) => {
-    return (
-      <ColumnBig ref={ref}>
-        {user?.image == "DEFAULT" && user?.gender == "MALE" ? (
-          <UserColumnProfile
-            style={{
-              backgroundImage: `
-    url('./default/default-men.png')`,
-              backgroundRepeat: "none",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-            alt="save-profile"
-          ></UserColumnProfile>
-        ) : user?.image == "DEFAULT" && user?.gender == "FEMALE" ? (
-          <UserColumnProfile
-            style={{
-              backgroundImage: `
-    url('./default/default-women.png')`,
-              backgroundRepeat: "none",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-            alt="save-profile"
-          ></UserColumnProfile>
-        ) : (
-          <UserColumnProfile
-            style={{
-              backgroundImage: `
-  url(${user?.image}`,
-              backgroundRepeat: "none",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-            alt="save-profile"
-          ></UserColumnProfile>
-        )}
+  forwardRef(
+    ({ user, handleChildStateChange, sendBlockUser, sendSaveValue }, ref) => {
+      const backgroundImageColumn = {
+        backgroundImage:
+          user?.image == "DEFAULT" && user?.gender == "MALE"
+            ? `
+url('./default/default-men.png')`
+            : user?.image == "DEFAULT" && user?.gender == "FEMALE"
+            ? `
+url('./default/default-women.png')`
+            : `
+url(${user?.image}`,
+      };
 
-        <UserColumnDescWrap>
-          <UserColumnName>{user?.name}</UserColumnName>
-          <UserColumnMajor>{user?.department}</UserColumnMajor>
-        </UserColumnDescWrap>
-      </ColumnBig>
-    );
-  })
+      /** 유저 저장 state */
+      const [saveValue, setSaveValue] = useState(true);
+      const [blockValue, setBlockValue] = useState(false);
+      const [checked, setChecked] = useState(false);
+
+      /** 다시 Slide로 돌아감 */
+      const goBackToSlide = useCallback(() => {
+        setChecked(false);
+        handleChildStateChange(false);
+      });
+      /** 유저 state 변경 후 서버에 보냄 */
+      const saveStatusHandler = useCallback(() => {
+        setSaveValue((save) => !save);
+        sendSaveValue(user?.memberId, !saveValue);
+      });
+
+      /** 삭제 state를 변경 후 서버에 보냄 */
+      const blockStatusHandler = useCallback(() => {
+        setBlockValue((value) => !value);
+        sendBlockUser(user?.memberId, !blockValue);
+      });
+      /** 유저 나이 n살로 변경 */
+      const age =
+        new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
+      return (
+        <>
+          <ColumnBig ref={ref}>
+            <input
+              type="checkbox"
+              style={{ display: "none" }}
+              name={`${user?.memberId} column`}
+              id={`${user?.memberId} column`}
+              checked={checked == false ? false : true}
+              onChange={(e) => {
+                setChecked(e.target.checked);
+                handleChildStateChange(e.target.checked);
+              }}
+            />
+            <ColumnLabel htmlFor={`${user?.memberId} column`}>
+              <UserColumnProfile
+                style={backgroundImageColumn}
+                alt="save-profile"
+              ></UserColumnProfile>
+
+              <UserColumnDescWrap>
+                <UserColumnName>{user?.name}</UserColumnName>
+                <UserColumnMajor>{user?.department}</UserColumnMajor>
+              </UserColumnDescWrap>
+            </ColumnLabel>
+          </ColumnBig>
+          {checked && (
+            <UserCardDetails
+              style={backgroundImageColumn}
+              user={user}
+              age={age}
+              saveValue={saveValue}
+              goBackToSlide={goBackToSlide}
+              blockAction={blockStatusHandler}
+              likeAction={saveStatusHandler}
+              blockValue={blockValue}
+            />
+          )}
+        </>
+      );
+    }
+  )
 );
 const ColumnBig = styled.div`
   display: flex;
@@ -62,13 +98,27 @@ const ColumnBig = styled.div`
   border-radius: 8px;
 `;
 
+const ColumnLabel = styled.label`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.1s ease-in;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 8px;
+`;
+
 const UserColumnProfile = styled.div`
   width: 100%;
   height: 75%;
   display: flex;
   align-items: center;
   border-radius: 8px;
-
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
   label {
     width: 100%;
     height: 100%;
