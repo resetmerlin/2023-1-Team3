@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { styled } from "styled-components";
 import {
   UserInfoAge,
@@ -14,17 +14,16 @@ import {
 } from "./Button";
 import { BoxIconElement } from "boxicons";
 
-const UserCardDetails = ({
+const UserCardDetails = memo(function UserCardDetails({
   style,
   user,
   age,
   blockAction,
   saveValue,
-  setSaveValue,
-  sendLikeUser,
+  likeAction,
   goBackToSlide,
   blockValue,
-}) => {
+}) {
   return (
     <UserCardDetailsWrap>
       <UserCardDetailsImageWrap style={style}></UserCardDetailsImageWrap>
@@ -85,9 +84,8 @@ const UserCardDetails = ({
         </UserInfoIntroduction>
         <UserCardDetailsButtonWrap>
           <UserDetailLikeButton
+            likeAction={likeAction}
             saveValue={saveValue}
-            setSaveValue={setSaveValue}
-            sendLikeUser={sendLikeUser}
             memberId={user?.memberId}
           />
 
@@ -96,9 +94,11 @@ const UserCardDetails = ({
       </UserCardDetailsDescWrap>
     </UserCardDetailsWrap>
   );
-};
+});
 
 const UserCardDetailsWrap = styled.div`
+  position: fixed;
+
   width: 100vw;
   height: 100vh;
   display: flex;
