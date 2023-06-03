@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../components/Footer";
+import { MessageHeader } from "../../components/Header";
 
 const SettingScreen = () => {
   return (
     <section className="setting">
+      <MessageHeader />
       <div className="setting__content">
         <div className="setting__content__profile__wrap center flex-direction-col ">
           <img
