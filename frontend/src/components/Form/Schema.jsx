@@ -68,7 +68,7 @@ export const loginSchema = yup
 /** Schema for edit password form(비밀번호 재설정 Form을 위한 스키마) */
 export const securityEditPassword = yup
   .object({
-    pastPassword: yup
+    currentPassword: yup
       .string()
       .required("비밀번호를 입력해 주세요")
       .min(8, "비밀번호는 최소 8글자입니다")
