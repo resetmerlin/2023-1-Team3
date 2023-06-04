@@ -70,6 +70,20 @@ export const SettingHeader = ({ navigate, name }) => {
   );
 };
 
+export const DefaultBackHeader = ({ navigate }) => {
+  return (
+    <HeaderWrap>
+      <BackButton navigate={navigate} />
+    </HeaderWrap>
+  );
+};
+const HeaderWrap = styled.div`
+  height: auto;
+  display: flex;
+  position: fixed;
+  top: 3%;
+  left: 3%;
+`;
 const SettingHeaderWrap = styled.div`
   height: 11vh;
   width: 100%;
@@ -78,7 +92,7 @@ const SettingHeaderWrap = styled.div`
   align-items: center;
   justify-content: center;
   span {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 600;
     color: black;
   }
