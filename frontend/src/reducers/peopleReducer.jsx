@@ -18,6 +18,7 @@ export const peopleListReducers = (state = {}, action) => {
 
     case PEOPLE_LIST_FAIL:
       return { loading: false, error: action.payload };
+
     case PEOPLE_LIST_RESET:
       return {};
 
