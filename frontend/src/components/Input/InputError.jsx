@@ -15,7 +15,7 @@ export const InputEmailError = ({ input, loginInfo, errors }) => {
   return (
     <>
       {errors?.[input.name] ? (
-        <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
+        <FormErrorMessage>{errors?.[input.name]?.message}</FormErrorMessage>
       ) : (
         loginInfo.error &&
         !loginInfo.loading && (
