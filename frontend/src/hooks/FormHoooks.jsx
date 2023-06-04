@@ -3,6 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import LoginForm from "../screens/login/form/LoginForm";
 import RegisterForm from "../screens/register/form/RegisterForm";
 import { memo } from "react";
+import SecurityPasswordForm from "../screens/setting/form/SecurityPasswordForm";
 
 export const LoginFormHook = ({ schema, onSubmit, loginInfo, navigate }) => {
   const methods = useForm({
@@ -74,6 +75,34 @@ export const RegisterFormHook = ({
         codeInfo={codeInfo}
         dispatch={dispatch}
         navigate={navigate}
+      />
+    </FormProvider>
+  );
+};
+
+export const SecurityPaswordFormHook = ({
+  schema,
+  onSubmit,
+  error,
+  loading,
+}) => {
+  const methods = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+
+  return (
+    <FormProvider {...methods}>
+      <SecurityPasswordForm
+        onSubmit={onSubmit}
+        error={error}
+        loading={loading}
       />
     </FormProvider>
   );
