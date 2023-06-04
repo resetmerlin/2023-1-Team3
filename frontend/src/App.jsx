@@ -7,12 +7,12 @@ import ConversationScreen from "./screens/ConversationScreen";
 import { useMediaQuery } from "react-responsive";
 import SaveScreen from "./screens/SaveScreen";
 import SettingScreen from "./screens/setting/SettingScreen";
-import ProfileEditScreen from "./screens/setting/profileEdit/ProfileEditScreen";
 import "./sass/index.css";
 import RequireAuth from "./components/RequireAuth";
 import MissingPage from "./components/MissingPage";
 import Unauthorized from "./components/Unauthorized";
 import AccountSettingScreen from "./screens/AccountSettingScreen";
+import PersonalInfoScreen from "./screens/PersonalInfoScreen";
 
 function App() {
   const isMobile = useMediaQuery({
@@ -58,8 +58,8 @@ function App() {
               ></Route>
 
               <Route
-                path="/setting/profile"
-                element={<ProfileEditScreen />}
+                path="/setting/personal-info"
+                element={<PersonalInfoScreen />}
               ></Route>
             </Route>
           </Route>
