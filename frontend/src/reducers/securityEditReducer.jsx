@@ -4,6 +4,7 @@ import {
   SECURITY_PASSWORD_FAIL,
   SECURITY_UPLOAD_PROFILE_REQUEST,
   SECURITY_UPLOAD_PROFILE_SUCCESS,
+  SECURITY_PASSWORD_RESET,
   SECURITY_UPLOAD_PROFILE_FAIL,
 } from "../constants/securityEditConstants";
 
@@ -11,17 +12,19 @@ import {
 export const passwordEditReducers = (state = {}, action) => {
   switch (action.type) {
     case SECURITY_PASSWORD_REQUEST:
-      return { loading: true, ...state };
+      return { loading: true, ...state, passwordEditStatus: false };
 
     case SECURITY_PASSWORD_SUCCESS:
       return {
         loading: false,
-        passwordEditStatus: action.payload,
+        passwordEditStatus: true,
       };
 
     case SECURITY_PASSWORD_FAIL:
       return { loading: false, error: action.payload };
 
+    case SECURITY_PASSWORD_RESET:
+      return {};
     default:
       return state;
   }
