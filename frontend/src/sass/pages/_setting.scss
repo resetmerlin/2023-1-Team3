@@ -1,22 +1,4 @@
 .setting {
-  height: 90%;
-  top: 10%;
-  position: absolute;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  font-size: 1.5rem;
-  font-size: 1rem;
-  color: $color-white;
-  background-color: $color-black;
-  align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-
-    rgba(0, 0, 0, 0.144) 100%
-  );
-
   &__content {
     width: 100%;
     height: auto;
