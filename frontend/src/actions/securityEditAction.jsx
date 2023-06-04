@@ -13,7 +13,6 @@ export const passwordEditAction =
   (passwordEditValue) => async (dispatch, getState) => {
     try {
       dispatch({ type: SECURITY_PASSWORD_REQUEST });
-
       const {
         loginInfo: { sessfbs_ffa0934 },
       } = getState();
