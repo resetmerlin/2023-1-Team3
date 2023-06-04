@@ -93,7 +93,7 @@ const AccountSetting = styled.div`
 
 const AccountSettingContent = styled.div`
   height: 100%;
-  width: 90%;
+  width: 87%;
   display: flex;
   flex-direction: column;
   font-size: 1.2rem;
