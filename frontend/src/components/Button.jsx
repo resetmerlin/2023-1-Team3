@@ -2,6 +2,11 @@ import styled from "styled-components";
 import React, { memo } from "react";
 import { BoxIconElement } from "boxicons";
 
+/**저장 버튼: 개인정보 재설정 저장용*/
+export const SaveButton = () => {
+  return <PersonalInfoButton type="submit">저장 </PersonalInfoButton>;
+};
+
 /**체크 버튼: 현재 비밀번호 재설정으로 사용 */
 export const CheckedButton = () => {
   return (
@@ -594,4 +599,22 @@ const MediumUserButton = styled.button`
   height: 3rem;
   border: none;
   transition: all 0.2s ease-in-out;
+`;
+
+const PersonalInfoButton = styled.button`
+  width: 4.6rem;
+  height: 2.1rem;
+  background-color: white;
+  border-radius: 7px;
+  font-size: 1rem;
+  position: absolute;
+  top: 2%;
+  right: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: none;
+  color: rgb(128, 113, 252);
+  font-weight: 700;
 `;
