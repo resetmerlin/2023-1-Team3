@@ -17,6 +17,7 @@ import { HomeHeader } from "../../components/Header";
 import NoValueUser from "../../components/NoValueUser";
 import { useNavigate } from "react-router-dom";
 import { blockUserAction } from "../../actions/buttonAction";
+import { PEOPLE_LIST_RESET } from "../../constants/peopleConstants";
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,10 +50,15 @@ const HomeScreen = () => {
     [dispatch]
   );
 
-  /** 해당 페이지에 이동할때마다 서버로부터 사람 리스트 불러옴*/
+  /** 해당 페이지에 이동할때마다 유저 리스트 초기화*/
   useEffect(() => {
-    getPeopleList();
-  }, [getPeopleList]);
+    dispatch({ type: PEOPLE_LIST_RESET });
+  }, []);
+
+  /** 유저리스트 respons싱갑싱 없으면 서버로부터 사람 리스트 불러옴*/
+  useEffect(() => {
+    if (!peopleListStatus) getPeopleList();
+  }, [peopleListStatus]);
 
   const options = {
     rewind: false,
