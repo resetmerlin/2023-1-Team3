@@ -6,6 +6,9 @@ import {
   SECURITY_UPLOAD_PROFILE_SUCCESS,
   SECURITY_PASSWORD_RESET,
   SECURITY_UPLOAD_PROFILE_FAIL,
+  SECURITY_PERSONALINFO_REQUEST,
+  SECURITY_PERSONALINFO_SUCCESS,
+  SECURITY_PERSONALINFO_FAIL,
 } from "../constants/securityEditConstants";
 
 /** 유저들 불러오기 reducers */
@@ -43,6 +46,26 @@ export const profileEditReducers = (state = {}, action) => {
       };
 
     case SECURITY_UPLOAD_PROFILE_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+/** 유저들 불러오기 reducers */
+export const personalInfoEditReducers = (state = {}, action) => {
+  switch (action.type) {
+    case SECURITY_PERSONALINFO_REQUEST:
+      return { loading: true, ...state, personalInfoEditStatus: false };
+
+    case SECURITY_PERSONALINFO_SUCCESS:
+      return {
+        loading: false,
+        personalInfoEditStatus: true,
+      };
+
+    case SECURITY_PERSONALINFO_FAIL:
       return { loading: false, error: action.payload };
 
     default:
