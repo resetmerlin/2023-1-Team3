@@ -81,7 +81,13 @@ export const DefaultInput = ({
   return (
     <FormInputWrap>
       <Label htmlFor={input?.name} style={labelStyle}>
-        {input?.name == "secondPassword" ? "confirm password" : input?.name}
+        {input?.name == "secondPassword"
+          ? "confirm password"
+          : input?.name == "name"
+          ? "이름 "
+          : input?.name == "birthday"
+          ? "생년월일"
+          : input?.name}
       </Label>
       <Input
         type={input?.type}
@@ -153,7 +159,7 @@ export const DescriptionInput = ({ register, input }) => {
 export const PersonalMajorInput = ({ register }) => {
   return (
     <FormInputWrap>
-      <Label htmlFor="major">학과 선택</Label>
+      <Label htmlFor="major">학과</Label>
       <InputSelect {...register("major")} id="major" name="major">
         {selectInput.map((option) => {
           return (
