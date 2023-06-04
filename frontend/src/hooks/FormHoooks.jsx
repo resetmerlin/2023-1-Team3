@@ -2,8 +2,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, FormProvider } from "react-hook-form";
 import LoginForm from "../screens/login/form/LoginForm";
 import RegisterForm from "../screens/register/form/RegisterForm";
-import { memo } from "react";
 import SecurityPasswordForm from "../screens/setting/form/SecurityPasswordForm";
+import PersonalInfoForm from "../screens/setting/form/PersonalInfoForm";
 
 export const LoginFormHook = ({ schema, onSubmit, loginInfo, navigate }) => {
   const methods = useForm({
@@ -104,6 +104,25 @@ export const SecurityPaswordFormHook = ({
         error={error}
         loading={loading}
       />
+    </FormProvider>
+  );
+};
+
+export const PersonalInfoFormHook = ({ schema, onSubmit, error, loading }) => {
+  const methods = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+
+  return (
+    <FormProvider {...methods}>
+      <PersonalInfoForm onSubmit={onSubmit} error={error} loading={loading} />
     </FormProvider>
   );
 };
