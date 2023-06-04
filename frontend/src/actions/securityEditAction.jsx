@@ -5,6 +5,9 @@ import {
   SECURITY_UPLOAD_PROFILE_REQUEST,
   SECURITY_UPLOAD_PROFILE_SUCCESS,
   SECURITY_UPLOAD_PROFILE_FAIL,
+  SECURITY_PERSONALINFO_REQUEST,
+  SECURITY_PERSONALINFO_SUCCESS,
+  SECURITY_PERSONALINFO_FAIL,
 } from "../constants/securityEditConstants";
 import axios from "axios";
 
@@ -77,3 +80,37 @@ export const profileEditAction = (image) => async (dispatch, getState) => {
     });
   }
 };
+
+export const personalInfoEditAction =
+  (personalInfo) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: SECURITY_PERSONALINFO_REQUEST });
+      const {
+        loginInfo: { sessfbs_ffa0934 },
+      } = getState();
+
+      console.log(personalInfo);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+        },
+      };
+
+      // const { data } = await axios.post(
+      //   `${import.meta.env.VITE_API_URL}/member/reset`,
+      //   personalInfo,
+      //   config
+      // );
+
+      dispatch({ type: SECURITY_PERSONALINFO_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: SECURITY_PERSONALINFO_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.messge,
+      });
+    }
+  };
