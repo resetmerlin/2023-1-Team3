@@ -2,6 +2,48 @@ import React from "react";
 import { selectInput } from "./InputsDefine";
 import styled from "styled-components";
 
+export const DefaultPasswordInput = ({ input, errors, info, register }) => {
+  const labelStyle = {
+    color:
+      errors?.[input.name] || (info?.error && !info?.loading)
+        ? "#D93025"
+        : " rgb(128, 113, 252)",
+  };
+  const inputStyle = {
+    animation:
+      errors?.[input.name] &&
+      `
+      horizontal-shaking   .3s ease-in-out
+      `,
+
+    border:
+      errors?.[input.name] || (info?.error && !info?.loading)
+        ? "1px solid #D93025"
+        : "1px solid rgb(128, 113, 252)",
+    borderRadius: errors?.[input.name] ? "5px" : "5px",
+  };
+
+  return (
+    <FormInputWrap>
+      <Label htmlFor={input?.name} style={labelStyle}>
+        {input?.name == "currentPassword"
+          ? "현재 비밀번호"
+          : "password"
+          ? "새 비밀번호"
+          : "secondPassword"
+          ? "비밀번호 입입력"
+          : input?.name}
+      </Label>
+      <Input
+        type={input?.type}
+        id={input?.name}
+        placeholder={input?.placeholder}
+        {...register(input?.name)}
+        style={inputStyle}
+      />
+    </FormInputWrap>
+  );
+};
 export const DefaultInput = ({
   input,
   register,
