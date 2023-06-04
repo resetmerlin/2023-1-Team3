@@ -8,6 +8,8 @@ const SettingScreen = () => {
   return (
     <Setting>
       <SettingHeader />
+      <SettingUserContent />
+
       <Footer />
     </Setting>
   );
@@ -19,9 +21,16 @@ const Setting = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  font-size: 1.5rem;
   font-size: 1rem;
 
   align-self: start;
+`;
+
+const SettingUserContent = styled.div`
+  height: 20%;
+  width: 100%;
+  display: flex;
+
+  align-self: center;
 `;
 export default SettingScreen;
