@@ -4,7 +4,46 @@ import { BoxIconElement } from "boxicons";
 
 /**저장 버튼: 개인정보 재설정 저장용*/
 export const SaveButton = () => {
-  return <PersonalInfoButton type="submit">저장 </PersonalInfoButton>;
+  return (
+    <PersonalInfoButton
+      type="submit"
+      style={{
+        top: "2%",
+        right: " 3%",
+        position: "absolute",
+      }}
+    >
+      저장{" "}
+    </PersonalInfoButton>
+  );
+};
+
+/**프로필 변경 버튼: 개인정보 재설정 저장용*/
+export const ChangeProfileButton = () => {
+  return (
+    <PersonalInfoButton
+      type="submit "
+      style={{
+        width: "5.5rem",
+      }}
+    >
+      프로필 변경
+    </PersonalInfoButton>
+  );
+};
+
+//**프로필 변경 버튼: 개인정보 재설정 저장용*/
+export const SaveProfileButton = () => {
+  return (
+    <PersonalInfoButton
+      type="submit"
+      style={{
+        width: "5.5rem",
+      }}
+    >
+      프로필 저장
+    </PersonalInfoButton>
+  );
 };
 
 /**체크 버튼: 현재 비밀번호 재설정으로 사용 */
@@ -607,9 +646,7 @@ const PersonalInfoButton = styled.button`
   background-color: white;
   border-radius: 7px;
   font-size: 1rem;
-  position: absolute;
-  top: 2%;
-  right: 3%;
+
   display: flex;
   justify-content: center;
   align-items: center;
