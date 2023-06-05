@@ -6,6 +6,11 @@ import { PersonalInfoFormHook } from "../hooks/FormHoooks";
 import { personalInfoSchema } from "../components/Form/Schema";
 import { DefaultBackHeader } from "../components/Header";
 import { personalInfoEditAction } from "../actions/securityEditAction";
+import {
+  ChangeProfileButton,
+  SaveButton,
+  SaveProfileButton,
+} from "../components/Button";
 
 const PersonalInfoScreen = () => {
   const dispatch = useDispatch();
@@ -15,13 +20,27 @@ const PersonalInfoScreen = () => {
   // const personalUserInfo = useSelector((state) => state.personalUserInfo);
   // const { loading, error, personalUserStatus } = personalUserInfo;
   //  const user = personalUserStatus?.user;
-  const user = null;
 
+  const memberId = 8;
+  const name = "김민서";
+  const gender = "MALE";
+  const birth = "2000-10-03";
+  const image = "DEFAULT";
+  const department = "응용컴퓨터공학과";
+  const introduction = "반갑습니다~ 김민서입니다!";
+
+  const user = {
+    memberId: memberId,
+    name: name,
+    gender: gender,
+    birth: birth,
+    image: image,
+    department: department,
+    introduction: introduction,
+  };
   const backgroundImage = {
     backgroundImage:
-      user == null
-        ? `url('../default/default-men.png')`
-        : user?.image == "DEFAULT" && user?.gender == "MALE"
+      user?.image == "DEFAULT" && user?.gender == "MALE"
         ? `
 url('../default/default-men.png')`
         : user?.image == "DEFAULT" && user?.gender == "FEMALE"
@@ -30,6 +49,10 @@ url('../default/default-women.png')`
         : `
 url(${user?.image}`,
   };
+  /** 유저 나이 n살로 변경 */
+  const age =
+    new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
+
   // useEffect(()=>{
   //     dispatch(getUserInfoAction())
 
@@ -56,11 +79,29 @@ url(${user?.image}`,
           error={null}
           loading={null}
           onSubmit={onSubmit}
+          user={user}
         />
       </PersonalInfoContent>
+
+      <PersonalInfoButtonWrap>
+        <ChangeProfileButton />
+
+        {/* <SaveProfileButton /> */}
+      </PersonalInfoButtonWrap>
     </PersonalInfo>
   );
 };
+const PersonalInfoButtonWrap = styled.div`
+  width: auto;
+  // width: 12rem;
+
+  height: auto;
+  position: absolute;
+  top: 43%;
+  right: 3%;
+  display: flex;
+  justify-content: space-between;
+`;
 
 const PersonalInfo = styled.div`
   height: 100%;

@@ -13,11 +13,43 @@ const SettingScreen = () => {
   const logoutHandler = () => {
     dispatch(logoutAction());
   };
+
+  const memberId = 8;
+  const name = "김민서";
+  const gender = "MALE";
+  const birth = "2000-10-03";
+  const image = "DEFAULT";
+  const department = "응용컴퓨터공학과";
+  const introduction = "반갑습니다~ 김민서입니다!";
+
+  const user = {
+    memberId: memberId,
+    name: name,
+    gender: gender,
+    birth: birth,
+    image: image,
+    department: department,
+    introduction: introduction,
+  };
+  const backgroundImage = {
+    backgroundImage:
+      user?.image == "DEFAULT" && user?.gender == "MALE"
+        ? `
+url('./default/default-men.png')`
+        : user?.image == "DEFAULT" && user?.gender == "FEMALE"
+        ? `
+url('./default/default-women.png')`
+        : `
+url(${user?.image}`,
+  };
+  /** 유저 나이 n살로 변경 */
+  const age =
+    new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
   return (
     <Setting>
       <SettingHeader navigate={navigate} name={"마이페이지"} />
       <SettingUserContent>
-        <SettingUserImage></SettingUserImage>
+        <SettingUserImage style={backgroundImage}></SettingUserImage>
         <SettingUserTextWrap>
           <span style={{ fontSize: "1.4rem" }}>
             <span
@@ -27,24 +59,20 @@ const SettingScreen = () => {
                 marginRight: ".5rem",
               }}
             >
-              김주영
+              {user.name}
             </span>
-            26
+            {age}
           </span>
 
-          <span>커뮤니케이션 디자인학과</span>
+          <span>{user?.department}</span>
         </SettingUserTextWrap>
       </SettingUserContent>
       <SettingMiddlContent>
         <span>자기소개</span>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla at eum
-          in aspernatur qui voluptates ipsa vero esse hic optio, ratione dolorem
-          perferendis itaque iste vel! Ratione sint eius delectus.
-        </p>
+        <p>{user?.introduction}</p>
       </SettingMiddlContent>
       <SettingAccountContent>
-        <Link>프로필 설정</Link>
+        <Link to="/setting/personal-info">프로필 설정</Link>
 
         <Link to="/setting/account-security">계정보안 설정</Link>
         <Link>개인정보 보호</Link>
@@ -97,8 +125,10 @@ const SettingUserImage = styled.div`
   width: 5.3rem;
   border-radius: 8px;
   display: flex;
-  border: 1px solid black;
   align-self: center;
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
 `;
 
 const SettingMiddlContent = styled.div`
@@ -124,7 +154,7 @@ const SettingMiddlContent = styled.div`
 `;
 
 const SettingAccountContent = styled.div`
-  height: 18%;
+  height: 20%;
   width: 88%;
   border-radius: 8px;
   margin: 0 0 1rem 0;
