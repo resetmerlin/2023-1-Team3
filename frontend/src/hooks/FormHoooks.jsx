@@ -108,7 +108,13 @@ export const SecurityPaswordFormHook = ({
   );
 };
 
-export const PersonalInfoFormHook = ({ schema, onSubmit, error, loading }) => {
+export const PersonalInfoFormHook = ({
+  schema,
+  onSubmit,
+  error,
+  loading,
+  user,
+}) => {
   const methods = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -122,7 +128,12 @@ export const PersonalInfoFormHook = ({ schema, onSubmit, error, loading }) => {
 
   return (
     <FormProvider {...methods}>
-      <PersonalInfoForm onSubmit={onSubmit} error={error} loading={loading} />
+      <PersonalInfoForm
+        onSubmit={onSubmit}
+        error={error}
+        loading={loading}
+        user={user}
+      />
     </FormProvider>
   );
 };
