@@ -51,6 +51,7 @@ export const DefaultInput = ({
   emailInfo,
   codeInfo,
   loginInfo,
+  userPlaceholder,
 }) => {
   const labelStyle = {
     color:
@@ -92,7 +93,7 @@ export const DefaultInput = ({
       <Input
         type={input?.type}
         id={input?.name}
-        placeholder={input?.placeholder}
+        placeholder={!userPlaceholder ? input?.placeholder : userPlaceholder}
         {...register(input?.name)}
         style={inputStyle}
       />
@@ -126,7 +127,7 @@ export const GenderInput = ({ input, register, setValue, getValues }) => {
   );
 };
 
-export const DescriptionInput = ({ register, input }) => {
+export const DescriptionInput = ({ register, input, userPlaceholder }) => {
   const InputTextStyle = {
     height: "11rem",
     width: "86%",
@@ -150,17 +151,27 @@ export const DescriptionInput = ({ register, input }) => {
         style={InputTextStyle}
         type={input?.type}
         id={input?.name}
-        placeholder={input?.placeholder}
+        placeholder={!userPlaceholder ? input?.placeholder : userPlaceholder}
         {...register(input?.name)}
       ></TextareaStyle>
     </FormInputWrap>
   );
 };
-export const PersonalMajorInput = ({ register }) => {
+export const PersonalMajorInput = ({ register, userPlaceholder }) => {
   return (
     <FormInputWrap>
       <Label htmlFor="major">학과</Label>
-      <InputSelect {...register("major")} id="major" name="major">
+      <InputSelect
+        {...register("major")}
+        id="major"
+        name="major"
+        defaultValue={userPlaceholder}
+      >
+        {userPlaceholder && (
+          <option value={userPlaceholder} disabled>
+            {userPlaceholder}
+          </option>
+        )}
         {selectInput.map((option) => {
           return (
             <option key={option.value} value={option.value}>
