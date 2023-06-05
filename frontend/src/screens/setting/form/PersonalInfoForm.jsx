@@ -17,7 +17,7 @@ import { DefaultInputError } from "../../../components/Input/InputError";
 import { styled } from "styled-components";
 import { SaveButton } from "../../../components/Button";
 
-const PersonalInfoForm = ({ onSubmit, error, loading }) => {
+const PersonalInfoForm = ({ onSubmit, error, loading, user }) => {
   const afterFormChangeInfo = {
     error,
     loading,
@@ -36,6 +36,7 @@ const PersonalInfoForm = ({ onSubmit, error, loading }) => {
           register={register}
           errors={errors}
           info={afterFormChangeInfo}
+          userPlaceholder={user?.name}
         />
         <DefaultInputError errors={errors} input={nameInput} />
       </PersonInfoInputWrap>
@@ -45,6 +46,7 @@ const PersonalInfoForm = ({ onSubmit, error, loading }) => {
           input={majorInput}
           register={register}
           errors={errors}
+          userPlaceholder={user?.department}
         />
         <DefaultInputError errors={errors} input={majorInput} />
       </PersonInfoInputWrap>
@@ -54,6 +56,7 @@ const PersonalInfoForm = ({ onSubmit, error, loading }) => {
           input={birthdayInput}
           register={register}
           errors={errors}
+          userPlaceholder={user?.birthday}
         />
         <DefaultInputError errors={errors} input={birthdayInput} />
       </PersonInfoInputWrap>
@@ -64,6 +67,7 @@ const PersonalInfoForm = ({ onSubmit, error, loading }) => {
             input={descriptionInput}
             register={register}
             errors={errors}
+            userPlaceholder={user?.introduction}
           />
         </PersonalInfoDescWrap>
       </PersonInfoInputWrap>
