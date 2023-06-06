@@ -45,7 +45,7 @@ export const HomeHeader = ({ navigate, style }) => {
 export const SaveHeader = ({ navigate, style }) => {
   return (
     <SaveHeaderWrap style={style}>
-      <HeaderButtonWrap style={{ left: "0%", top: "3%" }}>
+      <HeaderButtonWrap style={{ left: "0%", top: "7%" }}>
         <BackButton navigate={navigate} />
       </HeaderButtonWrap>
       <span>Like</span>
@@ -59,6 +59,44 @@ export const MessageHeader = () => {
     </MessageHeaderWrap>
   );
 };
+export const SettingHeader = ({ navigate, name }) => {
+  return (
+    <SettingHeaderWrap>
+      <HeaderButtonWrap style={{ left: "3%" }}>
+        <BackButton navigate={navigate} />
+      </HeaderButtonWrap>
+      <span>{name}</span>
+    </SettingHeaderWrap>
+  );
+};
+
+export const DefaultBackHeader = ({ navigate }) => {
+  return (
+    <HeaderWrap>
+      <BackButton navigate={navigate} />
+    </HeaderWrap>
+  );
+};
+const HeaderWrap = styled.div`
+  height: auto;
+  display: flex;
+  position: fixed;
+  top: 3%;
+  left: 3%;
+`;
+const SettingHeaderWrap = styled.div`
+  height: 11vh;
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  span {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: black;
+  }
+`;
 const MessageHeaderWrap = styled.div`
   height: 15vh;
   width: 100%;

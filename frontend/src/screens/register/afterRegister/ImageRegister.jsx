@@ -70,17 +70,7 @@ const ImageRegister = ({ handleNext, dispatch }) => {
       useWebWorker: true,
     };
     try {
-      console.log("originalFile instanceof Blob", imgFile instanceof Blob); // true
-      console.log(`originalFile size ${imgFile.size / 1024 / 1024} MB`);
-
       const compressedFile = await imageCompression(imgFile, options);
-      console.log(
-        "compressedFile instanceof Blob",
-        compressedFile instanceof Blob
-      ); // true
-      console.log(
-        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
-      ); // smaller than maxSizeMB
 
       /** 압축된 Cropped 이미지를 서버에 보냄 */
       dispatch(profileEditAction(compressedFile));

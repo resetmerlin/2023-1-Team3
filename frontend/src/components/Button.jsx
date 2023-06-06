@@ -2,6 +2,94 @@ import styled from "styled-components";
 import React, { memo } from "react";
 import { BoxIconElement } from "boxicons";
 
+/**저장 버튼: 개인정보 재설정 저장용*/
+export const SaveButton = ({ loading, status }) => {
+  const saveButtonStyle = {
+    backgroundColor: status && !loading ? "rgb(128, 113, 252)" : "white",
+    color:
+      status && loading === false
+        ? "white"
+        : loading === undefined && status === undefined
+        ? "rgb(128, 113, 252)"
+        : "rgb(128, 113, 252)",
+    top: "2%",
+    right: " 3%",
+    position: "absolute",
+  };
+  return (
+    <PersonalInfoButton type="submit" style={saveButtonStyle}>
+      {status && loading === false
+        ? "저장 완료!"
+        : loading === undefined && status === undefined
+        ? "저장"
+        : "저장"}
+    </PersonalInfoButton>
+  );
+};
+
+/**프로필 변경 버튼: 개인정보 재설정 저장용*/
+export const ChangeProfileButton = ({ handleChangeProfile }) => {
+  return (
+    <PersonalInfoButton
+      type="submit "
+      style={{
+        width: "5.5rem",
+      }}
+      onClick={() => {
+        handleChangeProfile();
+      }}
+    >
+      프로필 변경
+    </PersonalInfoButton>
+  );
+};
+
+//**프로필 변경 버튼: 개인정보 재설정 저장용*/
+export const SaveProfileButton = () => {
+  return (
+    <PersonalInfoButton
+      type="submit"
+      style={{
+        width: "5.5rem",
+      }}
+    >
+      프로필 저장
+    </PersonalInfoButton>
+  );
+};
+
+/**체크 버튼: 현재 비밀번호 재설정으로 사용 */
+export const CheckedButton = () => {
+  return (
+    <button
+      type="submit"
+      style={{
+        position: "fixed",
+        top: "3%",
+        right: "3%",
+        backgroundColor: "white",
+        border: "none",
+      }}
+    >
+      <box-icon name="check" size="2rem"></box-icon>
+    </button>
+  );
+};
+
+/**로그아웃 전용 버튼 */
+export const LogoutButton = ({ logout }) => {
+  return (
+    <SettingButton
+      type="button"
+      onClick={() => {
+        logout();
+      }}
+    >
+      계정에서 로그아웃
+    </SettingButton>
+  );
+};
+
 export const SubmitButton = ({ page }) => {
   const submitButtonStyle = {
     backgroundColor: "rgb(128, 113, 252)",
@@ -29,6 +117,7 @@ export const GoToRegisterButton = ({ page, navigate }) => {
   );
 };
 
+/** 이메일 인증 버튼 */
 export const VerifyButton = ({ sendEmailData, getValues }) => {
   return (
     <VerifyStyleButton
@@ -42,6 +131,7 @@ export const VerifyButton = ({ sendEmailData, getValues }) => {
   );
 };
 
+/** 이메일 코드 인증 버튼 */
 export const VerifyCodeButton = ({
   sendCodeData,
   getValueEmail,
@@ -60,6 +150,7 @@ export const VerifyCodeButton = ({
   );
 };
 
+/** 뒤로 가기 버튼 */
 export const BackButton = memo(function BackButton({ navigate }) {
   return (
     <BackArrowButton
@@ -71,6 +162,8 @@ export const BackButton = memo(function BackButton({ navigate }) {
     </BackArrowButton>
   );
 });
+
+/*회입가입 스테이지 뒤로 가기 버튼 */
 export const BackFormButton = ({ handlePrevious }) => {
   return (
     <BackArrowButton onClick={handlePrevious}>
@@ -79,6 +172,7 @@ export const BackFormButton = ({ handlePrevious }) => {
   );
 };
 
+/*유저 디테일 팡업 상태에서 홈 슬라이드로 돌아가는 버튼 */
 export const BackToSlideCardButton = memo(function BackFormButton({
   goBackToSlide,
 }) {
@@ -109,6 +203,8 @@ export const SaveCheckButton = ({ sendImageToServer }) => {
     </button>
   );
 };
+
+/** 회원가입 후 프로필 이미지 업로드 버튼 */
 export const ImageRegisterButton = ({
   handleNext,
   sendImageToServer,
@@ -128,6 +224,23 @@ export const ImageRegisterButton = ({
     </NextButtonWrap>
   );
 };
+
+/** 회원가입 후 프로필 이미지 업로드 버튼 */
+export const ImageUploadButton = ({ sendImageToServer }) => {
+  return (
+    <NextButtonWrap>
+      <NextButton
+        type="button"
+        onClick={async () => {
+          await sendImageToServer();
+        }}
+      >
+        프로필 이미지로 설정
+      </NextButton>
+    </NextButtonWrap>
+  );
+};
+/** 회원가입 후 로그인으로 돌아가는 버튼 */
 export const AfterRegisterButton = ({ content, navigate }) => {
   return (
     <NextButtonWrap>
@@ -142,6 +255,8 @@ export const AfterRegisterButton = ({ content, navigate }) => {
     </NextButtonWrap>
   );
 };
+
+/** 이메일 및 코드 인증 단계 외 다음 버튼 */
 export const NextStepButton = ({ handleNext, inputErrors, getValues }) => {
   return (
     <NextButtonWrap>
@@ -160,7 +275,7 @@ export const NextStepButton = ({ handleNext, inputErrors, getValues }) => {
     </NextButtonWrap>
   );
 };
-
+/** 이메일 및 코드 인증 단계 다음 버튼 */
 export const EmailNextStepButton = ({ handleNext, codeInfo, emailInfo }) => {
   return (
     <NextButtonWrap>
@@ -196,6 +311,7 @@ export const PreviousStepButton = memo(function PreviousStepButton({
   );
 });
 
+/** 다음 유저 슬라이드로 가는 삭제 버튼 */
 export const UserDeleteButton = memo(function UserDeleteButton({
   goNextSlideHandler,
 }) {
@@ -211,6 +327,7 @@ export const UserDeleteButton = memo(function UserDeleteButton({
   );
 });
 
+/** 이미 다 본 유저 다시보는 버튼 */
 export const RecapUserListsButton = memo(function UserDeleteButton({
   getPeopleList,
 }) {
@@ -272,6 +389,8 @@ export const UserDetailsMessageButton = memo(
     );
   }
 );
+
+/** 유저 좋아요 버튼 */
 export const UserLikeButton = memo(function UserLikeButton({
   saveValue,
   likeAction,
@@ -312,6 +431,8 @@ export const UserLikeButton = memo(function UserLikeButton({
     </MediumUserButton>
   );
 });
+
+/** 유저 삭제 버튼 */
 export const BlockButton = memo(function BlockButton({
   blockValue,
   blockAction,
@@ -334,7 +455,7 @@ export const BlockButton = memo(function BlockButton({
     </PopupButton>
   );
 });
-
+/** 유저 팝업 디테일 좋아요 버튼 */
 export const UserDetailLikeButton = memo(function UserDetailLikeButton({
   saveValue,
   likeAction,
@@ -396,6 +517,7 @@ export const FullStepButton = memo(function FullStepButton({
   );
 });
 
+/** 로그인 혹은 회원가입 화면으로 가는 버튼 */
 export const GoFormButton = ({ page, navigate }) => {
   return (
     <>
@@ -413,6 +535,19 @@ export const GoFormButton = ({ page, navigate }) => {
   );
 };
 
+const SettingButton = styled.button`
+  height: 50%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 1.4rem;
+  font-size: 0.95rem;
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  align-self: center;
+  color: black;
+`;
 const PopupButton = styled.button`
   width: 100%;
   height: 50%;
@@ -530,4 +665,21 @@ const MediumUserButton = styled.button`
   height: 3rem;
   border: none;
   transition: all 0.2s ease-in-out;
+`;
+
+const PersonalInfoButton = styled.button`
+  min-width: 4.6rem;
+  padding: 0.3rem;
+  height: 2.1rem;
+  background-color: white;
+  border-radius: 7px;
+  font-size: 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: none;
+  color: rgb(128, 113, 252);
+  font-weight: 700;
 `;

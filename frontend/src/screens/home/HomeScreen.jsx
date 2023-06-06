@@ -17,6 +17,7 @@ import { HomeHeader } from "../../components/Header";
 import NoValueUser from "../../components/NoValueUser";
 import { useNavigate } from "react-router-dom";
 import { blockUserAction } from "../../actions/buttonAction";
+import { PEOPLE_LIST_RESET } from "../../constants/peopleConstants";
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,12 +49,6 @@ const HomeScreen = () => {
     (memberId, saveBoolean) => dispatch(saveUserAction(memberId, saveBoolean)),
     [dispatch]
   );
-
-  /** 해당 페이지에 이동할때마다 서버로부터 사람 리스트 불러옴*/
-  useEffect(() => {
-    getPeopleList();
-  }, [getPeopleList]);
-
   const options = {
     rewind: false,
     type: "slide",
@@ -79,24 +74,6 @@ const HomeScreen = () => {
   /** 전 슬라이드 페이지 값 */
   const previousPage = useRef(-1);
 
-  /** 슬라이드 페이지 값 변경 및 값에 따라 callback함수 trigger */
-  const slidePageHandler = useCallback(
-    (e) => {
-      /** 이전 페이지와 현재 페이지 값이 다를 경우 */
-      if (e !== previousPage?.current) {
-        previousPage.current = e;
-      } else if (
-        /** 마지막 페이지에 있는데 슬라이드를 할 경우*/
-
-        previousPage?.current ==
-        peopleListStatus?.count - 1
-      ) {
-        nextPeopleListsHandler();
-      }
-    },
-    [previousPage?.current, peopleListStatus?.count]
-  );
-
   /** 새로운 유저 리스트 가져오는 프로세스 핸들 */
   const nextPeopleListsHandler = useCallback(() => {
     getPeopleList();
@@ -105,21 +82,44 @@ const HomeScreen = () => {
     splideRef.current.splide.Components.Controller.go(0);
   }, [splideRef]);
 
+  /** 슬라이드 페이지 값 변경 및 값에 따라 callback함수 trigger */
+  const slidePageHandler = useCallback(() => {
+    const currentPage =
+      splideRef?.current?.splide?.Components.Controller.getIndex();
+    const lastPage = splideRef?.current?.splide?.Components.Controller.getEnd();
+
+    /** 이전 페이지와 현재 페이지 값이 다를 경우 */
+    if (currentPage !== previousPage?.current) {
+      previousPage.current = currentPage;
+    } else if (
+      /** 마지막 페이지에 있는데 슬라이드를 할 경우*/
+      previousPage?.current == lastPage
+    ) {
+      nextPeopleListsHandler();
+    }
+  }, [previousPage, splideRef]);
+
   /** 다음 슬라이드로 이동 */
   const goNextSlideHandler = useCallback(() => {
     const getNextPage =
       splideRef?.current.splide.Components.Controller.getNext();
+    const lastPage = splideRef?.current?.splide?.Components.Controller.getEnd();
 
-    if (previousPage?.current == peopleListStatus?.count - 1) {
+    if (previousPage?.current == lastPage) {
       nextPeopleListsHandler();
     } else {
       splideRef.current.splide.Components.Controller.go(getNextPage);
     }
-  }, [
-    splideRef?.current?.splide?.Components?.Controller,
-    previousPage?.current,
-    peopleListStatus?.count,
-  ]);
+  }, [splideRef, previousPage]);
+  /** 해당 페이지에 이동할때마다 유저 리스트 초기화*/
+  useEffect(() => {
+    dispatch({ type: PEOPLE_LIST_RESET });
+  }, []);
+
+  /** 유저리스트 response 서버로부터 사람 리스트 불러옴*/
+  useEffect(() => {
+    if (!peopleListStatus?.memberResponses) getPeopleList();
+  }, [peopleListStatus]);
 
   return (
     <>
@@ -128,43 +128,46 @@ const HomeScreen = () => {
           navigate={navigate}
           style={{ display: userCardPopup ? "none" : "flex" }}
         />
+        {peopleListLoading ? (
+          <Loading />
+        ) : (
+          <Splide
+            ref={splideRef}
+            hasTrack={false}
+            options={{ ...options, drag: userCardPopup ? false : true }}
+            id="Splide"
+            onMoved={slidePageHandler}
+            style={{ height: userCardPopup ? "100vh" : "80vh" }}
+          >
+            <SplideTrack>
+              {peopleListStatus &&
+                peopleListStatus?.memberResponses.map((user) => {
+                  return (
+                    <Suspense fallback={<Loading />} key={user.memberId}>
+                      <SplideSlide key={user.memberId} id="SplideSlide">
+                        <HomeContent
+                          user={user}
+                          key={user.memberId}
+                          peopleListLoading={peopleListLoading}
+                          sendLikeUser={sendLikeUser}
+                          goNextSlideHandler={goNextSlideHandler}
+                          userCardPopup={userCardPopup}
+                          sendBlockUser={sendBlockUser}
+                          getUserFromChild={getUserFromChild}
+                        />
+                      </SplideSlide>
+                    </Suspense>
+                  );
+                })}
 
-        <Splide
-          ref={splideRef}
-          hasTrack={false}
-          options={{ ...options, drag: userCardPopup ? false : true }}
-          id="Splide"
-          onMoved={(e) => slidePageHandler(e.Components.Controller.getIndex())}
-          style={{ height: userCardPopup ? "100vh" : "80vh" }}
-        >
-          <SplideTrack>
-            {peopleListStatus &&
-              peopleListStatus?.memberResponses.map((user) => {
-                return (
-                  <Suspense fallback={<Loading />} key={user.memberId}>
-                    <SplideSlide key={user.memberId} id="SplideSlide">
-                      <HomeContent
-                        user={user}
-                        key={user.memberId}
-                        peopleListLoading={peopleListLoading}
-                        sendLikeUser={sendLikeUser}
-                        goNextSlideHandler={goNextSlideHandler}
-                        userCardPopup={userCardPopup}
-                        sendBlockUser={sendBlockUser}
-                        getUserFromChild={getUserFromChild}
-                      />
-                    </SplideSlide>
-                  </Suspense>
-                );
-              })}
-
-            {peopleListStatus?.endPageSignal && (
-              <SplideSlide>
-                <NoValueUser getPeopleList={getPeopleList} />{" "}
-              </SplideSlide>
-            )}
-          </SplideTrack>
-        </Splide>
+              {peopleListStatus?.endPageSignal && (
+                <SplideSlide>
+                  <NoValueUser getPeopleList={getPeopleList} />{" "}
+                </SplideSlide>
+              )}
+            </SplideTrack>
+          </Splide>
+        )}
 
         <Footer style={{ display: userCardPopup ? "none" : "flex" }} />
       </section>

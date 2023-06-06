@@ -4,16 +4,15 @@ import LoginSceen from "./screens/login/LoginScreen";
 import HomeScreen from "./screens/home/HomeScreen";
 import MessageScreen from "./screens/MessageScreen";
 import ConversationScreen from "./screens/ConversationScreen";
-import Header from "./components/Header";
 import { useMediaQuery } from "react-responsive";
 import SaveScreen from "./screens/SaveScreen";
 import SettingScreen from "./screens/setting/SettingScreen";
-import SecurityEditScreen from "./screens/setting/SecurityEdit/SecurityEditScreen.jsx";
-import ProfileEditScreen from "./screens/setting/profileEdit/ProfileEditScreen";
 import "./sass/index.css";
 import RequireAuth from "./components/RequireAuth";
 import MissingPage from "./components/MissingPage";
 import Unauthorized from "./components/Unauthorized";
+import AccountSettingScreen from "./screens/setting/accountSetting/AccountSettingScreen";
+import PersonalInfoScreen from "./screens/setting/personalInfoEdit/PersonalInfoScreen";
 
 function App() {
   const isMobile = useMediaQuery({
@@ -54,13 +53,13 @@ function App() {
               <Route path="" element={<SettingScreen />} />
 
               <Route
-                path="/setting/security"
-                element={<SecurityEditScreen />}
+                path="/setting/account-security"
+                element={<AccountSettingScreen />}
               ></Route>
 
               <Route
-                path="/setting/profile"
-                element={<ProfileEditScreen />}
+                path="/setting/personal-info"
+                element={<PersonalInfoScreen />}
               ></Route>
             </Route>
           </Route>

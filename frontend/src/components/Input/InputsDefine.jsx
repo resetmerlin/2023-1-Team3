@@ -63,26 +63,13 @@ export const descriptionInput = {
   type: "text",
   placeholder: "",
 };
-export const securityEditInput = [
-  {
-    id: "pastPassword",
-    name: "pastPassword",
-    type: "password",
-    placeholder: "pastPassword",
-  },
-  {
-    id: "password",
-    name: "password",
-    type: "password",
-    placeholder: "Password",
-  },
-  {
-    id: "secondPassword",
-    name: "secondPassword",
-    type: "password",
-    placeholder: "Check Password",
-  },
-];
+
+export const currentPasswordInput = {
+  id: "currentPassword",
+  name: "currentPassword",
+  type: "password",
+  placeholder: "Current password",
+};
 
 export const selectInput = [
   { value: "국어국문학과" },

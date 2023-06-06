@@ -70,15 +70,15 @@ const Footer = memo(function Footer({ style }) {
           <Link to="/setting" className="footer__link--setting">
             {location == "/setting" ? (
               <box-icon
-                color="rgb(128, 113, 252)"
-                name="cog"
-                size="2.3rem"
                 type="solid"
+                color="rgb(128, 113, 252)"
+                size="2.3rem"
+                name="user"
               ></box-icon>
             ) : (
               <box-icon
                 color="rgb(198 200 205)"
-                name="cog"
+                name="user"
                 size="2.3rem"
                 type="solid"
               ></box-icon>

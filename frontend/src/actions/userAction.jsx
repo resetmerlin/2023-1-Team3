@@ -11,6 +11,7 @@ import {
   USER_VERIFY_REQUEST,
   USER_VERIFY_SUCCESS,
   USER_VERIFY_FAIL,
+  USER_LOGOUT,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -130,4 +131,10 @@ export const loginAction = (mail, password) => async (dispatch) => {
           : error.messge,
     });
   }
+};
+
+export const logoutAction = () => (dispatch) => {
+  sessionStorage.removeItem("sessfbs_ffa0934");
+
+  dispatch({ type: USER_LOGOUT });
 };
