@@ -11,8 +11,8 @@ import "./sass/index.css";
 import RequireAuth from "./components/RequireAuth";
 import MissingPage from "./components/MissingPage";
 import Unauthorized from "./components/Unauthorized";
-import AccountSettingScreen from "./screens/AccountSettingScreen";
-import PersonalInfoScreen from "./screens/PersonalInfoScreen";
+import AccountSettingScreen from "./screens/setting/accountSetting/AccountSettingScreen";
+import PersonalInfoScreen from "./screens/setting/personalInfoEdit/PersonalInfoScreen";
 
 function App() {
   const isMobile = useMediaQuery({
