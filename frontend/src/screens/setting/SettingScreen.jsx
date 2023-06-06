@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import { styled } from "styled-components";
@@ -25,17 +25,22 @@ const SettingScreen = () => {
     });
   }, []);
 
-  const backgroundImage = {
-    backgroundImage:
-      user?.image == "DEFAULT" && user?.gender == "MALE"
-        ? `
-url('./default/default-men.png')`
-        : user?.image == "DEFAULT" && user?.gender == "FEMALE"
-        ? `
-url('./default/default-women.png')`
-        : `
-url(${user?.image}`,
-  };
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState(
+    `url('./default/default-men.png')`
+  );
+
+  useEffect(() => {
+    if (user?.image) {
+      setBackgroundImageUrl(
+        user?.image == "DEFAULT" && user?.gender == "MALE"
+          ? `url('./default/default-men.png')`
+          : user?.image == "DEFAULT" && user?.gender == "FEMALE"
+          ? `url('./default/default-women.png')`
+          : `url(${user?.image})`
+      );
+    }
+  }, [user?.image, user?.gender]);
+
   /** 유저 나이 n살로 변경 */
   const age =
     new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
@@ -43,7 +48,9 @@ url(${user?.image}`,
     <Setting>
       <SettingHeader navigate={navigate} name={"마이페이지"} />
       <SettingUserContent>
-        <SettingUserImage style={backgroundImage}></SettingUserImage>
+        <SettingUserImage
+          style={{ backgroundImage: backgroundImageUrl }}
+        ></SettingUserImage>
         <SettingUserTextWrap>
           <span style={{ fontSize: "1.4rem" }}>
             <span

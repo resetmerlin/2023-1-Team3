@@ -33,17 +33,21 @@ const PersonalInfoScreen = () => {
     });
   }, []);
 
-  const backgroundImage = {
-    backgroundImage:
-      user?.image == "DEFAULT" && user?.gender == "MALE"
-        ? `
-url('../default/default-men.png')`
-        : user?.image == "DEFAULT" && user?.gender == "FEMALE"
-        ? `
-url('../default/default-women.png')`
-        : `
-url(${user?.image}`,
-  };
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState(
+    `url('./default/default-men.png')`
+  );
+
+  useEffect(() => {
+    if (user?.image) {
+      setBackgroundImageUrl(
+        user?.image == "DEFAULT" && user?.gender == "MALE"
+          ? `url('./default/default-men.png')`
+          : user?.image == "DEFAULT" && user?.gender == "FEMALE"
+          ? `url('./default/default-women.png')`
+          : `url(${user?.image})`
+      );
+    }
+  }, [user?.image, user?.gender]);
 
   const onSubmit = async (data) => {
     await dispatch(
@@ -74,7 +78,10 @@ url(${user?.image}`,
       )}
 
       <PersonalInfoImage
-        style={{ ...backgroundImage, display: changeProfile && "none" }}
+        style={{
+          backgroundImage: backgroundImageUrl,
+          display: changeProfile && "none",
+        }}
       ></PersonalInfoImage>
       {changeProfile && (
         <PersonalImageEdit
