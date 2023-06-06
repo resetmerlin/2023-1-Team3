@@ -9,6 +9,11 @@ import {
   SECURITY_PERSONALINFO_REQUEST,
   SECURITY_PERSONALINFO_SUCCESS,
   SECURITY_PERSONALINFO_FAIL,
+  SECURITY_GET_PERSONALINFO_REQUEST,
+  SECURITY_GET_PERSONALINFO_SUCCESS,
+  SECURITY_GET_PERSONALINFO_FAIL,
+  SECURITY_GET_PERSONALINFO_RESET,
+  SECURITY_PERSONALINFO_RESET,
 } from "../constants/securityEditConstants";
 
 /** 유저들 불러오기 reducers */
@@ -62,11 +67,35 @@ export const personalInfoEditReducers = (state = {}, action) => {
     case SECURITY_PERSONALINFO_SUCCESS:
       return {
         loading: false,
-        personalInfoEditStatus: true,
+        personalInfoEditStatus: action.payload,
       };
 
     case SECURITY_PERSONALINFO_FAIL:
       return { loading: false, error: action.payload };
+    case SECURITY_PERSONALINFO_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+/** 유저들 불러오기 reducers */
+export const getPersonalInfoReducers = (state = {}, action) => {
+  switch (action.type) {
+    case SECURITY_GET_PERSONALINFO_REQUEST:
+      return { loading: true, ...state, personalInfoStatus: false };
+
+    case SECURITY_GET_PERSONALINFO_SUCCESS:
+      return {
+        loading: false,
+        personalInfoStatus: action.payload,
+      };
+
+    case SECURITY_GET_PERSONALINFO_FAIL:
+      return { loading: false, error: action.payload };
+
+    case SECURITY_GET_PERSONALINFO_RESET:
+      return {};
 
     default:
       return state;
