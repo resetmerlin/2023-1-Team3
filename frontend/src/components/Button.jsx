@@ -3,28 +3,40 @@ import React, { memo } from "react";
 import { BoxIconElement } from "boxicons";
 
 /**저장 버튼: 개인정보 재설정 저장용*/
-export const SaveButton = () => {
+export const SaveButton = ({ loading, status }) => {
+  const saveButtonStyle = {
+    backgroundColor: status && !loading ? "rgb(128, 113, 252)" : "white",
+    color:
+      status && loading === false
+        ? "white"
+        : loading === undefined && status === undefined
+        ? "rgb(128, 113, 252)"
+        : "rgb(128, 113, 252)",
+    top: "2%",
+    right: " 3%",
+    position: "absolute",
+  };
   return (
-    <PersonalInfoButton
-      type="submit"
-      style={{
-        top: "2%",
-        right: " 3%",
-        position: "absolute",
-      }}
-    >
-      저장{" "}
+    <PersonalInfoButton type="submit" style={saveButtonStyle}>
+      {status && loading === false
+        ? "저장 완료!"
+        : loading === undefined && status === undefined
+        ? "저장"
+        : "저장"}
     </PersonalInfoButton>
   );
 };
 
 /**프로필 변경 버튼: 개인정보 재설정 저장용*/
-export const ChangeProfileButton = () => {
+export const ChangeProfileButton = ({ handleChangeProfile }) => {
   return (
     <PersonalInfoButton
       type="submit "
       style={{
         width: "5.5rem",
+      }}
+      onClick={() => {
+        handleChangeProfile();
       }}
     >
       프로필 변경
@@ -213,6 +225,21 @@ export const ImageRegisterButton = ({
   );
 };
 
+/** 회원가입 후 프로필 이미지 업로드 버튼 */
+export const ImageUploadButton = ({ sendImageToServer }) => {
+  return (
+    <NextButtonWrap>
+      <NextButton
+        type="button"
+        onClick={async () => {
+          await sendImageToServer();
+        }}
+      >
+        프로필 이미지로 설정
+      </NextButton>
+    </NextButtonWrap>
+  );
+};
 /** 회원가입 후 로그인으로 돌아가는 버튼 */
 export const AfterRegisterButton = ({ content, navigate }) => {
   return (
@@ -641,7 +668,8 @@ const MediumUserButton = styled.button`
 `;
 
 const PersonalInfoButton = styled.button`
-  width: 4.6rem;
+  min-width: 4.6rem;
+  padding: 0.3rem;
   height: 2.1rem;
   background-color: white;
   border-radius: 7px;
