@@ -51,7 +51,6 @@ export const DefaultInput = ({
   emailInfo,
   codeInfo,
   loginInfo,
-  userPlaceholder,
 }) => {
   const labelStyle = {
     color:
@@ -93,7 +92,7 @@ export const DefaultInput = ({
       <Input
         type={input?.type}
         id={input?.name}
-        placeholder={!userPlaceholder ? input?.placeholder : userPlaceholder}
+        placeholder={input?.placeholder}
         {...register(input?.name)}
         style={inputStyle}
       />
@@ -113,7 +112,7 @@ export const GenderInput = ({ input, register, setValue, getValues }) => {
   return (
     <>
       <InputButton
-        type={input?.type}
+        type="button"
         id={input?.id}
         name={input?.name}
         style={inputStyle}
@@ -127,7 +126,7 @@ export const GenderInput = ({ input, register, setValue, getValues }) => {
   );
 };
 
-export const DescriptionInput = ({ register, input, userPlaceholder }) => {
+export const DescriptionInput = ({ register, input }) => {
   const InputTextStyle = {
     height: "11rem",
     width: "86%",
@@ -151,7 +150,7 @@ export const DescriptionInput = ({ register, input, userPlaceholder }) => {
         style={InputTextStyle}
         type={input?.type}
         id={input?.name}
-        placeholder={!userPlaceholder ? input?.placeholder : userPlaceholder}
+        placeholder={input?.placeholder}
         {...register(input?.name)}
       ></TextareaStyle>
     </FormInputWrap>
