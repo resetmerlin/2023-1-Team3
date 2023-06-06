@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { SettingHeader } from "../components/Header";
-import { SecurityPaswordFormHook } from "../hooks/FormHoooks";
-import { securityEditPassword } from "../components/Form/Schema";
+import { SettingHeader } from "../../../components/Header";
+import { SecurityPaswordFormHook } from "../../../hooks/FormHoooks";
+import { securityEditPassword } from "../../../components/Form/Schema";
 import { useDispatch, useSelector } from "react-redux";
-import { passwordEditAction } from "../actions/securityEditAction";
-import { SECURITY_PASSWORD_RESET } from "../constants/securityEditConstants";
+import { passwordEditAction } from "../../../actions/securityEditAction";
+import { SECURITY_PASSWORD_RESET } from "../../../constants/securityEditConstants";
 
 const AccountSettingScreen = () => {
   const navigate = useNavigate();
