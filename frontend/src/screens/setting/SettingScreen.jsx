@@ -1,36 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import { styled } from "styled-components";
 import { SettingHeader } from "../../components/Header";
 import { LogoutButton } from "../../components/Button";
-import { useDispatch } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../../actions/userAction";
+import { getPersonalInfoAction } from "../../actions/securityEditAction";
+import { SECURITY_GET_PERSONALINFO_RESET } from "../../constants/securityEditConstants";
 const SettingScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  /** 비밀번호 재설정 후 받는 response값 */
+  const personalInfo = useSelector((state) => state.personalInfo);
+  const { error, loading, personalInfoStatus: user } = personalInfo;
   const logoutHandler = () => {
     dispatch(logoutAction());
   };
 
-  const memberId = 8;
-  const name = "김민서";
-  const gender = "MALE";
-  const birth = "2000-10-03";
-  const image = "DEFAULT";
-  const department = "응용컴퓨터공학과";
-  const introduction = "반갑습니다~ 김민서입니다!";
+  useEffect(() => {
+    batch(async () => {
+      await dispatch({ type: SECURITY_GET_PERSONALINFO_RESET });
+      dispatch(getPersonalInfoAction());
+    });
+  }, []);
 
-  const user = {
-    memberId: memberId,
-    name: name,
-    gender: gender,
-    birth: birth,
-    image: image,
-    department: department,
-    introduction: introduction,
-  };
   const backgroundImage = {
     backgroundImage:
       user?.image == "DEFAULT" && user?.gender == "MALE"
@@ -59,7 +53,7 @@ url(${user?.image}`,
                 marginRight: ".5rem",
               }}
             >
-              {user.name}
+              {user?.name}
             </span>
             {age}
           </span>
