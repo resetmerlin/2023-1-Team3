@@ -28,6 +28,7 @@ import {
   registerEmailResetAction,
   registerResetAction,
 } from "../../actions/resetAction";
+import { DefaultBackHeader } from "../../components/Header";
 const RegisterScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -156,7 +157,7 @@ const RegisterScreen = () => {
       <Suspense fallback={<Loading />}>
         <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
         {currentStep == 1 ? (
-          <BackButton navigate={navigate} />
+          <DefaultBackHeader navigate={navigate} />
         ) : currentStep !== 8 ? (
           <BackFormButton handlePrevious={handlePrevious} />
         ) : (
