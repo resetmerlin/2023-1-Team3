@@ -147,9 +147,9 @@ const HomeInfo = styled.div`
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   align-items: center;
-  box-shadow: -1px 0px 17px 6px rgb(236, 234, 247, 1);
-  -webkit-box-shadow: -1px 0px 17px 6px rgb(236, 234, 247, 1);
-  -moz-box-shadow: -1px 0px 17px 6px rgb(236, 234, 247, 1);
+  box-shadow: -1px 7px 17px 5px rgb(236, 234, 247);
+  -webkit-box-shadow: -1px 7px 17px 5px rgb(236, 234, 247);
+  -moz-box-shadow: -1px 7px 17px 5px rgb(236, 234, 247);
 `;
 
 export default HomeContent;
