@@ -97,18 +97,18 @@ export const personalInfoSchema = yup
   .object({
     name: yup
       .string()
-      .required("이름을 입력해 주세요")
       .min(2, "이름을 최소 두 글자로 작성하세요")
       .matches(/^[a-zA-Zㄱ-ㅎ가-힣]*$/, "숫자,특수문자는 불가능합니다. "),
 
     birthday: yup
       .date("필수 항목란 입니다.")
-      .required("필수 항목란 입니다.")
       .max(
         new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
         "19살 이상만 이용가능합니다."
       ),
-    major: yup.string().required("학과는 필수 입력란 입니다."),
+    major: yup.string(),
+    gender: yup.string(),
+
     description: yup.string(),
   })
   .required();
