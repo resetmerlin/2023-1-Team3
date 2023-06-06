@@ -5,39 +5,35 @@ import {
   majorInput,
   birthdayInput,
   descriptionInput,
-} from "../../../components/Input/InputsDefine";
-import { Form } from "../../login/form/LoginForm";
+  femaleInput,
+  maleInput,
+} from "../../../../components/Input/InputsDefine";
+import { Form } from "../../../login/form/LoginForm";
 import {
   DefaultInput,
   DescriptionInput,
+  GenderInput,
   Label,
   PersonalMajorInput,
-} from "../../../components/Input/Input";
-import { DefaultInputError } from "../../../components/Input/InputError";
+} from "../../../../components/Input/Input";
+import { DefaultInputError } from "../../../../components/Input/InputError";
 import { styled } from "styled-components";
-import { SaveButton } from "../../../components/Button";
+import { SaveButton } from "../../../../components/Button";
 
-const PersonalInfoForm = ({ onSubmit, error, loading, user }) => {
-  const afterFormChangeInfo = {
-    error,
-    loading,
-  };
+const PersonalInfoForm = ({ onSubmit, info, user }) => {
   const {
     handleSubmit,
     formState: { errors },
     register,
+    setValue,
+    getValues,
   } = useFormContext();
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <PersonInfoInputWrap>
         {" "}
-        <DefaultInput
-          input={nameInput}
-          register={register}
-          errors={errors}
-          info={afterFormChangeInfo}
-          userPlaceholder={user?.name}
-        />
+        <DefaultInput input={nameInput} register={register} errors={errors} />
         <DefaultInputError errors={errors} input={nameInput} />
       </PersonInfoInputWrap>
       <PersonInfoInputWrap>
@@ -56,22 +52,25 @@ const PersonalInfoForm = ({ onSubmit, error, loading, user }) => {
           input={birthdayInput}
           register={register}
           errors={errors}
-          userPlaceholder={user?.birthday}
         />
         <DefaultInputError errors={errors} input={birthdayInput} />
       </PersonInfoInputWrap>
       <PersonInfoInputWrap>
         <PersonalInfoDescWrap>
-          <Label>자기소개</Label>
+          <Label>설명란</Label>
           <DescriptionInput
             input={descriptionInput}
             register={register}
             errors={errors}
-            userPlaceholder={user?.introduction}
           />
         </PersonalInfoDescWrap>
       </PersonInfoInputWrap>
-      <SaveButton />
+
+      <SaveButton
+        error={info?.error}
+        loading={info?.loading}
+        status={info?.personalInfoEditStatus}
+      />
     </Form>
   );
 };
@@ -89,4 +88,8 @@ const PersonalInfoDescWrap = styled.div`
 
 const PersonInfoInputWrap = styled.div`
   margin: 0.3rem 0.5rem;
+`;
+
+const PersonInfoGenderWrap = styled.div`
+  display: flex;
 `;
