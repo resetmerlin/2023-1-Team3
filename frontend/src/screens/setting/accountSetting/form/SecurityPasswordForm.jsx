@@ -5,17 +5,17 @@ import {
   passwordInput,
   currentPasswordInput,
   secondPasswordInput,
-} from "../../../components/Input/InputsDefine";
-import { Form } from "../../login/form/LoginForm";
-import { CheckedButton } from "../../../components/Button";
+} from "../../../../components/Input/InputsDefine";
+import { Form } from "../../../login/form/LoginForm";
+import { CheckedButton } from "../../../../components/Button";
 import {
   DefaultInput,
   DefaultPasswordInput,
-} from "../../../components/Input/Input";
+} from "../../../../components/Input/Input";
 import {
   DefaultInputError,
   InputEmailError,
-} from "../../../components/Input/InputError";
+} from "../../../../components/Input/InputError";
 
 const SecurityPasswordForm = ({ onSubmit, error, loading }) => {
   const passwordEditInfo = {
