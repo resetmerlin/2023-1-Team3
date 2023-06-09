@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-# 2023-1-Team3
-3조 
-=======
 # <<<<<<< Updated upstream
 
 **DLink ![](Aspose.Words.fa41c1e6-df12-402b-b47d-ac5fee3febfd.001.png)**
@@ -42,4 +38,3 @@
 Made with Scribe - https://scribehow.com 16
 
 > > > > > > > Stashed changes
->>>>>>> Stashed changes
