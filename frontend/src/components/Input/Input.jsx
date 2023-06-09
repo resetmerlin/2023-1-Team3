@@ -112,7 +112,7 @@ export const GenderInput = ({ input, register, setValue, getValues }) => {
   return (
     <>
       <InputButton
-        type="button"
+        type={input?.type}
         id={input?.id}
         name={input?.name}
         style={inputStyle}
