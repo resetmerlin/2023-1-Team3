@@ -624,6 +624,9 @@ const BackArrowButton = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+  position: absolute;
+  top: 3%;
+  left: 3%;
 `;
 const DefaultFormButtom = styled.button`
   width: 47.5%;
