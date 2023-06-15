@@ -45,7 +45,7 @@ export const RegisterFormHook = ({
 }) => {
   const defaultValues = {
     major: { value: "국어국문학과" },
-    description: "",
+    description: " ",
   };
   const methods = useForm({
     mode: "onChange",
