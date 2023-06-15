@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { BoxIconElement } from "boxicons";
-import { styled, keyframes, Attrs } from "styled-components";
+import { styled, keyframes } from "styled-components";
 
 export const ButtonChecked = () => {
   return <StyledChecked></StyledChecked>;
