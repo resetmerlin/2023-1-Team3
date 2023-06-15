@@ -65,6 +65,7 @@ const Step1 = ({
                 sendCodeData={sendCodeData}
                 getValueEmail={getValueEmail}
                 getValueCode={getValueCode}
+                codeInfo={codeInfo}
               />
             )}
           </EmailWrap>
