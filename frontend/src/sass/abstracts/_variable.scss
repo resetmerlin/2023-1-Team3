@@ -155,3 +155,19 @@ $border-radius-small: 3px;
 .flex-direction-col {
   flex-direction: column;
 }
+.popup-width {
+  width: 100% !important;
+  @include respond(tab-port) {
+    width: 599px !important;
+  }
+  @include respond(tab-land) {
+    width: 599px !important;
+  }
+  @include respond(small-desktop) {
+    width: 599px !important;
+  }
+
+  @include respond(big-desktop) {
+    width: 599px !important;
+  }
+}
