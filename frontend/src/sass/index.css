@@ -39,8 +39,7 @@ body {
   }
 }
 @media screen and (min-width: 801px) and (max-width: 1024px) {
-  html {
-    /* tablet, landscape iPad, lo-res laptops ands desktops */
+  html { /* tablet, landscape iPad, lo-res laptops ands desktops */
     font-size: 118.75%;
   }
 }
@@ -59,10 +58,35 @@ body {
 
 body {
   display: block;
-  font-family: "Pretendard Variable", Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+@media screen and (min-width: 600px) and (max-width: 800px) {
+  body {
+    /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+    display: flex;
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 801px) and (max-width: 1024px) {
+  body {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+    display: flex;
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  body {
+    /* big landscape tablets, laptops, and desktops */
+    display: flex;
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 1281px) {
+  body {
+    /* hi-res laptops and desktops */
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .container {
@@ -92,6 +116,7 @@ body {
     /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
     width: 599px;
     height: 100%;
+    box-shadow: 0px 0px 19px 4px rgb(209, 209, 209);
   }
 }
 @media screen and (min-width: 801px) and (max-width: 1024px) {
@@ -99,6 +124,7 @@ body {
     /* tablet, landscape iPad, lo-res laptops ands desktops */
     width: 599px;
     height: 100%;
+    box-shadow: 0px 0px 19px 4px rgb(209, 209, 209);
   }
 }
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
@@ -106,6 +132,7 @@ body {
     /* big landscape tablets, laptops, and desktops */
     width: 599px;
     height: 100%;
+    box-shadow: 0px 0px 19px 4px rgb(209, 209, 209);
   }
 }
 @media screen and (min-width: 1281px) {
@@ -113,6 +140,7 @@ body {
     /* hi-res laptops and desktops */
     width: 599px;
     height: 100%;
+    box-shadow: 0px 0px 19px 4px rgb(209, 209, 209);
   }
 }
 
@@ -126,8 +154,7 @@ body {
 }
 
 @keyframes blink {
-  from,
-  to {
+  from, to {
     color: transparent;
   }
   50% {
@@ -159,6 +186,34 @@ body {
 
 .flex-direction-col {
   flex-direction: column;
+}
+
+.popup-width {
+  width: 100% !important;
+}
+@media screen and (min-width: 600px) and (max-width: 800px) {
+  .popup-width {
+    /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+    width: 599px !important;
+  }
+}
+@media screen and (min-width: 801px) and (max-width: 1024px) {
+  .popup-width {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+    width: 599px !important;
+  }
+}
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .popup-width {
+    /* big landscape tablets, laptops, and desktops */
+    width: 599px !important;
+  }
+}
+@media screen and (min-width: 1281px) {
+  .popup-width {
+    /* hi-res laptops and desktops */
+    width: 599px !important;
+  }
 }
 
 .form {
@@ -650,8 +705,7 @@ body {
   display: flex;
   align-items: center;
 }
-.conversation__header__information__wrap
-  .conversation__header__information__name {
+.conversation__header__information__wrap .conversation__header__information__name {
   font-size: 1rem;
   font-weight: 600;
 }
@@ -784,24 +838,6 @@ body {
   text-align: center;
 }
 
-.setting {
-  height: 90%;
-  top: 10%;
-  position: absolute;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  font-size: 1.5rem;
-  font-size: 1rem;
-  color: white;
-  background-color: black;
-  align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
-}
 .setting__content {
   width: 100%;
   height: auto;
@@ -910,12 +946,7 @@ body {
 }
 
 .profileEdit {
-  background-image: linear-gradient(
-      359deg,
-      rgba(0, 0, 0, 0.829) 40%,
-      rgba(0, 0, 0, 0.144) 100%
-    ),
-    url(/public/images/userImage/user-1.jpg) !important;
+  background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg) !important;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1028,11 +1059,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
+  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .default-layout__top {
   justify-content: space-between;
@@ -1090,34 +1117,16 @@ body {
 .form__wrap form .form__checkbox-wrap .form__checkbox {
   display: none;
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #female:checked
-  + .form__checkbox--female-label {
+.form__wrap form .form__checkbox-wrap #female:checked + .form__checkbox--female-label {
   background-color: rgb(230, 107, 144);
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #female:checked
-  + .form__checkbox--female-label
-  i {
+.form__wrap form .form__checkbox-wrap #female:checked + .form__checkbox--female-label i {
   color: white;
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #male:checked
-  + .form__checkbox--male-label {
+.form__wrap form .form__checkbox-wrap #male:checked + .form__checkbox--male-label {
   background-color: rgb(101, 174, 223);
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #male:checked
-  + .form__checkbox--male-label
-  i {
+.form__wrap form .form__checkbox-wrap #male:checked + .form__checkbox--male-label i {
   color: white;
 }
 .form__wrap form .form__checkbox-wrap label {
@@ -1197,12 +1206,7 @@ body {
     justify-content: flex-end;
     font-size: 1.5rem;
     background-position: center;
-    background-image: linear-gradient(
-        359deg,
-        rgba(0, 0, 0, 0.829) 40%,
-        rgba(0, 0, 0, 0.144) 100%
-      ),
-      url(/public/images/userImage/user-1.jpg);
+    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -1213,12 +1217,7 @@ body {
     justify-content: flex-end;
     font-size: 1.5rem;
     background-position: center;
-    background-image: linear-gradient(
-        359deg,
-        rgba(0, 0, 0, 0.829) 40%,
-        rgba(0, 0, 0, 0.144) 100%
-      ),
-      url(/public/images/userImage/user-1.jpg);
+    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -1368,4 +1367,4 @@ body {
 .form__button__go-login {
   border: none;
   background-color: transparent;
-} /*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */
