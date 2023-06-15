@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import React, { memo } from "react";
 import { BoxIconElement } from "boxicons";
+import { ButtonLoading } from "./Loader";
+import { ButtonChecked } from "./Checked";
 
 /**저장 버튼: 개인정보 재설정 저장용*/
 export const SaveButton = ({ loading, status }) => {
@@ -89,7 +91,25 @@ export const LogoutButton = ({ logout }) => {
     </SettingButton>
   );
 };
+export const RegisterButton = ({ registerInfo }) => {
+  const submitButtonStyle = {
+    backgroundColor: "rgb(128, 113, 252)",
+    width: "100%",
 
+    height: " 3.3rem",
+  };
+  return (
+    <DefaultFormButtom type="submit" style={submitButtonStyle}>
+      {registerInfo?.loading === true ? (
+        <ButtonLoading />
+      ) : registerInfo?.loading === false && registerInfo?.registerStatus ? (
+        <ButtonChecked />
+      ) : (
+        "회원가입"
+      )}
+    </DefaultFormButtom>
+  );
+};
 export const SubmitButton = ({ page }) => {
   const submitButtonStyle = {
     backgroundColor: "rgb(128, 113, 252)",
@@ -118,7 +138,7 @@ export const GoToRegisterButton = ({ page, navigate }) => {
 };
 
 /** 이메일 인증 버튼 */
-export const VerifyButton = ({ sendEmailData, getValues }) => {
+export const VerifyButton = ({ sendEmailData, getValues, emailInfo }) => {
   return (
     <VerifyStyleButton
       type="submit"
@@ -126,7 +146,15 @@ export const VerifyButton = ({ sendEmailData, getValues }) => {
         sendEmailData(getValues("email"));
       }}
     >
-      전송
+      {!emailInfo?.error && emailInfo?.emailStatus === false ? (
+        <ButtonLoading />
+      ) : emailInfo?.loading === false &&
+        !emailInfo?.error &&
+        emailInfo?.emailStatus ? (
+        <ButtonChecked />
+      ) : (
+        "전송"
+      )}
     </VerifyStyleButton>
   );
 };
@@ -135,7 +163,7 @@ export const VerifyButton = ({ sendEmailData, getValues }) => {
 export const VerifyCodeButton = ({
   sendCodeData,
   getValueEmail,
-
+  codeInfo,
   getValueCode,
 }) => {
   return (
@@ -145,7 +173,15 @@ export const VerifyCodeButton = ({
       }}
       type="button"
     >
-      인증
+      {!codeInfo?.error && codeInfo?.codeBoolean === false ? (
+        <ButtonLoading />
+      ) : codeInfo?.loading === false &&
+        !codeInfo?.error &&
+        codeInfo?.codeBoolean ? (
+        <ButtonChecked />
+      ) : (
+        "인증"
+      )}
     </VerifyStyleButton>
   );
 };
@@ -606,7 +642,7 @@ const NextButtonWrap = styled.div`
   align-items: center;
   height: 3.3rem;
   width: 100%;
-  margin-top: 3rem;
+  margin-top: 2rem;
 `;
 
 const NextButton = styled.button`
@@ -625,8 +661,8 @@ const BackArrowButton = styled.button`
   border: none;
   cursor: pointer;
   position: absolute;
-  top: 3%;
-  left: 3%;
+  // top: 3%;
+  // left: 3%;
 `;
 const DefaultFormButtom = styled.button`
   width: 47.5%;
