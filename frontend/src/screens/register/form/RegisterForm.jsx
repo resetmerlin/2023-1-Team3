@@ -8,7 +8,7 @@ import Loading from "../../../components/Loading";
 import { styled } from "styled-components";
 import Step2 from "../progress/Step2";
 import { Form } from "../../login/form/LoginForm";
-import { SubmitButton } from "../../../components/Button";
+import { RegisterButton, SubmitButton } from "../../../components/Button";
 import {
   FormLoadingMessage,
   RegisterError,
@@ -110,7 +110,7 @@ const RegisterForm = ({
       </Suspense>
       {currentStep == 6 && (
         <>
-          <SubmitButton page={"register"} />
+          <RegisterButton registerInfo={registerInfo} />
           {!registerInfo?.loading && registerInfo?.registerStatus ? (
             <div
               style={{
