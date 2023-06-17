@@ -16,7 +16,7 @@ const ImageRegister = ({ handleNext, dispatch }) => {
   const [imgSrc, setImgSrc] = useState("");
   const [crop, setCrop] = useState("");
   const [completedCrop, setCompletedCrop] = useState("");
-  const aspect = 9 / 16;
+  const aspect = 0.77 / 1;
   /** 이미지를 로드하여 자동으로 crop해주는 함수 */
   const onImageLoad = (e) => {
     if (aspect) {
@@ -31,8 +31,8 @@ const ImageRegister = ({ handleNext, dispatch }) => {
       makeAspectCrop(
         {
           unit: "px",
-          width: 1080,
-          height: 1920,
+          width: 408,
+          height: 530,
         },
         aspect,
         mediaWidth,
@@ -66,8 +66,10 @@ const ImageRegister = ({ handleNext, dispatch }) => {
   const handleImageUpload = async (imgFile) => {
     const options = {
       maxSizeMB: 5,
-      fileType: "image/png",
+      fileType: "image/jpeg",
+      maxWidthOrHeight: 620,
       useWebWorker: true,
+      quality: 1.0,
     };
     try {
       const compressedFile = await imageCompression(imgFile, options);
@@ -110,7 +112,7 @@ const ImageRegister = ({ handleNext, dispatch }) => {
           aspect={aspect}
         >
           <img
-            style={{ height: "100%", scale: "1" }}
+            style={{ height: "100%", width: "100%", scale: "1" }}
             ref={imgRef}
             alt="Crop me"
             src={imgSrc}
