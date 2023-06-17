@@ -99,7 +99,7 @@ const HomeContent = ({
           blockValue={blockValue}
           saveValue={saveValue}
           goBackToSlide={goBackToSlide}
-          style={userCardImageStyle}
+          getImageSrc={getImageSrc}
         />
       )}
     </>
