@@ -54,6 +54,27 @@ const PersonalInfoScreen = () => {
   const handleChangeProfile = useCallback(() => {
     setChangeProfile((prev) => !prev);
   });
+
+  const [imageVersion, setImageVersion] = useState(Date.now());
+
+  useEffect(() => {
+    // Whenever the user object changes, update the imageVersion state
+    setImageVersion(Date.now());
+  }, [user]);
+
+  const getImageSrc = useCallback(() => {
+    if (user?.image === "DEFAULT") {
+      if (user?.gender === "MALE") {
+        return `../default/default-men.png`;
+      }
+      if (user?.gender === "FEMALE") {
+        return `../default/default-women.png`;
+      }
+    }
+    // Add imageVersion as a query parameter to the URL
+    return `${user?.image}?ver=${imageVersion}`;
+  }, [user]);
+
   return (
     <PersonalInfo>
       {!changeProfile ? (
@@ -66,18 +87,8 @@ const PersonalInfoScreen = () => {
       )}
       {!changeProfile && (
         <PersonalInfoImage
-          decoding="async"
-          fetchpriority="high"
           loading="lazy"
-          src={
-            user?.image == "DEFAULT" && user?.gender == "MALE"
-              ? `
-../default/default-men.png`
-              : user?.image == "DEFAULT" && user?.gender == "FEMALE"
-              ? `
-../default/default-women.png`
-              : user?.image
-          }
+          src={getImageSrc()}
           alt="profileEdit-profile"
         ></PersonalInfoImage>
       )}
