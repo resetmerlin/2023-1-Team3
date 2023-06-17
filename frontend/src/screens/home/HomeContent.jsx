@@ -71,7 +71,11 @@ const HomeContent = ({
             display: userChildCardPopup ? "none" : "flex",
           }}
         >
-          <UserCardProfile src={getImageSrc()} />
+          <UserCardProfile
+            decoding="async"
+            fetchpriority="high"
+            src={getImageSrc()}
+          />
 
           {peopleListLoading ? (
             <Loading />
