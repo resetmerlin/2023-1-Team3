@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import { styled } from "styled-components";
@@ -24,32 +24,38 @@ const SettingScreen = () => {
       dispatch(getPersonalInfoAction());
     });
   }, []);
-
-  const [backgroundImageUrl, setBackgroundImageUrl] = useState(
-    `url('./default/default-men.png')`
-  );
+  const [imageVersion, setImageVersion] = useState(Date.now());
 
   useEffect(() => {
-    if (user?.image) {
-      setBackgroundImageUrl(
-        user?.image == "DEFAULT" && user?.gender == "MALE"
-          ? `url('./default/default-men.png')`
-          : user?.image == "DEFAULT" && user?.gender == "FEMALE"
-          ? `url('./default/default-women.png')`
-          : `url(${user?.image})`
-      );
-    }
-  }, [user?.image, user?.gender]);
+    // Whenever the user object changes, update the imageVersion state
+    setImageVersion(Date.now());
+  }, [user]);
 
+  const getImageSrc = useCallback(() => {
+    if (user?.image === "DEFAULT") {
+      if (user?.gender === "MALE") {
+        return `../default/default-men.png`;
+      }
+      if (user?.gender === "FEMALE") {
+        return `../default/default-women.png`;
+      }
+    }
+    // Add imageVersion as a query parameter to the URL
+    return `${user?.image}?ver=${imageVersion}`;
+  }, [user]);
   /** 유저 나이 n살로 변경 */
   const age =
     new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
+
   return (
     <Setting>
       <SettingHeader navigate={navigate} name={"마이페이지"} />
       <SettingUserContent>
         <SettingUserImage
-          style={{ backgroundImage: backgroundImageUrl }}
+          key={user?.image}
+          src={getImageSrc()}
+          loading="lazy"
+          alt="mypage-profile"
         ></SettingUserImage>
         <SettingUserTextWrap>
           <span style={{ fontSize: "1.4rem" }}>
@@ -121,15 +127,13 @@ const SettingUserTextWrap = styled.div`
     font-size: 0.9rem;
   }
 `;
-const SettingUserImage = styled.div`
+const SettingUserImage = styled.img`
   height: 5.3rem;
   width: 5.3rem;
   border-radius: 8px;
   display: flex;
   align-self: center;
-  background-repeat: none;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
 `;
 
 const SettingMiddlContent = styled.div`
