@@ -15,18 +15,20 @@ import {
 import { BoxIconElement } from "boxicons";
 
 const UserCardDetails = memo(function UserCardDetails({
-  style,
   user,
   age,
   blockAction,
   saveValue,
+  getImageSrc,
   likeAction,
   goBackToSlide,
   blockValue,
 }) {
   return (
     <UserCardDetailsWrap className="popup-width">
-      <UserCardDetailsImageWrap style={style}></UserCardDetailsImageWrap>
+      <UserCardDetailsImageWrap>
+        <UserCardImage loading="lazy" src={getImageSrc()} alt="user-profile" />
+      </UserCardDetailsImageWrap>
       <BackToSlideCardButton goBackToSlide={goBackToSlide} />
 
       <UserCardDetailsDescWrap>
@@ -122,6 +124,13 @@ const UserInfoIntroduction = styled.div`
   width: 100%;
   hegiht: auto;
 `;
+
+const UserCardImage = styled.img`
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+`;
+
 const UserCardDetailsImageWrap = styled.div`
   height: 45%;
   position: absolute;
@@ -190,4 +199,5 @@ const UserCardDetailsDescWrap = styled.div`
   border-top-right-radius: 15px;
   flex-direction: column;
 `;
+
 export default UserCardDetails;
