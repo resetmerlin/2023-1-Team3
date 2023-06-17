@@ -200,20 +200,20 @@ export const BackButton = memo(function BackButton({ navigate }) {
 });
 
 /*회입가입 스테이지 뒤로 가기 버튼 */
-export const BackFormButton = ({ handlePrevious }) => {
+export const BackFormButton = memo(function BackFormButton({ handlePrevious }) {
   return (
-    <BackArrowButton onClick={handlePrevious}>
+    <BackArrowButton onClick={handlePrevious} style={{ top: "3%", left: "3%" }}>
       <box-icon name="chevron-left" color="black" size="3rem"></box-icon>
     </BackArrowButton>
   );
-};
+});
 
 /*유저 디테일 팡업 상태에서 홈 슬라이드로 돌아가는 버튼 */
 export const BackToSlideCardButton = memo(function BackFormButton({
   goBackToSlide,
 }) {
   return (
-    <button onClick={goBackToSlide}>
+    <button onClick={goBackToSlide} style={{ cursor: "pointer" }}>
       <box-icon
         name="x"
         color="black"
@@ -262,7 +262,7 @@ export const ImageRegisterButton = ({
 };
 
 /** 회원가입 후 프로필 이미지 업로드 버튼 */
-export const ImageUploadButton = ({ sendImageToServer }) => {
+export const ImageUploadButton = ({ sendImageToServer, info }) => {
   return (
     <NextButtonWrap>
       <NextButton
@@ -271,7 +271,13 @@ export const ImageUploadButton = ({ sendImageToServer }) => {
           await sendImageToServer();
         }}
       >
-        프로필 이미지로 설정
+        {info?.loading === true ? (
+          <ButtonLoading />
+        ) : info?.loading === false && info?.profileEditStatus ? (
+          <ButtonChecked />
+        ) : (
+          "프로필 이미지로 설정"
+        )}
       </NextButton>
     </NextButtonWrap>
   );
@@ -583,10 +589,12 @@ const SettingButton = styled.button`
   border-radius: 8px;
   align-self: center;
   color: black;
+  cursor: pointer;
 `;
 const PopupButton = styled.button`
   width: 100%;
   height: 50%;
+  cursor: pointer;
 `;
 const UserDetailButton = styled.div`
   background-color: white;
@@ -603,6 +611,7 @@ const UserDetailButton = styled.div`
 
   font-weight: 700;
   font-size: 1rem;
+  cursor: pointer;
 `;
 const SmallNextButton = styled.div`
   display: flex;
@@ -610,6 +619,7 @@ const SmallNextButton = styled.div`
   align-items: center;
   height: 3.3rem;
   width: 45%;
+  cursor: pointer;
 `;
 const GoAnotherForm = styled.button`
   height: 2rem;
@@ -628,6 +638,7 @@ const SmallUserButton = styled.button`
   cursor: pointer;
   border: none;
   margin: 0 0.5rem;
+  cursor: pointer;
 `;
 const PageButtonWrap = styled.div`
   display: flex;
@@ -635,6 +646,7 @@ const PageButtonWrap = styled.div`
   height: 2rem;
   width: 100%;
   margin-top: 2rem;
+  cursor: pointer;
 `;
 const NextButtonWrap = styled.div`
   display: flex;
@@ -643,6 +655,7 @@ const NextButtonWrap = styled.div`
   height: 3.3rem;
   width: 100%;
   margin-top: 2rem;
+  cursor: pointer;
 `;
 
 const NextButton = styled.button`
@@ -661,6 +674,8 @@ const BackArrowButton = styled.button`
   border: none;
   cursor: pointer;
   position: absolute;
+  cursor: pointer;
+
   // top: 3%;
   // left: 3%;
 `;
@@ -703,6 +718,8 @@ const MediumUserButton = styled.button`
   align-items: center;
   height: 3rem;
   border: none;
+  cursor: pointer;
+
   transition: all 0.2s ease-in-out;
 `;
 
@@ -713,6 +730,7 @@ const PersonalInfoButton = styled.button`
   background-color: white;
   border-radius: 7px;
   font-size: 1rem;
+  cursor: pointer;
 
   display: flex;
   justify-content: center;
