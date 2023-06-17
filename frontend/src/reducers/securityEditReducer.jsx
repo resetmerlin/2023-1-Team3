@@ -14,6 +14,7 @@ import {
   SECURITY_GET_PERSONALINFO_FAIL,
   SECURITY_GET_PERSONALINFO_RESET,
   SECURITY_PERSONALINFO_RESET,
+  SECURITY_UPLOAD_PROFILE_RESET,
 } from "../constants/securityEditConstants";
 
 /** 유저들 불러오기 reducers */
@@ -53,6 +54,8 @@ export const profileEditReducers = (state = {}, action) => {
     case SECURITY_UPLOAD_PROFILE_FAIL:
       return { loading: false, error: action.payload };
 
+    case SECURITY_UPLOAD_PROFILE_RESET:
+      return {};
     default:
       return state;
   }
