@@ -10,44 +10,32 @@ import {
   personalInfoEditAction,
 } from "../../../actions/securityEditAction";
 import { ChangeProfileButton } from "../../../components/Button";
-import {
-  SECURITY_GET_PERSONALINFO_RESET,
-  SECURITY_PERSONALINFO_RESET,
-} from "../../../constants/securityEditConstants";
+
 import PersonalImageEdit from "./imageEdit/PersonalImageEdit";
 import { BackFormButton } from "../../../components/Button";
+import {
+  securityUserInfoEditResetAction,
+  securityUserInfoResetAction,
+  securityUserProfileResetAction,
+} from "../../../actions/resetAction";
 
 const PersonalInfoScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const personalInfo = useSelector((state) => state.personalInfo);
   const personalEditInfo = useSelector((state) => state.personalEditInfo);
-  const { personalInfoStatus: user } = personalInfo;
 
+  const profileEditInfo = useSelector((state) => state.profileEditInfo);
+  const { personalInfoStatus: user } = personalInfo;
   useEffect(() => {
     batch(async () => {
-      await dispatch({ type: SECURITY_PERSONALINFO_RESET });
-      dispatch({ type: SECURITY_GET_PERSONALINFO_RESET });
+      await dispatch(securityUserInfoEditResetAction());
+      dispatch(securityUserInfoResetAction());
+      dispatch(securityUserProfileResetAction());
 
       dispatch(getPersonalInfoAction());
     });
-  }, []);
-
-  const [backgroundImageUrl, setBackgroundImageUrl] = useState(
-    `url('./default/default-men.png')`
-  );
-
-  useEffect(() => {
-    if (user?.image) {
-      setBackgroundImageUrl(
-        user?.image == "DEFAULT" && user?.gender == "MALE"
-          ? `url('./default/default-men.png')`
-          : user?.image == "DEFAULT" && user?.gender == "FEMALE"
-          ? `url('./default/default-women.png')`
-          : `url(${user?.image})`
-      );
-    }
-  }, [user?.image, user?.gender]);
+  }, [batch]);
 
   const onSubmit = async (data) => {
     await dispatch(
@@ -76,15 +64,27 @@ const PersonalInfoScreen = () => {
           <BackFormButton handlePrevious={handleChangeProfile} />
         </GoBackToProfile>
       )}
+      {!changeProfile && (
+        <PersonalInfoImage
+          decoding="async"
+          fetchpriority="high"
+          loading="lazy"
+          src={
+            user?.image == "DEFAULT" && user?.gender == "MALE"
+              ? `
+../default/default-men.png`
+              : user?.image == "DEFAULT" && user?.gender == "FEMALE"
+              ? `
+../default/default-women.png`
+              : user?.image
+          }
+          alt="profileEdit-profile"
+        ></PersonalInfoImage>
+      )}
 
-      <PersonalInfoImage
-        style={{
-          backgroundImage: backgroundImageUrl,
-          display: changeProfile && "none",
-        }}
-      ></PersonalInfoImage>
       {changeProfile && (
         <PersonalImageEdit
+          profileEditInfo={profileEditInfo}
           dispatch={dispatch}
           getPersonalInfoAction={getPersonalInfoAction}
         />
@@ -133,7 +133,7 @@ const PersonalInfo = styled.div`
 `;
 
 const GoBackToProfile = styled.div`
-  position: fixed;
+  position: absolute;
   top: 4%;
   left: 3%;
   z-index: 1000;
@@ -144,9 +144,7 @@ const PersonalInfoImage = styled.img`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-repeat: none;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
 `;
 
 const PersonalInfoContent = styled.div`
