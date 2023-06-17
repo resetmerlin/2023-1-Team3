@@ -1,4 +1,10 @@
-import React, { forwardRef, memo, useState, useCallback } from "react";
+import React, {
+  forwardRef,
+  memo,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 
 import { styled } from "styled-components";
 import UserCardDetails from "./UserCardDetails";
@@ -6,18 +12,6 @@ import UserCardDetails from "./UserCardDetails";
 const UserCardColumn = memo(
   forwardRef(
     ({ user, handleChildStateChange, sendBlockUser, sendSaveValue }, ref) => {
-      const backgroundImageColumn = {
-        backgroundImage:
-          user?.image == "DEFAULT" && user?.gender == "MALE"
-            ? `
-url('./default/default-men.png')`
-            : user?.image == "DEFAULT" && user?.gender == "FEMALE"
-            ? `
-url('./default/default-women.png')`
-            : `
-url(${user?.image}`,
-      };
-
       /** 유저 저장 state */
       const [saveValue, setSaveValue] = useState(true);
       const [blockValue, setBlockValue] = useState(false);
@@ -42,6 +36,26 @@ url(${user?.image}`,
       /** 유저 나이 n살로 변경 */
       const age =
         new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
+
+      const [imageVersion, setImageVersion] = useState(Date.now());
+
+      useEffect(() => {
+        // Whenever the user object changes, update the imageVersion state
+        setImageVersion(Date.now());
+      }, [user]);
+
+      const getImageSrc = useCallback(() => {
+        if (user?.image === "DEFAULT") {
+          if (user?.gender === "MALE") {
+            return `../default/default-men.png`;
+          }
+          if (user?.gender === "FEMALE") {
+            return `../default/default-women.png`;
+          }
+        }
+        // Add imageVersion as a query parameter to the URL
+        return `${user?.image}?ver=${imageVersion}`;
+      }, [user]);
       return (
         <>
           <ColumnBig ref={ref}>
@@ -58,9 +72,10 @@ url(${user?.image}`,
             />
             <ColumnLabel htmlFor={`${user?.memberId} column`}>
               <UserColumnProfile
-                style={backgroundImageColumn}
+                loading="lazy"
+                src={getImageSrc()}
                 alt="save-profile"
-              ></UserColumnProfile>
+              />
 
               <UserColumnDescWrap>
                 <UserColumnName>{user?.name}</UserColumnName>
@@ -70,9 +85,9 @@ url(${user?.image}`,
           </ColumnBig>
           {checked && (
             <UserCardDetails
-              style={backgroundImageColumn}
               user={user}
               age={age}
+              getImageSrc={getImageSrc}
               saveValue={saveValue}
               goBackToSlide={goBackToSlide}
               blockAction={blockStatusHandler}
@@ -110,7 +125,7 @@ const ColumnLabel = styled.label`
   border-radius: 8px;
 `;
 
-const UserColumnProfile = styled.div`
+const UserColumnProfile = styled.img`
   width: 100%;
   height: 75%;
   display: flex;
@@ -119,6 +134,8 @@ const UserColumnProfile = styled.div`
   background-repeat: none;
   background-size: cover;
   background-position: center;
+  object-fit: cover;
+
   label {
     width: 100%;
     height: 100%;
@@ -127,9 +144,9 @@ const UserColumnProfile = styled.div`
   }
 `;
 const UserColumnDescWrap = styled.div`
-  box-shadow: -1px 0px 17px 6px rgb(236, 234, 247, 1);
-  -webkit-box-shadow: -1px 0px 17px 6px rgb(236, 234, 247, 1);
-  -moz-box-shadow: -1px 0px 17px 6px rgb(236, 234, 247, 1);
+  box-shadow: 0px 2px 16px -2px rgb(217 211 255);
+  -webkit-box-shadow: 0px 2px 16px -2px rgb(217 211 255);
+  -moz-box-shadow: 0px 2px 16px -2px rgb(217 211 255);
   font-size: 1rem;
   width: 100%;
   height: 25%;
