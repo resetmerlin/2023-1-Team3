@@ -15,10 +15,6 @@ import AccountSettingScreen from "./screens/setting/accountSetting/AccountSettin
 import PersonalInfoScreen from "./screens/setting/personalInfoEdit/PersonalInfoScreen";
 
 function App() {
-  const isMobile = useMediaQuery({
-    minWidth: 320,
-    maxWidth: 599,
-  });
   return (
     <BrowserRouter>
       <div className="container">

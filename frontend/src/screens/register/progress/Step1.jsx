@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   EmailNextStepButton,
@@ -36,7 +37,11 @@ const Step1 = ({
           emailInfo={emailInfo}
         />
         {!errors?.email && (
-          <VerifyButton getValues={getValues} sendEmailData={sendEmailData} />
+          <VerifyButton
+            getValues={getValues}
+            sendEmailData={sendEmailData}
+            emailInfo={emailInfo}
+          />
         )}
       </EmailWrap>
       <InputEmailRegisterError
@@ -44,7 +49,6 @@ const Step1 = ({
         errors={errors}
         emailInfo={emailInfo}
       />
-
       {emailInfo?.emailStatus && !errors.email && (
         <>
           <EmailWrap>
@@ -61,6 +65,7 @@ const Step1 = ({
                 sendCodeData={sendCodeData}
                 getValueEmail={getValueEmail}
                 getValueCode={getValueCode}
+                codeInfo={codeInfo}
               />
             )}
           </EmailWrap>
@@ -72,7 +77,19 @@ const Step1 = ({
             seconds={seconds}
           />
         </>
-      )}
+      )}{" "}
+      <LinkWrap>
+        <Link to="https://portal.dankook.ac.kr/web/portal" target={"_blank"}>
+          포털 바로가기
+          <box-icon
+            name="chevron-left"
+            type="solid"
+            rotate="180"
+            color=" #3d8fff"
+            size="1.1rem"
+          ></box-icon>
+        </Link>
+      </LinkWrap>
       <EmailNextStepButton
         handleNext={handleNext}
         codeInfo={codeInfo}
@@ -88,6 +105,25 @@ const EmailWrap = styled.div`
   width: 100%;
   align-items: flex-end;
   justify-content: center;
+`;
+
+const LinkWrap = styled.div`
+  display: flex;
+  height: 3rem;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+
+  a {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    text-decoration: none;
+    font-weight: 800;
+    color: #3d8fff;
+    font-size: 1rem;
+  }
 `;
 
 export default Step1;

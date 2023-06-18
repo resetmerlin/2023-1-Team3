@@ -10,44 +10,33 @@ import {
   personalInfoEditAction,
 } from "../../../actions/securityEditAction";
 import { ChangeProfileButton } from "../../../components/Button";
-import {
-  SECURITY_GET_PERSONALINFO_RESET,
-  SECURITY_PERSONALINFO_RESET,
-} from "../../../constants/securityEditConstants";
+
 import PersonalImageEdit from "./imageEdit/PersonalImageEdit";
 import { BackFormButton } from "../../../components/Button";
+import {
+  securityUserInfoEditResetAction,
+  securityUserInfoResetAction,
+  securityUserProfileResetAction,
+} from "../../../actions/resetAction";
+import Loading from "../../../components/Loading";
 
 const PersonalInfoScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const personalInfo = useSelector((state) => state.personalInfo);
   const personalEditInfo = useSelector((state) => state.personalEditInfo);
-  const { personalInfoStatus: user } = personalInfo;
 
+  const profileEditInfo = useSelector((state) => state.profileEditInfo);
+  const { personalInfoStatus: user, loading } = personalInfo;
   useEffect(() => {
     batch(async () => {
-      await dispatch({ type: SECURITY_PERSONALINFO_RESET });
-      dispatch({ type: SECURITY_GET_PERSONALINFO_RESET });
+      await dispatch(securityUserInfoEditResetAction());
+      dispatch(securityUserInfoResetAction());
+      dispatch(securityUserProfileResetAction());
 
       dispatch(getPersonalInfoAction());
     });
-  }, []);
-
-  const [backgroundImageUrl, setBackgroundImageUrl] = useState(
-    `url('./default/default-men.png')`
-  );
-
-  useEffect(() => {
-    if (user?.image) {
-      setBackgroundImageUrl(
-        user?.image == "DEFAULT" && user?.gender == "MALE"
-          ? `url('./default/default-men.png')`
-          : user?.image == "DEFAULT" && user?.gender == "FEMALE"
-          ? `url('./default/default-women.png')`
-          : `url(${user?.image})`
-      );
-    }
-  }, [user?.image, user?.gender]);
+  }, [batch]);
 
   const onSubmit = async (data) => {
     await dispatch(
@@ -66,6 +55,27 @@ const PersonalInfoScreen = () => {
   const handleChangeProfile = useCallback(() => {
     setChangeProfile((prev) => !prev);
   });
+
+  const [imageVersion, setImageVersion] = useState(Date.now());
+
+  useEffect(() => {
+    // Whenever the user object changes, update the imageVersion state
+    setImageVersion(Date.now());
+  }, [user]);
+
+  const getImageSrc = useCallback(() => {
+    if (user?.image === "DEFAULT") {
+      if (user?.gender === "MALE") {
+        return `../default/default-men.png`;
+      }
+      if (user?.gender === "FEMALE") {
+        return `../default/default-women.png`;
+      }
+    }
+    // Add imageVersion as a query parameter to the URL
+    return `${user?.image}?ver=${imageVersion}`;
+  }, [user]);
+
   return (
     <PersonalInfo>
       {!changeProfile ? (
@@ -77,35 +87,44 @@ const PersonalInfoScreen = () => {
         </GoBackToProfile>
       )}
 
-      <PersonalInfoImage
-        style={{
-          backgroundImage: backgroundImageUrl,
-          display: changeProfile && "none",
-        }}
-      ></PersonalInfoImage>
-      {changeProfile && (
-        <PersonalImageEdit
-          dispatch={dispatch}
-          getPersonalInfoAction={getPersonalInfoAction}
-        />
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {!changeProfile && (
+            <PersonalInfoImage
+              loading="lazy"
+              src={getImageSrc()}
+              alt="profileEdit-profile"
+            ></PersonalInfoImage>
+          )}
+
+          {changeProfile && (
+            <PersonalImageEdit
+              profileEditInfo={profileEditInfo}
+              dispatch={dispatch}
+              getPersonalInfoAction={getPersonalInfoAction}
+            />
+          )}
+
+          <PersonalInfoContent style={{ display: changeProfile && "none" }}>
+            <PersonalInfoFormHook
+              schema={personalInfoSchema}
+              info={personalEditInfo}
+              onSubmit={onSubmit}
+              user={user}
+            />
+          </PersonalInfoContent>
+
+          <PersonalInfoButtonWrap>
+            {!changeProfile && (
+              <ChangeProfileButton handleChangeProfile={handleChangeProfile} />
+            )}
+
+            {/* <SaveProfileButton /> */}
+          </PersonalInfoButtonWrap>
+        </>
       )}
-
-      <PersonalInfoContent style={{ display: changeProfile && "none" }}>
-        <PersonalInfoFormHook
-          schema={personalInfoSchema}
-          info={personalEditInfo}
-          onSubmit={onSubmit}
-          user={user}
-        />
-      </PersonalInfoContent>
-
-      <PersonalInfoButtonWrap>
-        {!changeProfile && (
-          <ChangeProfileButton handleChangeProfile={handleChangeProfile} />
-        )}
-
-        {/* <SaveProfileButton /> */}
-      </PersonalInfoButtonWrap>
     </PersonalInfo>
   );
 };
@@ -133,7 +152,7 @@ const PersonalInfo = styled.div`
 `;
 
 const GoBackToProfile = styled.div`
-  position: fixed;
+  position: absolute;
   top: 4%;
   left: 3%;
   z-index: 1000;
@@ -144,9 +163,7 @@ const PersonalInfoImage = styled.img`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-repeat: none;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
 `;
 
 const PersonalInfoContent = styled.div`

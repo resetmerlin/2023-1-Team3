@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Loading from "../../components/Loading";
 import UserCard from "../../components/UserCard";
@@ -39,18 +39,26 @@ const HomeContent = ({
     setUserChildCardPopup(false);
     getUserFromChild(false);
   };
+  const [imageVersion, setImageVersion] = useState(Date.now());
 
-  const userCardImageStyle = {
-    backgroundImage:
-      user?.image == "DEFAULT" && user?.gender == "MALE"
-        ? `
-  url('./default/default-men.png')`
-        : user?.image == "DEFAULT" && user?.gender == "FEMALE"
-        ? `
-  url('./default/default-women.png')`
-        : `
-  url(${user?.image}`,
-  };
+  useEffect(() => {
+    // Whenever the user object changes, update the imageVersion state
+    setImageVersion(Date.now());
+  }, [user]);
+
+  const getImageSrc = useCallback(() => {
+    if (user?.image === "DEFAULT") {
+      if (user?.gender === "MALE") {
+        return `../default/default-men.png`;
+      }
+      if (user?.gender === "FEMALE") {
+        return `../default/default-women.png`;
+      }
+    }
+    // Add imageVersion as a query parameter to the URL
+    return `${user?.image}?ver=${imageVersion}`;
+  }, [user]);
+
   return (
     <>
       <HomeWrap
@@ -63,7 +71,11 @@ const HomeContent = ({
             display: userChildCardPopup ? "none" : "flex",
           }}
         >
-          <UserCardProfile style={userCardImageStyle} />
+          <UserCardProfile
+            decoding="async"
+            fetchpriority="high"
+            src={getImageSrc()}
+          />
 
           {peopleListLoading ? (
             <Loading />
@@ -91,25 +103,22 @@ const HomeContent = ({
           blockValue={blockValue}
           saveValue={saveValue}
           goBackToSlide={goBackToSlide}
-          style={userCardImageStyle}
+          getImageSrc={getImageSrc}
         />
       )}
     </>
   );
 };
-const UserCardProfile = styled.div`
+const UserCardProfile = styled.img`
   height: 77%;
   width: 100%;
+  object-fit: cover;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   font-size: 1.5rem;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-
   background-repeat: none,
   background-size: cover,
   background-position: center,

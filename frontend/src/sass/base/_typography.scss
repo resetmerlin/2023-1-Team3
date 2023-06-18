@@ -34,6 +34,25 @@ body {
     BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+
+  @include respond(tab-port) {
+    display: flex;
+    justify-content: center;
+  }
+
+  @include respond(tab-land) {
+    display: flex;
+    justify-content: center;
+  }
+  @include respond(small-desktop) {
+    display: flex;
+    justify-content: center;
+  }
+
+  @include respond(big-desktop) {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .container {
@@ -55,36 +74,32 @@ body {
   @include respond(tab-port) {
     width: 599px;
     height: 100%;
-    // min-width: 600px;
-    // max-width: 800px;
-    // display: flex;
-    // justify-content: center;
+    -webkit-box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
+    -moz-box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
+    box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
   }
 
   @include respond(tab-land) {
     width: 599px;
     height: 100%;
 
-    // min-width: 801px;
-    // max-width: 1024px;
-    // display: flex;
-    // justify-content: center;
+    -webkit-box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
+    -moz-box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
+    box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
   }
   @include respond(small-desktop) {
     width: 599px;
     height: 100%;
-    // min-width: 1025px;
-    // max-width: 1280px;
-    // display: flex;
-    // justify-content: center;
+    -webkit-box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
+    -moz-box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
+    box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
   }
 
   @include respond(big-desktop) {
     width: 599px;
     height: 100%;
-    // min-width: 1281px;
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
+    -webkit-box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
+    -moz-box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
+    box-shadow: 0px 0px 19px 4px rgba(209, 209, 209, 1);
   }
 }

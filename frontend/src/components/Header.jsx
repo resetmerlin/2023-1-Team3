@@ -80,7 +80,7 @@ export const DefaultBackHeader = ({ navigate }) => {
 const HeaderWrap = styled.div`
   height: auto;
   display: flex;
-  position: fixed;
+  position: absolute;
   top: 3%;
   left: 3%;
 `;

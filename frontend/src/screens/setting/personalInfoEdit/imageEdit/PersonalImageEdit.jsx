@@ -9,14 +9,18 @@ import { profileEditAction } from "../../../../actions/securityEditAction";
 import { checkIsBlob, cropImageHandler } from "../../../../hooks/ImageHandle";
 import { profileInput } from "../../../../components/Input/InputsDefine";
 
-const PersonalImageEdit = ({ dispatch, getPersonalInfoAction }) => {
+const PersonalImageEdit = ({
+  dispatch,
+  getPersonalInfoAction,
+  profileEditInfo,
+}) => {
   const canvasRef = useRef("");
   const imgRef = useRef(null);
 
   const [imgSrc, setImgSrc] = useState("");
   const [crop, setCrop] = useState("");
   const [completedCrop, setCompletedCrop] = useState("");
-  const aspect = 9 / 16;
+  const aspect = 0.77 / 1;
   /** 이미지를 로드하여 자동으로 crop해주는 함수 */
   const onImageLoad = (e) => {
     if (aspect) {
@@ -31,8 +35,8 @@ const PersonalImageEdit = ({ dispatch, getPersonalInfoAction }) => {
       makeAspectCrop(
         {
           unit: "px",
-          width: 1080,
-          height: 1920,
+          width: 408,
+          height: 530,
         },
         aspect,
         mediaWidth,
@@ -69,7 +73,7 @@ const PersonalImageEdit = ({ dispatch, getPersonalInfoAction }) => {
     const options = {
       maxSizeMB: 5,
       fileType: "image/jpeg",
-      maxWidthOrHeight: 1920,
+      maxWidthOrHeight: 620,
       useWebWorker: true,
       quality: 1.0,
     };
@@ -118,7 +122,7 @@ const PersonalImageEdit = ({ dispatch, getPersonalInfoAction }) => {
             aspect={aspect}
           >
             <img
-              style={{ height: "100%", scale: "1" }}
+              style={{ height: "100%", width: "100%", scale: "1" }}
               ref={imgRef}
               alt="Crop me"
               src={imgSrc}
@@ -135,7 +139,10 @@ const PersonalImageEdit = ({ dispatch, getPersonalInfoAction }) => {
           ></canvas>
         )}
 
-        <ImageUploadButton sendImageToServer={sendImageToServer} />
+        <ImageUploadButton
+          sendImageToServer={sendImageToServer}
+          info={profileEditInfo}
+        />
       </ProfileEditWrap>
     </>
   );
@@ -148,7 +155,7 @@ const ImageLabel = styled.span`
 `;
 
 const SetImageDefault = styled.button`
-  position: fixed;
+  position: absolute;
   top: 4%;
   right: 3%;
   background-color: transparent;
@@ -164,9 +171,11 @@ const ProfileEditWrap = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 80%;
+  height: auto;
+  top: 8%;
   padding: 0 1.5rem;
   z-index: 0;
+  margin-top: 2rem;
 `;
 
 export default PersonalImageEdit;

@@ -1,6 +1,7 @@
 import {
   SECURITY_GET_PERSONALINFO_RESET,
   SECURITY_PERSONALINFO_RESET,
+  SECURITY_UPLOAD_PROFILE_RESET,
 } from "../constants/securityEditConstants";
 import {
   USER_REGISTER_RESET,
@@ -29,4 +30,8 @@ export const securityUserInfoResetAction = () => async (dispatch) => {
 
 export const securityUserInfoEditResetAction = () => async (dispatch) => {
   dispatch({ type: SECURITY_PERSONALINFO_RESET });
+};
+
+export const securityUserProfileResetAction = () => async (dispatch) => {
+  dispatch({ type: SECURITY_UPLOAD_PROFILE_RESET });
 };
