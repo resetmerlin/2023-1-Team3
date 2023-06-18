@@ -18,6 +18,7 @@ import {
   securityUserInfoResetAction,
   securityUserProfileResetAction,
 } from "../../../actions/resetAction";
+import Loading from "../../../components/Loading";
 
 const PersonalInfoScreen = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const PersonalInfoScreen = () => {
   const personalEditInfo = useSelector((state) => state.personalEditInfo);
 
   const profileEditInfo = useSelector((state) => state.profileEditInfo);
-  const { personalInfoStatus: user } = personalInfo;
+  const { personalInfoStatus: user, loading } = personalInfo;
   useEffect(() => {
     batch(async () => {
       await dispatch(securityUserInfoEditResetAction());
@@ -85,38 +86,45 @@ const PersonalInfoScreen = () => {
           <BackFormButton handlePrevious={handleChangeProfile} />
         </GoBackToProfile>
       )}
-      {!changeProfile && (
-        <PersonalInfoImage
-          loading="lazy"
-          src={getImageSrc()}
-          alt="profileEdit-profile"
-        ></PersonalInfoImage>
+
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {!changeProfile && (
+            <PersonalInfoImage
+              loading="lazy"
+              src={getImageSrc()}
+              alt="profileEdit-profile"
+            ></PersonalInfoImage>
+          )}
+
+          {changeProfile && (
+            <PersonalImageEdit
+              profileEditInfo={profileEditInfo}
+              dispatch={dispatch}
+              getPersonalInfoAction={getPersonalInfoAction}
+            />
+          )}
+
+          <PersonalInfoContent style={{ display: changeProfile && "none" }}>
+            <PersonalInfoFormHook
+              schema={personalInfoSchema}
+              info={personalEditInfo}
+              onSubmit={onSubmit}
+              user={user}
+            />
+          </PersonalInfoContent>
+
+          <PersonalInfoButtonWrap>
+            {!changeProfile && (
+              <ChangeProfileButton handleChangeProfile={handleChangeProfile} />
+            )}
+
+            {/* <SaveProfileButton /> */}
+          </PersonalInfoButtonWrap>
+        </>
       )}
-
-      {changeProfile && (
-        <PersonalImageEdit
-          profileEditInfo={profileEditInfo}
-          dispatch={dispatch}
-          getPersonalInfoAction={getPersonalInfoAction}
-        />
-      )}
-
-      <PersonalInfoContent style={{ display: changeProfile && "none" }}>
-        <PersonalInfoFormHook
-          schema={personalInfoSchema}
-          info={personalEditInfo}
-          onSubmit={onSubmit}
-          user={user}
-        />
-      </PersonalInfoContent>
-
-      <PersonalInfoButtonWrap>
-        {!changeProfile && (
-          <ChangeProfileButton handleChangeProfile={handleChangeProfile} />
-        )}
-
-        {/* <SaveProfileButton /> */}
-      </PersonalInfoButtonWrap>
     </PersonalInfo>
   );
 };

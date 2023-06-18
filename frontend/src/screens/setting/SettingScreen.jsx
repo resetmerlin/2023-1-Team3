@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import { styled } from "styled-components";
@@ -8,6 +14,7 @@ import { batch, useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../../actions/userAction";
 import { getPersonalInfoAction } from "../../actions/securityEditAction";
 import { SECURITY_GET_PERSONALINFO_RESET } from "../../constants/securityEditConstants";
+import Loading from "../../components/Loading";
 const SettingScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,7 +34,6 @@ const SettingScreen = () => {
   const [imageVersion, setImageVersion] = useState(Date.now());
 
   useEffect(() => {
-    // Whenever the user object changes, update the imageVersion state
     setImageVersion(Date.now());
   }, [user]);
 
@@ -43,6 +49,7 @@ const SettingScreen = () => {
     // Add imageVersion as a query parameter to the URL
     return `${user?.image}?ver=${imageVersion}`;
   }, [user]);
+
   /** 유저 나이 n살로 변경 */
   const age =
     new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
@@ -50,45 +57,77 @@ const SettingScreen = () => {
   return (
     <Setting>
       <SettingHeader navigate={navigate} name={"마이페이지"} />
-      <SettingUserContent>
-        <SettingUserImage
-          key={user?.image}
-          src={getImageSrc()}
-          loading="lazy"
-          alt="mypage-profile"
-        ></SettingUserImage>
-        <SettingUserTextWrap>
-          <span style={{ fontSize: "1.4rem" }}>
-            <span
+
+      {loading ? (
+        <>
+          <SettingUserContent>
+            <SettingUserImage
               style={{
-                fontSize: "1.4rem",
-                fontWeight: "600",
-                marginRight: ".5rem",
+                backgroundColor: "rgb(236, 234, 247, 1)",
+                border: "none",
               }}
-            >
-              {user?.name}
-            </span>
-            {age}
-          </span>
+            ></SettingUserImage>
+            <SettingUserTextWrap></SettingUserTextWrap>
+          </SettingUserContent>
+          <SettingMiddlContent></SettingMiddlContent>
+          <SettingAccountContent></SettingAccountContent>
 
-          <span>{user?.department}</span>
-        </SettingUserTextWrap>
-      </SettingUserContent>
-      <SettingMiddlContent>
-        <span>자기소개</span>
-        <p>{user?.introduction}</p>
-      </SettingMiddlContent>
-      <SettingAccountContent>
-        <Link to="/setting/personal-info">프로필 설정</Link>
+          <SettingLastContent></SettingLastContent>
+        </>
+      ) : (
+        <>
+          <Suspense fallback={<Loading />}>
+            <SettingUserContent>
+              <SettingUserImage
+                key={user?.memberId}
+                style={{
+                  filter: `${user?.image === undefined ? "blur(20px)" : ""}`,
+                }}
+                src={getImageSrc()}
+                loading="lazy"
+                alt="mypage-profile"
+              ></SettingUserImage>
+              <SettingUserTextWrap>
+                <span style={{ fontSize: "1.4rem" }}>
+                  <span
+                    style={{
+                      fontSize: "1.4rem",
+                      fontWeight: "600",
+                      marginRight: ".5rem",
+                    }}
+                  >
+                    {user?.name}
+                  </span>
+                  {age}
+                </span>
 
-        <Link to="/setting/account-security">계정보안 설정</Link>
-        <Link>개인정보 보호</Link>
-        <Link>문의</Link>
-      </SettingAccountContent>
-      <SettingLastContent>
-        <LogoutButton logout={logoutHandler} />
-        <button style={{ color: "red" }}>계정에서 탈퇴</button>
-      </SettingLastContent>
+                <span>{user?.department}</span>
+              </SettingUserTextWrap>
+            </SettingUserContent>
+          </Suspense>
+          <Suspense fallback={<Loading />}>
+            <SettingMiddlContent>
+              <span>자기소개</span>
+              <p>{user?.introduction}</p>
+            </SettingMiddlContent>
+          </Suspense>
+          <Suspense fallback={<Loading />}>
+            <SettingAccountContent>
+              <Link to="/setting/personal-info">프로필 설정</Link>
+
+              <Link to="/setting/account-security">계정보안 설정</Link>
+              <Link>개인정보 보호</Link>
+              <Link>문의</Link>
+            </SettingAccountContent>
+          </Suspense>
+
+          <SettingLastContent>
+            <LogoutButton logout={logoutHandler} />
+            <button style={{ color: "red" }}>계정에서 탈퇴</button>
+          </SettingLastContent>
+        </>
+      )}
+
       <Footer />
     </Setting>
   );
