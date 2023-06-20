@@ -132,6 +132,7 @@ const RegisterScreen = () => {
       dispatch(registerResetAction());
       dispatch(registerEmailResetAction());
       dispatch(registerCodeResetAction());
+      setCurrentStep(1);
     });
   }, [dispatch, batch]);
 
