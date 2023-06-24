@@ -2,34 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
-const Messages = ({ user }) => {
+const Messages = ({ name, image, startMessageHandker }) => {
   return (
     <Column>
-      {!user?.image ? (
-        <MessageProfile
-          style={{
-            backgroundImage: `
-    url('../public/SDS대지 12 사본@3x.png')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-          alt="message-profile"
-        ></MessageProfile>
-      ) : (
-        <MessageProfile
-          style={{
-            backgroundImage: `
-  url(${user?.image}`,
-          }}
-          alt="message-profile"
-        ></MessageProfile>
-      )}
+      <MessageProfile
+        style={{
+          backgroundImage: `
+  url(${image}`,
+        }}
+        alt="message-profile"
+      ></MessageProfile>
       <MessageWrap>
         <MessageDescWrap>
-          <Link to="/conversation">
-            <span>Jordyn Dokidos</span>
+          <button onClick={startMessageHandker}>
+            <span>{name}</span>
             <MessageConversation>Hi!</MessageConversation>
-          </Link>
+          </button>
         </MessageDescWrap>
 
         <MessageNotifyWrap>
@@ -65,7 +53,7 @@ const MessageDescWrap = styled.div`
   height: 100%;
   font-weight: 600;
   display: flex;
-  a {
+  button {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
