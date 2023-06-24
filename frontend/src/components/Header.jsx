@@ -52,9 +52,10 @@ export const SaveHeader = ({ navigate, style }) => {
     </SaveHeaderWrap>
   );
 };
-export const MessageHeader = () => {
+export const MessageHeader = ({ navigate }) => {
   return (
     <MessageHeaderWrap>
+      <BackButton navigate={navigate} />
       <span>Message</span>
     </MessageHeaderWrap>
   );
@@ -108,6 +109,12 @@ const MessageHeaderWrap = styled.div`
     font-size: 2.6rem;
     font-weight: 600;
     color: white;
+  }
+
+  button {
+    position: absolute;
+    left: 3%;
+    top: 5%;
   }
 `;
 const HeaderLogoWrap = styled.div`
