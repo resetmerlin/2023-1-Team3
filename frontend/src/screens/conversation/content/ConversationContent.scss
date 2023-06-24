@@ -1,0 +1,60 @@
+.conversation__content {
+  height: 85%;
+  width: 100%;
+  top: 9%;
+  position: absolute;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  .time {
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+
+  #partner {
+    margin-right: 2rem;
+  }
+  #client-justify {
+    justify-content: flex-end;
+  }
+  #client {
+    margin-left: 2rem;
+    border: none;
+  }
+  &__message__wrap {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 0.8rem;
+
+    .conversation__content__message {
+      white-space: normal;
+      padding: 0.8rem;
+      font-size: 1rem;
+
+      box-shadow: -1px 7px 4px 1px rgb(236, 234, 247);
+      -webkit-box-shadow: -1px 7px 4px 1px rgb(236, 234, 247);
+      -moz-box-shadow: -1px 7px 4px 1px rgb(236, 234, 247);
+
+      align-items: stretch;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 0;
+      margin: 0;
+      border-radius: 1rem;
+      width: auto;
+      margin: 0 0.8rem;
+    }
+
+    .conversation__content__profile {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+    }
+  }
+}
