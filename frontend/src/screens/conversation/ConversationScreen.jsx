@@ -5,12 +5,12 @@ import ConversatonHeaderView from "./header/ConversatonHeaderView";
 import ConversationContent from "./content/ConversationContent";
 import ConversationBottom from "./bottom/ConversationBottom";
 import { useParams, useLocation } from "react-router-dom";
+import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 import { useDispatch, useSelector } from "react-redux";
 import { getPersonalInfoAction } from "../../actions/securityEditAction";
 import { getMessageHistoryAction } from "../../actions/messageAction";
 import { authToken } from "../../hooks/MemoizedRedux";
-import Stomp from "stomp-websocket";
 
 const ConversationScreen = () => {
   const navigate = useNavigate();
@@ -28,36 +28,45 @@ const ConversationScreen = () => {
   const { personalInfoStatus: myAccountInfo, loading } = personalInfo;
 
   const messageInfo = useSelector((state) => state.messageInfo);
-  const [connected, setConnected] = useState(false);
 
+  const [connected, setConnected] = useState(false);
   const headers = { memberId: myAccountInfo?.memberId };
 
-  const stompClient = useRef();
-
+  const url = "http://138.2.127.153:8080";
   const connectionInitiate = () => {
-    const socket = new SockJS("http://138.2.127.153:8080/chat");
-    stompClient.current = Stomp.over(socket);
+    const socket = new SockJS(url + `/chat`);
+    let client = Stomp.over(socket);
 
-    stompClient.current.connect(
-      {},
-      (frame) => {
-        console.log(frame);
+    client.connect(
+      "",
+      "",
+      function (frame) {
+        console.log("Connected: " + frame);
       },
-      (error) => {
-        console.log(error);
+      function (error) {
+        // print the error
+        console.log("STOMP: " + error);
       }
     );
+
+    client.debug = (frame) => {
+      console.log(frame);
+    };
   };
 
-  useEffect(() => {
-    if (!myAccountInfo) {
-      dispatch(getPersonalInfoAction());
-    }
-  }, [myAccountInfo]);
+  // const subscribe = () => {
+  //   client.current.subscribe(
+  //     `/topic/${myAccountInfo?.memberId}`,
+  //     function (response) {
+  //       onMessageReceived(response);
+  //     }
+  //   );
+  // };
+  // 메세지 기록 가져옴
 
   // 메세지 보내기 위한 form control
   const onSubmit = useCallback(async (data) => {
-    console.log(data);
+    sendMsg(data);
   }, []);
 
   // JSX를 추상화한 Props Object
@@ -70,10 +79,18 @@ const ConversationScreen = () => {
     name: "장석구",
   };
 
+  // 내 정보 불러오기
+  useEffect(() => {
+    if (!myAccountInfo) {
+      dispatch(getPersonalInfoAction());
+    } else {
+      connectionInitiate();
+    }
+  }, [myAccountInfo]);
   return (
     <Conversation>
       <ConversatonHeaderView {...props} />
-      <ExButton onClick={connectionInitiate} />
+
       <ConversationContent />
       <ConversationBottom {...bottomProps} />
     </Conversation>
@@ -90,9 +107,5 @@ const Conversation = styled.section`
   font-size: 1.5rem;
   background-color: white;
 `;
-const ExButton = styled.button`
-  height: 30%;
-  width: 30%;
-  position: absolute;
-`;
+
 export default ConversationScreen;
