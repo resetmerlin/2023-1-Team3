@@ -3,7 +3,8 @@
 
 import {
   MESSAGE_GET_REQUEST,
-  MESSAGE_GET_SUCCESS,
+  MESSAGE_FETCH_GET_SUCCESS,
+  MESSAGE_SEND_GET_SUCCESS,
   MESSAGE_GET_FAIL,
 } from "../constants/messageConstants";
 
@@ -16,17 +17,15 @@ export const getMessageHistoryAction =
       const chatMessageResponse = JSON.parse(messageResponse.body);
 
       if (chatMessageResponse.status === "SEND") {
-        data = chatMessageResponse;
+        const data = chatMessageResponse?.chatMessages;
+        dispatch({ type: MESSAGE_SEND_GET_SUCCESS, payload: data });
       } else if (chatMessageResponse.status === "FETCH") {
         if (chatMessageResponse.count !== 0) {
-          data = chatMessageResponse;
-        }
-      } else {
-        // "RE-FETCH"
-        data = chatMessageResponse;
-      }
+          const data = chatMessageResponse?.chatMessages;
 
-      dispatch({ type: MESSAGE_GET_SUCCESS, payload: data });
+          dispatch({ type: MESSAGE_FETCH_GET_SUCCESS, payload: data });
+        }
+      }
     } catch (error) {
       dispatch({
         type: MESSAGE_GET_FAIL,
