@@ -5,7 +5,14 @@ import {
   MESSAGE_GET_FAIL,
 } from "../constants/messageConstants";
 
-export const messageReducers = (state = {}, action) => {
+export const messageReducers = (
+  state = {
+    /** message response 값 fetch data할때 마다 초기화 방지 */
+    messageSendStatus: [],
+  },
+
+  action
+) => {
   switch (action.type) {
     case MESSAGE_GET_REQUEST:
       return { loading: true, ...state };
@@ -13,12 +20,15 @@ export const messageReducers = (state = {}, action) => {
     case MESSAGE_FETCH_GET_SUCCESS:
       return {
         loading: false,
-        messageFetchStatus: action.payload,
+        messageFetchStatus: {
+          ...state.messageSendStatus,
+          ...action.payload,
+        },
       };
     case MESSAGE_SEND_GET_SUCCESS:
       return {
         loading: false,
-        messageSendStatus: action.payload,
+        messageSendStatus: [...state.messageSendStatus, ...action.payload],
       };
 
     case MESSAGE_GET_FAIL:
