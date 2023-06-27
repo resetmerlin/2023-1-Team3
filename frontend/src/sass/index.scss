@@ -6,7 +6,20 @@
 @import "abstracts/variable";
 @import "pages/form";
 @import "pages/home";
+@import "pages/message";
+@import "pages/conversation";
+@import "pages/save";
+@import "pages/setting";
+@import "pages/securityedit";
+@import "pages/profileEdit";
+@import "layouts/settingEdit";
 
 @import "components/header";
 @import "components/form";
 @import "components/nav";
+@import "components/footer";
+@import "components/popup-profile";
+@import "components/homeAlert";
+@import "components/camera";
+@import "components/progressBar";
+@import "components/button";

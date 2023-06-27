@@ -4,7 +4,7 @@ $secondary-silver: rgb(238, 240, 244);
 $primary-silver: rgb(141 145 157);
 $primary-silver-dark: rgb(128, 132, 143);
 $primary-silver-2: rgb(196, 196, 196);
-
+$hover-silver: rgb(41, 41, 41);
 $color-black: black;
 $color-white: white;
 
@@ -41,4 +41,133 @@ $border-radius-small: 3px;
 .display-flex {
   display: flex;
   align-items: center;
+}
+
+@keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: $color-white;
+  }
+}
+
+@-moz-keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: $color-white;
+  }
+}
+
+@-webkit-keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: $color-white;
+  }
+}
+@keyframes horizontal-shaking {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@-moz-keyframes horizontal-shaking {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes horizontal-shaking {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@-ms-keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: $color-white;
+  }
+}
+
+@-o-keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: $color-white;
+  }
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-direction-col {
+  flex-direction: column;
+}
+.popup-width {
+  width: 100% !important;
+  @include respond(tab-port) {
+    width: 599px !important;
+  }
+  @include respond(tab-land) {
+    width: 599px !important;
+  }
+  @include respond(small-desktop) {
+    width: 599px !important;
+  }
+
+  @include respond(big-desktop) {
+    width: 599px !important;
+  }
 }
