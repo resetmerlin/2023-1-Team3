@@ -1,0 +1,23 @@
+.profileEdit__content__profile__camera {
+  background-color: $color-white;
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  border: 3px solid $color-black;
+}
+.ReactCrop__crop-selection {
+  border: 1px solid #fff !important;
+}
+.ReactCrop__drag-handle::after {
+  width: 10px !important;
+  height: 10px !important;
+  background-color: white !important;
+}
+.ReactCrop__child-wrapper {
+  height: 100% !important;
+}

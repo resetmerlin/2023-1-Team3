@@ -1,0 +1,98 @@
+.message {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  align-self: start;
+
+  &__title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    margin-top: 3rem;
+    padding: 0 2rem;
+    font-weight: 600;
+    color: $primary-silver-dark;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 0 2rem;
+  }
+  &__column {
+    display: flex;
+    width: 100%;
+    height: 4rem;
+    margin: 0.7rem 0;
+    .message__profile {
+      width: 15%;
+      height: 100%;
+      img {
+        width: 3.8rem;
+        height: 3.8rem;
+        border-radius: 50%;
+      }
+    }
+    .message__desc {
+      font-size: 1rem;
+      width: 70%;
+      height: 84%;
+      font-weight: 600;
+      margin: 0 1.5rem;
+      display: flex;
+      font-weight: 600;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      a {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        text-decoration: none;
+        color: $color-white;
+      }
+      &__conversation {
+        width: 100%;
+        font-size: 0.7rem;
+        white-space: normal;
+        overflow: hidden;
+        color: $primary-silver-2;
+      }
+    }
+    .message__notification {
+      font-size: 0.9rem;
+
+      width: 15%;
+      height: 90%;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      padding: 0.5rem 0;
+
+      &__time {
+        width: 100%;
+        font-size: 0.7rem;
+        color: $primary-silver-2;
+        margin-bottom: 0.5rem;
+      }
+
+      &__notify {
+        width: 1.7rem;
+        height: 1.3rem;
+        line-height: 1.3rem;
+        background-color: rgb(116, 78, 219);
+        justify-content: center;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,37 +1,10 @@
-.home__nav {
-  @include respond(big-desktop) {
-    position: absolute;
-    left: 0;
-    border-right: 1px solid $primary-silver-2;
-    width: 18%;
-    height: 100%;
-    padding: 2em;
-    display: flex;
-    flex-direction: column;
-    &__link-wrap {
-      margin-top: 2rem;
-      height: 30%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      a {
-        height: 20%;
-        transition: all 0.1s ease-in;
-        &:hover {
-          background-color: $secondary-silver;
-          transform: scale(1.02);
-        }
-        i {
-          font-size: 1.5rem;
-          margin-right: 0.5rem;
-        }
-        color: $color-black;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-      }
-    }
+.form-header {
+  height: 10rem !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__logo {
+    font-size: 3rem !important;
+    position: static !important;
   }
 }
