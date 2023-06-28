@@ -26,7 +26,11 @@ const MessageScreen = () => {
       navigate(`/message/id?user=${DemoUser?.memberId}`);
     }
   };
-
+  const startMessageHandler = () => {
+    if (user) {
+      navigate(`/message/id?user=${DemoUser1?.memberId}`);
+    }
+  };
   // Demo 상대 유저 정보
   const DemoUser = {
     memberId: 10,
@@ -39,6 +43,16 @@ const MessageScreen = () => {
     startMessageHandker: startMessageHandker,
   };
 
+  const DemoUser1 = {
+    memberId: 1,
+    name: "김민준",
+    gender: "MALE",
+    birth: "1998-05-26",
+    image: "DEFAULT",
+    department: "소프트웨어학과",
+    introduction: "반갑습니다~ 김서현입니다!",
+    startMessageHandker: startMessageHandler,
+  };
   return (
     <>
       <section className="message">
@@ -47,6 +61,7 @@ const MessageScreen = () => {
         <Row>
           <NewMessagesCount>9개의 새로운 메세지</NewMessagesCount>
           <Messages {...DemoUser} />
+          <Messages {...DemoUser1} />
         </Row>
         <Footer />
       </section>
