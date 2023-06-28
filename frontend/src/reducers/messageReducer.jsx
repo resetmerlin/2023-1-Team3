@@ -20,10 +20,7 @@ export const messageReducers = (
     case MESSAGE_FETCH_GET_SUCCESS:
       return {
         loading: false,
-        messageFetchStatus: {
-          ...state.messageSendStatus,
-          ...action.payload,
-        },
+        messageFetchStatus: action.payload,
       };
     case MESSAGE_SEND_GET_SUCCESS:
       return {
