@@ -1,19 +1,13 @@
 import React, { useCallback } from "react";
-import { useForm } from "react-hook-form";
 import ConversationBottomView from "./ConversationBottomView";
 import "./ConversationBottom.scss";
 
-const ConversationBottom = ({ onSubmit }) => {
-  const methods = useForm({
-    mode: "onChange",
-  });
-
-  const { handleSubmit, register } = methods;
+const ConversationBottom = ({ onSubmit, handleSubmit, register }) => {
   // JSX를 추상화한 Props Object
   const props = {
     onSubmit: onSubmit,
-    handleSubmit: methods?.handleSubmit,
-    register: { ...register("message", { required: true }) },
+    handleSubmit: handleSubmit,
+    register: register,
   };
   return <ConversationBottomView {...props} />;
 };
