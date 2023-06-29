@@ -9,21 +9,6 @@
   flex-direction: column;
   padding: 1rem;
 
-  .time {
-    justify-content: center;
-    font-size: 0.8rem;
-  }
-
-  #partner {
-    margin-right: 2rem;
-  }
-  #client-justify {
-    justify-content: flex-end;
-  }
-  #client {
-    margin-left: 2rem;
-    border: none;
-  }
   &__message__wrap {
     width: 100%;
     height: auto;
