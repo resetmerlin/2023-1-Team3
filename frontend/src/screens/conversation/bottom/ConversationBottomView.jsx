@@ -7,7 +7,7 @@ const ConversationBottomView = ({ onSubmit, handleSubmit, register }) => {
         className="conversation__bottom__keyboard-input"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <input
+        <textarea
           type="text"
           className="blinking-cursor"
           autoFocus
