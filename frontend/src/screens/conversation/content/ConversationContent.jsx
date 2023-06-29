@@ -13,7 +13,6 @@ const ConversationContent = ({
     messageReceivedNow: messageReceivedNow,
   };
 
-  console.log(messageReceivedNow);
   return (
     <div className="conversation__content">
       {messageHistory &&
