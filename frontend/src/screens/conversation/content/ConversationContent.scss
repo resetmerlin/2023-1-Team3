@@ -36,9 +36,9 @@
       padding: 0.8rem;
       font-size: 1rem;
 
-      box-shadow: -1px 7px 4px 1px rgb(236, 234, 247);
-      -webkit-box-shadow: -1px 7px 4px 1px rgb(236, 234, 247);
-      -moz-box-shadow: -1px 7px 4px 1px rgb(236, 234, 247);
+      box-shadow: -1px 3px 5.5px 1px rgb(236, 234, 247);
+      -webkit-box-shadow: -1px 3px 5.5px 1px rgb(236, 234, 247);
+      -moz-box-shadow: -1px 3px 5.5px 1px rgb(236, 234, 247);
 
       align-items: stretch;
       box-sizing: border-box;
@@ -52,8 +52,8 @@
     }
 
     .conversation__content__profile {
-      width: 3rem;
-      height: 3rem;
+      width: 3.2rem;
+      height: 3.2rem;
       border-radius: 50%;
       object-fit: cover;
     }
