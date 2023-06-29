@@ -14,13 +14,17 @@
   // -moz-box-shadow: 0px -10px 12px -6px rgb(212, 206, 245);
   &__keyboard-input {
     display: flex;
-    height: 70%;
+    height: auto;
     width: 88%;
     border: 1px solid rgb(157, 140, 252);
     border-radius: 5px;
     color: black;
 
-    input {
+    textarea {
+      font-family: "Pretendard Variable", Pretendard, -apple-system,
+        BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+        "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
       width: 87%;
       margin-left: 1rem;
       background: transparent;
@@ -33,6 +37,12 @@
       animation: 1s blink step-end infinite;
       color: black !important;
       font-size: 1rem;
+      font-weight: 500;
+
+      display: flex; // Use flexbox for centering vertically
+      justify-content: center; // Center the content along the horizontal axis
+      align-items: center; // Center the content along the vertical axis
+      padding: 10px;
 
       &:focus {
         outline: none;
