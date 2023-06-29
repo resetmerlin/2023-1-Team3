@@ -1,43 +1,28 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getPersonalInfoAction } from "../../actions/securityEditAction";
+import { getMessagesAction } from "../../actions/messageAction";
 import { styled } from "styled-components";
 import ConversatonHeaderView from "./header/ConversatonHeaderView";
 import ConversationContent from "./content/ConversationContent";
 import ConversationBottom from "./bottom/ConversationBottom";
-import { useParams, useLocation } from "react-router-dom";
-import { useForm } from "react-hook-form";
-
-import { useDispatch, useSelector } from "react-redux";
-import { getPersonalInfoAction } from "../../actions/securityEditAction";
-import { getMessagesAction } from "../../actions/messageAction";
-import { authToken } from "../../hooks/MemoizedRedux";
 
 const ConversationScreen = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { id } = useParams();
 
   // 내 정보 가져오기
   const personalInfo = useSelector((state) => state.personalInfo);
   const { personalInfoStatus: myAccountInfo, loading } = personalInfo;
 
+  // 유저가 접속하지 않고 상대가 이미 보낸 메세지 기록들, 동시 접속 시 상대가 보낸 메세지들
   const messageInfo = useSelector((state) => state.messageInfo);
-
-  const {
-    // 유저가 접속하지 않고 상대가 이미 보낸 메세지 기록들
-    messageFetchStatus,
-    // 동시 접속 시 상대가 보낸 메세지들
-    messageSendStatus,
-  } = messageInfo;
-
-  const location = useLocation().search;
+  const { messageFetchStatus, messageSendStatus } = messageInfo;
 
   // 메세지 보낼 상대의 memberId를 params에 가져옴
+  const location = useLocation().search;
   const opponentMemberId = +new URLSearchParams(location).get("user");
   const headers = { memberId: myAccountInfo?.memberId };
-
-  const client = useRef();
 
   // 웹 소켓 접속 여부의 체크해주는 state
   const [connected, setConnected] = useState(false);
@@ -45,8 +30,10 @@ const ConversationScreen = () => {
   // 유저가 메세지 queue 주소와 접속했는지 확인하는 state
   const [subscribed, setSubscribed] = useState(false);
 
-  // 웹 소켓 열어서 서버와 통신 시작
-  const connectionInitiate = () => {
+  const client = useRef();
+
+  /**웹 소켓 열어서 서버와 통신 시작 */
+  const connectionInitiate = useCallback(() => {
     const socket = new SockJS(`${import.meta.env.VITE_API_URL}/chat`);
 
     client.current = Stomp.over(socket);
@@ -55,8 +42,9 @@ const ConversationScreen = () => {
       setConnected(true);
       getDirectionOfMessage();
     });
-  };
+  }, [client]);
 
+  /** 내가 보낸 혹은 받은 메세지를 state로 저장 */
   const getMessageFromServer = useCallback((response) => {
     dispatch(getMessagesAction(response));
   });
@@ -78,7 +66,7 @@ const ConversationScreen = () => {
     }
   }, [connected]);
 
-  // 상대가 보낸 이전의 기록들을 get 해줌
+  /** 내가 접속하지 않을때 상대가 보낸 이전의 기록들을 가져옴 */
   const fetchMessages = useCallback(() => {
     if (connected) {
       client.current.send(
@@ -92,7 +80,7 @@ const ConversationScreen = () => {
     }
   }, [connected]);
 
-  // 상대 유저에게 메세지를 전송
+  /** 상대 유저에게 메세지를 전송 */
   const sendMsg = async (messages) => {
     if (!subscribed && connected) {
       await getDirectionOfMessage();
@@ -105,8 +93,7 @@ const ConversationScreen = () => {
     };
 
     await client.current.send("/app/send", {}, JSON.stringify(request));
-    await getMessageFromServer(JSON.stringify([request]));
-    changeInputToNull();
+    getMessageFromServer(JSON.stringify([request]));
   };
 
   // 웹 소켓 Disconnect
@@ -115,11 +102,6 @@ const ConversationScreen = () => {
       client.current.disconnect();
     }
   };
-
-  // 메세지 보내기 위한 form control
-  const onSubmit = useCallback(async (data) => {
-    sendMsg(data?.message);
-  }, []);
 
   // 내 정보 불러오기
   useEffect(() => {
@@ -137,40 +119,34 @@ const ConversationScreen = () => {
   }, [myAccountInfo, connected]);
 
   // JSX를 추상화한 Props Object
-  const props = {
-    name: "장석구",
+  const conversationProps = {
+    headerProps: {
+      name: "장석구",
+    },
+    contentProps: {
+      messageHistory: messageFetchStatus,
+      messageReceivedNow: messageSendStatus,
+      myMemberId: myAccountInfo?.memberId,
+    },
+    bottomProps: {
+      sendMsg: sendMsg,
+    },
   };
 
-  const contentProps = {
-    messageHistory: messageFetchStatus,
-    messageReceivedNow: messageSendStatus,
-    myMemberId: myAccountInfo?.memberId,
-  };
+  return <ConversationScreenView {...conversationProps} />;
+};
 
-  const methods = useForm({
-    mode: "onChange",
-  });
-  const { handleSubmit, register, setValue } = methods;
-
-  const changeInputToNull = () => {
-    setValue("message", "");
-  };
-  // JSX를 추상화한 Props Object
-  const bottomProps = {
-    onSubmit: onSubmit,
-    handleSubmit: handleSubmit,
-    register: { ...register("message", { required: true }) },
-  };
-
+// VAC
+const ConversationScreenView = ({ contentProps, bottomProps, headerProps }) => {
   return (
     <Conversation>
-      <ConversatonHeaderView {...props} />
-
+      <ConversatonHeaderView {...headerProps} />
       <ConversationContent {...contentProps} />
       <ConversationBottom {...bottomProps} />
     </Conversation>
   );
 };
+
 const Conversation = styled.section`
   height: 100%;
   width: 100%;
@@ -180,6 +156,16 @@ const Conversation = styled.section`
   align-items: center;
   font-size: 1.5rem;
   background-color: white;
+  #partner {
+    margin-right: 2rem;
+  }
+  #client-justify {
+    justify-content: flex-end;
+  }
+  #client {
+    margin-left: 2rem;
+    border: none;
+  }
 `;
 
 export default ConversationScreen;
