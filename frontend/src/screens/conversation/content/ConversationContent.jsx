@@ -1,7 +1,6 @@
 import React from "react";
 import "./ConversationContent.scss";
-import PartnerMessage from "../../../components/PartnerMessage";
-import MyMessage from "../../../components/MyMessage";
+import ConversationContentView from "./ConversationContentView";
 
 const ConversationContent = ({
   messageHistory,
@@ -11,25 +10,10 @@ const ConversationContent = ({
   const props = {
     messageHistory: messageHistory,
     messageReceivedNow: messageReceivedNow,
+    myMemberId: myMemberId,
   };
 
-  return (
-    <div className="conversation__content">
-      {messageHistory &&
-        messageHistory.map((message) => {
-          return <PartnerMessage message={message.message} />;
-        })}
-
-      {messageReceivedNow &&
-        messageReceivedNow.map((message, id) => {
-          return message.recvMemberId == myMemberId ? (
-            <PartnerMessage message={message.message} key={id + 1} />
-          ) : (
-            <MyMessage message={message.message} key={id + 1} />
-          );
-        })}
-    </div>
-  );
+  return <ConversationContentView {...props} />;
 };
 
 export default ConversationContent;
