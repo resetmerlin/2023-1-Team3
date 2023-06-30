@@ -14,6 +14,8 @@
     height: auto;
     display: flex;
     align-items: flex-end;
+    word-wrap: break-word;
+    word-break: break-word;
     margin-bottom: 0.8rem;
 
     .conversation__content__message {
