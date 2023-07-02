@@ -43,21 +43,29 @@ const PartnerMessage = ({ message }) => {
 const FullPartnerMessage = ({ message }) => {
   return (
     <>
-      <div className="conversation__content__message__wrap ">
-        <img
-          className="conversation__content__profile"
-          src="../default/default-men.png"
-          alt="conversation-user-image"
-        ></img>
-
-        <p className="conversation__content__message" id="partner">
-          {message}
-        </p>
-      </div>
+      <PartnerMessage message={message} />
 
       <MessageHorizontalLine />
     </>
   );
 };
 
+const MyMessage = ({ message }) => {
+  return (
+    <div className="conversation__content__message__wrap " id="client-justify">
+      <p className="conversation__content__message" id="client">
+        {message}
+      </p>
+    </div>
+  );
+};
+
+const FullMyMessage = ({ message }) => {
+  return (
+    <>
+      <MyMessage message={message} />
+      <MessageHorizontalLine />
+    </>
+  );
+};
 export default ConversationContentView;
