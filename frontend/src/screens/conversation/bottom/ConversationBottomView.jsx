@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 
 const ConversationBottomView = forwardRef(
   (
-    { onSubmit, handleSubmit, register, reference },
+    { onSubmit, handleSubmit, register, reference, keyDownSubmit },
     { messageInputRef, messageFormRef }
   ) => {
     return (
@@ -14,6 +14,7 @@ const ConversationBottomView = forwardRef(
         >
           <textarea
             type="text"
+            onKeyDown={keyDownSubmit}
             className="blinking-cursor"
             {...register}
             ref={reference}
