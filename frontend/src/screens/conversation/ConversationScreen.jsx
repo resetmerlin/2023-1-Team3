@@ -44,7 +44,7 @@ const ConversationScreen = () => {
     });
   }, [client]);
 
-  /** 현재 시간대를 보내 줌*/
+  /** 현재 IS0 format 시간대를 보내 줌*/
   const giveCurrentTime = () => {
     const timeElapsed = Date.now();
     const date = new Date(timeElapsed);
