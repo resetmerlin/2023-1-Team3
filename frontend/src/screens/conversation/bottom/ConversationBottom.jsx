@@ -13,10 +13,17 @@ const ConversationBottom = ({ sendMsg }) => {
   const { handleSubmit, register, setValue, watch } = useForm({
     mode: "onChange",
   });
+
+  /** form input 사이즈 원래대로 돌아오게 함 */
+  const backToDefaultInputHeight = () => {
+    messageFormRef.current.style.height = 3 + "rem";
+    messageInputRef.current.scrollHeight = 0;
+  };
   /** Form에서 작성한 메시지를 submit하여 데이터를 전송*/
   const onSubmit = useCallback(async (data) => {
     sendMsg(data?.message);
     setValue("message", "");
+    backToDefaultInputHeight();
   });
 
   const { ref } = register("message");
