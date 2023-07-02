@@ -44,6 +44,14 @@ const ConversationScreen = () => {
     });
   }, [client]);
 
+  /** 현재 시간대를 보내 줌*/
+  const giveCurrentTime = () => {
+    const timeElapsed = Date.now();
+    const date = new Date(timeElapsed);
+
+    const dateISO = date.toISOString().slice(0, 19) + "Z";
+    return dateISO;
+  };
   /** 내가 보낸 혹은 받은 메세지를 state로 저장 */
   const getMessageFromServer = useCallback((response) => {
     dispatch(getMessagesAction(response));
@@ -74,7 +82,7 @@ const ConversationScreen = () => {
         {},
         JSON.stringify({
           memberId: myAccountInfo?.memberId,
-          timeStamp: new Date(2006, 0, 2, 15, 4, 5),
+          timeStamp: giveCurrentTime(),
         })
       );
     }
@@ -88,7 +96,7 @@ const ConversationScreen = () => {
     const request = {
       sendMemberId: myAccountInfo?.memberId,
       recvMemberId: opponentMemberId,
-      timeStamp: new Date(2006, 0, 2, 15, 4, 5),
+      timeStamp: giveCurrentTime(),
       message: messages,
     };
 
