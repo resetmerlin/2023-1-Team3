@@ -1,14 +1,13 @@
 .conversation__content {
-  height: 85%;
+  height: 84%;
   width: 100%;
-  top: 9%;
-  position: absolute;
   overflow-y: scroll;
-
   display: flex;
   flex-direction: column;
   padding: 1rem;
-
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
   &__message__wrap {
     width: 100%;
     height: auto;
