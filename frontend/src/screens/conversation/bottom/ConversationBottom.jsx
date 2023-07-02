@@ -21,13 +21,12 @@ const ConversationBottom = ({ sendMsg }) => {
 
   const { ref } = register("message");
 
-
   /** 메시지 input onChange */
   const message = watch("message");
 
   useEffect(() => {
     if (messageInputRef.current !== null) {
-      messageFormRef.current?.style.height = `${messageInputRef.current?.scrollHeight}px`;
+      messageFormRef.current.style.height = `${messageInputRef.current?.scrollHeight}px`;
     }
   }, [message]);
 
