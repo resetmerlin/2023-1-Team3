@@ -14,10 +14,21 @@ const ConversationBottom = ({ sendMsg }) => {
     mode: "onChange",
   });
 
+  const keyDownSubmit = (e) => {
+    const keyCode = e.which || e.keyCode;
+
+    // 13 represents the Enter key
+    if (keyCode === 13 && !e.shiftKey) {
+      // Don't generate a new line
+      e.preventDefault();
+
+      messageFormRef.current.requestSubmit();
+    }
+  };
+
   /** form input 사이즈 원래대로 돌아오게 함 */
   const backToDefaultInputHeight = () => {
-    messageFormRef.current.style.height = 3 + "rem";
-    messageInputRef.current.scrollHeight = 0;
+    messageFormRef.current.style.height = "0";
   };
   /** Form에서 작성한 메시지를 submit하여 데이터를 전송*/
   const onSubmit = useCallback(async (data) => {
@@ -42,6 +53,7 @@ const ConversationBottom = ({ sendMsg }) => {
     onSubmit: onSubmit,
     handleSubmit: handleSubmit,
     register: { ...register("message", { required: true }) },
+    keyDownSubmit: keyDownSubmit,
     reference: (e) => {
       ref(e);
       messageInputRef.current = e;
