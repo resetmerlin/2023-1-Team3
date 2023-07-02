@@ -3,6 +3,19 @@ export const HorizontalLine = () => {
   return <HorizontalSeparator>or</HorizontalSeparator>;
 };
 
+export const MessageHorizontalLine = ({ message }) => {
+  return (
+    <HorizontalSeparator
+      style={{
+        color: " rgb(128, 113, 252)",
+        borderBottom: " rgb(128, 113, 252)",
+      }}
+    >
+      {message}
+    </HorizontalSeparator>
+  );
+};
+
 const HorizontalSeparator = styled.span`
   display: flex;
   flex-direction: row;
