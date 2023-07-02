@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 
 const ConversationBottomView = forwardRef(
   (
-    { onSubmit, handleSubmit, register, reference, handleKeyPress },
+    { onSubmit, handleSubmit, register, reference },
     { messageInputRef, messageFormRef }
   ) => {
     return (
@@ -17,7 +17,6 @@ const ConversationBottomView = forwardRef(
             className="blinking-cursor"
             {...register}
             ref={reference}
-            onKeyDown={handleKeyPress}
             autoFocus
           />
 
