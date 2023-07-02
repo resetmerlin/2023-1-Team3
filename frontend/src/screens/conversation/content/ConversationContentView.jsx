@@ -1,3 +1,4 @@
+import { MessageHorizontalLine } from "../../../components/HorizontalLine";
 import "./ConversationContent.scss";
 import { forwardRef } from "react";
 
@@ -39,13 +40,24 @@ const PartnerMessage = ({ message }) => {
   );
 };
 
-const MyMessage = ({ message }) => {
+const FullPartnerMessage = ({ message }) => {
   return (
-    <div className="conversation__content__message__wrap " id="client-justify">
-      <p className="conversation__content__message" id="client">
-        {message}
-      </p>
-    </div>
+    <>
+      <div className="conversation__content__message__wrap ">
+        <img
+          className="conversation__content__profile"
+          src="../default/default-men.png"
+          alt="conversation-user-image"
+        ></img>
+
+        <p className="conversation__content__message" id="partner">
+          {message}
+        </p>
+      </div>
+
+      <MessageHorizontalLine />
+    </>
   );
 };
+
 export default ConversationContentView;
