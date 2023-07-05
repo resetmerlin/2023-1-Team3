@@ -32,7 +32,7 @@ const ConversationBottom = ({ sendMsg }) => {
   };
   /** Form에서 작성한 메시지를 submit하여 데이터를 전송*/
   const onSubmit = useCallback(async (data) => {
-    sendMsg(data?.message);
+    await sendMsg(data?.message);
     setValue("message", "");
     backToDefaultInputHeight();
   });
