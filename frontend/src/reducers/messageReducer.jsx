@@ -4,6 +4,7 @@ import {
   MESSAGE_SEND_GET_SUCCESS,
   MESSAGE_GET_FAIL,
   MESSAGE_INITIATE,
+  MESSAGE_LOG_SUCCESS,
 } from "../constants/messageConstants";
 
 export const messageReducers = (
@@ -17,7 +18,11 @@ export const messageReducers = (
   switch (action.type) {
     case MESSAGE_GET_REQUEST:
       return { loading: true, ...state };
-
+    case MESSAGE_LOG_SUCCESS:
+      return {
+        loading: false,
+        messageUserStatus: action.payload,
+      };
     case MESSAGE_FETCH_GET_SUCCESS:
       return {
         loading: false,
