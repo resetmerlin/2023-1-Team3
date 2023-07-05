@@ -395,9 +395,17 @@ export const RecapUserListsButton = memo(function UserDeleteButton({
   );
 });
 
-export const UserMessageButton = memo(function UserMessageButton() {
+export const UserMessageButton = memo(function UserMessageButton({
+  startMessage,
+  memberId,
+}) {
   return (
-    <SmallUserButton type="button">
+    <SmallUserButton
+      type="button"
+      onClick={() => {
+        startMessage(memberId);
+      }}
+    >
       <box-icon
         color="rgb(128, 113, 252)"
         name="message-rounded"
