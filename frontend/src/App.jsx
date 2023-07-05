@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RegisterScreen from "./screens/register/RegisterScreen";
-import MessageScreen from "./screens/MessageScreen";
 import "./sass/index.css";
 import RequireAuth from "./components/RequireAuth";
 import MissingPage from "./components/MissingPage";
@@ -8,6 +7,7 @@ import Unauthorized from "./components/Unauthorized";
 import { Suspense, lazy } from "react";
 import ConversationScreen from "./screens/conversation/ConversationScreen";
 import Loading from "./components/Loading";
+import MessageScreen from "./screens/message/MessageScreen";
 const LoginSceen = lazy(() => import("./screens/login/LoginScreen"));
 const HomeScreen = lazy(() => import("./screens/home/HomeScreen"));
 const SaveScreen = lazy(() => import("./screens/SaveScreen"));
