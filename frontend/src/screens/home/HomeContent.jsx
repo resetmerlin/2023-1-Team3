@@ -10,6 +10,7 @@ const HomeContent = ({
   peopleListLoading,
   goNextSlideHandler,
   getUserFromChild,
+  startMessage,
 }) => {
   const age =
     new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
@@ -85,6 +86,7 @@ const HomeContent = ({
                 goNextSlideHandler={goNextSlideHandler}
                 userDetail={user}
                 saveValue={saveValue}
+                startMessage={startMessage}
                 likeAction={savAction}
                 setUserChildCardPopup={setUserChildCardPopup}
                 age={age}
