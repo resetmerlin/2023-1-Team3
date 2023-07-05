@@ -3,7 +3,10 @@ import "./ConversationContent.scss";
 import { forwardRef } from "react";
 
 const ConversationContentView = forwardRef(
-  ({ messageHistory, messageReceivedNow, myMemberId }, { ref }) => {
+  (
+    { messageHistory, messageReceivedNow, myMemberId, currentTime },
+    { ref }
+  ) => {
     return (
       <div className="conversation__content" ref={ref}>
         {messageHistory &&
@@ -13,11 +16,23 @@ const ConversationContentView = forwardRef(
 
         {messageReceivedNow &&
           messageReceivedNow.map((message, id) => {
-            return message.recvMemberId == myMemberId ? (
-              <PartnerMessage message={message.message} key={id + 1} />
-            ) : (
-              <MyMessage message={message.message} key={id + 1} />
-            );
+            if (
+              message.timeStamp[1] !==
+                messageReceivedNow[id + 1]?.timeStamp[1] &&
+              message.timeStamp[1] !== currentTime
+            ) {
+              if (message.recvMemberId == myMemberId) {
+                return <FullPartnerMessage message={message} key={id} />;
+              } else {
+                return <FullMyMessage message={message} key={id} />;
+              }
+            } else {
+              if (message.recvMemberId == myMemberId) {
+                return <PartnerMessage message={message.message} key={id} />;
+              } else {
+                return <MyMessage message={message.message} key={id} />;
+              }
+            }
           })}
       </div>
     );
@@ -43,9 +58,8 @@ const PartnerMessage = ({ message }) => {
 const FullPartnerMessage = ({ message }) => {
   return (
     <>
-      <PartnerMessage message={message} />
-
-      <MessageHorizontalLine />
+      <PartnerMessage message={message.message} />
+      <MessageHorizontalLine time={message.timeStamp[1]} />
     </>
   );
 };
@@ -63,8 +77,9 @@ const MyMessage = ({ message }) => {
 const FullMyMessage = ({ message }) => {
   return (
     <>
-      <MyMessage message={message} />
-      <MessageHorizontalLine />
+      <MyMessage message={message.message} />
+
+      <MessageHorizontalLine time={message.timeStamp[1]} />
     </>
   );
 };
