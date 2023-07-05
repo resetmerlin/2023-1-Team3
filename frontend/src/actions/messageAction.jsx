@@ -6,7 +6,12 @@ import {
   MESSAGE_FETCH_GET_SUCCESS,
   MESSAGE_SEND_GET_SUCCESS,
   MESSAGE_GET_FAIL,
+  MESSAGE_INITIATE,
 } from "../constants/messageConstants";
+
+export const messageInitiateAction = (user) => async (dispatch) => {
+  dispatch({ type: MESSAGE_INITIATE, payload: user });
+};
 
 /** 리스트 가졍 Action */
 export const getMessagesAction =
@@ -16,13 +21,16 @@ export const getMessagesAction =
 
       if (messageResponse?.body) {
         const chatMessageResponse = JSON.parse(messageResponse.body);
+
         if (chatMessageResponse.status === "SEND") {
           const data = chatMessageResponse?.chatMessages;
 
+          console.log(data);
           dispatch({ type: MESSAGE_SEND_GET_SUCCESS, payload: data });
         } else if (chatMessageResponse.status === "FETCH") {
           if (chatMessageResponse.count !== 0) {
             const data = chatMessageResponse?.chatMessages;
+            console.log(data);
 
             dispatch({ type: MESSAGE_FETCH_GET_SUCCESS, payload: data });
           }
