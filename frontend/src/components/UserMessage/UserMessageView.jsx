@@ -1,42 +1,35 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
-const Messages = ({ name, image, startMessageHandker }) => {
+const UserMessageView = ({ time, message, image, name }) => {
   return (
     <Column>
-      <MessageProfile
-        style={{
-          backgroundImage: `
-  url(${image}`,
-        }}
-        alt="message-profile"
-      ></MessageProfile>
+      <MessageProfile src={image} alt="message-profile"></MessageProfile>
       <MessageWrap>
         <MessageDescWrap>
           <button onClick={startMessageHandker}>
             <span>{name}</span>
-            <MessageConversation>Hi!</MessageConversation>
+            <MessageConversation>{message}</MessageConversation>
           </button>
         </MessageDescWrap>
 
         <MessageNotifyWrap>
-          <MessageNotifyTime>8:12pm</MessageNotifyTime>
-          <MessageNotification>1</MessageNotification>
+          <MessageNotifyTime>{time}</MessageNotifyTime>
+          <MessageNotification>new</MessageNotification>
         </MessageNotifyWrap>
       </MessageWrap>
     </Column>
   );
 };
-const MessageProfile = styled.div`
+
+const MessageProfile = styled.img`
   padding: 0;
   margin: 0;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background-size: cover;
-  background-position: center center;
   margin-right: 1.5rem;
+  object-fit: cover;
 `;
 
 const MessageWrap = styled.div`
@@ -109,5 +102,4 @@ const Column = styled.div`
   margin: 0.7rem 0;
   align-items: center;
 `;
-
-export default Messages;
+export default UserMessageView;
