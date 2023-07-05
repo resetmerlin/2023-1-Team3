@@ -3,6 +3,7 @@ import {
   MESSAGE_FETCH_GET_SUCCESS,
   MESSAGE_SEND_GET_SUCCESS,
   MESSAGE_GET_FAIL,
+  MESSAGE_INITIATE,
 } from "../constants/messageConstants";
 
 export const messageReducers = (
@@ -30,6 +31,16 @@ export const messageReducers = (
 
     case MESSAGE_GET_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const messageInitiateReducers = (state = {}, action) => {
+  switch (action.type) {
+    case MESSAGE_INITIATE:
+      return { userMessageStatus: action.payload };
+
     default:
       return state;
   }
