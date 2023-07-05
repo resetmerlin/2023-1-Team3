@@ -15,7 +15,6 @@ const MessageScreen = () => {
   const personalInfo = useSelector((state) => state.personalInfo);
   const { personalInfoStatus: myAccountInfo, loading } = personalInfo;
 
-  const headers = { memberId: myAccountInfo?.memberId };
   const { id } = useParams();
 
   // 웹 소켓 접속 여부의 체크해주는 state
@@ -33,16 +32,10 @@ const MessageScreen = () => {
 
   /** 현재 IS0 format 시간대를 보내 줌 */
   const giveCurrentTime = () => {
-    // get the current date and time
     const date = new Date();
-
-    // convert to msec since Jan 1 1970
     const utcTime = date.getTime();
-
-    // create new Date object for current location
     const kstDate = new Date(utcTime + 9 * 60 * 60 * 1000);
 
-    // extract date and time
     const year = kstDate.getUTCFullYear();
     const month = ("0" + (kstDate.getUTCMonth() + 1)).slice(-2);
     const day = ("0" + kstDate.getUTCDate()).slice(-2);
@@ -50,78 +43,51 @@ const MessageScreen = () => {
     const minutes = ("0" + kstDate.getUTCMinutes()).slice(-2);
     const seconds = ("0" + kstDate.getUTCSeconds()).slice(-2);
 
-    // format and return date and time
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
   };
 
   /** 메세지를 주고 받았던 사람들을 불러옴  */
-  const getPersonMessageRelation = () => {
-    if (connected) {
-      client.current.send(
-        "/app/log",
-        {},
-        JSON.stringify({
-          memberId: myAccountInfo?.memberId,
-          timeStamp: giveCurrentTime(),
-        })
-      );
-    }
-  };
+  function getPersonMessageRelation() {
+    client.current.send(
+      "/app/log",
+      {},
+      JSON.stringify({
+        memberId: myAccountInfo?.memberId,
+        timeStamp: giveCurrentTime(),
+      })
+    );
+  }
 
-  /** 이전 메세지 기록들을 get하는 기능 */
-  const getWholeMessageHistory = () => {
-    if (connected) {
-      client.current.send(
-        "/app/get",
-        {},
-        JSON.stringify({
-          fromMemberId: myAccountInfo?.memberId,
-          toMemberId: opponentMemberId,
-          page: 0,
-          timeStamp: giveCurrentTime(),
-        })
-      );
-    }
-  };
-
-  /** 내가 접속하지 않을때 상대가 보낸 이전의 기록들을 가져옴 */
-  const fetchMessages = useCallback(() => {
-    if (connected) {
-      client.current.send(
-        "/app/fetch",
-        {},
-        JSON.stringify({
-          memberId: myAccountInfo?.memberId,
-          timeStamp: giveCurrentTime(),
-        })
-      );
-
-      getWholeMessageHistory();
-    }
-  }, [connected]);
-
-  /**웹 소켓 열어서 서버와 통신 시작 */
-  const connectionInitiate = useCallback(() => {
+  /** CONNECT: 웹 소켓 열어서 서버와 통신 시작 */
+  function connectionInitiate() {
     const socket = new SockJS(`${import.meta.env.VITE_API_URL}/chat`);
-
     client.current = Stomp.over(socket);
-
-    client.current.connect({}, function () {
+    client.current.connect({}, () => {
       setConnected(true);
-
-      client.current.subscribe(
-        `/topic/${myAccountInfo?.memberId}`,
-        function (response) {
-          // 메세지 기록 redux에 저장하기 위해 dispatch
-          getMessageFromServer(response);
-        },
-        headers
-      );
-      getPersonMessageRelation();
-
-      setSubscribed(true);
+      getDirectionOfMessages();
     });
-  }, [client]);
+  }
+
+  /** SUBSCRIBE: 내 메세지 direction 접속 */
+
+  function getDirectionOfMessages() {
+    const memberId = myAccountInfo?.memberId;
+    const headers = { memberId: memberId };
+
+    client.current.subscribe(
+      `/topic/${memberId}`,
+      function (response) {
+        // 메세지 기록 redux에 저장하기 위해 dispatch
+        getMessageFromServer(response);
+
+        console.log(response);
+      },
+      headers
+    );
+    setSubscribed(true);
+
+    getPersonMessageRelation();
+  }
 
   useEffect(() => {
     if (!myAccountInfo) {
@@ -141,6 +107,7 @@ const MessageScreen = () => {
       navigate(`/message/id?user=${DemoUser1?.memberId}`);
     }
   };
+
   // Demo 상대 유저 정보
   const DemoUser = {
     memberId: 10,
