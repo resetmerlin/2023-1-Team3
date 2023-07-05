@@ -10,6 +10,7 @@ const UserCard = memo(function UserCard({
   age,
   setUserChildCardPopup,
   getUserFromChild,
+  startMessage,
 }) {
   return (
     <UserInfoWrap>
@@ -42,7 +43,10 @@ const UserCard = memo(function UserCard({
           saveValue={saveValue}
           memberId={userDetail?.memberId}
         />
-        <UserMessageButton />
+        <UserMessageButton
+          startMessage={startMessage}
+          memberId={userDetail?.memberId}
+        />
       </ButtonWrap>
     </UserInfoWrap>
   );
