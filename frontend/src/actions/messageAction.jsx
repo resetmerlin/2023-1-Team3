@@ -7,6 +7,7 @@ import {
   MESSAGE_SEND_GET_SUCCESS,
   MESSAGE_GET_FAIL,
   MESSAGE_INITIATE,
+  MESSAGE_LOG_SUCCESS,
 } from "../constants/messageConstants";
 
 export const messageInitiateAction = (user) => async (dispatch) => {
@@ -34,6 +35,10 @@ export const getMessagesAction =
 
             dispatch({ type: MESSAGE_FETCH_GET_SUCCESS, payload: data });
           }
+        } else if (chatMessageResponse.status === "LOG") {
+          const data = chatMessageResponse?.chatUsers;
+
+          dispatch({ type: MESSAGE_LOG_SUCCESS, payload: data });
         }
       } else {
         const data = JSON.parse(messageResponse);
