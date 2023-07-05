@@ -1,6 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./ConversationHeader.scss";
+import { Link } from "react-router-dom";
+
+const ConversationHeader = ({ name }) => {
+  const props = {
+    name: name,
+  };
+  return <ConversatonHeaderView {...props} />;
+};
+
+//VAC
 const ConversatonHeaderView = ({ name }) => {
   return (
     <div className="conversation__header">
@@ -20,4 +29,4 @@ const ConversatonHeaderView = ({ name }) => {
   );
 };
 
-export default ConversatonHeaderView;
+export default ConversationHeader;
