@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import Messages from "../../components/Messages";
 import Footer from "../../components/Footer";
 import { MessageHeader } from "../../components/Header";
 import { styled } from "styled-components";
@@ -7,21 +6,25 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getPersonalInfoAction } from "../../actions/securityEditAction";
-import { getMessagesAction } from "../../actions/messageAction";
+import {
+  getMessagesAction,
+  messageInitiateAction,
+} from "../../actions/messageAction";
+import UserMessage from "../../components/UserMessage/UserMessage";
+import { giveCurrentTime } from "../../func/UserImage";
 const MessageScreen = () => {
   const navigate = useNavigate(0);
   const dispatch = useDispatch();
+
   // 내 정보 가져오기
   const personalInfo = useSelector((state) => state.personalInfo);
-  const { personalInfoStatus: myAccountInfo, loading } = personalInfo;
+  const { personalInfoStatus: myAccountInfo } = personalInfo;
+
+  /**유저 정보 가져오기*/
+  const messageInfo = useSelector((state) => state.messageInfo);
+  const { messageUserStatus, loading } = messageInfo;
 
   const { id } = useParams();
-
-  // 웹 소켓 접속 여부의 체크해주는 state
-  const [connected, setConnected] = useState(false);
-
-  // 유저가 메세지 queue 주소와 접속했는지 확인하는 state
-  const [subscribed, setSubscribed] = useState(false);
 
   const client = useRef();
 
@@ -29,22 +32,6 @@ const MessageScreen = () => {
   const getMessageFromServer = useCallback((response) => {
     dispatch(getMessagesAction(response));
   });
-
-  /** 현재 IS0 format 시간대를 보내 줌 */
-  const giveCurrentTime = () => {
-    const date = new Date();
-    const utcTime = date.getTime();
-    const kstDate = new Date(utcTime + 9 * 60 * 60 * 1000);
-
-    const year = kstDate.getUTCFullYear();
-    const month = ("0" + (kstDate.getUTCMonth() + 1)).slice(-2);
-    const day = ("0" + kstDate.getUTCDate()).slice(-2);
-    const hours = ("0" + kstDate.getUTCHours()).slice(-2);
-    const minutes = ("0" + kstDate.getUTCMinutes()).slice(-2);
-    const seconds = ("0" + kstDate.getUTCSeconds()).slice(-2);
-
-    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
-  };
 
   /** 메세지를 주고 받았던 사람들을 불러옴  */
   function getPersonMessageRelation() {
@@ -63,7 +50,6 @@ const MessageScreen = () => {
     const socket = new SockJS(`${import.meta.env.VITE_API_URL}/chat`);
     client.current = Stomp.over(socket);
     client.current.connect({}, () => {
-      setConnected(true);
       getDirectionOfMessages();
     });
   }
@@ -79,12 +65,9 @@ const MessageScreen = () => {
       function (response) {
         // 메세지 기록 redux에 저장하기 위해 dispatch
         getMessageFromServer(response);
-
-        console.log(response);
       },
       headers
     );
-    setSubscribed(true);
 
     getPersonMessageRelation();
   }
@@ -97,38 +80,10 @@ const MessageScreen = () => {
     }
   }, [myAccountInfo]);
 
-  const startMessageHandker = () => {
-    if (user) {
-      navigate(`/message/id?user=${DemoUser?.memberId}`);
-    }
-  };
-  const startMessageHandler = () => {
-    if (user) {
-      navigate(`/message/id?user=${DemoUser1?.memberId}`);
-    }
-  };
+  const startMessage = async (user) => {
+    await dispatch(messageInitiateAction(user));
 
-  // Demo 상대 유저 정보
-  const DemoUser = {
-    memberId: 10,
-    name: "김서현",
-    gender: "FEMALE",
-    birth: "2001-06-08",
-    image: "DEFAULT",
-    department: "응용컴퓨터공학과",
-    introduction: "반갑습니다~ 김서현입니다!",
-    startMessageHandker: startMessageHandker,
-  };
-
-  const DemoUser1 = {
-    memberId: 1,
-    name: "김민준",
-    gender: "MALE",
-    birth: "1998-05-26",
-    image: "DEFAULT",
-    department: "소프트웨어학과",
-    introduction: "반갑습니다~ 김서현입니다!",
-    startMessageHandker: startMessageHandler,
+    navigate(`/message/id?user=${user?.memberId}`);
   };
   return (
     <>
@@ -136,9 +91,14 @@ const MessageScreen = () => {
         <MessageHeader navigate={navigate}></MessageHeader>
 
         <Row>
-          <NewMessagesCount>9개의 새로운 메세지</NewMessagesCount>
-          <Messages {...DemoUser} />
-          <Messages {...DemoUser1} />
+          <NewMessagesCount>
+            {messageUserStatus?.length}개의 새로운 메세지
+          </NewMessagesCount>
+
+          {messageUserStatus &&
+            messageUserStatus.map((user) => {
+              return <UserMessage user={user} startMessage={startMessage} />;
+            })}
         </Row>
         <Footer />
       </section>
@@ -152,9 +112,9 @@ const NewMessagesCount = styled.span`
   width: fit-content;
   color: black;
   background-color: #efeefd;
-  margin: 0 1rem;
   color: #8071fc;
   font-weight: 600;
+  margin-bottom: 1.4rem;
 `;
 
 const Row = styled.div`
