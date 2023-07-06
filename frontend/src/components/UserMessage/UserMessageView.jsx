@@ -1,21 +1,29 @@
 import React from "react";
 import { styled } from "styled-components";
 
-const UserMessageView = ({ time, message, image, name }) => {
+const UserMessageView = ({ time, message, image, name, goToChatScreen }) => {
   return (
-    <Column>
+    <Column onClick={goToChatScreen}>
       <MessageProfile src={image} alt="message-profile"></MessageProfile>
       <MessageWrap>
         <MessageDescWrap>
-          <button onClick={startMessageHandker}>
+          <div>
             <span>{name}</span>
             <MessageConversation>{message}</MessageConversation>
-          </button>
+          </div>
         </MessageDescWrap>
 
         <MessageNotifyWrap>
           <MessageNotifyTime>{time}</MessageNotifyTime>
           <MessageNotification>new</MessageNotification>
+          <box-icon
+            type="solid"
+            name="message-rounded"
+            color="rgb(128, 113, 252)"
+            size="1.5rem"
+          >
+            new
+          </box-icon>
         </MessageNotifyWrap>
       </MessageWrap>
     </Column>
@@ -25,8 +33,8 @@ const UserMessageView = ({ time, message, image, name }) => {
 const MessageProfile = styled.img`
   padding: 0;
   margin: 0;
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   margin-right: 1.5rem;
   object-fit: cover;
@@ -44,15 +52,13 @@ const MessageWrap = styled.div`
 
 const MessageDescWrap = styled.div`
   height: 100%;
-  font-weight: 600;
   display: flex;
-  button {
+  div {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     text-decoration: none;
-    color: black;
   }
 `;
 
@@ -83,7 +89,7 @@ const MessageNotifyTime = styled.span`
 
 const MessageNotification = styled.div`
   width: 1.7rem;
-  height: 1.3rem;
+  height: 1.5rem;
   line-height: 1.3rem;
   background-color: rgb(116, 78, 219);
   color: white;
@@ -92,14 +98,18 @@ const MessageNotification = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
+  font-size: 0.7rem;
 `;
 
-const Column = styled.div`
+const Column = styled.button`
   display: flex;
   width: 100%;
   height: 10%;
   justify-content: center;
-  margin: 0.7rem 0;
+  margin: 0.5rem 0;
   align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 `;
 export default UserMessageView;
