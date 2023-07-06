@@ -1,8 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Footer from "../../components/Footer";
-import { MessageHeader } from "../../components/Header";
-import { styled } from "styled-components";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import React, { useCallback, useEffect, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getPersonalInfoAction } from "../../actions/securityEditAction";
@@ -10,22 +7,25 @@ import {
   getMessagesAction,
   messageInitiateAction,
 } from "../../actions/messageAction";
-import UserMessage from "../../components/UserMessage/UserMessage";
-import { giveCurrentTime } from "../../func/UserImage";
+
+import MessageScreenView from "./MessageScreenView";
+import { giveCurrentTime } from "../../func/commonLogicHelper";
 const MessageScreen = () => {
   const navigate = useNavigate(0);
+
   const dispatch = useDispatch();
 
   // 내 정보 가져오기
   const personalInfo = useSelector((state) => state.personalInfo);
   const { personalInfoStatus: myAccountInfo } = personalInfo;
 
-  /**유저 정보 가져오기*/
+  /**메세지 주고 빋있단 유저 정보 가져오기*/
   const messageInfo = useSelector((state) => state.messageInfo);
   const { messageUserStatus, loading } = messageInfo;
 
   const { id } = useParams();
 
+  /** socket을 저장하기 위한 ref hook */
   const client = useRef();
 
   /** 내가 보낸 혹은 받은 메세지를 state로 저장 */
@@ -55,7 +55,6 @@ const MessageScreen = () => {
   }
 
   /** SUBSCRIBE: 내 메세지 direction 접속 */
-
   function getDirectionOfMessages() {
     const memberId = myAccountInfo?.memberId;
     const headers = { memberId: memberId };
@@ -80,50 +79,20 @@ const MessageScreen = () => {
     }
   }, [myAccountInfo]);
 
+  /** 대화할 유저 정보를 저장 및 톡방 생성 */
   const startMessage = async (user) => {
     await dispatch(messageInitiateAction(user));
-
     navigate(`/message/id?user=${user?.memberId}`);
   };
-  return (
-    <>
-      <section className="message">
-        <MessageHeader navigate={navigate}></MessageHeader>
 
-        <Row>
-          <NewMessagesCount>
-            {messageUserStatus?.length}개의 새로운 메세지
-          </NewMessagesCount>
+  const props = {
+    navigate: navigate,
+    n: messageUserStatus?.length,
+    messageUserList: messageUserStatus,
+    startMessage: startMessage,
+  };
 
-          {messageUserStatus &&
-            messageUserStatus.map((user) => {
-              return <UserMessage user={user} startMessage={startMessage} />;
-            })}
-        </Row>
-        <Footer />
-      </section>
-    </>
-  );
+  return <MessageScreenView {...props} />;
 };
-
-const NewMessagesCount = styled.span`
-  display: inline;
-  padding: 3px;
-  width: fit-content;
-  color: black;
-  background-color: #efeefd;
-  color: #8071fc;
-  font-weight: 600;
-  margin-bottom: 1.4rem;
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 76vh;
-  width: 100%;
-
-  padding: 2rem 1.3rem 0 1.3rem;
-`;
 
 export default MessageScreen;
