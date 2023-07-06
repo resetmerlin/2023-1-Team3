@@ -1,5 +1,5 @@
 import React from "react";
-import { UserImage } from "../../func/UserImage";
+import { getImageSrc } from "../../func/commonLogicHelper";
 import UserMessageView from "./UserMessageView";
 
 const UserMessage = ({ user, startMessage }) => {
@@ -7,7 +7,7 @@ const UserMessage = ({ user, startMessage }) => {
 
   const props = {
     name: user?.name,
-    image: UserImage(user),
+    image: getImageSrc(user),
     message: user?.chatMessages[0]?.message,
     time: user?.chatMessages[0]?.timeStamp,
     goToChatScreen: () => startMessage(user),
