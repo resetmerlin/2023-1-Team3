@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+files:
+  - source: /dist
+    destination: /home/2023-1-Team3/frontend/dist
+permissions:
+  - object: /home/2023-1-Team3/frontend/dist
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+
+hooks:
+  ApplicationStop:
+    - location: scripts/stop_server
+      timeout: 300
+      runas: ec2-user
+  AfterInstall:
+    - location: scripts/start_server
+      timeout: 300
+      runas: ec2-user
