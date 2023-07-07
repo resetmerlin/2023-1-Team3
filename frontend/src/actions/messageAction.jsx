@@ -26,12 +26,10 @@ export const getMessagesAction =
         if (chatMessageResponse.status === "SEND") {
           const data = chatMessageResponse?.chatMessages;
 
-          console.log(data);
           dispatch({ type: MESSAGE_SEND_GET_SUCCESS, payload: data });
         } else if (chatMessageResponse.status === "FETCH") {
           if (chatMessageResponse.count !== 0) {
             const data = chatMessageResponse?.chatMessages;
-            console.log(data);
 
             dispatch({ type: MESSAGE_FETCH_GET_SUCCESS, payload: data });
           }
@@ -39,6 +37,10 @@ export const getMessagesAction =
           const data = chatMessageResponse?.chatUsers;
 
           dispatch({ type: MESSAGE_LOG_SUCCESS, payload: data });
+        } else if (chatMessageResponse.status === "GET") {
+          const data = chatMessageResponse?.chatUsers[0]?.chatMessages;
+
+          dispatch({ type: MESSAGE_FETCH_GET_SUCCESS, payload: data });
         }
       } else {
         const data = JSON.parse(messageResponse);
