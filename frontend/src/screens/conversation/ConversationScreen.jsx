@@ -4,16 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPersonalInfoAction } from "../../actions/securityEditAction";
 import { getMessagesAction } from "../../actions/messageAction";
 import { styled } from "styled-components";
-import ConversatonHeaderView from "./header/ConversatonHeaderView";
 import ConversationContent from "./content/ConversationContent";
 import ConversationBottom from "./bottom/ConversationBottom";
+import ConversationHeader from "./header/ConversationHeader";
+import { giveCurrentTime } from "../../func/commonLogicHelper";
 
 const ConversationScreen = () => {
   const dispatch = useDispatch();
 
-  // 내 정보 가져오기
+  /**내 정보 가져오기*/
   const personalInfo = useSelector((state) => state.personalInfo);
-  const { personalInfoStatus: myAccountInfo, loading } = personalInfo;
+  const { personalInfoStatus: myAccountInfo } = personalInfo;
+
+  /**유저 정보 가져오기*/
+  const userMessageInfo = useSelector((state) => state.userMessageInfo);
+  const { userMessageStatus } = userMessageInfo;
 
   // 유저가 접속하지 않고 상대가 이미 보낸 메세지 기록들, 동시 접속 시 상대가 보낸 메세지들
   const messageInfo = useSelector((state) => state.messageInfo);
@@ -32,66 +37,70 @@ const ConversationScreen = () => {
 
   const client = useRef();
 
-  /**웹 소켓 열어서 서버와 통신 시작 */
-  const connectionInitiate = useCallback(() => {
+  /** CONNECT: 웹 소켓 열어서 서버와 통신 시작 */
+  function connectionInitiate() {
     const socket = new SockJS(`${import.meta.env.VITE_API_URL}/chat`);
-
     client.current = Stomp.over(socket);
-
-    client.current.connect({}, function () {
+    client.current.connect({}, () => {
       setConnected(true);
-      getDirectionOfMessage();
+      getDirectionOfMessages();
     });
-  }, [client]);
+  }
 
-  /** 현재 IS0 format 시간대를 보내 줌*/
-  const giveCurrentTime = () => {
-    const timeElapsed = Date.now();
-    const date = new Date(timeElapsed);
-
-    const dateISO = date.toISOString().slice(0, 19) + "Z";
-    return dateISO;
-  };
   /** 내가 보낸 혹은 받은 메세지를 state로 저장 */
   const getMessageFromServer = useCallback((response) => {
     dispatch(getMessagesAction(response));
   });
 
-  // 유저의 메시지 Queue Destintation에 접속
-  const getDirectionOfMessage = useCallback(() => {
-    if (connected) {
-      client.current.subscribe(
-        `/topic/${myAccountInfo?.memberId}`,
-        function (response) {
-          // 메세지 기록 redux에 저장하기 위해 dispatch
-          getMessageFromServer(response);
-        },
-        headers
-      );
-      fetchMessages();
+  /** SUBSCRIBE: 내 메세지 direction 접속 */
+  function getDirectionOfMessages() {
+    const memberId = myAccountInfo?.memberId;
+    const headers = { memberId: memberId };
 
-      setSubscribed(true);
-    }
-  }, [connected]);
+    client.current.subscribe(
+      `/topic/${memberId}`,
+      function (response) {
+        // 메세지 기록 redux에 저장하기 위해 dispatch
+        getMessageFromServer(response);
+      },
+      headers
+    );
+    setSubscribed(true);
+    fetchMessages();
+  }
 
-  /** 내가 접속하지 않을때 상대가 보낸 이전의 기록들을 가져옴 */
-  const fetchMessages = useCallback(() => {
-    if (connected) {
-      client.current.send(
-        "/app/fetch",
-        {},
-        JSON.stringify({
-          memberId: myAccountInfo?.memberId,
-          timeStamp: giveCurrentTime(),
-        })
-      );
-    }
-  }, [connected]);
+  /** SEND/FETCH: 내가 접속하지 않을때 상대가 보낸 메세지들을 가져옴 */
+  function fetchMessages() {
+    client.current.send(
+      "/app/fetch",
+      {},
+      JSON.stringify({
+        memberId: myAccountInfo?.memberId,
+        timeStamp: giveCurrentTime(),
+      })
+    );
 
-  /** 상대 유저에게 메세지를 전송 */
-  const sendMsg = async (messages) => {
+    getAllMessageQueue();
+  }
+
+  /** SEND/GET: 이전의 기록들을 가져옴 */
+  function getAllMessageQueue() {
+    client.current.send(
+      "/app/get",
+      {},
+      JSON.stringify({
+        fromMemberId: myAccountInfo?.memberId,
+        toMemberId: opponentMemberId,
+        page: 0,
+        timeStamp: giveCurrentTime(),
+      })
+    );
+  }
+
+  /** SEND: 메세지를 전송함 */
+  async function sendMsg(messages) {
     if (!subscribed && connected) {
-      await getDirectionOfMessage();
+      await getDirectionOfMessages();
     }
     const request = {
       sendMemberId: myAccountInfo?.memberId,
@@ -102,16 +111,15 @@ const ConversationScreen = () => {
 
     await client.current.send("/app/send", {}, JSON.stringify(request));
     getMessageFromServer(JSON.stringify([request]));
-  };
+  }
 
   // 웹 소켓 Disconnect
-  const disconnect = () => {
+  function disconnect() {
     if (connected) {
       client.current.disconnect();
     }
-  };
+  }
 
-  // 내 정보 불러오기
   useEffect(() => {
     if (!myAccountInfo) {
       dispatch(getPersonalInfoAction());
@@ -129,12 +137,15 @@ const ConversationScreen = () => {
   // JSX를 추상화한 Props Object
   const conversationProps = {
     headerProps: {
-      name: "장석구",
+      name: userMessageStatus?.name,
     },
     contentProps: {
       messageHistory: messageFetchStatus,
       messageReceivedNow: messageSendStatus,
       myMemberId: myAccountInfo?.memberId,
+      opponent: userMessageStatus,
+
+      giveCurrentTime: giveCurrentTime,
     },
     bottomProps: {
       sendMsg: sendMsg,
@@ -148,7 +159,7 @@ const ConversationScreen = () => {
 const ConversationScreenView = ({ contentProps, bottomProps, headerProps }) => {
   return (
     <Conversation>
-      <ConversatonHeaderView {...headerProps} />
+      <ConversationHeader {...headerProps} />
       <ConversationContent {...contentProps} />
       <ConversationBottom {...bottomProps} />
     </Conversation>
