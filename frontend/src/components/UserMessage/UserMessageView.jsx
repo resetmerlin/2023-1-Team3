@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 
-const UserMessageView = ({ time, message, image, name, goToChatScreen }) => {
+const UserMessageView = ({ message, image, name, goToChatScreen }) => {
   return (
     <Column onClick={goToChatScreen}>
       <MessageProfile src={image} alt="message-profile"></MessageProfile>
@@ -14,16 +14,12 @@ const UserMessageView = ({ time, message, image, name, goToChatScreen }) => {
         </MessageDescWrap>
 
         <MessageNotifyWrap>
-          <MessageNotifyTime>{time}</MessageNotifyTime>
-          <MessageNotification>new</MessageNotification>
           <box-icon
             type="solid"
             name="message-rounded"
             color="rgb(128, 113, 252)"
-            size="1.5rem"
-          >
-            new
-          </box-icon>
+            size="1.9rem"
+          ></box-icon>
         </MessageNotifyWrap>
       </MessageWrap>
     </Column>
@@ -59,6 +55,10 @@ const MessageDescWrap = styled.div`
     align-items: flex-start;
     justify-content: center;
     text-decoration: none;
+    span {
+      font-size: 1.3rem;
+      font-weight: 500;
+    }
   }
 `;
 
@@ -78,6 +78,7 @@ const MessageNotifyWrap = styled.div`
   text-align: center;
   align-items: center;
   padding: 0.5rem 0;
+  position: relative;
 `;
 
 const MessageNotifyTime = styled.span`
