@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,9 @@ const MessageScreen = () => {
   const personalInfo = useSelector((state) => state.personalInfo);
   const { personalInfoStatus: myAccountInfo } = personalInfo;
 
+  // 웹 소켓 접속 여부의 체크해주는 state
+  const [connected, setConnected] = useState(false);
+
   /**메세지 주고 빋있단 유저 정보 가져오기*/
   const messageInfo = useSelector((state) => state.messageInfo);
   const { messageUserStatus, loading } = messageInfo;
@@ -28,32 +31,20 @@ const MessageScreen = () => {
   /** socket을 저장하기 위한 ref hook */
   const client = useRef();
 
-  /** 내가 보낸 혹은 받은 메세지를 state로 저장 */
-  const getMessageFromServer = useCallback((response) => {
-    dispatch(getMessagesAction(response));
-  });
-
-  /** 메세지를 주고 받았던 사람들을 불러옴  */
-  function getPersonMessageRelation() {
-    client.current.send(
-      "/app/log",
-      {},
-      JSON.stringify({
-        memberId: myAccountInfo?.memberId,
-        timeStamp: giveCurrentTime(),
-      })
-    );
-  }
-
   /** CONNECT: 웹 소켓 열어서 서버와 통신 시작 */
   function connectionInitiate() {
     const socket = new SockJS(`${import.meta.env.VITE_API_URL}/chat`);
     client.current = Stomp.over(socket);
     client.current.connect({}, () => {
+      setConnected(true);
+
       getDirectionOfMessages();
     });
   }
-
+  /** 내가 보낸 혹은 받은 메세지를 state로 저장 */
+  const getMessageFromServer = useCallback((response) => {
+    dispatch(getMessagesAction(response));
+  });
   /** SUBSCRIBE: 내 메세지 direction 접속 */
   function getDirectionOfMessages() {
     const memberId = myAccountInfo?.memberId;
@@ -70,6 +61,24 @@ const MessageScreen = () => {
 
     getPersonMessageRelation();
   }
+  /** 메세지를 주고 받았던 사람들을 불러옴  */
+  function getPersonMessageRelation() {
+    client.current.send(
+      "/app/log",
+      {},
+      JSON.stringify({
+        memberId: myAccountInfo?.memberId,
+        timeStamp: giveCurrentTime(),
+      })
+    );
+  }
+
+  // 웹 소켓 Disconnect
+  function disconnect() {
+    if (connected) {
+      client.current.disconnect();
+    }
+  }
 
   useEffect(() => {
     if (!myAccountInfo) {
@@ -77,6 +86,12 @@ const MessageScreen = () => {
     } else {
       connectionInitiate();
     }
+
+    return () => {
+      if (client?.current) {
+        disconnect();
+      }
+    };
   }, [myAccountInfo]);
 
   /** 대화할 유저 정보를 저장 및 톡방 생성 */
@@ -87,7 +102,7 @@ const MessageScreen = () => {
 
   const props = {
     navigate: navigate,
-    n: messageUserStatus?.length,
+    n: !messageUserStatus?.length ? 0 : messageUserStatus.length,
     messageUserList: messageUserStatus,
     startMessage: startMessage,
   };
