@@ -10,10 +10,24 @@ const ConversationContentView = forwardRef(
     return (
       <div className="conversation__content" ref={ref}>
         {messageHistory &&
-          messageHistory.map((message) => {
-            return <PartnerMessage message={message.message} />;
+          messageHistory.map((message, id) => {
+            if (
+              message.timeStamp[1] !== messageHistory[id + 1]?.timeStamp[1] &&
+              message.timeStamp[1] !== currentTime
+            ) {
+              if (message.recvMemberId !== myMemberId) {
+                return <FullMyMessage message={message} key={id} />;
+              } else {
+                return <FullPartnerMessage message={message} key={id} />;
+              }
+            } else {
+              if (message.recvMemberId !== myMemberId) {
+                return <MyMessage message={message.message} key={id} />;
+              } else {
+                return <PartnerMessage message={message.message} key={id} />;
+              }
+            }
           })}
-
         {messageReceivedNow &&
           messageReceivedNow.map((message, id) => {
             if (
@@ -21,16 +35,16 @@ const ConversationContentView = forwardRef(
                 messageReceivedNow[id + 1]?.timeStamp[1] &&
               message.timeStamp[1] !== currentTime
             ) {
-              if (message.recvMemberId == myMemberId) {
-                return <FullPartnerMessage message={message} key={id} />;
-              } else {
+              if (message.recvMemberId !== myMemberId) {
                 return <FullMyMessage message={message} key={id} />;
+              } else {
+                return <FullPartnerMessage message={message} key={id} />;
               }
             } else {
-              if (message.recvMemberId == myMemberId) {
-                return <PartnerMessage message={message.message} key={id} />;
-              } else {
+              if (message.recvMemberId !== myMemberId) {
                 return <MyMessage message={message.message} key={id} />;
+              } else {
+                return <PartnerMessage message={message.message} key={id} />;
               }
             }
           })}
