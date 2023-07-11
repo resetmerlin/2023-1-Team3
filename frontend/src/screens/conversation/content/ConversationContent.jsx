@@ -32,7 +32,18 @@ const ConversationContent = ({
   /** JSX 추상화를 위한 object */
   const props = {
     currentTime: currentTime,
-    messageHistory: messageHistory,
+    messageHistory:
+      messageHistory &&
+      messageHistory.map((message) => {
+        if (typeof message.timeStamp !== "string") {
+        } else {
+          let tempTimeArray = message.timeStamp && message.timeStamp.split("T");
+          tempTimeArray[1] = tempTimeArray[1].slice(0, 5);
+          message.timeStamp = tempTimeArray;
+        }
+
+        return message;
+      }),
     messageReceivedNow:
       messageReceivedNow &&
       messageReceivedNow.map((message) => {
