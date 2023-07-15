@@ -12,11 +12,11 @@ const LoginSceen = lazy(() => import("./screens/login/LoginScreen"));
 const HomeScreen = lazy(() => import("./screens/home/HomeScreen"));
 const SaveScreen = lazy(() => import("./screens/SaveScreen"));
 const SettingScreen = lazy(() => import("./screens/setting/SettingScreen"));
-const AccountSettingScreen = lazy(() =>
-  import("./screens/setting/accountSetting/AccountSettingScreen")
+const SecurityEditScreen = lazy(() =>
+  import("./screens/securityEdit/accountSetting/SecurityEditScreen")
 );
-const PersonalInfoScreen = lazy(() =>
-  import("./screens/setting/personalInfoEdit/PersonalInfoScreen")
+const ProfileEditScreen = lazy(() =>
+  import("./screens/profileEdit/personalInfoEdit/ProfileEditScreen")
 );
 function App() {
   return (
@@ -83,7 +83,7 @@ function App() {
                 path="/setting/account-security"
                 element={
                   <Suspense fallback={<Loading />}>
-                    <AccountSettingScreen />
+                    <SecurityEditScreen />
                   </Suspense>
                 }
                 exact
@@ -93,7 +93,7 @@ function App() {
                 path="/setting/personal-info"
                 element={
                   <Suspense fallback={<Loading />}>
-                    <PersonalInfoScreen />
+                    <ProfileEditScreen />
                   </Suspense>
                 }
                 exact
