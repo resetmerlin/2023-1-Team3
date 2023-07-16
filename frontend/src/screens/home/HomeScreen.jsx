@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import Footer from "../../components/Footer";
-import HomeContent from "./HomeContent";
+import HomeContent from "./content/HomeContent";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,6 +35,12 @@ const HomeScreen = () => {
   /** user Lists 불러오는 함수*/
   const getPeopleList = useCallback(
     () => dispatch(peopleListAction()),
+    [dispatch]
+  );
+
+  /** 유저 좋아요 및 저장  */
+  const sendLikeUser = useCallback(
+    (memberId, saveBoolean) => dispatch(saveUserAction(memberId, saveBoolean)),
     [dispatch]
   );
 
@@ -67,11 +73,7 @@ const HomeScreen = () => {
       navigate(`/message/id?user=${memberId}`);
     }
   };
-  /** 유저 좋아요 및 저장  */
-  const sendLikeUser = useCallback(
-    (memberId, saveBoolean) => dispatch(saveUserAction(memberId, saveBoolean)),
-    [dispatch]
-  );
+
   const options = {
     rewind: false,
     type: "slide",
