@@ -1,40 +1,32 @@
 import {
-  MESSAGE_GET_REQUEST,
-  MESSAGE_FETCH_GET_SUCCESS,
-  MESSAGE_SEND_GET_SUCCESS,
-  MESSAGE_GET_FAIL,
+  MESSAGE_SEND_SUCCESS,
+  MESSAGE_SEND_REQUEST,
+  MESSAGE_SEND_FAIL,
   MESSAGE_INITIATE,
   MESSAGE_LOG_SUCCESS,
+  MESSAGE_LOG_FAIL,
+  MESSAGE_LOG_REQUEST,
+  MESSAGE_GET_HISTORY_SUCCESS,
+  MESSAGE_GET_HISTORY_REQUEST,
+  MESSAGE_GET_HISTORY_FAIL,
 } from "../constants/messageConstants";
 
-export const messageReducers = (
-  state = {
-    /** message response 값 fetch data할때 마다 초기화 방지 */
-    messageSendStatus: [],
-  },
+export const messageHistoryReducers = (
+  state = {},
 
   action
 ) => {
   switch (action.type) {
-    case MESSAGE_GET_REQUEST:
+    case MESSAGE_GET_HISTORY_REQUEST:
       return { loading: true, ...state };
-    case MESSAGE_LOG_SUCCESS:
-      return {
-        loading: false,
-        messageUserStatus: action.payload,
-      };
-    case MESSAGE_FETCH_GET_SUCCESS:
+
+    case MESSAGE_GET_HISTORY_SUCCESS:
       return {
         loading: false,
         messageFetchStatus: action.payload,
       };
-    case MESSAGE_SEND_GET_SUCCESS:
-      return {
-        loading: false,
-        messageSendStatus: [...state.messageSendStatus, ...action.payload],
-      };
 
-    case MESSAGE_GET_FAIL:
+    case MESSAGE_GET_HISTORY_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
@@ -46,6 +38,41 @@ export const messageInitiateReducers = (state = {}, action) => {
     case MESSAGE_INITIATE:
       return { userMessageStatus: action.payload };
 
+    default:
+      return state;
+  }
+};
+
+export const messageRelationReducers = (state = {}, action) => {
+  switch (action.type) {
+    case MESSAGE_LOG_REQUEST:
+      return { loading: true, ...state };
+    case MESSAGE_LOG_SUCCESS:
+      return {
+        loading: false,
+        messageUserStatus: action.payload,
+      };
+    case MESSAGE_LOG_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const messageSendReducers = (
+  state = { messageSendStatus: [] },
+  action
+) => {
+  switch (action.type) {
+    case MESSAGE_SEND_REQUEST:
+      return { loading: true, ...state };
+    case MESSAGE_SEND_SUCCESS:
+      return {
+        loading: false,
+        messageSendStatus: action.payload,
+      };
+    case MESSAGE_SEND_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
