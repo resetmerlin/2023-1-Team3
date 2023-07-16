@@ -10,7 +10,7 @@ import Loading from "./components/Loading";
 import MessageScreen from "./screens/message/MessageScreen";
 const LoginSceen = lazy(() => import("./screens/login/LoginScreen"));
 const HomeScreen = lazy(() => import("./screens/home/HomeScreen"));
-const SaveScreen = lazy(() => import("./screens/SaveScreen"));
+const SaveScreen = lazy(() => import("./screens/save/SaveScreen"));
 const SettingScreen = lazy(() => import("./screens/setting/SettingScreen"));
 const SecurityEditScreen = lazy(() =>
   import("./screens/securityEdit/accountSetting/SecurityEditScreen")
