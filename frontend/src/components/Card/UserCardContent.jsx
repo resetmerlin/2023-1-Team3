@@ -24,16 +24,16 @@ const UserCardContent = ({ memberId, setChecked, name, age, department }) => {
   );
 };
 
-const UserInfoContent = styled.div`
+export const UserInfoContent = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const UserInfoName = styled.span`
+export const UserInfoName = styled.span`
   font-size: 2rem;
   display: flex;
   font-weight: 600;
 `;
-const UserInfoAge = styled.span`
+export const UserInfoAge = styled.span`
   margin-left: 0.6rem;
   font-size: 1.5rem;
   display: flex;
@@ -41,14 +41,14 @@ const UserInfoAge = styled.span`
   font-weight: 500;
 `;
 
-const UserInfoNameWrap = styled.div`
+export const UserInfoNameWrap = styled.div`
   color: black;
   font-size: 2.3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
-const UserInfoDesc = styled.span`
+export const UserInfoDesc = styled.span`
   color: black;
   font-size: 1rem;
   margin: 0.3rem 0;
