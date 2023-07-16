@@ -5,7 +5,7 @@ import {
   UserInfoDesc,
   UserInfoName,
   UserInfoNameWrap,
-} from "./UserCard";
+} from "../components/Card/UserCardContent";
 import {
   BackToSlideCardButton,
   BlockButton,
