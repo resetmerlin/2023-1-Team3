@@ -2,12 +2,16 @@
 //Redux thunk
 
 import {
-  MESSAGE_GET_REQUEST,
-  MESSAGE_FETCH_GET_SUCCESS,
-  MESSAGE_SEND_GET_SUCCESS,
-  MESSAGE_GET_FAIL,
   MESSAGE_INITIATE,
+  MESSAGE_SEND_SUCCESS,
+  MESSAGE_SEND_REQUEST,
+  MESSAGE_SEND_FAIL,
   MESSAGE_LOG_SUCCESS,
+  MESSAGE_LOG_FAIL,
+  MESSAGE_LOG_REQUEST,
+  MESSAGE_GET_HISTORY_SUCCESS,
+  MESSAGE_GET_HISTORY_REQUEST,
+  MESSAGE_GET_HISTORY_FAIL,
 } from "../constants/messageConstants";
 
 export const messageInitiateAction = (user) => async (dispatch) => {
@@ -15,41 +19,31 @@ export const messageInitiateAction = (user) => async (dispatch) => {
 };
 
 /** 리스트 가졍 Action */
-export const getMessagesAction =
+export const getMessagesHistoryAction =
   (messageResponse) => async (dispatch, getState) => {
     try {
-      dispatch({ type: MESSAGE_GET_REQUEST });
+      dispatch({ type: MESSAGE_GET_HISTORY_REQUEST });
+      const {
+        messageInfo: { messageFetchStatus },
+      } = getState();
 
-      if (messageResponse?.body) {
-        const chatMessageResponse = JSON.parse(messageResponse.body);
+      const chatMessageResponse = JSON.parse(messageResponse.body);
 
-        if (chatMessageResponse.status === "SEND") {
+      if (chatMessageResponse.status === "FETCH") {
+        if (chatMessageResponse.count !== 0) {
           const data = chatMessageResponse?.chatMessages;
 
-          dispatch({ type: MESSAGE_SEND_GET_SUCCESS, payload: data });
-        } else if (chatMessageResponse.status === "FETCH") {
-          if (chatMessageResponse.count !== 0) {
-            const data = chatMessageResponse?.chatMessages;
-
-            dispatch({ type: MESSAGE_FETCH_GET_SUCCESS, payload: data });
-          }
-        } else if (chatMessageResponse.status === "LOG") {
-          const data = chatMessageResponse?.chatUsers;
-
-          dispatch({ type: MESSAGE_LOG_SUCCESS, payload: data });
-        } else if (chatMessageResponse.status === "GET") {
-          const data = chatMessageResponse?.chatUsers[0]?.chatMessages;
-
-          dispatch({ type: MESSAGE_FETCH_GET_SUCCESS, payload: data });
+          dispatch({ type: MESSAGE_GET_HISTORY_SUCCESS, payload: data });
         }
-      } else {
-        const data = JSON.parse(messageResponse);
+      } else if (chatMessageResponse.status === "GET") {
+        console.log(chatMessageResponse);
+        const data = chatMessageResponse?.chatUsers[0]?.chatMessages;
 
-        dispatch({ type: MESSAGE_SEND_GET_SUCCESS, payload: data });
+        dispatch({ type: MESSAGE_GET_HISTORY_SUCCESS, payload: data });
       }
     } catch (error) {
       dispatch({
-        type: MESSAGE_GET_FAIL,
+        type: MESSAGE_GET_HISTORY_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
@@ -57,3 +51,57 @@ export const getMessagesAction =
       });
     }
   };
+
+/** 리스트 가졍 Action */
+export const getMessageRelationAction =
+  (response) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: MESSAGE_LOG_REQUEST });
+
+      const chatMessageResponse = JSON.parse(response.body);
+
+      const data = chatMessageResponse?.chatUsers;
+
+      dispatch({ type: MESSAGE_LOG_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: MESSAGE_LOG_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.messge,
+      });
+    }
+  };
+
+/** 리스트 가졍 Action */
+export const sendMessageAction = (response) => async (dispatch, getState) => {
+  const {
+    messageSendInfo: { messageSendStatus },
+  } = getState();
+  try {
+    dispatch({ type: MESSAGE_SEND_REQUEST });
+
+    if (response?.body) {
+      const chatMessageResponse = JSON.parse(response.body);
+
+      const data = [...messageSendStatus, ...chatMessageResponse?.chatMessages];
+
+      dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
+    } else {
+      const messageRequest = JSON.parse(response);
+
+      const data = [...messageSendStatus, ...messageRequest];
+
+      dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
+    }
+  } catch (error) {
+    dispatch({
+      type: MESSAGE_SEND_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.messge,
+    });
+  }
+};
