@@ -5,35 +5,76 @@ import { forwardRef } from "react";
 const ConversationContentView = forwardRef(
   (
     { messageHistory, messageReceivedNow, myMemberId, currentTime },
-    { ref }
+    { contentRef, messageRef }
   ) => {
     return (
-      <div className="conversation__content" ref={ref}>
+      <div className="conversation__content" ref={contentRef}>
         {messageHistory &&
           messageHistory.map((message, id) => {
             if (
-              message.timeStamp[1] !== messageHistory[id + 1]?.timeStamp[1] &&
-              message.timeStamp[1] !== currentTime
+              message.timeStamp[1].split(" ")[1] !==
+                messageHistory[id + 1]?.timeStamp[1].split(" ")[1] &&
+              message.timeStamp[1].split(" ")[1] !== currentTime[1]
             ) {
               if (message.recvMemberId !== myMemberId) {
-                return <FullMyMessage message={message} key={id} />;
+                if (id == 0) {
+                  return (
+                    <FullMyMessage
+                      message={message}
+                      key={id}
+                      ref={messageRef}
+                    />
+                  );
+                } else {
+                  return <FullMyMessage message={message} key={id} />;
+                }
               } else {
-                return <FullPartnerMessage message={message} key={id} />;
+                if (id == 0) {
+                  return (
+                    <FullPartnerMessage
+                      message={message}
+                      key={id}
+                      ref={messageRef}
+                    />
+                  );
+                } else {
+                  return <FullPartnerMessage message={message} key={id} />;
+                }
               }
             } else {
               if (message.recvMemberId !== myMemberId) {
-                return <MyMessage message={message.message} key={id} />;
+                if (id == 0) {
+                  return (
+                    <MyMessage
+                      message={message.message}
+                      key={id}
+                      ref={messageRef}
+                    />
+                  );
+                } else {
+                  return <MyMessage message={message.message} key={id} />;
+                }
               } else {
-                return <PartnerMessage message={message.message} key={id} />;
+                if (id == 0) {
+                  return (
+                    <PartnerMessage
+                      message={message.message}
+                      key={id}
+                      ref={messageRef}
+                    />
+                  );
+                } else {
+                  return <PartnerMessage message={message.message} key={id} />;
+                }
               }
             }
           })}
         {messageReceivedNow &&
           messageReceivedNow.map((message, id) => {
             if (
-              message.timeStamp[1] !==
-                messageReceivedNow[id + 1]?.timeStamp[1] &&
-              message.timeStamp[1] !== currentTime
+              message.timeStamp[1].split(" ")[1] !==
+                messageReceivedNow[id + 1]?.timeStamp[1].split(" ")[1] &&
+              message.timeStamp[1].split(" ")[1] !== currentTime[1]
             ) {
               if (message.recvMemberId !== myMemberId) {
                 return <FullMyMessage message={message} key={id} />;
@@ -53,9 +94,9 @@ const ConversationContentView = forwardRef(
   }
 );
 
-const PartnerMessage = ({ message }) => {
+const PartnerMessage = forwardRef(({ message }, ref) => {
   return (
-    <div className="conversation__content__message__wrap ">
+    <div className="conversation__content__message__wrap " ref={ref}>
       <img
         className="conversation__content__profile"
         src="../default/default-men.png"
@@ -67,34 +108,38 @@ const PartnerMessage = ({ message }) => {
       </p>
     </div>
   );
-};
+});
 
-const FullPartnerMessage = ({ message }) => {
+const FullPartnerMessage = forwardRef(({ message }, ref) => {
   return (
     <>
-      <PartnerMessage message={message.message} />
-      <MessageHorizontalLine time={message.timeStamp[1]} />
+      <PartnerMessage message={message.message} ref={ref} />
+      <MessageHorizontalLine time={message.timeStamp} />
     </>
   );
-};
+});
 
-const MyMessage = ({ message }) => {
+const MyMessage = forwardRef(({ message }, ref) => {
   return (
-    <div className="conversation__content__message__wrap " id="client-justify">
+    <div
+      className="conversation__content__message__wrap "
+      id="client-justify"
+      ref={ref}
+    >
       <p className="conversation__content__message" id="client">
         {message}
       </p>
     </div>
   );
-};
+});
 
-const FullMyMessage = ({ message }) => {
+const FullMyMessage = forwardRef(({ message }, ref) => {
   return (
     <>
-      <MyMessage message={message.message} />
+      <MyMessage message={message.message} ref={ref} />
 
-      <MessageHorizontalLine time={message.timeStamp[1]} />
+      <MessageHorizontalLine time={message.timeStamp} />
     </>
   );
-};
+});
 export default ConversationContentView;
