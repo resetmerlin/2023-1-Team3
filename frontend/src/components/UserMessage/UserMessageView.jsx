@@ -1,7 +1,12 @@
-import React from "react";
+import React, { memo } from "react";
 import { styled } from "styled-components";
 
-const UserMessageView = ({ message, image, name, goToChatScreen }) => {
+const UserMessageView = memo(function UserMessageView({
+  message,
+  image,
+  name,
+  goToChatScreen,
+}) {
   return (
     <Column onClick={goToChatScreen}>
       <MessageProfile src={image} alt="message-profile"></MessageProfile>
@@ -15,16 +20,20 @@ const UserMessageView = ({ message, image, name, goToChatScreen }) => {
 
         <MessageNotifyWrap>
           <box-icon
+            style={{
+              position: "relative",
+            }}
             type="solid"
             name="message-rounded"
             color="rgb(128, 113, 252)"
-            size="1.9rem"
+            size="2rem"
           ></box-icon>
+          <MessageNotification>1</MessageNotification>
         </MessageNotifyWrap>
       </MessageWrap>
     </Column>
   );
-};
+});
 
 const MessageProfile = styled.img`
   padding: 0;
@@ -81,27 +90,6 @@ const MessageNotifyWrap = styled.div`
   position: relative;
 `;
 
-const MessageNotifyTime = styled.span`
-  width: 100%;
-  font-size: 0.7rem;
-  color: rgb(167 165 165);
-  margin-bottom: 0.5rem;
-`;
-
-const MessageNotification = styled.div`
-  width: 1.7rem;
-  height: 1.5rem;
-  line-height: 1.3rem;
-  background-color: rgb(116, 78, 219);
-  color: white;
-  justify-content: center;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  font-size: 0.7rem;
-`;
-
 const Column = styled.button`
   display: flex;
   width: 100%;
@@ -112,5 +100,14 @@ const Column = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
+`;
+
+const MessageNotification = styled.span`
+  color: white;
+  font-weight: 600;
+  position: absolute;
+  left: 47%;
+  top: 45%;
+  transform: translate(-50%, -50%);
 `;
 export default UserMessageView;
