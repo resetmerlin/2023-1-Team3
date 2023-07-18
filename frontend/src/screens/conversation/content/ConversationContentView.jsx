@@ -114,7 +114,10 @@ const FullPartnerMessage = forwardRef(({ message }, ref) => {
   return (
     <>
       <PartnerMessage message={message.message} ref={ref} />
-      <MessageHorizontalLine time={message.timeStamp} />
+      <MessageHorizontalLine
+        time={message.timeStamp[1]}
+        date={message.timeStamp[0]}
+      />
     </>
   );
 });
@@ -138,7 +141,10 @@ const FullMyMessage = forwardRef(({ message }, ref) => {
     <>
       <MyMessage message={message.message} ref={ref} />
 
-      <MessageHorizontalLine time={message.timeStamp} />
+      <MessageHorizontalLine
+        time={message.timeStamp[1]}
+        date={message.timeStamp[0]}
+      />
     </>
   );
 });
