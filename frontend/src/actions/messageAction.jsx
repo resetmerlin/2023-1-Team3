@@ -21,24 +21,28 @@ export const messageInitiateAction = (user) => async (dispatch) => {
 /** 리스트 가졍 Action */
 export const getMessagesHistoryAction =
   (messageResponse) => async (dispatch, getState) => {
+    const {
+      messageInfo: { messageFetchStatus },
+    } = getState();
     try {
       dispatch({ type: MESSAGE_GET_HISTORY_REQUEST });
-      const {
-        messageInfo: { messageFetchStatus },
-      } = getState();
 
       const chatMessageResponse = JSON.parse(messageResponse.body);
 
       if (chatMessageResponse.status === "FETCH") {
         if (chatMessageResponse.count !== 0) {
-          const data = chatMessageResponse?.chatMessages;
+          const data = [
+            ...messageFetchStatus,
+            ...chatMessageResponse?.chatMessages,
+          ];
 
           dispatch({ type: MESSAGE_GET_HISTORY_SUCCESS, payload: data });
         }
       } else if (chatMessageResponse.status === "GET") {
-        console.log(chatMessageResponse);
-        const data = chatMessageResponse?.chatUsers[0]?.chatMessages;
-
+        const data = [
+          ...messageFetchStatus,
+          ...chatMessageResponse?.chatUsers[0]?.chatMessages,
+        ];
         dispatch({ type: MESSAGE_GET_HISTORY_SUCCESS, payload: data });
       }
     } catch (error) {
