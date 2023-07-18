@@ -12,7 +12,7 @@ import {
 } from "../constants/messageConstants";
 
 export const messageHistoryReducers = (
-  state = {},
+  state = { messageFetchStatus: [] },
 
   action
 ) => {
