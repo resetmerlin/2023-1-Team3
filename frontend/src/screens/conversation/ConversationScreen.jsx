@@ -2,7 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPersonalInfoAction } from "../../actions/securityEditAction";
-import { getMessagesAction } from "../../actions/messageAction";
+import {
+  getMessagesHistoryAction,
+  sendMessageAction,
+} from "../../actions/messageAction";
 import { styled } from "styled-components";
 import ConversationContent from "./content/ConversationContent";
 import ConversationBottom from "./bottom/ConversationBottom";
@@ -20,9 +23,16 @@ const ConversationScreen = () => {
   const userMessageInfo = useSelector((state) => state.userMessageInfo);
   const { userMessageStatus } = userMessageInfo;
 
+  /**유저 정보 가져오기*/
+  const messageSendInfo = useSelector((state) => state.messageSendInfo);
+  const { messageSendStatus } = messageSendInfo;
+
+  /**메세지 기록 page state */
+  const [messagePage, setMessagePage] = useState(0);
+
   // 유저가 접속하지 않고 상대가 이미 보낸 메세지 기록들, 동시 접속 시 상대가 보낸 메세지들
   const messageInfo = useSelector((state) => state.messageInfo);
-  const { messageFetchStatus, messageSendStatus } = messageInfo;
+  const { messageFetchStatus } = messageInfo;
 
   // 메세지 보낼 상대의 memberId를 params에 가져옴
   const location = useLocation().search;
@@ -144,6 +154,7 @@ const ConversationScreen = () => {
       messageReceivedNow: messageSendStatus,
       myMemberId: myAccountInfo?.memberId,
       opponent: userMessageStatus,
+      getAllMessageQueue: getAllMessageQueue,
 
       giveCurrentTime: giveCurrentTime,
     },
