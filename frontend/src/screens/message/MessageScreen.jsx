@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPersonalInfoAction } from "../../actions/securityEditAction";
 import {
-  getMessagesAction,
+  getMessageRelationAction,
   messageInitiateAction,
 } from "../../actions/messageAction";
 
@@ -23,8 +23,8 @@ const MessageScreen = () => {
   const [connected, setConnected] = useState(false);
 
   /**메세지 주고 빋있단 유저 정보 가져오기*/
-  const messageInfo = useSelector((state) => state.messageInfo);
-  const { messageUserStatus, loading } = messageInfo;
+  const messageRelationInfo = useSelector((state) => state.messageRelationInfo);
+  const { messageUserStatus, loading } = messageRelationInfo;
 
   const { id } = useParams();
 
@@ -43,7 +43,11 @@ const MessageScreen = () => {
   }
   /** 내가 보낸 혹은 받은 메세지를 state로 저장 */
   const getMessageFromServer = useCallback((response) => {
-    dispatch(getMessagesAction(response));
+    const body = JSON.parse(response?.body);
+
+    if (body?.status == "LOG") {
+      dispatch(getMessageRelationAction(response));
+    }
   });
   /** SUBSCRIBE: 내 메세지 direction 접속 */
   function getDirectionOfMessages() {
