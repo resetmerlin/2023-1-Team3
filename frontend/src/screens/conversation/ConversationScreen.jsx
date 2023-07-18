@@ -59,7 +59,17 @@ const ConversationScreen = () => {
 
   /** 내가 보낸 혹은 받은 메세지를 state로 저장 */
   const getMessageFromServer = useCallback((response) => {
-    dispatch(getMessagesAction(response));
+    if (response?.body) {
+      const body = JSON.parse(response?.body);
+
+      if (body?.status == "FETCH" || "GET") {
+        dispatch(getMessagesHistoryAction(response));
+      } else if (body?.status == "OK" || "SEND") {
+        dispatch(sendMessageAction(response));
+      }
+    } else {
+      dispatch(sendMessageAction(response));
+    }
   });
 
   /** SUBSCRIBE: 내 메세지 direction 접속 */
