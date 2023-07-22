@@ -21,7 +21,7 @@ export const getSaveListAction = (page) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+        access_token: ` ${sessfbs_ffa0934.accessToken}`,
       },
     };
 
@@ -53,7 +53,7 @@ export const deleteSaveAction = (toId) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+        access_token: ` ${sessfbs_ffa0934.accessToken}`,
       },
     };
 

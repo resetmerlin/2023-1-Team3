@@ -5,7 +5,7 @@ import {
   UserInfoDesc,
   UserInfoName,
   UserInfoNameWrap,
-} from "./UserCard";
+} from "../components/Card/UserCardContent";
 import {
   BackToSlideCardButton,
   BlockButton,
@@ -19,7 +19,7 @@ const UserCardDetails = memo(function UserCardDetails({
   age,
   blockAction,
   saveValue,
-  getImageSrc,
+  imageSrc,
   likeAction,
   goBackToSlide,
   blockValue,
@@ -27,7 +27,7 @@ const UserCardDetails = memo(function UserCardDetails({
   return (
     <UserCardDetailsWrap className="popup-width">
       <UserCardDetailsImageWrap>
-        <UserCardImage loading="lazy" src={getImageSrc()} alt="user-profile" />
+        <UserCardImage loading="lazy" src={imageSrc} alt="user-profile" />
       </UserCardDetailsImageWrap>
       <BackToSlideCardButton goBackToSlide={goBackToSlide} />
 

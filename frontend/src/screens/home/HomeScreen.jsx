@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import Footer from "../../components/Footer";
-import HomeContent from "./HomeContent";
+import HomeContent from "./content/HomeContent";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,9 +15,10 @@ import Loading from "../../components/Loading";
 import { saveUserAction } from "../../actions/buttonAction";
 import { HomeHeader } from "../../components/Header";
 import NoValueUser from "../../components/NoValueUser";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { blockUserAction } from "../../actions/buttonAction";
 import { PEOPLE_LIST_RESET } from "../../constants/peopleConstants";
+import { messageInitiateAction } from "../../actions/messageAction";
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,6 +38,12 @@ const HomeScreen = () => {
     [dispatch]
   );
 
+  /** 유저 좋아요 및 저장  */
+  const sendLikeUser = useCallback(
+    (memberId, saveBoolean) => dispatch(saveUserAction(memberId, saveBoolean)),
+    [dispatch]
+  );
+
   /** 유저 차단 및 삭제  */
   const sendBlockUser = useCallback(
     (memberId, blockBoolean) =>
@@ -44,11 +51,29 @@ const HomeScreen = () => {
     [dispatch]
   );
 
-  /** 유저 좋아요 및 저장  */
-  const sendLikeUser = useCallback(
-    (memberId, saveBoolean) => dispatch(saveUserAction(memberId, saveBoolean)),
-    [dispatch]
-  );
+  const startMessage = async (memberId) => {
+    const user = peopleListStatus?.memberResponses
+      .filter((member) => member.memberId == memberId)
+      .map((x) => x);
+
+    const userInfo = {
+      birth: user[0].birth,
+      department: user[0].department,
+      gender: user[0].gender,
+      image: user[0].image,
+      introduction: user[0].introduction,
+      memberId: user[0].memberId,
+
+      name: user[0].name,
+    };
+
+    if (userInfo) {
+      await dispatch(messageInitiateAction(userInfo));
+
+      navigate(`/message/id?user=${memberId}`);
+    }
+  };
+
   const options = {
     rewind: false,
     type: "slide",
@@ -111,6 +136,7 @@ const HomeScreen = () => {
       splideRef.current.splide.Components.Controller.go(getNextPage);
     }
   }, [splideRef, previousPage]);
+
   /** 해당 페이지에 이동할때마다 유저 리스트 초기화*/
   useEffect(() => {
     dispatch({ type: PEOPLE_LIST_RESET });
@@ -150,6 +176,7 @@ const HomeScreen = () => {
                           key={user.memberId}
                           peopleListLoading={peopleListLoading}
                           sendLikeUser={sendLikeUser}
+                          startMessage={startMessage}
                           goNextSlideHandler={goNextSlideHandler}
                           userCardPopup={userCardPopup}
                           sendBlockUser={sendBlockUser}

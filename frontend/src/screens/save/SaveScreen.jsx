@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import Footer from "../components/Footer";
+import Footer from "../../components/Footer";
 import { useDispatch, useSelector, batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { SaveHeader } from "../components/Header";
-import { getSaveListAction } from "../actions/saveAction";
+import { SaveHeader } from "../../components/Header";
+import { getSaveListAction } from "../../actions/saveAction";
 import { styled } from "styled-components";
-import UserCardColumn from "../components/UserCardColumn";
-import { blockUserAction, saveUserAction } from "../actions/buttonAction";
-import { SAVE_LIST_RESET } from "../constants/saveConstants";
-import { BUTTON_SAVE_RESET } from "../constants/buttonConstants";
+import { blockUserAction, saveUserAction } from "../../actions/buttonAction";
+import { SAVE_LIST_RESET } from "../../constants/saveConstants";
+import { BUTTON_SAVE_RESET } from "../../constants/buttonConstants";
+import SaveContent from "./SaveContent";
 
 const SaveScreen = () => {
   const dispatch = useDispatch();
@@ -114,7 +114,7 @@ const SaveScreen = () => {
         {saveListStatus?.memberResponses &&
           saveListStatus?.memberResponses?.map((user, index) => {
             return index == saveListStatus?.memberResponses?.length - 1 ? (
-              <UserCardColumn
+              <SaveContent
                 key={user.memberId}
                 user={user}
                 ref={ScrollRowRef}
@@ -123,7 +123,7 @@ const SaveScreen = () => {
                 handleChildStateChange={handleChildStateChange}
               />
             ) : (
-              <UserCardColumn
+              <SaveContent
                 key={user.memberId}
                 sendSaveValue={sendSaveValue}
                 user={user}

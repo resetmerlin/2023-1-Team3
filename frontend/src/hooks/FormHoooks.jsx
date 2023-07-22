@@ -2,8 +2,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, FormProvider } from "react-hook-form";
 import LoginForm from "../screens/login/form/LoginForm";
 import RegisterForm from "../screens/register/form/RegisterForm";
-import SecurityPasswordForm from "../screens/setting/accountSetting/form/SecurityPasswordForm";
-import PersonalInfoForm from "../screens/setting/personalInfoEdit/form/PersonalInfoForm";
+import SecurityPasswordForm from "../screens/securityEdit/accountSetting/form/SecurityPasswordForm";
+import PersonalInfoForm from "../screens/profileEdit/personalInfoEdit/form/PersonalInfoForm";
 
 export const LoginFormHook = ({ schema, onSubmit, loginInfo, navigate }) => {
   const methods = useForm({

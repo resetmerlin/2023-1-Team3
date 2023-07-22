@@ -45,16 +45,19 @@ export const HomeHeader = ({ navigate, style }) => {
 export const SaveHeader = ({ navigate, style }) => {
   return (
     <SaveHeaderWrap style={style}>
-      <HeaderButtonWrap style={{ left: "0%", top: "7%" }}>
+      <HeaderButtonWrap
+        style={{ position: "absolute", top: "4.8%", left: "-1%" }}
+      >
         <BackButton navigate={navigate} />
       </HeaderButtonWrap>
       <span>Like</span>
     </SaveHeaderWrap>
   );
 };
-export const MessageHeader = () => {
+export const MessageHeader = ({ navigate }) => {
   return (
     <MessageHeaderWrap>
+      <BackButton navigate={navigate} />
       <span>Message</span>
     </MessageHeaderWrap>
   );
@@ -62,7 +65,7 @@ export const MessageHeader = () => {
 export const SettingHeader = ({ navigate, name }) => {
   return (
     <SettingHeaderWrap>
-      <HeaderButtonWrap style={{ left: "3%" }}>
+      <HeaderButtonWrap>
         <BackButton navigate={navigate} />
       </HeaderButtonWrap>
       <span>{name}</span>
@@ -109,6 +112,12 @@ const MessageHeaderWrap = styled.div`
     font-weight: 600;
     color: white;
   }
+
+  button {
+    position: absolute;
+    left: 3%;
+    top: 5%;
+  }
 `;
 const HeaderLogoWrap = styled.div`
   height: 11vh;
@@ -140,7 +149,7 @@ const HeaderButtonWrap = styled.div`
   height: 100%;
 `;
 const SaveHeaderWrap = styled.div`
-  height: 9vh;
+  height: 10vh;
   width: auto;
   display: flex;
   position: relative;
@@ -152,6 +161,27 @@ const SaveHeaderWrap = styled.div`
   span {
     font-size: 1.7rem;
     font-weight: 600;
+  }
+`;
+
+const HorizontalSeparator = styled.span`
+  display: flex;
+  flex-direction: row;
+  color: rgb(128, 113, 252);
+  font-size: 0.8rem;
+
+  &:before,
+  &:after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid rgb(128, 113, 252);
+    margin: auto;
+  }
+  &:before {
+    margin-right: 10px;
+  }
+  &:after {
+    margin-left: 10px;
   }
 `;
 

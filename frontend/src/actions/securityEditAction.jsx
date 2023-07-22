@@ -26,7 +26,7 @@ export const passwordEditAction =
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+          access_token: ` ${sessfbs_ffa0934.accessToken}`,
         },
       };
 
@@ -62,7 +62,7 @@ export const profileEditAction = (image) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+        access_token: ` ${sessfbs_ffa0934.accessToken}`,
       },
     };
     const { data } = await axios.post(
@@ -95,7 +95,7 @@ export const personalInfoEditAction =
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+          access_token: ` ${sessfbs_ffa0934.accessToken}`,
         },
       };
 
@@ -127,7 +127,7 @@ export const getPersonalInfoAction = () => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+        access_token: ` ${sessfbs_ffa0934.accessToken}`,
       },
     };
 

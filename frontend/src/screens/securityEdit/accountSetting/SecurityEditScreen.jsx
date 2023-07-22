@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { passwordEditAction } from "../../../actions/securityEditAction";
 import { SECURITY_PASSWORD_RESET } from "../../../constants/securityEditConstants";
 
-const AccountSettingScreen = () => {
+const SecurityEditScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -108,4 +108,4 @@ const PasswordEditResponse = styled.span`
   justify-content: center;
   font-weight: 600;
 `;
-export default AccountSettingScreen;
+export default SecurityEditScreen;

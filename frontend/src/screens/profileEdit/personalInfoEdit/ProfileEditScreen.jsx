@@ -20,7 +20,7 @@ import {
 } from "../../../actions/resetAction";
 import Loading from "../../../components/Loading";
 
-const PersonalInfoScreen = () => {
+const ProfileEditScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const personalInfo = useSelector((state) => state.personalInfo);
@@ -179,4 +179,4 @@ const PersonalInfoContent = styled.div`
   }
 `;
 
-export default PersonalInfoScreen;
+export default ProfileEditScreen;
