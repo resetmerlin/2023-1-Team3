@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
-import UserCardDetails from "../../../components/UserCardDetails";
 import { getImageSrc } from "../../../func/commonLogicHelper";
-import HomeContentView from "./HomeContentView";
+import Card from "../../../components/Card/Card";
+import CardDetails from "../../../components/PopupCard/CardDetails";
 const HomeContent = ({
   sendBlockUser,
   user,
@@ -40,24 +40,32 @@ const HomeContent = ({
     getUserFromChild(false);
   });
 
+  const popupStyle = { display: userChildCardPopup ? "none" : "flex" };
+
   const props = {
-    popupStyle: { display: userChildCardPopup ? "none" : "flex" },
+    popupStyle: popupStyle,
     goNextSlideHandler: goNextSlideHandler,
     user: user,
     saveValue: saveValue,
     startMessage: startMessage,
     savAction: savAction,
-    setUserChildCardPopup: setUserChildCardPopup,
-    getUserFromChild: getUserFromChild,
+    popupCheckedHandler: (e) => {
+      setUserChildCardPopup(e.target.checked);
+      getUserFromChild(e.target.checked);
+    },
+
     age: age,
-    peopleListLoading,
     imageSrc: getImageSrc(user),
   };
 
   const popupProps = {
     user: user,
-    blockAction: blockAction,
-    likeAction: savAction,
+    blockAction: () => {
+      blockAction();
+    },
+    likeAction: () => {
+      savAction(user?.memberId);
+    },
     age: age,
     blockValue: blockValue,
     saveValue: saveValue,
@@ -67,15 +75,17 @@ const HomeContent = ({
 
   return (
     <>
-      <HomeContentView {...props} />
-      {userChildCardPopup && <UserCardDetails {...popupProps} />}
+      <HomeWrap style={popupStyle}>
+        <Card {...props} />
+      </HomeWrap>
+      {userChildCardPopup && <CardDetails {...popupProps} />}
     </>
   );
 };
 
 export const HomeWrap = styled.div`
   position: absolute;
-  height: 96%;
+  height: 94%;
   width: 100%;
   flex-direction: column;
   display: flex;
