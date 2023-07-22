@@ -18,15 +18,19 @@ import {
 } from "../../../../components/Input/Input";
 import { DefaultInputError } from "../../../../components/Input/InputError";
 import { styled } from "styled-components";
-import { SaveButton } from "../../../../components/Button";
+import { ChangeProfileButton, SaveButton } from "../../../../components/Button";
 
-const PersonalInfoForm = ({ onSubmit, info, user }) => {
+const PersonalInfoForm = ({
+  onSubmit,
+  info,
+  user,
+  handleChangeProfile,
+  changeProfile,
+}) => {
   const {
     handleSubmit,
     formState: { errors },
     register,
-    setValue,
-    getValues,
   } = useFormContext();
 
   return (
@@ -66,17 +70,35 @@ const PersonalInfoForm = ({ onSubmit, info, user }) => {
         </PersonalInfoDescWrap>
       </PersonInfoInputWrap>
 
-      <SaveButton
-        error={info?.error}
-        loading={info?.loading}
-        status={info?.personalInfoEditStatus}
-      />
+      <PersonalInfoButtonWrap>
+        <SaveButton
+          error={info?.error}
+          loading={info?.loading}
+          status={info?.personalInfoEditStatus}
+        />
+
+        <ChangeProfileButton handleChangeProfile={handleChangeProfile} />
+      </PersonalInfoButtonWrap>
     </Form>
   );
 };
 
 export default PersonalInfoForm;
 
+const PersonalInfoButtonWrap = styled.div`
+  width: auto;
+  // width: 12rem;
+
+  height: auto;
+  position: absolute;
+  top: 43%;
+  right: 3%;
+  display: flex;
+  justify-content: space-between;
+  button {
+    margin: 0 0.3rem;
+  }
+`;
 const PersonalInfoDescWrap = styled.div`
   div {
     margin-top: 0.5rem !important;
