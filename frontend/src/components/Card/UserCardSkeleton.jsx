@@ -115,7 +115,7 @@ const HomeContentWrap = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const UserCardProfile = styled.img`
+const UserCardProfile = styled.div`
   height: 77%;
   width: 100%;
   object-fit: cover;
@@ -125,12 +125,9 @@ const UserCardProfile = styled.img`
   align-items: center;
   justify-content: flex-end;
   font-size: 1.5rem;
-  background-repeat: none,
-  background-size: cover,
-  background-position: center,
-  overflow: hidden;
   transition: all 0.2s ease;
   border-radius: 12px;
+  background-color: rgb(128, 113, 252);
 `;
 const HomeInfo = styled.div`
   height: 23%;
