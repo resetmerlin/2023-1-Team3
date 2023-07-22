@@ -66,15 +66,15 @@ const MessageDescWrap = styled.div`
     text-decoration: none;
     span {
       font-size: 1.3rem;
+
       font-weight: 500;
     }
   }
 `;
 
 const MessageConversation = styled.div`
-  margin-top: 6px;
   width: 100%;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   white-space: normal;
   overflow: hidden;
   color: rgb(167 165 165);
@@ -106,7 +106,7 @@ const MessageNotification = styled.span`
   color: white;
   font-weight: 600;
   position: absolute;
-  left: 47%;
+  left: 50%;
   top: 45%;
   transform: translate(-50%, -50%);
 `;
