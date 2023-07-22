@@ -156,7 +156,7 @@ const HomeScreen = () => {
           style={{ display: userCardPopup ? "none" : "flex" }}
         />
         {peopleListLoading ? (
-          <UserCardSkeleton />
+          <Loading />
         ) : (
           <Splide
             ref={splideRef}
