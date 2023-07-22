@@ -19,7 +19,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { blockUserAction } from "../../actions/buttonAction";
 import { PEOPLE_LIST_RESET } from "../../constants/peopleConstants";
 import { messageInitiateAction } from "../../actions/messageAction";
-import UserCardSkeleton from "../../components/Card/UserCardSkeleton";
+
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
