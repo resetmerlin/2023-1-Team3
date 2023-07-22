@@ -59,16 +59,21 @@ body {
   display: flex;
   width: 100%;
   min-height: 100vh;
+
   box-sizing: border-box;
   position: relative;
   flex-direction: column;
   @include respond(smartphones-port) {
     min-width: 320px;
     max-width: 479px;
+    position: fixed;
+    height: 100%;
   }
   @include respond(smartphones-land) {
     min-width: 480px;
     max-width: 599px;
+    position: fixed;
+    height: 100%;
   }
 
   @include respond(tab-port) {
