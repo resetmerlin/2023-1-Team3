@@ -19,6 +19,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { blockUserAction } from "../../actions/buttonAction";
 import { PEOPLE_LIST_RESET } from "../../constants/peopleConstants";
 import { messageInitiateAction } from "../../actions/messageAction";
+import UserCardSkeleton from "../../components/Card/UserCardSkeleton";
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -155,7 +156,7 @@ const HomeScreen = () => {
           style={{ display: userCardPopup ? "none" : "flex" }}
         />
         {peopleListLoading ? (
-          <Loading />
+          <UserCardSkeleton />
         ) : (
           <Splide
             ref={splideRef}
@@ -163,7 +164,7 @@ const HomeScreen = () => {
             options={{ ...options, drag: userCardPopup ? false : true }}
             id="Splide"
             onMoved={slidePageHandler}
-            style={{ height: userCardPopup ? "100vh" : "80vh" }}
+            style={{ height: userCardPopup ? "100vh" : "77vh" }}
           >
             <SplideTrack>
               {peopleListStatus &&
