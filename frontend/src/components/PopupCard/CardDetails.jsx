@@ -1,7 +1,7 @@
 import React from "react";
 import { BackToSlideCardButton } from "../Button";
-import CardDetailsTop from "./top/CardDetailsTop";
-import CardDetailsBottom from "./bottom/CardDetailsBottom";
+import CardDetailsTopView from "./top/CardDetailsTopView";
+import CardDetailsBottomView from "./bottom/CardDetailsBottomView";
 import { styled } from "styled-components";
 
 const CardDetails = ({
@@ -40,8 +40,8 @@ const CardDetailsView = ({ goBackToSlide, topProps, bottomProps }) => {
   return (
     <CardDetailsWrap>
       <BackToSlideCardButton goBackToSlide={goBackToSlide} />
-      <CardDetailsTop {...topProps} />
-      <CardDetailsBottom {...bottomProps} />
+      <CardDetailsTopView {...topProps} />
+      <CardDetailsBottomView {...bottomProps} />
     </CardDetailsWrap>
   );
 };
