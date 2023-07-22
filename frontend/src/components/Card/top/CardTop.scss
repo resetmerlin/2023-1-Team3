@@ -1,0 +1,15 @@
+.card__top__profile {
+  height: 78%;
+  width: 100%;
+  object-fit: cover;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 1.5rem;
+
+  overflow: hidden;
+  transition: all 0.2s ease;
+  border-radius: 12px;
+}
