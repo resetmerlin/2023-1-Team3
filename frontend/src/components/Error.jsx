@@ -25,11 +25,11 @@ export const ErrorSpan = styled.span`
 `;
 
 export const ErrorPage = styled.div`
-  position: absolute;
-  height: 100%;
+  position: relative;
+  height: 100vh;
   width: 100%;
+
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   a {
@@ -38,8 +38,7 @@ export const ErrorPage = styled.div`
   }
 `;
 export const ErrorPageWrap = styled.div`
-  position: absolute;
-  top: 22%;
+  height: 60%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -68,7 +67,8 @@ export const NumberError = styled.span`
 `;
 
 export const ErrorLogo = styled.img`
-  position: absolute;
+  height: 25rem;
+  width: 25rem;
   bottom: 0;
 `;
 export default Error;
