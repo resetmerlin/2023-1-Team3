@@ -114,7 +114,7 @@ export const SubmitButton = ({ page }) => {
     backgroundColor: "rgb(128, 113, 252)",
     width: page == "register" ? "100%" : "47.5%",
 
-    height: page == "register" ? " 3.3rem" : "3rem",
+    height: page == "register" ? " 3.3rem" : "2.5rem",
   };
   return (
     <DefaultFormButtom type="submit" style={submitButtonStyle}>
