@@ -1,6 +1,5 @@
 import React from "react";
 import "./LikeAnimation.scss";
-import { TweenMax, TimelineMax } from "gsap";
 
 const LikeAnimation = () => {
   return <LikeAnimationView />;
