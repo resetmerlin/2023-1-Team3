@@ -1,0 +1,105 @@
+.love-particle__wrap {
+  width: 135px;
+  height: 135px;
+  position: absolute;
+  margin-left: -67.5px;
+  margin-top: -67.5px;
+  left: 50%;
+  transform: scale(0.8);
+  top: 50%;
+  z-index: 1000;
+
+  animation: 0.3s ease-in-out scaleLove;
+  transform: rotate(0);
+  box-icon {
+    opacity: 0;
+    width: 0.3rem;
+
+    animation: 0.5s ease-in boxFade;
+  }
+
+  .love-particle__component {
+    z-index: 1000;
+
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    margin-left: -8px;
+    margin-top: -8px;
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    transform-origin: 50% 50% 0px;
+  }
+
+  .love-particle-1 {
+    transform: translate(-50px, -30px);
+  }
+
+  .love-particle-2 {
+    transform: translate(0px, -55px);
+  }
+  .love-particle-3 {
+    transform: translate(50px, -30px);
+  }
+
+  .love-particle-4 {
+    transform: translate(53px, 20px);
+  }
+  .love-particle-5 {
+    transform: translate(0px, 55px);
+  }
+
+  .love-particle-6 {
+    transform: translate(-53px, 20px);
+  }
+}
+
+@keyframes boxFade {
+  0% {
+    opacity: 1;
+    width: 0.3rem;
+  }
+  20% {
+    opacity: 1;
+    width: 0.5rem;
+  }
+  40% {
+    opacity: 1;
+    width: 0.8rem;
+  }
+  60% {
+    opacity: 1;
+    width: 1rem;
+  }
+  80% {
+    opacity: 1;
+    width: 0.5rem;
+  }
+
+  100% {
+    opacity: 1;
+    width: 0.2rem;
+  }
+}
+
+@keyframes scaleLove {
+  0% {
+    transform: scale(0);
+  }
+  20% {
+    transform: scale(0.2);
+  }
+  40% {
+    transform: scale(0.4);
+  }
+  60% {
+    transform: scale(0.6);
+  }
+  75% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

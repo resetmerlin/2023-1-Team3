@@ -102,6 +102,8 @@ body {
     /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
     min-width: 320px;
     max-width: 479px;
+    position: fixed;
+    height: 100%;
   }
 }
 @media screen and (min-width: 480px) and (max-width: 599px) {
@@ -109,6 +111,8 @@ body {
     /* smartphones, Android phones, landscape iPhone */
     min-width: 480px;
     max-width: 599px;
+    position: fixed;
+    height: 100%;
   }
 }
 @media screen and (min-width: 600px) and (max-width: 800px) {
@@ -550,7 +554,7 @@ body {
 
 #Splide {
   position: relative;
-  height: 80vh;
+  height: 77vh;
   width: 100%;
 }
 

@@ -19,15 +19,28 @@ const SettingScreenView = ({
   );
 };
 
-const SettingUserProfile = ({ memberId, name, imgSrc, department, age }) => {
+const SettingUserProfile = ({
+  memberId,
+  name,
+  imgSrc,
+  department,
+  age,
+  getPopupStateFromChild,
+}) => {
   return (
-    <SettingUserContent>
+    <SettingUserContent htmlFor="my-card">
       <SettingUserImage
         key={memberId}
         src={imgSrc}
         loading="lazy"
         alt="mypage-profile"
       ></SettingUserImage>
+      <input
+        type="checkbox"
+        onChange={getPopupStateFromChild}
+        id="my-card"
+        style={{ display: "none" }}
+      />
       <SettingUserTextWrap>
         <span style={{ fontSize: "1.4rem" }}>
           <SettingUserName>{name}</SettingUserName>
@@ -75,7 +88,7 @@ const SettingUserName = styled.span`
   margin-right: 0.5rem;
 `;
 
-const SettingUserContent = styled.div`
+const SettingUserContent = styled.label`
   height: 12.5%;
   width: 88%;
   border-radius: 8px;
@@ -109,7 +122,7 @@ const SettingMiddlContent = styled.div`
   height: 27.5%;
   width: 88%;
   border-radius: 8px;
-  margin: 1rem 0;
+  margin: 1.2rem 0;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -132,7 +145,7 @@ const SettingAccountContent = styled.div`
   justify-content: center;
   width: 88%;
   border-radius: 8px;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.2rem 0;
   display: flex;
   flex-direction: column;
   box-shadow: -1px 0px 15px 7px rgb(236, 234, 247, 1);
@@ -177,7 +190,7 @@ const SettingLastContent = styled.div`
     display: flex;
     align-items: center;
     padding: 0 1.4rem;
-    font-size: 0.95rem;
+    font-size: 1rem;
     background-color: white;
     border: none;
     border-radius: 8px;

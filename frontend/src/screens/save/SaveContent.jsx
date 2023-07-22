@@ -1,7 +1,7 @@
 import React, { useState, useCallback, forwardRef } from "react";
-import UserCardDetails from "../../components/UserCardDetails";
 import UserCardColumn from "../../components/CardColumn/UserCardColumn";
 import { getImageSrc } from "../../func/commonLogicHelper";
+import CardDetails from "../../components/PopupCard/CardDetails";
 
 const SaveContent = forwardRef(
   ({ user, handleChildStateChange, sendBlockUser, sendSaveValue }, ref) => {
@@ -47,7 +47,7 @@ const SaveContent = forwardRef(
     return (
       <>
         <UserCardColumn {...props} />
-        {checked && <UserCardDetails {...props} />}
+        {checked && <CardDetails {...props} />}
       </>
     );
   }

@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 
 import { LogoImageMedium } from "./Logo";
-import { BackButton } from "./Button";
+import { HeaderBackButton } from "./Button";
 const Header = () => {
   const location = useLocation().pathname;
   return (
@@ -32,7 +32,7 @@ export const HomeHeader = ({ navigate, style }) => {
   return (
     <HeaderLogoWrap style={style}>
       <HeaderButtonWrap>
-        <BackButton navigate={navigate} />
+        <HeaderBackButton navigate={navigate} />
       </HeaderButtonWrap>
 
       <Link to="/">
@@ -45,19 +45,20 @@ export const HomeHeader = ({ navigate, style }) => {
 export const SaveHeader = ({ navigate, style }) => {
   return (
     <SaveHeaderWrap style={style}>
-      <HeaderButtonWrap
-        style={{ position: "absolute", top: "4.8%", left: "-1%" }}
-      >
-        <BackButton navigate={navigate} />
+      <HeaderButtonWrap>
+        <HeaderBackButton navigate={navigate} />
       </HeaderButtonWrap>
-      <span>Like</span>
+
+      <div className="save-header__content">
+        <span>Like</span>
+      </div>
     </SaveHeaderWrap>
   );
 };
 export const MessageHeader = ({ navigate }) => {
   return (
     <MessageHeaderWrap>
-      <BackButton navigate={navigate} />
+      <HeaderBackButton navigate={navigate} />
       <span>Message</span>
     </MessageHeaderWrap>
   );
@@ -66,7 +67,7 @@ export const SettingHeader = ({ navigate, name }) => {
   return (
     <SettingHeaderWrap>
       <HeaderButtonWrap>
-        <BackButton navigate={navigate} />
+        <HeaderBackButton navigate={navigate} />
       </HeaderButtonWrap>
       <span>{name}</span>
     </SettingHeaderWrap>
@@ -76,7 +77,7 @@ export const SettingHeader = ({ navigate, name }) => {
 export const DefaultBackHeader = ({ navigate }) => {
   return (
     <HeaderWrap>
-      <BackButton navigate={navigate} />
+      <HeaderBackButton navigate={navigate} />
     </HeaderWrap>
   );
 };
@@ -88,29 +89,35 @@ const HeaderWrap = styled.div`
   left: 3%;
 `;
 const SettingHeaderWrap = styled.div`
-  height: 11vh;
+  height: 12vh;
   width: 100%;
   display: flex;
   position: relative;
   align-items: center;
   justify-content: center;
   span {
+    margin-top: 1rem;
     font-size: 1.7rem;
     font-weight: 600;
     color: black;
   }
 `;
 const MessageHeaderWrap = styled.div`
-  height: 15vh;
+  height: 14vh;
   width: 100%;
   display: flex;
   background-color: rgb(128, 113, 252);
   align-items: center;
   justify-content: center;
+  position: relative;
   span {
-    font-size: 2.6rem;
+    font-size: 2.5rem;
     font-weight: 600;
+    position: absolute;
     color: white;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   button {
@@ -120,7 +127,7 @@ const MessageHeaderWrap = styled.div`
   }
 `;
 const HeaderLogoWrap = styled.div`
-  height: 11vh;
+  height: 13vh;
   width: 100%;
 
   display: flex;
@@ -153,35 +160,25 @@ const SaveHeaderWrap = styled.div`
   width: auto;
   display: flex;
   position: relative;
-  margin: 0 1.2rem;
-  border-bottom: 1.9px solid rgb(128, 113, 252);
   align-items: center;
   justify-content: center;
-
+  .save-header__content {
+    position: absolute;
+    height: 100%;
+    width: 90%;
+    display: flex;
+    border-bottom: 1.9px solid rgb(128, 113, 252);
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
   span {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     font-weight: 600;
-  }
-`;
-
-const HorizontalSeparator = styled.span`
-  display: flex;
-  flex-direction: row;
-  color: rgb(128, 113, 252);
-  font-size: 0.8rem;
-
-  &:before,
-  &:after {
-    content: "";
-    flex: 1 1;
-    border-bottom: 1px solid rgb(128, 113, 252);
-    margin: auto;
-  }
-  &:before {
-    margin-right: 10px;
-  }
-  &:after {
-    margin-left: 10px;
+    position: absolute;
+    top: 47%;
   }
 `;
 

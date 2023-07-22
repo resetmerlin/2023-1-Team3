@@ -19,6 +19,7 @@ import {
   securityUserProfileResetAction,
 } from "../../../actions/resetAction";
 import Loading from "../../../components/Loading";
+import { getImageSrc } from "../../../func/commonLogicHelper";
 
 const ProfileEditScreen = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ const ProfileEditScreen = () => {
 
   const profileEditInfo = useSelector((state) => state.profileEditInfo);
   const { personalInfoStatus: user, loading } = personalInfo;
+
+  const imagSrc = getImageSrc(user);
+
   useEffect(() => {
     batch(async () => {
       await dispatch(securityUserInfoEditResetAction());
@@ -56,26 +60,6 @@ const ProfileEditScreen = () => {
     setChangeProfile((prev) => !prev);
   });
 
-  const [imageVersion, setImageVersion] = useState(Date.now());
-
-  useEffect(() => {
-    // Whenever the user object changes, update the imageVersion state
-    setImageVersion(Date.now());
-  }, [user]);
-
-  const getImageSrc = useCallback(() => {
-    if (user?.image === "DEFAULT") {
-      if (user?.gender === "MALE") {
-        return `../default/default-men.png`;
-      }
-      if (user?.gender === "FEMALE") {
-        return `../default/default-women.png`;
-      }
-    }
-    // Add imageVersion as a query parameter to the URL
-    return `${user?.image}?ver=${imageVersion}`;
-  }, [user]);
-
   return (
     <PersonalInfo>
       {!changeProfile ? (
@@ -94,7 +78,7 @@ const ProfileEditScreen = () => {
           {!changeProfile && (
             <PersonalInfoImage
               loading="lazy"
-              src={getImageSrc()}
+              src={imagSrc}
               alt="profileEdit-profile"
             ></PersonalInfoImage>
           )}
@@ -113,16 +97,10 @@ const ProfileEditScreen = () => {
               info={personalEditInfo}
               onSubmit={onSubmit}
               user={user}
+              changeProfile={changeProfile}
+              handleChangeProfile={handleChangeProfile}
             />
           </PersonalInfoContent>
-
-          <PersonalInfoButtonWrap>
-            {!changeProfile && (
-              <ChangeProfileButton handleChangeProfile={handleChangeProfile} />
-            )}
-
-            {/* <SaveProfileButton /> */}
-          </PersonalInfoButtonWrap>
         </>
       )}
     </PersonalInfo>
@@ -138,6 +116,9 @@ const PersonalInfoButtonWrap = styled.div`
   right: 3%;
   display: flex;
   justify-content: space-between;
+  button {
+    margin: 0;
+  }
 `;
 
 const PersonalInfo = styled.div`

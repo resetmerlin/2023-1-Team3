@@ -12,7 +12,7 @@ export const getImageSrc = (user) => {
       ? `../default/default-men.png`
       : user?.image === "DEFAULT" && user?.gender === "FEMALE"
       ? `../default/default-women.png`
-      : `../default/default-men.png`;
+      : user?.image;
 
   // Add imageVersion as a query parameter to the URL
   return `${imageSrc}?ver=${imageVersion}`;

@@ -8,6 +8,7 @@ import { Suspense, lazy } from "react";
 import ConversationScreen from "./screens/conversation/ConversationScreen";
 import Loading from "./components/Loading";
 import MessageScreen from "./screens/message/MessageScreen";
+import DesktopBlock from "./components/DesktopBlock";
 const LoginSceen = lazy(() => import("./screens/login/LoginScreen"));
 const HomeScreen = lazy(() => import("./screens/home/HomeScreen"));
 const SaveScreen = lazy(() => import("./screens/save/SaveScreen"));
@@ -22,6 +23,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="container">
+        <DesktopBlock />
         <Routes>
           <Route path="*" element={<MissingPage />} />
           <Route path="/unauthorized" element={<Unauthorized />} />

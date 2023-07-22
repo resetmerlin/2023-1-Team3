@@ -109,7 +109,14 @@ export const SecurityPaswordFormHook = ({
   );
 };
 
-export const PersonalInfoFormHook = ({ schema, onSubmit, info, user }) => {
+export const PersonalInfoFormHook = ({
+  schema,
+  onSubmit,
+  info,
+  user,
+  handleChangeProfile,
+  changeProfile,
+}) => {
   const defaultValues = {
     name: user?.name,
     birthday: user?.birth,
@@ -134,7 +141,13 @@ export const PersonalInfoFormHook = ({ schema, onSubmit, info, user }) => {
 
   return (
     <FormProvider {...methods}>
-      <PersonalInfoForm onSubmit={onSubmit} info={info} user={user} />
+      <PersonalInfoForm
+        onSubmit={onSubmit}
+        info={info}
+        user={user}
+        changeProfile={changeProfile}
+        handleChangeProfile={handleChangeProfile}
+      />
     </FormProvider>
   );
 };
