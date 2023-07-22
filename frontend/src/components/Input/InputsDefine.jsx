@@ -33,7 +33,7 @@ export const secondPasswordInput = {
   id: "secondPassword",
   name: "secondPassword",
   type: "password",
-  placeholder: "Check Passwordword",
+  placeholder: "Check Password",
 };
 export const femaleInput = {
   id: "female",
