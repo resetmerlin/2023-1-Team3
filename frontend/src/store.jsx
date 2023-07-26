@@ -23,6 +23,7 @@ import {
   messageRelationReducers,
   messageSendReducers,
 } from "./reducers/messageReducer";
+import { socketMiddleware } from "./middlware/socketMiddleware";
 const reducer = combineReducers({
   emailInfo: sendEmailReducers,
   registerInfo: userRegisterReducers,
@@ -60,6 +61,8 @@ const initialState = {
   // },
 };
 const middleware = [thunk];
+
+// const middleware = [thunk];
 const store = createStore(
   reducer,
   initialState,
