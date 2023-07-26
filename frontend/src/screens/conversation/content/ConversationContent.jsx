@@ -23,7 +23,17 @@ const ConversationContent = ({
   useEffect(() => {
     const currentTime = giveCurrentTime().split("T");
 
-    setCurrentTime([currentTime[0], currentTime[1].slice(0, 5)]);
+    const arrangedCurrentTime = [currentTime[0], currentTime[1].slice(0, 5)];
+
+    arrangedCurrentTime[1] =
+      arrangedCurrentTime[1].split(":")[0] > 12
+        ? "오후 " +
+          (+arrangedCurrentTime[1].split(":")[0] - 12) +
+          ":" +
+          arrangedCurrentTime[1].split(":")[1]
+        : "오전 " + arrangedCurrentTime[1];
+
+    setCurrentTime([arrangedCurrentTime[0], arrangedCurrentTime[1]]);
 
     if (contentRef.current.offsetTop < contentRef.current.scrollHeight) {
       const amountOfScroll =
