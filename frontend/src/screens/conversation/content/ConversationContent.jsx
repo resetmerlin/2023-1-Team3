@@ -7,6 +7,9 @@ const ConversationContent = ({
   messageReceivedNow,
   myMemberId,
   giveCurrentTime,
+  page,
+  getAllMessageQueue,
+  endPageSignal,
 }) => {
   /** 전체 message containter 역할을 하는 conversation__content div의 ref */
   const contentRef = useRef();
@@ -81,37 +84,40 @@ const ConversationContent = ({
     return message;
   };
 
-  // useEffect(() => {
-  //   let targetElement = messageRef.current;
+  useEffect(() => {
+    let targetElement = messageRef.current;
 
-  //   if (targetElement) {
-  //     const observer = new IntersectionObserver(
-  //       (entries) => {
-  //         const observedPage = entries[0];
-  //         if (observedPage?.isIntersecting) {
-  //           /** 새로운 유저 리스트 call */
-  //           messagePageHandler();
-  //         }
-  //       },
-  //       { threshold: 1 }
-  //     );
+    if (targetElement && !endPageSignal && messageHistory) {
+      const observer = new IntersectionObserver(
+        async (entries) => {
+          const observedPage = entries[0];
+          if (observedPage?.isIntersecting) {
+            /** 새로운 유저 리스트 call */
+            getAllMessageQueue(page + 1);
+          }
+        },
+        { threshold: 1 }
+      );
 
-  //     /** Ref로 지정한 마지막 element 관찰 */
-  //     observer.observe(targetElement);
+      /** Ref로 지정한 마지막 element 관찰 */
+      observer.observe(targetElement);
 
-  //     return () => {
-  //       /**  element 관찰 취소 */
-  //       observer.unobserve(targetElement);
-  //     };
-  //   }
-  // }, [messageRef?.current, getAllMessageQueue]);
+      return () => {
+        /**  element 관찰 취소 */
+        observer.unobserve(targetElement);
+      };
+    }
+  }, [messageRef?.current, messageHistory, endPageSignal]);
+
+  console.log(messageRef.current);
 
   /** JSX 추상화를 위한 object */
+
   const props = {
     currentTime: currentTime,
     messageHistory:
       messageHistory &&
-      messageHistory.map((message) => {
+      messageHistory?.map((message) => {
         if (typeof message.timeStamp !== "string") {
         } else {
           message = messageTimeHandler(message);
@@ -121,7 +127,7 @@ const ConversationContent = ({
       }),
     messageReceivedNow:
       messageReceivedNow &&
-      messageReceivedNow.map((message) => {
+      messageReceivedNow?.map((message) => {
         if (typeof message.timeStamp !== "string") {
         } else {
           message = messageTimeHandler(message);
