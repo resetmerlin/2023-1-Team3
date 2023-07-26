@@ -9,10 +9,11 @@ import {
   MESSAGE_GET_HISTORY_SUCCESS,
   MESSAGE_GET_HISTORY_REQUEST,
   MESSAGE_GET_HISTORY_FAIL,
+  MESSAGE_GET_HISTORY_RESET,
 } from "../constants/messageConstants";
 
 export const messageHistoryReducers = (
-  state = { messageFetchStatus: [] },
+  state = { messageFetchStatus: { user: { messages: [] } } },
 
   action
 ) => {
@@ -23,11 +24,21 @@ export const messageHistoryReducers = (
     case MESSAGE_GET_HISTORY_SUCCESS:
       return {
         loading: false,
-        messageFetchStatus: action.payload,
+        messageFetchStatus: {
+          page: action.payload.user.page,
+          endPageSignal: action.payload.user.endPageSignal,
+          user: {
+            recvMemberId: action.payload.user.recvMemberId,
+            messages: action.payload.user.messages,
+          },
+        },
       };
 
     case MESSAGE_GET_HISTORY_FAIL:
       return { loading: false, error: action.payload };
+
+    case MESSAGE_GET_HISTORY_RESET:
+      return { loading: false, messageFetchStatus: { user: { messages: [] } } };
     default:
       return state;
   }
@@ -69,7 +80,7 @@ export const messageSendReducers = (
     case MESSAGE_SEND_SUCCESS:
       return {
         loading: false,
-        messageSendStatus: action.payload,
+        messageSendStatus: [...state.messageSendStatus, ...action.payload],
       };
     case MESSAGE_SEND_FAIL:
       return { loading: false, error: action.payload };
