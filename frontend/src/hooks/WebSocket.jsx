@@ -1,6 +1,9 @@
-import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
-import { getMessageRelationAction } from "../actions/messageAction";
+import {
+  getMessageRelationAction,
+  getMessagesHistoryAction,
+  sendMessageAction,
+} from "../actions/messageAction";
+import { useDispatch, useSelector } from "react-redux";
 
 export class WebSocket {
   constructor() {
@@ -14,14 +17,38 @@ export class WebSocket {
     this.memberId = memberId;
     this.opponentMemberId = opponentMemberId;
   }
-  initiate() {
+  initiate(url) {
     if (!this.socket) {
-      const client = useRef();
+      const socket = new SockJS(url);
+      this.socket = Stomp.over(socket);
+    }
+  }
 
-      const socket = new SockJS(`${import.meta.env.VITE_API_URL}/chat`);
-      client.current = Stomp.over(socket);
+  /** CONNECT: 서버와 통신 시작 */
+  connect() {
+    if (this.socket) {
+      this.socket.connect({}, () => {
+        /** SUBSCRIBE: 내 메세지 direction 접속 */
+        this.socket.subscribe(
+          `/topic/${this.memberId}`,
+          (response) => {
+            if (response?.body) {
+              const body = JSON.parse(response?.body);
 
-      this.socket = client.current;
+              if (body?.status == "FETCH" || "GET") {
+                this.dispatch(getMessagesHistoryAction(response));
+
+                console.log(response);
+              } else if (body?.status == "OK" || "SEND") {
+                this.dispatch(sendMessageAction(response));
+              }
+            } else {
+              this.dispatch(sendMessageAction(response));
+            }
+          },
+          { memberId: this.memberId }
+        );
+      });
     }
   }
 
@@ -38,21 +65,6 @@ export class WebSocket {
     }
   }
 
-  /** CONNECT: 서버와 통신 시작 */
-  connect() {
-    if (this.socket) {
-      this.socket.connect({}, () => {
-        /** SUBSCRIBE: 내 메세지 direction 접속 */
-        this.socket.subscribe(
-          `/topic/${this.memberId}`,
-          (response) => {
-            this.dispatch(getMessageRelationAction(response));
-          },
-          { memberId: this.memberId }
-        );
-      });
-    }
-  }
   disconnect() {
     if (this.socket) {
       this.socket.disconnect();
@@ -99,7 +111,7 @@ export class WebSocket {
         timeStamp: time,
         message: messages,
       };
-      this.dispatch(getMessageRelationAction(JSON.stringify([request])));
+      this.dispatch(sendMessageAction(JSON.stringify([request])));
       this.socket.send("/app/send", {}, JSON.stringify(request));
     }
   }
