@@ -21,7 +21,6 @@ export const messageInitiateAction = (user) => async (dispatch) => {
 /** 리스트 가졍 Action */
 export const getMessagesHistoryAction =
   (messageResponse, page) => async (dispatch, getState) => {
-    console.log(page);
     const {
       messageInfo: { messageFetchStatus },
       userMessageInfo: { userMessageStatus },
@@ -115,15 +114,11 @@ export const sendMessageAction = (response) => async (dispatch, getState) => {
       const chatMessageResponse = JSON.parse(response.body);
       const data = [chatMessageResponse?.chatUsers[0].chatMessages[0]];
 
-      console.log(data);
-
       dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
     } else {
       const messageRequest = JSON.parse(response);
 
-      const data = messageRequest;
-
-      console.log(data);
+      const data = [messageRequest];
 
       dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
     }
@@ -133,7 +128,7 @@ export const sendMessageAction = (response) => async (dispatch, getState) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.messge,
+          : error.message,
     });
   }
 };
