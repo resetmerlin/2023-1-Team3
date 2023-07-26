@@ -77,7 +77,8 @@ const ConversationScreen = () => {
               const body = JSON.parse(response?.body);
               if (body?.status === "FETCH" || body?.status === "GET") {
                 dispatch(getMessagesHistoryAction(response, pageRef.current));
-              } else if (body?.status === "OK" || body?.status === "SEND") {
+              } else if (body?.status === "SEND") {
+                // body?.status === "OK" ||
                 dispatch(sendMessageAction(response));
               }
             }
@@ -133,7 +134,7 @@ const ConversationScreen = () => {
     };
 
     await client.current.send("/app/send", {}, JSON.stringify(request));
-    dispatch(sendMessageAction(JSON.stringify([request])));
+    dispatch(sendMessageAction(JSON.stringify(request)));
   }
 
   // 웹 소켓 Disconnect
