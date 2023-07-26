@@ -9,6 +9,7 @@ import {
   USER_VERIFY_RESET,
 } from "../constants/userConstants";
 
+import { MESSAGE_GET_HISTORY_RESET } from "../constants/messageConstants";
 /** 회원가입 state 초기화하는 Action */
 export const registerResetAction = () => async (dispatch) => {
   dispatch({ type: USER_REGISTER_RESET });
@@ -34,4 +35,8 @@ export const securityUserInfoEditResetAction = () => async (dispatch) => {
 
 export const securityUserProfileResetAction = () => async (dispatch) => {
   dispatch({ type: SECURITY_UPLOAD_PROFILE_RESET });
+};
+
+export const messageHistoryResetAction = () => async (dispatch) => {
+  dispatch({ type: MESSAGE_GET_HISTORY_RESET });
 };
