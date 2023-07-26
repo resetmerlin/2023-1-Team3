@@ -12,9 +12,10 @@ const ConversationContentView = forwardRef(
         {messageHistory &&
           messageHistory.map((message, id) => {
             if (
-              message.timeStamp[1].split(" ")[1] !==
-                messageHistory[id + 1]?.timeStamp[1].split(" ")[1] &&
-              message.timeStamp[1].split(" ")[1] !== currentTime[1]
+              message.timeStamp[1]?.split(" ")[1] !==
+                messageHistory[id + 1]?.timeStamp[1]?.split(" ")[1] &&
+              message.timeStamp[1]?.split(" ")[1] !==
+                currentTime[1]?.split(" ")[1]
             ) {
               if (message.recvMemberId !== myMemberId) {
                 if (id == 0) {
@@ -72,9 +73,10 @@ const ConversationContentView = forwardRef(
         {messageReceivedNow &&
           messageReceivedNow.map((message, id) => {
             if (
-              message.timeStamp[1].split(" ")[1] !==
-                messageReceivedNow[id + 1]?.timeStamp[1].split(" ")[1] &&
-              message.timeStamp[1].split(" ")[1] !== currentTime[1]
+              message.timeStamp[1]?.split(" ")[1] !==
+                messageReceivedNow[id + 1]?.timeStamp[1]?.split(" ")[1] &&
+              message.timeStamp[1]?.split(" ")[1] !==
+                currentTime[1]?.split(" ")[1]
             ) {
               if (message.recvMemberId !== myMemberId) {
                 return <FullMyMessage message={message} key={id} />;
