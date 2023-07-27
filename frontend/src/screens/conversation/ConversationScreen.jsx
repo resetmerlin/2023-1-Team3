@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPersonalInfoAction } from "../../actions/securityEditAction";
 import {
@@ -10,11 +10,13 @@ import { styled } from "styled-components";
 import ConversationContent from "./content/ConversationContent";
 import ConversationBottom from "./bottom/ConversationBottom";
 import ConversationHeader from "./header/ConversationHeader";
-import { giveCurrentTime } from "../../func/commonLogicHelper";
+import { getImageSrc, giveCurrentTime } from "../../func/commonLogicHelper";
 import { messageHistoryResetAction } from "../../actions/resetAction";
+import { getSaveListAction } from "../../actions/saveAction";
 
 const ConversationScreen = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   /**내 정보 가져오기*/
   const personalInfo = useSelector((state) => state.personalInfo);
@@ -27,9 +29,6 @@ const ConversationScreen = () => {
   /**유저 정보 가져오기*/
   const messageSendInfo = useSelector((state) => state.messageSendInfo);
   const { messageSendStatus } = messageSendInfo;
-
-  /**메세지 기록 page state */
-  const [messagePage, setMessagePage] = useState(0);
 
   // 유저가 접속하지 않고 상대가 이미 보낸 메세지 기록들, 동시 접속 시 상대가 보낸 메세지들
   const messageInfo = useSelector((state) => state.messageInfo);
@@ -45,9 +44,6 @@ const ConversationScreen = () => {
 
   /** 메세지 기록 page state */
   const [page, setPage] = useState(0);
-
-  /** 메세지 기록이 없는지 체크하는 state */
-  const [stopPage, setStopPage] = useState(false);
 
   // 유저가 메세지 queue 주소와 접속했는지 확인하는 state
   const [subscribed, setSubscribed] = useState(false);
@@ -77,8 +73,7 @@ const ConversationScreen = () => {
               const body = JSON.parse(response?.body);
               if (body?.status === "FETCH" || body?.status === "GET") {
                 dispatch(getMessagesHistoryAction(response, pageRef.current));
-              } else if (body?.status === "SEND") {
-                // body?.status === "OK" ||
+              } else if (body?.status === "SEND" || body?.status === "OK") {
                 dispatch(sendMessageAction(response));
               }
             }
@@ -143,6 +138,9 @@ const ConversationScreen = () => {
       client.current.disconnect();
     }
   }
+  useEffect(() => {
+    dispatch(getSaveListAction(0));
+  }, []);
 
   useEffect(() => {
     if (!myAccountInfo) {
@@ -150,6 +148,8 @@ const ConversationScreen = () => {
     } else if (!connected) {
       dispatch(messageHistoryResetAction());
       connectionInitiate();
+    } else if (!userMessageStatus) {
+      navigate("/message");
     }
 
     return () => {
@@ -174,6 +174,7 @@ const ConversationScreen = () => {
       pageChangeHandler: pageChangeHandler,
       page: page,
       endPageSignal: messageFetchStatus?.endPageSignal,
+      imageSrc: getImageSrc(userMessageStatus),
 
       giveCurrentTime: giveCurrentTime,
     },
