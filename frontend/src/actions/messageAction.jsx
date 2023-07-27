@@ -26,7 +26,6 @@ export const getMessagesHistoryAction =
       userMessageInfo: { userMessageStatus },
     } = getState();
 
-    const { memberId: opponentMemberId } = userMessageStatus;
     try {
       dispatch({ type: MESSAGE_GET_HISTORY_REQUEST });
 
@@ -37,13 +36,12 @@ export const getMessagesHistoryAction =
           chatMessageResponse.count !== 0 &&
           page !== messageFetchStatus?.page
         ) {
-          console.log(chatMessageResponse?.chatMessages);
           const data = {
             user: {
               page: page,
               endPageSignal: false,
 
-              recvMemberId: opponentMemberId,
+              recvMemberId: userMessageStatus?.opponentMemberId,
               messages: [
                 ...chatMessageResponse?.chatMessages,
                 ...messageFetchStatus?.user.messages,
@@ -62,7 +60,7 @@ export const getMessagesHistoryAction =
                 chatMessageResponse?.chatUsers[0]?.chatMessages.length == 0
                   ? true
                   : false,
-              recvMemberId: opponentMemberId,
+              recvMemberId: userMessageStatus?.opponentMemberId,
               messages: [
                 ...chatMessageResponse?.chatUsers[0]?.chatMessages,
                 ...messageFetchStatus?.user.messages,
@@ -107,18 +105,32 @@ export const getMessageRelationAction =
 
 /** 리스트 가졍 Action */
 export const sendMessageAction = (response) => async (dispatch, getState) => {
+  const {
+    messageSendInfo: { messageSendStatus },
+  } = getState();
   try {
     dispatch({ type: MESSAGE_SEND_REQUEST });
 
     if (response?.body) {
       const chatMessageResponse = JSON.parse(response.body);
-      const data = [chatMessageResponse?.chatUsers[0].chatMessages[0]];
 
-      dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
+      if (chatMessageResponse.status === "SEND") {
+        const data = {
+          message: [chatMessageResponse?.chatUsers[0].chatMessages[0]],
+        };
+        dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
+      } else if (chatMessageResponse.status === "OK") {
+        messageSendStatus[messageSendStatus.length - 1] = {
+          ...messageSendStatus[messageSendStatus.length - 1],
+          ok: true,
+        };
+      }
     } else {
       const messageRequest = JSON.parse(response);
 
-      const data = [messageRequest];
+      const data = {
+        message: [{ ...messageRequest, ok: "loading" }],
+      };
 
       dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
     }
