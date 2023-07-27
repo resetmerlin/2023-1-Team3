@@ -80,10 +80,17 @@ export const messageSendReducers = (
     case MESSAGE_SEND_SUCCESS:
       return {
         loading: false,
-        messageSendStatus: [...state.messageSendStatus, ...action.payload],
+
+        messageSendStatus: [
+          ...state.messageSendStatus,
+          ...action.payload.message,
+        ],
       };
     case MESSAGE_SEND_FAIL:
       return { loading: false, error: action.payload };
+
+    case MESSAGE_GET_HISTORY_RESET:
+      return { loading: false, messageSendStatus: [] };
     default:
       return state;
   }
