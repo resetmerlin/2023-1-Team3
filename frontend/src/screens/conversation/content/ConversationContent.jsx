@@ -10,6 +10,7 @@ const ConversationContent = ({
   page,
   getAllMessageQueue,
   endPageSignal,
+  imageSrc,
 }) => {
   /** 전체 message containter 역할을 하는 conversation__content div의 ref */
   const contentRef = useRef();
@@ -119,12 +120,11 @@ const ConversationContent = ({
     }
   }, [messageRef?.current, messageHistory, endPageSignal]);
 
-  console.log(messageRef.current);
-
   /** JSX 추상화를 위한 object */
 
   const props = {
     currentTime: currentTime,
+    imageSrc: imageSrc,
     messageHistory:
       messageHistory &&
       messageHistory?.map((message) => {
