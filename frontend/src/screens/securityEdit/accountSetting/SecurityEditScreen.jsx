@@ -7,6 +7,7 @@ import { securityEditPassword } from "../../../components/Form/Schema";
 import { useDispatch, useSelector } from "react-redux";
 import { passwordEditAction } from "../../../actions/securityEditAction";
 import { SECURITY_PASSWORD_RESET } from "../../../constants/securityEditConstants";
+import { getSaveListAction } from "../../../actions/saveAction";
 
 const SecurityEditScreen = () => {
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ const SecurityEditScreen = () => {
   /** 해당 페이지로 올때마다 dispath 시작 */
   useEffect(() => {
     dispatch({ type: SECURITY_PASSWORD_RESET });
+    dispatch(getSaveListAction(0));
   }, []);
   return (
     <AccountSetting>

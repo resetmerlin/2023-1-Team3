@@ -12,6 +12,7 @@ import { getImageSrc } from "../../func/commonLogicHelper";
 import SettingScreenSkeleton from "./skeleton/SettingScreenSkeleton";
 import MyCard from "../../components/Card/MyCard";
 import CardDetails from "../../components/PopupCard/CardDetails";
+import { getSaveListAction } from "../../actions/saveAction";
 
 const SettingScreen = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const SettingScreen = () => {
     batch(async () => {
       await dispatch({ type: SECURITY_GET_PERSONALINFO_RESET });
       dispatch(getPersonalInfoAction());
+      dispatch(getSaveListAction(0));
     });
   }, []);
 
