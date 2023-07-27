@@ -1,8 +1,21 @@
 import { styled, keyframes } from "styled-components";
-import React, { memo } from "react";
+import React from "react";
 
 export const ButtonLoading = () => {
   return <Loader />;
+};
+
+export const MessageLoader = () => {
+  return (
+    <box-icon
+      name="send"
+      rotate="180"
+      size=".9rem"
+      type="solid"
+      style={{ position: "absolute", left: "-1.3rem", top: "1.7rem" }}
+      color="rgb(196, 196, 196)"
+    ></box-icon>
+  );
 };
 
 const Rotation = keyframes`
