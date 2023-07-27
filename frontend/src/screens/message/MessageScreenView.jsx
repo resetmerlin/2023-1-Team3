@@ -14,7 +14,13 @@ const MessageScreenView = ({ navigate, n, messageUserList, startMessage }) => {
 
         {messageUserList &&
           messageUserList.map((user) => {
-            return <UserMessage user={user} startMessage={startMessage} />;
+            return (
+              <UserMessage
+                user={user}
+                startMessage={startMessage}
+                key={user?.memberId}
+              />
+            );
           })}
       </Row>
       <Footer />
