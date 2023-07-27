@@ -7,7 +7,7 @@ import {
   DELETE_LIST_FAIL,
 } from "../constants/saveConstants";
 
-import { USER_REAUTHENTICATE } from "../constants/userConstants";
+import { USER_LOGIN_SUCCESS } from "../constants/userConstants";
 import axios from "axios";
 //action creator
 //Redux thunk
@@ -45,7 +45,9 @@ export const getSaveListAction = (page) => async (dispatch, getState) => {
         `${import.meta.env.VITE_API_URL}/member/likes?page=${page}`,
         config
       );
-      dispatch({ type: USER_REAUTHENTICATE, payload: data });
+
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+      sessionStorage.removeItem("sessfbs_ffa0934");
 
       sessionStorage.setItem("sessfbs_ffa0934", JSON.stringify(data));
     } catch (error) {
@@ -56,7 +58,6 @@ export const getSaveListAction = (page) => async (dispatch, getState) => {
             ? error.response.data.message
             : error.messge,
       });
-      // sessionStorage.removeItem("sessfbs_ffa0934");
     }
   }
 };
