@@ -82,6 +82,7 @@ export const LogoutButton = ({ logout }) => {
   return (
     <SettingButton
       type="button"
+      className="setting__button"
       onClick={() => {
         logout();
       }}
