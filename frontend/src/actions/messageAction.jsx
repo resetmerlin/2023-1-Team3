@@ -20,30 +20,55 @@ export const messageInitiateAction = (user) => async (dispatch) => {
 
 /** 리스트 가졍 Action */
 export const getMessagesHistoryAction =
-  (messageResponse) => async (dispatch, getState) => {
+  (messageResponse, page) => async (dispatch, getState) => {
     const {
       messageInfo: { messageFetchStatus },
+      userMessageInfo: { userMessageStatus },
     } = getState();
+
     try {
       dispatch({ type: MESSAGE_GET_HISTORY_REQUEST });
 
       const chatMessageResponse = JSON.parse(messageResponse.body);
 
       if (chatMessageResponse.status === "FETCH") {
-        if (chatMessageResponse.count !== 0) {
-          const data = [
-            ...messageFetchStatus,
-            ...chatMessageResponse?.chatMessages,
-          ];
+        if (
+          chatMessageResponse.count !== 0 &&
+          page !== messageFetchStatus?.page
+        ) {
+          const data = {
+            user: {
+              page: page,
+              endPageSignal: false,
+
+              recvMemberId: userMessageStatus?.opponentMemberId,
+              messages: [
+                ...chatMessageResponse?.chatMessages,
+                ...messageFetchStatus?.user.messages,
+              ],
+            },
+          };
 
           dispatch({ type: MESSAGE_GET_HISTORY_SUCCESS, payload: data });
         }
       } else if (chatMessageResponse.status === "GET") {
-        const data = [
-          ...messageFetchStatus,
-          ...chatMessageResponse?.chatUsers[0]?.chatMessages,
-        ];
-        dispatch({ type: MESSAGE_GET_HISTORY_SUCCESS, payload: data });
+        if (page !== messageFetchStatus?.page) {
+          const data = {
+            user: {
+              page: page,
+              endPageSignal:
+                chatMessageResponse?.chatUsers[0]?.chatMessages.length == 0
+                  ? true
+                  : false,
+              recvMemberId: userMessageStatus?.opponentMemberId,
+              messages: [
+                ...chatMessageResponse?.chatUsers[0]?.chatMessages,
+                ...messageFetchStatus?.user.messages,
+              ],
+            },
+          };
+          dispatch({ type: MESSAGE_GET_HISTORY_SUCCESS, payload: data });
+        }
       }
     } catch (error) {
       dispatch({
@@ -89,13 +114,23 @@ export const sendMessageAction = (response) => async (dispatch, getState) => {
     if (response?.body) {
       const chatMessageResponse = JSON.parse(response.body);
 
-      const data = [...messageSendStatus, ...chatMessageResponse?.chatMessages];
-
-      dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
+      if (chatMessageResponse.status === "SEND") {
+        const data = {
+          message: [chatMessageResponse?.chatUsers[0].chatMessages[0]],
+        };
+        dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
+      } else if (chatMessageResponse.status === "OK") {
+        messageSendStatus[messageSendStatus.length - 1] = {
+          ...messageSendStatus[messageSendStatus.length - 1],
+          ok: true,
+        };
+      }
     } else {
       const messageRequest = JSON.parse(response);
 
-      const data = [...messageSendStatus, ...messageRequest];
+      const data = {
+        message: [{ ...messageRequest, ok: "loading" }],
+      };
 
       dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
     }
@@ -105,7 +140,7 @@ export const sendMessageAction = (response) => async (dispatch, getState) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.messge,
+          : error.message,
     });
   }
 };

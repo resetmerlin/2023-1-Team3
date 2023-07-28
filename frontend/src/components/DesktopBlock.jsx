@@ -60,24 +60,24 @@ const ErrorPageWrap = styled.div`
   }
 `;
 const ErrorPageSmall = styled.p`
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin: 1rem 0;
   color: #a2a2a3;
 `;
 const ErrorPageContent = styled.div`
-  font-size: 2.6rem;
+  font-size: 2rem;
   margin: 0.9rem 0.7rem;
 `;
 
 const NumberError = styled.span`
-  font-size: 7rem;
+  font-size: 5rem;
   font-weight: 600;
   color: #434a54;
 `;
 
 const ErrorLogo = styled.img`
-  height: 28rem;
-  width: 32rem;
+  height: 26rem;
+  width: 26rem;
   bottom: 0;
 `;
 const DesktopContainer = styled.div`

@@ -9,6 +9,7 @@ import ConversationScreen from "./screens/conversation/ConversationScreen";
 import Loading from "./components/Loading";
 import MessageScreen from "./screens/message/MessageScreen";
 import DesktopBlock from "./components/DesktopBlock";
+import AccountResignScreen from "./screens/account/AccountResignScreen";
 const LoginSceen = lazy(() => import("./screens/login/LoginScreen"));
 const HomeScreen = lazy(() => import("./screens/home/HomeScreen"));
 const SaveScreen = lazy(() => import("./screens/save/SaveScreen"));
@@ -96,6 +97,16 @@ function App() {
                 element={
                   <Suspense fallback={<Loading />}>
                     <ProfileEditScreen />
+                  </Suspense>
+                }
+                exact
+              ></Route>
+
+              <Route
+                path="/setting/account-management"
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <AccountResignScreen />
                   </Suspense>
                 }
                 exact

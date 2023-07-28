@@ -10,6 +10,8 @@ import {
 
 import MessageScreenView from "./MessageScreenView";
 import { giveCurrentTime } from "../../func/commonLogicHelper";
+import { messageHistoryResetAction } from "../../actions/resetAction";
+import { getSaveListAction } from "../../actions/saveAction";
 const MessageScreen = () => {
   const navigate = useNavigate(0);
 
@@ -84,6 +86,10 @@ const MessageScreen = () => {
     }
   }
 
+  useEffect(() => {
+    dispatch(messageHistoryResetAction());
+    dispatch(getSaveListAction(0));
+  }, []);
   useEffect(() => {
     if (!myAccountInfo) {
       dispatch(getPersonalInfoAction());

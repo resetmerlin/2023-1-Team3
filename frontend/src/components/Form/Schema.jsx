@@ -112,3 +112,17 @@ export const personalInfoSchema = yup
     description: yup.string(),
   })
   .required();
+
+/** 유저 탈퇴 확인을 위한 schema */
+export const accountResignSchema = yup
+  .object({
+    currentPassword: yup
+      .string()
+      .required("비밀번호를 입력해 주세요")
+      .min(8, "비밀번호는 최소 8글자입니다")
+      .matches(
+        /^(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+$/,
+        "비밀번호에 특수문자와 숫자가 최소 1개 기입되어야 합니다"
+      ),
+  })
+  .required();

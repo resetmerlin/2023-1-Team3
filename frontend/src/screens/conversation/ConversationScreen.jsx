@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPersonalInfoAction } from "../../actions/securityEditAction";
 import {
@@ -10,10 +10,13 @@ import { styled } from "styled-components";
 import ConversationContent from "./content/ConversationContent";
 import ConversationBottom from "./bottom/ConversationBottom";
 import ConversationHeader from "./header/ConversationHeader";
-import { giveCurrentTime } from "../../func/commonLogicHelper";
+import { getImageSrc, giveCurrentTime } from "../../func/commonLogicHelper";
+import { messageHistoryResetAction } from "../../actions/resetAction";
+import { getSaveListAction } from "../../actions/saveAction";
 
 const ConversationScreen = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   /**내 정보 가져오기*/
   const personalInfo = useSelector((state) => state.personalInfo);
@@ -27,9 +30,6 @@ const ConversationScreen = () => {
   const messageSendInfo = useSelector((state) => state.messageSendInfo);
   const { messageSendStatus } = messageSendInfo;
 
-  /**메세지 기록 page state */
-  const [messagePage, setMessagePage] = useState(0);
-
   // 유저가 접속하지 않고 상대가 이미 보낸 메세지 기록들, 동시 접속 시 상대가 보낸 메세지들
   const messageInfo = useSelector((state) => state.messageInfo);
   const { messageFetchStatus } = messageInfo;
@@ -42,55 +42,52 @@ const ConversationScreen = () => {
   // 웹 소켓 접속 여부의 체크해주는 state
   const [connected, setConnected] = useState(false);
 
+  /** 메세지 기록 page state */
+  const [page, setPage] = useState(0);
+
   // 유저가 메세지 queue 주소와 접속했는지 확인하는 state
   const [subscribed, setSubscribed] = useState(false);
 
   const client = useRef();
 
+  const pageRef = useRef();
+  const pageChangeHandler = () => {
+    setPage(page + 1);
+  };
+
   /** CONNECT: 웹 소켓 열어서 서버와 통신 시작 */
   function connectionInitiate() {
-    const socket = new SockJS(`${import.meta.env.VITE_API_URL}/chat`);
-    client.current = Stomp.over(socket);
-    client.current.connect({}, () => {
-      setConnected(true);
-      getDirectionOfMessages();
-    });
-  }
-
-  /** 내가 보낸 혹은 받은 메세지를 state로 저장 */
-  const getMessageFromServer = useCallback((response) => {
-    if (response?.body) {
-      const body = JSON.parse(response?.body);
-
-      if (body?.status == "FETCH" || "GET") {
-        dispatch(getMessagesHistoryAction(response));
-      } else if (body?.status == "OK" || "SEND") {
-        dispatch(sendMessageAction(response));
-      }
-    } else {
-      dispatch(sendMessageAction(response));
-    }
-  });
-
-  /** SUBSCRIBE: 내 메세지 direction 접속 */
-  function getDirectionOfMessages() {
     const memberId = myAccountInfo?.memberId;
     const headers = { memberId: memberId };
 
-    client.current.subscribe(
-      `/topic/${memberId}`,
-      function (response) {
-        // 메세지 기록 redux에 저장하기 위해 dispatch
-        getMessageFromServer(response);
-      },
-      headers
-    );
-    setSubscribed(true);
-    fetchMessages();
+    if (!connected) {
+      const socket = new SockJS(`${import.meta.env.VITE_API_URL}/chat`);
+      client.current = Stomp.over(socket);
+      client.current.connect({}, () => {
+        setConnected(true);
+        client.current.subscribe(
+          `/topic/${memberId}`,
+          function (response) {
+            // 메세지 기록 redux에 저장하기 위해 dispatch
+            if (response?.body) {
+              const body = JSON.parse(response?.body);
+              if (body?.status === "FETCH" || body?.status === "GET") {
+                dispatch(getMessagesHistoryAction(response, pageRef.current));
+              } else if (body?.status === "SEND" || body?.status === "OK") {
+                dispatch(sendMessageAction(response));
+              }
+            }
+          },
+          headers
+        );
+        setSubscribed(true);
+        fetchMessages(page);
+      });
+    }
   }
 
   /** SEND/FETCH: 내가 접속하지 않을때 상대가 보낸 메세지들을 가져옴 */
-  function fetchMessages() {
+  function fetchMessages(page) {
     client.current.send(
       "/app/fetch",
       {},
@@ -100,18 +97,22 @@ const ConversationScreen = () => {
       })
     );
 
-    getAllMessageQueue();
+    getAllMessageQueue(page);
   }
 
   /** SEND/GET: 이전의 기록들을 가져옴 */
-  function getAllMessageQueue() {
+  async function getAllMessageQueue(scopePage) {
+    setPage((prevPage) => {
+      pageRef.current = prevPage + 1;
+      return prevPage + 1;
+    });
     client.current.send(
       "/app/get",
       {},
       JSON.stringify({
         fromMemberId: myAccountInfo?.memberId,
         toMemberId: opponentMemberId,
-        page: 0,
+        page: scopePage,
         timeStamp: giveCurrentTime(),
       })
     );
@@ -119,9 +120,7 @@ const ConversationScreen = () => {
 
   /** SEND: 메세지를 전송함 */
   async function sendMsg(messages) {
-    if (!subscribed && connected) {
-      await getDirectionOfMessages();
-    }
+    if (!subscribed || !connected) return;
     const request = {
       sendMemberId: myAccountInfo?.memberId,
       recvMemberId: opponentMemberId,
@@ -130,7 +129,7 @@ const ConversationScreen = () => {
     };
 
     await client.current.send("/app/send", {}, JSON.stringify(request));
-    getMessageFromServer(JSON.stringify([request]));
+    dispatch(sendMessageAction(JSON.stringify(request)));
   }
 
   // 웹 소켓 Disconnect
@@ -139,17 +138,24 @@ const ConversationScreen = () => {
       client.current.disconnect();
     }
   }
+  useEffect(() => {
+    dispatch(getSaveListAction(0));
+  }, []);
 
   useEffect(() => {
     if (!myAccountInfo) {
       dispatch(getPersonalInfoAction());
-    } else {
+    } else if (!connected) {
+      dispatch(messageHistoryResetAction());
       connectionInitiate();
+    } else if (!userMessageStatus) {
+      navigate("/message");
     }
 
     return () => {
       if (client?.current) {
         disconnect();
+        dispatch(messageHistoryResetAction());
       }
     };
   }, [myAccountInfo, connected]);
@@ -160,11 +166,15 @@ const ConversationScreen = () => {
       name: userMessageStatus?.name,
     },
     contentProps: {
-      messageHistory: messageFetchStatus,
+      messageHistory: messageFetchStatus?.user?.messages,
       messageReceivedNow: messageSendStatus,
       myMemberId: myAccountInfo?.memberId,
       opponent: userMessageStatus,
       getAllMessageQueue: getAllMessageQueue,
+      pageChangeHandler: pageChangeHandler,
+      page: page,
+      endPageSignal: messageFetchStatus?.endPageSignal,
+      imageSrc: getImageSrc(userMessageStatus),
 
       giveCurrentTime: giveCurrentTime,
     },

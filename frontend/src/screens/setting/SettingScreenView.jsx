@@ -77,7 +77,13 @@ const SettingUserAccount = ({ logoutHandler }) => {
   return (
     <SettingLastContent>
       <LogoutButton logout={logoutHandler} />
-      <button style={{ color: "red" }}>계정에서 탈퇴</button>
+      <Link
+        to="/setting/account-management"
+        className="setting__button"
+        style={{ color: "red", textDecoration: "none" }}
+      >
+        계정에서 탈퇴
+      </Link>
     </SettingLastContent>
   );
 };
@@ -184,7 +190,8 @@ const SettingLastContent = styled.div`
   -webkit-box-shadow: -1px 0px 15px 7px rgb(236, 234, 247, 1);
   -moz-box-shadow: -1px 0px 15px 7px rgb(236, 234, 247, 1);
   align-self: center;
-  button {
+
+  .setting__button {
     height: 50%;
     width: 100%;
     display: flex;

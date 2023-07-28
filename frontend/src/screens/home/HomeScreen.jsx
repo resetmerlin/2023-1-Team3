@@ -19,6 +19,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { blockUserAction } from "../../actions/buttonAction";
 import { PEOPLE_LIST_RESET } from "../../constants/peopleConstants";
 import { messageInitiateAction } from "../../actions/messageAction";
+import { getSaveListAction } from "../../actions/saveAction";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -141,6 +142,7 @@ const HomeScreen = () => {
   /** 해당 페이지에 이동할때마다 유저 리스트 초기화*/
   useEffect(() => {
     dispatch({ type: PEOPLE_LIST_RESET });
+    dispatch(getSaveListAction(0));
   }, []);
 
   /** 유저리스트 response 서버로부터 사람 리스트 불러옴*/

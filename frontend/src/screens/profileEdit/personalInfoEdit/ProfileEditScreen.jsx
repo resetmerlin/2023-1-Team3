@@ -20,6 +20,7 @@ import {
 } from "../../../actions/resetAction";
 import Loading from "../../../components/Loading";
 import { getImageSrc } from "../../../func/commonLogicHelper";
+import { getSaveListAction } from "../../../actions/saveAction";
 
 const ProfileEditScreen = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const ProfileEditScreen = () => {
       await dispatch(securityUserInfoEditResetAction());
       dispatch(securityUserInfoResetAction());
       dispatch(securityUserProfileResetAction());
+      dispatch(getSaveListAction(0));
 
       dispatch(getPersonalInfoAction());
     });

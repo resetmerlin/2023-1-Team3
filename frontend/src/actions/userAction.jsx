@@ -12,6 +12,7 @@ import {
   USER_VERIFY_SUCCESS,
   USER_VERIFY_FAIL,
   USER_LOGOUT,
+  USER_REAUTHENTICATE,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -76,7 +77,6 @@ export const codeVerificationAction = (mail, code) => async (dispatch) => {
 export const registerAction = (userInfo) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
-    console.log(userInfo);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -137,4 +137,27 @@ export const logoutAction = () => (dispatch) => {
   sessionStorage.removeItem("sessfbs_ffa0934");
 
   dispatch({ type: USER_LOGOUT });
+};
+
+export const reAuthenticateAction = () => async (dispatch, getState) => {
+  const {
+    loginInfo: { sessfbs_ffa0934 },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        refresh_token: ` ${sessfbs_ffa0934.refreshToken}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API_URL}/member/mypages`,
+      config
+    );
+
+    dispatch({ type: USER_REAUTHENTICATE });
+  } catch (error) {
+    sessionStorage.removeItem("sessfbs_ffa0934");
+  }
 };
