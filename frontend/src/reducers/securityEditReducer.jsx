@@ -15,6 +15,10 @@ import {
   SECURITY_GET_PERSONALINFO_RESET,
   SECURITY_PERSONALINFO_RESET,
   SECURITY_UPLOAD_PROFILE_RESET,
+  SECURITY_ACCOUNT_RESIGN_REQUEST,
+  SECURITY_ACCOUNT_RESIGN_SUCCESS,
+  SECURITY_ACCOUNT_RESIGN_FAIL,
+  SECURITY_ACCOUNT_RESIGN_RESET,
 } from "../constants/securityEditConstants";
 
 /** 유저들 불러오기 reducers */
@@ -98,6 +102,32 @@ export const getPersonalInfoReducers = (state = {}, action) => {
       return { loading: false, error: action.payload };
 
     case SECURITY_GET_PERSONALINFO_RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+/** 유저들 불러오기 reducers */
+export const accountResignInfoReducers = (state = {}, action) => {
+  switch (action.type) {
+    case SECURITY_ACCOUNT_RESIGN_REQUEST:
+      return { loading: true, ...state, accountResignStatus: false };
+
+    case SECURITY_ACCOUNT_RESIGN_SUCCESS:
+      return {
+        loading: false,
+        accountResignStatus: true,
+      };
+
+    case SECURITY_ACCOUNT_RESIGN_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+        accountResignStatus: false,
+      };
+    case SECURITY_ACCOUNT_RESIGN_RESET:
       return {};
 
     default:
