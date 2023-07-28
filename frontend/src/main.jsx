@@ -6,7 +6,7 @@ import store from "./store";
 import ErrorBoundary from "./errorHandling/ErrorBoundary";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ErrorBoundary fallback="There was an errror">
+    <ErrorBoundary fallback="There was an error">
       <Provider store={store}>
         <App />
       </Provider>
