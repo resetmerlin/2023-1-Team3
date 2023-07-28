@@ -2,8 +2,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, FormProvider } from "react-hook-form";
 import LoginForm from "../screens/login/form/LoginForm";
 import RegisterForm from "../screens/register/form/RegisterForm";
-import SecurityPasswordForm from "../screens/setting/accountSetting/form/SecurityPasswordForm";
-import PersonalInfoForm from "../screens/setting/personalInfoEdit/form/PersonalInfoForm";
+import SecurityPasswordForm from "../screens/securityEdit/accountSetting/form/SecurityPasswordForm";
+import PersonalInfoForm from "../screens/profileEdit/personalInfoEdit/form/PersonalInfoForm";
+import ResignForm from "../screens/account/form/ResignForm";
 
 export const LoginFormHook = ({ schema, onSubmit, loginInfo, navigate }) => {
   const methods = useForm({
@@ -108,8 +109,37 @@ export const SecurityPaswordFormHook = ({
     </FormProvider>
   );
 };
+export const SecurityResignFormHook = ({
+  schema,
+  onSubmit,
+  error,
+  loading,
+}) => {
+  const methods = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
 
-export const PersonalInfoFormHook = ({ schema, onSubmit, info, user }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+
+  return (
+    <FormProvider {...methods}>
+      <ResignForm onSubmit={onSubmit} error={error} loading={loading} />
+    </FormProvider>
+  );
+};
+export const PersonalInfoFormHook = ({
+  schema,
+  onSubmit,
+  info,
+  user,
+  handleChangeProfile,
+  changeProfile,
+}) => {
   const defaultValues = {
     name: user?.name,
     birthday: user?.birth,
@@ -134,7 +164,13 @@ export const PersonalInfoFormHook = ({ schema, onSubmit, info, user }) => {
 
   return (
     <FormProvider {...methods}>
-      <PersonalInfoForm onSubmit={onSubmit} info={info} user={user} />
+      <PersonalInfoForm
+        onSubmit={onSubmit}
+        info={info}
+        user={user}
+        changeProfile={changeProfile}
+        handleChangeProfile={handleChangeProfile}
+      />
     </FormProvider>
   );
 };

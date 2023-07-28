@@ -1,28 +1,30 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RegisterScreen from "./screens/register/RegisterScreen";
-import MessageScreen from "./screens/MessageScreen";
-import ConversationScreen from "./screens/ConversationScreen";
 import "./sass/index.css";
 import RequireAuth from "./components/RequireAuth";
 import MissingPage from "./components/MissingPage";
 import Unauthorized from "./components/Unauthorized";
 import { Suspense, lazy } from "react";
-
+import ConversationScreen from "./screens/conversation/ConversationScreen";
 import Loading from "./components/Loading";
+import MessageScreen from "./screens/message/MessageScreen";
+import DesktopBlock from "./components/DesktopBlock";
+import AccountResignScreen from "./screens/account/AccountResignScreen";
 const LoginSceen = lazy(() => import("./screens/login/LoginScreen"));
 const HomeScreen = lazy(() => import("./screens/home/HomeScreen"));
-const SaveScreen = lazy(() => import("./screens/SaveScreen"));
+const SaveScreen = lazy(() => import("./screens/save/SaveScreen"));
 const SettingScreen = lazy(() => import("./screens/setting/SettingScreen"));
-const AccountSettingScreen = lazy(() =>
-  import("./screens/setting/accountSetting/AccountSettingScreen")
+const SecurityEditScreen = lazy(() =>
+  import("./screens/securityEdit/accountSetting/SecurityEditScreen")
 );
-const PersonalInfoScreen = lazy(() =>
-  import("./screens/setting/personalInfoEdit/PersonalInfoScreen")
+const ProfileEditScreen = lazy(() =>
+  import("./screens/profileEdit/personalInfoEdit/ProfileEditScreen")
 );
 function App() {
   return (
     <BrowserRouter>
       <div className="container">
+        <DesktopBlock />
         <Routes>
           <Route path="*" element={<MissingPage />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
@@ -62,15 +64,10 @@ function App() {
             ></Route>
           </Route>
           <Route element={<RequireAuth />}>
-            <Route path="/message" element={<MessageScreen />} exact></Route>
-          </Route>
-
-          <Route element={<RequireAuth />}>
-            <Route
-              path="/conversation"
-              element={<ConversationScreen />}
-              exact
-            ></Route>
+            <Route path="/message">
+              <Route path="" element={<MessageScreen />} exact />
+              <Route path=":id" element={<ConversationScreen />} exact />
+            </Route>
           </Route>
 
           <Route element={<RequireAuth />}>
@@ -89,7 +86,7 @@ function App() {
                 path="/setting/account-security"
                 element={
                   <Suspense fallback={<Loading />}>
-                    <AccountSettingScreen />
+                    <SecurityEditScreen />
                   </Suspense>
                 }
                 exact
@@ -99,7 +96,17 @@ function App() {
                 path="/setting/personal-info"
                 element={
                   <Suspense fallback={<Loading />}>
-                    <PersonalInfoScreen />
+                    <ProfileEditScreen />
+                  </Suspense>
+                }
+                exact
+              ></Route>
+
+              <Route
+                path="/setting/account-management"
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <AccountResignScreen />
                   </Suspense>
                 }
                 exact

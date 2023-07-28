@@ -1,0 +1,24 @@
+.card__top {
+  height: 78%;
+  width: 100%;
+
+  .blur-load {
+    width: 100%;
+    height: 100%;
+  }
+  &__profile {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 1.5rem;
+
+    overflow: hidden;
+    transition: all 0.2s ease;
+    border-radius: 12px;
+  }
+}

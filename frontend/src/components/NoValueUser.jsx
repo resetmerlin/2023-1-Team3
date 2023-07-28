@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { styled } from "styled-components";
-import { HomeWrap } from "../screens/home/HomeContent";
+import { HomeWrap } from "../screens/home/content/HomeContent";
 import { RecapUserListsButton } from "./Button";
 const NoValueUser = memo(function NoValueUser({ getPeopleList }) {
   return (

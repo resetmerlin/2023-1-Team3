@@ -39,8 +39,7 @@ body {
   }
 }
 @media screen and (min-width: 801px) and (max-width: 1024px) {
-  html {
-    /* tablet, landscape iPad, lo-res laptops ands desktops */
+  html { /* tablet, landscape iPad, lo-res laptops ands desktops */
     font-size: 118.75%;
   }
 }
@@ -59,10 +58,7 @@ body {
 
 body {
   display: block;
-  font-family: "Pretendard Variable", Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 @media screen and (min-width: 600px) and (max-width: 800px) {
   body {
@@ -106,6 +102,8 @@ body {
     /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
     min-width: 320px;
     max-width: 479px;
+    position: fixed;
+    height: 100%;
   }
 }
 @media screen and (min-width: 480px) and (max-width: 599px) {
@@ -113,6 +111,8 @@ body {
     /* smartphones, Android phones, landscape iPhone */
     min-width: 480px;
     max-width: 599px;
+    position: fixed;
+    height: 100%;
   }
 }
 @media screen and (min-width: 600px) and (max-width: 800px) {
@@ -158,8 +158,7 @@ body {
 }
 
 @keyframes blink {
-  from,
-  to {
+  from, to {
     color: transparent;
   }
   50% {
@@ -555,7 +554,7 @@ body {
 
 #Splide {
   position: relative;
-  height: 80vh;
+  height: 77vh;
   width: 100%;
 }
 
@@ -651,147 +650,6 @@ body {
   display: flex;
   align-items: center;
   text-align: center;
-}
-
-.conversation {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.5rem;
-  color: white;
-  background-color: black;
-}
-.conversation #partner {
-  margin-right: 2rem;
-  background-color: black;
-}
-.conversation #client-justify {
-  justify-content: flex-end;
-}
-.conversation #client {
-  margin-left: 2rem;
-  background-color: rgba(96, 99, 106, 0.4);
-  border: none;
-}
-.conversation__header {
-  height: 9%;
-  width: 100%;
-  top: 0;
-  position: fixed;
-  display: flex;
-  padding: 0.7rem 1rem;
-  align-items: center;
-}
-.conversation__header__back {
-  width: 10%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  line-height: 0rem;
-}
-.conversation__header__information__wrap {
-  width: 90%;
-  justify-content: flex-start;
-  margin-left: 0.6rem;
-  display: flex;
-  align-items: center;
-}
-.conversation__header__information__wrap .conversation__header__user-image {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  margin-right: 0.8rem;
-}
-.conversation__header__information__wrap .conversation__header__information {
-  display: flex;
-  align-items: center;
-}
-.conversation__header__information__wrap
-  .conversation__header__information__name {
-  font-size: 1rem;
-  font-weight: 600;
-}
-.conversation__content {
-  height: 85%;
-  width: 100%;
-  top: 9%;
-  position: absolute;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-.conversation__content .time {
-  justify-content: center;
-  font-size: 0.8rem;
-}
-.conversation__content__message__wrap {
-  width: 100%;
-  height: auto;
-  display: flex;
-  align-items: flex-end;
-  margin-bottom: 0.8rem;
-}
-.conversation__content__message__wrap .conversation__content__message {
-  white-space: normal;
-  padding: 0.8rem;
-  font-size: 1rem;
-  border: 1px solid rgba(141, 145, 157, 0.4);
-  align-items: stretch;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 0;
-  margin: 0;
-  border-radius: 1rem;
-  width: auto;
-  margin: 0 0.8rem;
-}
-.conversation__content__message__wrap .conversation__content__profile {
-  width: 2.3rem;
-  height: 2.3rem;
-  border-radius: 50%;
-}
-.conversation__bottom {
-  height: 6%;
-  width: 100%;
-  top: 93.7%;
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: black;
-}
-.conversation__bottom__keyboard-input {
-  display: flex;
-  height: 100%;
-  width: 95%;
-  border: 1px solid white;
-  border-radius: 2.7rem;
-  padding: 0.5rem;
-}
-.conversation__bottom__keyboard-input input {
-  width: 87%;
-  margin-left: 1rem;
-  background: transparent;
-  border: none;
-  animation: blink 1s steps(2) infinite;
-  animation: 1s blink step-end infinite;
-}
-.conversation__bottom__keyboard-input input:focus {
-  outline: none;
-  color: white;
-}
-.conversation__bottom__message-send {
-  background-color: transparent;
-  border: none;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
 }
 
 .save {
@@ -952,12 +810,7 @@ body {
 }
 
 .profileEdit {
-  background-image: linear-gradient(
-      359deg,
-      rgba(0, 0, 0, 0.829) 40%,
-      rgba(0, 0, 0, 0.144) 100%
-    ),
-    url(/public/images/userImage/user-1.jpg) !important;
+  background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg) !important;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1070,11 +923,7 @@ body {
   color: white;
   background-color: black;
   align-self: start;
-  background-image: linear-gradient(
-    359deg,
-    rgba(26, 25, 25, 0.829) 40%,
-    rgba(0, 0, 0, 0.144) 100%
-  );
+  background-image: linear-gradient(359deg, rgba(26, 25, 25, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%);
 }
 .default-layout__top {
   justify-content: space-between;
@@ -1132,34 +981,16 @@ body {
 .form__wrap form .form__checkbox-wrap .form__checkbox {
   display: none;
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #female:checked
-  + .form__checkbox--female-label {
+.form__wrap form .form__checkbox-wrap #female:checked + .form__checkbox--female-label {
   background-color: rgb(230, 107, 144);
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #female:checked
-  + .form__checkbox--female-label
-  i {
+.form__wrap form .form__checkbox-wrap #female:checked + .form__checkbox--female-label i {
   color: white;
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #male:checked
-  + .form__checkbox--male-label {
+.form__wrap form .form__checkbox-wrap #male:checked + .form__checkbox--male-label {
   background-color: rgb(101, 174, 223);
 }
-.form__wrap
-  form
-  .form__checkbox-wrap
-  #male:checked
-  + .form__checkbox--male-label
-  i {
+.form__wrap form .form__checkbox-wrap #male:checked + .form__checkbox--male-label i {
   color: white;
 }
 .form__wrap form .form__checkbox-wrap label {
@@ -1239,12 +1070,7 @@ body {
     justify-content: flex-end;
     font-size: 1.5rem;
     background-position: center;
-    background-image: linear-gradient(
-        359deg,
-        rgba(0, 0, 0, 0.829) 40%,
-        rgba(0, 0, 0, 0.144) 100%
-      ),
-      url(/public/images/userImage/user-1.jpg);
+    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -1255,12 +1081,7 @@ body {
     justify-content: flex-end;
     font-size: 1.5rem;
     background-position: center;
-    background-image: linear-gradient(
-        359deg,
-        rgba(0, 0, 0, 0.829) 40%,
-        rgba(0, 0, 0, 0.144) 100%
-      ),
-      url(/public/images/userImage/user-1.jpg);
+    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.829) 40%, rgba(0, 0, 0, 0.144) 100%), url(/public/images/userImage/user-1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -1410,4 +1231,4 @@ body {
 .form__button__go-login {
   border: none;
   background-color: transparent;
-} /*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */

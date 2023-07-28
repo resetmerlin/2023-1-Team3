@@ -27,7 +27,7 @@ export const saveUserAction = (toId, signal) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+        access_token: ` ${sessfbs_ffa0934.accessToken}`,
       },
     };
     const { data } = await axios.put(
@@ -94,7 +94,7 @@ export const blockUserAction =
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+          access_token: ` ${sessfbs_ffa0934.accessToken}`,
         },
       };
       const { data } = await axios.put(

@@ -1,0 +1,60 @@
+.conversation__bottom {
+  height: auto;
+  width: 100%;
+  top: 93%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  padding: 1rem 0rem;
+
+  box-shadow: 0px -7px 12px -6px rgb(212, 206, 245);
+  -webkit-box-shadow: 0px -7px 12px -6px rgb(212, 206, 245);
+  -moz-box-shadow: 0px -7px 12px -6px rgb(212, 206, 245);
+  &__keyboard-input {
+    display: flex;
+    width: 88%;
+
+    height: 3rem;
+    border: 1px solid rgb(157, 140, 252);
+    border-radius: 5px;
+    color: black;
+
+    textarea {
+      height: 100%;
+      line-height: normal;
+      font-family: inherit;
+      width: 87%;
+      margin-left: 1rem;
+      background: transparent;
+      border: none;
+      animation: blink 1s sasteps(2) infinite;
+      -webkit-animation: 1s blink step-end infinite;
+      -moz-animation: 1s blink step-end infinite;
+      -ms-animation: 1s blink step-end infinite;
+      -o-animation: 1s blink step-end infinite;
+      animation: 1s blink step-end infinite;
+      color: black !important;
+      font-size: 1rem;
+
+      padding: 13px;
+      &:focus {
+        outline: none;
+        color: black;
+      }
+
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+    }
+  }
+
+  &__message-send {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}

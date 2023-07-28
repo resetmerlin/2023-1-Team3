@@ -19,7 +19,7 @@ export const peopleListAction = () => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+        access_token: ` ${sessfbs_ffa0934.accessToken}`,
       },
     };
     const { data } = await axios.get(

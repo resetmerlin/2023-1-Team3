@@ -1,0 +1,36 @@
+.conversation__header {
+  height: 9%;
+  width: 100%;
+  display: flex;
+  padding: 0.7rem 1rem;
+  align-items: center;
+  box-shadow: -1px 1px 12px 5px rgb(236, 234, 247);
+  -webkit-box-shadow: -1px 1px 12px 5px rgb(236, 234, 247);
+  -moz-box-shadow: -1px 1px 12px 5px rgb(236, 234, 247);
+
+  &__back {
+    width: 10%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    line-height: 0rem;
+  }
+
+  &__information__wrap {
+    width: 90%;
+    justify-content: flex-start;
+    margin-left: 0.6rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &__information {
+    display: flex;
+    align-items: center;
+    &__name {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+  }
+}

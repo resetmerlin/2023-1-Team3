@@ -11,8 +11,12 @@ import {
   SECURITY_GET_PERSONALINFO_REQUEST,
   SECURITY_GET_PERSONALINFO_SUCCESS,
   SECURITY_GET_PERSONALINFO_FAIL,
+  SECURITY_ACCOUNT_RESIGN_REQUEST,
+  SECURITY_ACCOUNT_RESIGN_SUCCESS,
+  SECURITY_ACCOUNT_RESIGN_FAIL,
 } from "../constants/securityEditConstants";
 import axios from "axios";
+import { USER_LOGOUT } from "../constants/userConstants";
 
 /** 회원가입 Action */
 export const passwordEditAction =
@@ -26,7 +30,7 @@ export const passwordEditAction =
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+          access_token: ` ${sessfbs_ffa0934.accessToken}`,
         },
       };
 
@@ -62,7 +66,7 @@ export const profileEditAction = (image) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+        access_token: ` ${sessfbs_ffa0934.accessToken}`,
       },
     };
     const { data } = await axios.post(
@@ -95,7 +99,7 @@ export const personalInfoEditAction =
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+          access_token: `${sessfbs_ffa0934.accessToken}`,
         },
       };
 
@@ -127,7 +131,7 @@ export const getPersonalInfoAction = () => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${sessfbs_ffa0934.accessToken}`,
+        access_token: ` ${sessfbs_ffa0934.accessToken}`,
       },
     };
 
@@ -140,6 +144,41 @@ export const getPersonalInfoAction = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: SECURITY_GET_PERSONALINFO_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.messge,
+    });
+  }
+};
+
+export const accountResignAction = (password) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: SECURITY_ACCOUNT_RESIGN_REQUEST });
+    const {
+      loginInfo: { sessfbs_ffa0934 },
+    } = getState();
+    console.log(password);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        access_token: ` ${sessfbs_ffa0934.accessToken}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}/member/signout`,
+      password,
+      config
+    );
+
+    dispatch({ type: SECURITY_ACCOUNT_RESIGN_SUCCESS, payload: data });
+    dispatch({ type: USER_LOGOUT });
+
+    sessionStorage.removeItem("sessfbs_ffa0934");
+  } catch (error) {
+    dispatch({
+      type: SECURITY_ACCOUNT_RESIGN_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

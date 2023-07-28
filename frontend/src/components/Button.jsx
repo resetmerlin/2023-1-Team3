@@ -3,6 +3,7 @@ import React, { memo } from "react";
 import { BoxIconElement } from "boxicons";
 import { ButtonLoading } from "./Loader";
 import { ButtonChecked } from "./Checked";
+import LikeAnimation from "./Animation/Like/LikeAnimation";
 
 /**저장 버튼: 개인정보 재설정 저장용*/
 export const SaveButton = ({ loading, status }) => {
@@ -14,9 +15,6 @@ export const SaveButton = ({ loading, status }) => {
         : loading === undefined && status === undefined
         ? "rgb(128, 113, 252)"
         : "rgb(128, 113, 252)",
-    top: "2%",
-    right: " 3%",
-    position: "absolute",
   };
   return (
     <PersonalInfoButton type="submit" style={saveButtonStyle}>
@@ -33,11 +31,12 @@ export const SaveButton = ({ loading, status }) => {
 export const ChangeProfileButton = ({ handleChangeProfile }) => {
   return (
     <PersonalInfoButton
-      type="submit "
       style={{
         width: "5.5rem",
       }}
-      onClick={() => {
+      onClick={(event) => {
+        event.preventDefault();
+
         handleChangeProfile();
       }}
     >
@@ -67,7 +66,7 @@ export const CheckedButton = () => {
       type="submit"
       style={{
         position: "fixed",
-        top: "3%",
+        top: "4.5%",
         right: "3%",
         backgroundColor: "white",
         border: "none",
@@ -83,6 +82,7 @@ export const LogoutButton = ({ logout }) => {
   return (
     <SettingButton
       type="button"
+      className="setting__button"
       onClick={() => {
         logout();
       }}
@@ -115,7 +115,7 @@ export const SubmitButton = ({ page }) => {
     backgroundColor: "rgb(128, 113, 252)",
     width: page == "register" ? "100%" : "47.5%",
 
-    height: page == "register" ? " 3.3rem" : "3rem",
+    height: page == "register" ? " 3.3rem" : "2.5rem",
   };
   return (
     <DefaultFormButtom type="submit" style={submitButtonStyle}>
@@ -198,6 +198,23 @@ export const BackButton = memo(function BackButton({ navigate }) {
     </BackArrowButton>
   );
 });
+/** 뒤로 가기 버튼 */
+export const HeaderBackButton = memo(function BackButton({ navigate }) {
+  return (
+    <BackArrowButton
+      style={{
+        position: "fixed",
+        top: "4.5%",
+        left: "5%",
+      }}
+      onClick={() => {
+        navigate(-1);
+      }}
+    >
+      <box-icon name="chevron-left" color="black" size="2.5rem"></box-icon>
+    </BackArrowButton>
+  );
+});
 
 /*회입가입 스테이지 뒤로 가기 버튼 */
 export const BackFormButton = memo(function BackFormButton({ handlePrevious }) {
@@ -213,17 +230,19 @@ export const BackToSlideCardButton = memo(function BackFormButton({
   goBackToSlide,
 }) {
   return (
-    <button onClick={goBackToSlide} style={{ cursor: "pointer" }}>
-      <box-icon
-        name="x"
-        color="black"
-        size="3rem"
-        style={{
-          /* margin-bottom: 0rem; */ position: "absolute",
-          top: "1%",
-          right: "2%",
-        }}
-      ></box-icon>{" "}
+    <button
+      onClick={goBackToSlide}
+      style={{
+        position: "absolute",
+        background: "transparent",
+        border: "none",
+
+        top: "1%",
+        right: "2%",
+        zIndex: 1000,
+      }}
+    >
+      <box-icon name="x" color="black" size="3rem"></box-icon>{" "}
     </button>
   );
 });
@@ -358,12 +377,7 @@ export const UserDeleteButton = memo(function UserDeleteButton({
   goNextSlideHandler,
 }) {
   return (
-    <SmallUserButton
-      type="button"
-      onClick={() => {
-        goNextSlideHandler();
-      }}
-    >
+    <SmallUserButton type="button" onClick={goNextSlideHandler}>
       <box-icon name="x" color="rgb(128, 113, 252)" size="2.5rem"></box-icon>
     </SmallUserButton>
   );
@@ -395,9 +409,11 @@ export const RecapUserListsButton = memo(function UserDeleteButton({
   );
 });
 
-export const UserMessageButton = memo(function UserMessageButton() {
+export const UserMessageButton = memo(function UserMessageButton({
+  startMessage,
+}) {
   return (
-    <SmallUserButton type="button">
+    <SmallUserButton type="button" onClick={startMessage}>
       <box-icon
         color="rgb(128, 113, 252)"
         name="message-rounded"
@@ -436,41 +452,43 @@ export const UserDetailsMessageButton = memo(
 export const UserLikeButton = memo(function UserLikeButton({
   saveValue,
   likeAction,
-  memberId,
 }) {
   return (
-    <MediumUserButton
-      type="button"
-      style={{
-        boxShadow:
-          saveValue == true && " 0px 0px 33px 10px rgba(128,113,252,0.46)",
-        WebkitBoxShadow:
-          saveValue == true && " 0px 0px 33px 10px rgba(128,113,252,0.46)",
-        MozBoxShadow:
-          saveValue == true && " 0px 0px 33px 10px rgba(128,113,252,0.46)",
-      }}
-      onClick={() => {
-        likeAction(memberId);
-      }}
-    >
-      {saveValue == false && (
-        <box-icon
-          color="rgb(128, 113, 252)"
-          name="heart"
-          size="2.3rem"
-          type="solid"
-        ></box-icon>
-      )}
+    <>
+      <MediumUserButton
+        type="button"
+        style={{
+          position: "relative",
+          transition: "all 0.1s ease-in-out",
+        }}
+        onClick={likeAction}
+      >
+        {saveValue && <LikeAnimation />}
 
-      {saveValue == true && (
-        <box-icon
-          color="rgb(128, 113, 252)"
-          name="heart"
-          size="2.5rem"
-          type="solid"
-        ></box-icon>
-      )}
-    </MediumUserButton>
+        {saveValue == false ? (
+          <box-icon
+            color="rgb(128, 113, 252)"
+            name="heart"
+            size="2rem"
+            type="solid"
+          ></box-icon>
+        ) : saveValue == true ? (
+          <box-icon
+            color="rgb(128, 113, 252)"
+            name="heart"
+            size="2.5rem"
+            type="solid"
+          ></box-icon>
+        ) : (
+          <box-icon
+            color="rgb(128, 113, 252)"
+            name="heart"
+            size="2rem"
+            type="solid"
+          ></box-icon>
+        )}
+      </MediumUserButton>
+    </>
   );
 });
 
@@ -489,9 +507,7 @@ export const BlockButton = memo(function BlockButton({
         borderBottomLeftRadius: "8px",
         borderBottomRightRadius: "8px",
       }}
-      onClick={() => {
-        blockAction();
-      }}
+      onClick={blockAction}
     >
       삭제하기
     </PopupButton>
@@ -501,19 +517,42 @@ export const BlockButton = memo(function BlockButton({
 export const UserDetailLikeButton = memo(function UserDetailLikeButton({
   saveValue,
   likeAction,
-  memberId,
 }) {
   return (
     <UserDetailButton
       style={{
-        backgroundColor: saveValue == false ? "white" : "rgb(128, 113, 252)",
-        color: saveValue == false ? "rgb(128, 113, 252)" : "white",
+        backgroundColor: !saveValue ? "white" : "rgb(128, 113, 252)",
+        color: !saveValue ? "rgb(128, 113, 252)" : "white",
       }}
-      onClick={() => {
-        likeAction(memberId);
-      }}
+      onClick={likeAction}
     >
-      {saveValue == false && (
+      {saveValue == false ? (
+        <>
+          <box-icon
+            color="rgb(128, 113, 252)"
+            name="heart"
+            size="2.2rem"
+            style={{
+              marginRight: "1rem",
+            }}
+            type="solid"
+          ></box-icon>
+          Like에 저장
+        </>
+      ) : saveValue == true ? (
+        <>
+          <box-icon
+            color="white"
+            name="heart"
+            size="2.2rem"
+            type="solid"
+            style={{
+              marginRight: "1rem",
+            }}
+          ></box-icon>
+          Like에서 삭제
+        </>
+      ) : (
         <>
           <box-icon
             color="rgb(128, 113, 252)"
@@ -528,20 +567,7 @@ export const UserDetailLikeButton = memo(function UserDetailLikeButton({
         </>
       )}
 
-      {saveValue == true && (
-        <>
-          <box-icon
-            color="white"
-            name="heart"
-            size="2.2rem"
-            type="solid"
-            style={{
-              marginRight: "1rem",
-            }}
-          ></box-icon>
-          Like에서 삭제
-        </>
-      )}
+      {}
     </UserDetailButton>
   );
 });
@@ -719,8 +745,6 @@ const MediumUserButton = styled.button`
   height: 3rem;
   border: none;
   cursor: pointer;
-
-  transition: all 0.2s ease-in-out;
 `;
 
 const PersonalInfoButton = styled.button`

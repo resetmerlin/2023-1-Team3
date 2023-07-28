@@ -1,0 +1,48 @@
+.conversation__content {
+  height: 84%;
+  width: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+  &__message__wrap {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: flex-end;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin-bottom: 0.8rem;
+
+    .conversation__content__message {
+      white-space: normal;
+      padding: 0.8rem;
+      font-size: 1rem;
+      position: relative;
+
+      box-shadow: -1px 3px 5.5px 1px rgb(236, 234, 247);
+      -webkit-box-shadow: -1px 3px 5.5px 1px rgb(236, 234, 247);
+      -moz-box-shadow: -1px 3px 5.5px 1px rgb(236, 234, 247);
+
+      align-items: stretch;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 0;
+      margin: 0;
+      border-radius: 1rem;
+      width: auto;
+      margin: 0 0.8rem;
+    }
+
+    .conversation__content__profile {
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+}

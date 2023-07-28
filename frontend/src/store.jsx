@@ -14,9 +14,17 @@ import {
   passwordEditReducers,
   personalInfoEditReducers,
   profileEditReducers,
+  accountResignInfoReducers,
 } from "./reducers/securityEditReducer";
 import { getSaveListReducers } from "./reducers/saveReducer";
 import { deleteSaveReducers } from "./reducers/saveReducer";
+import {
+  messageInitiateReducers,
+  messageHistoryReducers,
+  messageRelationReducers,
+  messageSendReducers,
+} from "./reducers/messageReducer";
+import { socketMiddleware } from "./middlware/socketMiddleware";
 const reducer = combineReducers({
   emailInfo: sendEmailReducers,
   registerInfo: userRegisterReducers,
@@ -31,6 +39,11 @@ const reducer = combineReducers({
   deleteSaveInfo: deleteSaveReducers,
   personalEditInfo: personalInfoEditReducers,
   personalInfo: getPersonalInfoReducers,
+  messageInfo: messageHistoryReducers,
+  userMessageInfo: messageInitiateReducers,
+  messageRelationInfo: messageRelationReducers,
+  messageSendInfo: messageSendReducers,
+  accountResignInfo: accountResignInfoReducers,
 });
 
 const tokenFromStorage = sessionStorage.getItem("sessfbs_ffa0934")
@@ -50,6 +63,8 @@ const initialState = {
   // },
 };
 const middleware = [thunk];
+
+// const middleware = [thunk];
 const store = createStore(
   reducer,
   initialState,
