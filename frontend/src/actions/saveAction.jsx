@@ -7,7 +7,7 @@ import {
   DELETE_LIST_FAIL,
 } from "../constants/saveConstants";
 
-import { USER_LOGIN_SUCCESS } from "../constants/userConstants";
+import { USER_LOGIN_SUCCESS, USER_LOGOUT } from "../constants/userConstants";
 import axios from "axios";
 //action creator
 //Redux thunk
@@ -58,6 +58,9 @@ export const getSaveListAction = (page) => async (dispatch, getState) => {
             ? error.response.data.message
             : error.messge,
       });
+
+      sessionStorage.removeItem("sessfbs_ffa0934");
+      dispatch({ type: USER_LOGOUT });
     }
   }
 };
