@@ -14,6 +14,7 @@ import {
   passwordEditReducers,
   personalInfoEditReducers,
   profileEditReducers,
+  accountResignInfoReducers,
 } from "./reducers/securityEditReducer";
 import { getSaveListReducers } from "./reducers/saveReducer";
 import { deleteSaveReducers } from "./reducers/saveReducer";
@@ -42,6 +43,7 @@ const reducer = combineReducers({
   userMessageInfo: messageInitiateReducers,
   messageRelationInfo: messageRelationReducers,
   messageSendInfo: messageSendReducers,
+  accountResignInfo: accountResignInfoReducers,
 });
 
 const tokenFromStorage = sessionStorage.getItem("sessfbs_ffa0934")
