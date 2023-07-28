@@ -77,7 +77,6 @@ export const codeVerificationAction = (mail, code) => async (dispatch) => {
 export const registerAction = (userInfo) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
-    console.log(userInfo);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -139,6 +138,7 @@ export const logoutAction = () => (dispatch) => {
 
   dispatch({ type: USER_LOGOUT });
 };
+
 export const reAuthenticateAction = () => async (dispatch, getState) => {
   const {
     loginInfo: { sessfbs_ffa0934 },
