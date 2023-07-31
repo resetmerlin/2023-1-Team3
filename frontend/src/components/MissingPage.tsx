@@ -1,4 +1,6 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { styled } from 'styled-components';
 import {
   ErrorPageWrap,
   NumberError,
@@ -7,11 +9,9 @@ import {
   ErrorPageSmall,
   ErrorPage,
   ErrorLogo,
-} from "./Error";
-import { Link } from "react-router-dom";
-import { styled } from "styled-components";
+} from './Error';
 
-const MissingPage = () => {
+export default function MissingPage() {
   return (
     <ErrorPage>
       <ErrorPageWrap>
@@ -23,7 +23,7 @@ const MissingPage = () => {
                 name="home"
                 color="#8071fc"
                 size="3.3rem"
-              ></box-icon>
+              />
             </ErrorLink>
           </Link>
           <NumberError>404</NumberError>
@@ -41,9 +41,7 @@ const MissingPage = () => {
       <ErrorLogo src="/404.svg" alt="404-image" />
     </ErrorPage>
   );
-};
-
-export default MissingPage;
+}
 
 export const ErrorLink = styled.span`
   color: #8071fc;
