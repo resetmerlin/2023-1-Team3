@@ -1,5 +1,5 @@
-import React from "react";
-import Error from "../components/Error";
+import React from 'react';
+import Error from '../components/Error';
 
 class ErrorBoundary extends React.Component {
   state = { hasError: false };
