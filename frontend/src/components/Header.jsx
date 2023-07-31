@@ -1,23 +1,23 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
-import { styled } from "styled-components";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import { LogoImageMedium } from "./Logo";
-import { HeaderBackButton } from "./Button";
+import { LogoMediumImg } from './Logo';
+import { HeaderBackButton } from './Button';
 const Header = () => {
   const location = useLocation().pathname;
   return (
     <>
-      {location == "/message" ? (
+      {location == '/message' ? (
         <div className="header">
           <h1>Message</h1>
         </div>
-      ) : location == "/save" ? (
+      ) : location == '/save' ? (
         <div className="header">
           <h1>Save</h1>
         </div>
-      ) : location == "/setting" ? (
+      ) : location == '/setting' ? (
         <div className="header">
           <h1>Setting</h1>
         </div>
@@ -36,7 +36,8 @@ export const HomeHeader = ({ navigate, style }) => {
       </HeaderButtonWrap>
 
       <Link to="/">
-        <LogoImageMedium />
+        <LogoMediumImg />
+        {/* <img src="/logo.svg" alt="logo-white-1" className="logo__medium" />; */}
       </Link>
     </HeaderLogoWrap>
   );
