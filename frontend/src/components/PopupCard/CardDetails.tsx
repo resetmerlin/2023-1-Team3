@@ -1,10 +1,10 @@
-import React from "react";
-import { BackToSlideCardButton } from "../Button";
-import CardDetailsTopView from "./top/CardDetailsTopView";
-import CardDetailsBottomView from "./bottom/CardDetailsBottomView";
-import { styled } from "styled-components";
+import React from 'react';
+import { styled } from 'styled-components';
+import { BackToSlideCardButton } from '../Button';
+import CardDetailsTopView from './top/CardDetailsTopView';
+import CardDetailsBottomView from './bottom/CardDetailsBottomView';
 
-const CardDetails = ({
+export default function CardDetails({
   user,
   blockAction,
   likeAction,
@@ -13,30 +13,30 @@ const CardDetails = ({
   saveValue,
   goBackToSlide,
   imageSrc,
-}) => {
+}) {
   const bottomProps = {
     name: user?.name,
-    age: age,
-    blockValue: blockValue,
+    age,
+    blockValue,
     memberId: user?.memberId,
     department: user?.department,
-    blockAction: blockAction,
+    blockAction,
 
     introduction: user?.introduction,
-    likeAction: likeAction,
-    saveValue: saveValue,
+    likeAction,
+    saveValue,
   };
   const props = {
-    goBackToSlide: goBackToSlide,
+    goBackToSlide,
     topProps: {
-      imageSrc: imageSrc,
+      imageSrc,
     },
     bottomProps: bottomProps,
   };
   return <CardDetailsView {...props} />;
-};
+}
 
-const CardDetailsView = ({ goBackToSlide, topProps, bottomProps }) => {
+function CardDetailsView({ goBackToSlide, topProps, bottomProps }) {
   return (
     <CardDetailsWrap>
       <BackToSlideCardButton goBackToSlide={goBackToSlide} />
@@ -44,7 +44,7 @@ const CardDetailsView = ({ goBackToSlide, topProps, bottomProps }) => {
       <CardDetailsBottomView {...bottomProps} />
     </CardDetailsWrap>
   );
-};
+}
 
 const CardDetailsWrap = styled.div`
   position: fixed;
@@ -56,5 +56,3 @@ const CardDetailsWrap = styled.div`
   align-items: center;
   z-index: 1000;
 `;
-
-export default CardDetails;
