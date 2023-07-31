@@ -1,11 +1,19 @@
-import React from "react";
+import React from 'react';
 import {
   BlockButton,
   UserDetailLikeButton,
   UserDetailsMessageButton,
-} from "../../Button";
-import "./CardDetailsBottom.scss";
-const CardDetailsBottomView = ({
+} from '../../Button';
+import './CardDetailsBottom.scss';
+
+interface Props {
+  name: string;
+  age: string;
+  memberId: string;
+  department: string;
+}
+
+export default function CardDetailsBottomView({
   name,
   age,
   memberId,
@@ -15,7 +23,7 @@ const CardDetailsBottomView = ({
   likeAction,
   saveValue,
   department,
-}) => {
+}: Props) {
   return (
     <div className="card-details__bottom">
       <div className="card-details__bottom__info">
@@ -25,15 +33,11 @@ const CardDetailsBottomView = ({
         </div>
 
         <label htmlFor="popup-dot" className="card-details__dot">
-          <box-icon
-            name="dots-horizontal-rounded"
-            color="black"
-            size="3rem"
-          ></box-icon>
+          <box-icon name="dots-horizontal-rounded" color="black" size="3rem" />
         </label>
         <input type="checkbox" id="popup-dot" name="popup-dot" />
         <div className="card-details__popup-box">
-          <button> 신고하기</button>
+          <button type="button"> 신고하기</button>
           <BlockButton
             memberId={memberId}
             blockValue={blockValue}
@@ -59,6 +63,4 @@ const CardDetailsBottomView = ({
       </div>
     </div>
   );
-};
-
-export default CardDetailsBottomView;
+}
