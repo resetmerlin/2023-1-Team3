@@ -1,24 +1,24 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import RegisterScreen from "./screens/register/RegisterScreen";
-import "./sass/index.css";
-import RequireAuth from "./components/RequireAuth";
-import MissingPage from "./components/MissingPage";
-import Unauthorized from "./components/Unauthorized";
-import { Suspense, lazy } from "react";
-import ConversationScreen from "./screens/conversation/ConversationScreen";
-import Loading from "./components/Loading";
-import MessageScreen from "./screens/message/MessageScreen";
-import DesktopBlock from "./components/DesktopBlock";
-import AccountResignScreen from "./screens/account/AccountResignScreen";
-const LoginSceen = lazy(() => import("./screens/login/LoginScreen"));
-const HomeScreen = lazy(() => import("./screens/home/HomeScreen"));
-const SaveScreen = lazy(() => import("./screens/save/SaveScreen"));
-const SettingScreen = lazy(() => import("./screens/setting/SettingScreen"));
-const SecurityEditScreen = lazy(() =>
-  import("./screens/securityEdit/accountSetting/SecurityEditScreen")
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import RegisterScreen from './screens/register/RegisterScreen';
+import './sass/index.css';
+import RequireAuth from './components/RequireAuth';
+import MissingPage from './components/MissingPage';
+import Unauthorized from './components/Unauthorized';
+import { Suspense, lazy } from 'react';
+import ConversationScreen from './screens/conversation/ConversationScreen';
+import Loading from './components/Loading';
+import MessageScreen from './screens/message/MessageScreen';
+import DesktopBlock from './components/DesktopBlock';
+import AccountResignScreen from './screens/account/AccountResignScreen';
+const LoginSceen = lazy(() => import('./screens/login/LoginScreen'));
+const HomeScreen = lazy(() => import('./screens/home/HomeScreen'));
+const SaveScreen = lazy(() => import('./screens/save/SaveScreen'));
+const SettingScreen = lazy(() => import('./screens/setting/SettingScreen'));
+const SecurityEditScreen = lazy(
+  () => import('./screens/securityEdit/accountSetting/SecurityEditScreen')
 );
-const ProfileEditScreen = lazy(() =>
-  import("./screens/profileEdit/personalInfoEdit/ProfileEditScreen")
+const ProfileEditScreen = lazy(
+  () => import('./screens/profileEdit/personalInfoEdit/ProfileEditScreen')
 );
 function App() {
   return (
@@ -36,10 +36,9 @@ function App() {
                 <LoginSceen />
               </Suspense>
             }
-            exact
           ></Route>
 
-          <Route path="/register" element={<RegisterScreen />} exact></Route>
+          <Route path="/register" element={<RegisterScreen />}></Route>
 
           <Route element={<RequireAuth />}>
             <Route
@@ -49,7 +48,6 @@ function App() {
                   <HomeScreen />
                 </Suspense>
               }
-              exact
             ></Route>
           </Route>
           <Route element={<RequireAuth />}>
@@ -60,13 +58,12 @@ function App() {
                   <SaveScreen />
                 </Suspense>
               }
-              exact
             ></Route>
           </Route>
           <Route element={<RequireAuth />}>
             <Route path="/message">
-              <Route path="" element={<MessageScreen />} exact />
-              <Route path=":id" element={<ConversationScreen />} exact />
+              <Route path="" element={<MessageScreen />} />
+              <Route path=":id" element={<ConversationScreen />} />
             </Route>
           </Route>
 
@@ -79,7 +76,6 @@ function App() {
                     <SettingScreen />
                   </Suspense>
                 }
-                exact
               ></Route>
 
               <Route
@@ -89,7 +85,6 @@ function App() {
                     <SecurityEditScreen />
                   </Suspense>
                 }
-                exact
               ></Route>
 
               <Route
@@ -99,7 +94,6 @@ function App() {
                     <ProfileEditScreen />
                   </Suspense>
                 }
-                exact
               ></Route>
 
               <Route
@@ -109,7 +103,6 @@ function App() {
                     <AccountResignScreen />
                   </Suspense>
                 }
-                exact
               ></Route>
             </Route>
           </Route>
