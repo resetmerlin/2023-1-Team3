@@ -1,7 +1,7 @@
-import React, { memo } from "react";
-import { styled } from "styled-components";
+import { memo } from 'react';
+import { styled } from 'styled-components';
 
-const UserMessageView = memo(function UserMessageView({
+export default memo(function UserMessageView({
   message,
   image,
   name,
@@ -9,7 +9,7 @@ const UserMessageView = memo(function UserMessageView({
 }) {
   return (
     <Column onClick={goToChatScreen}>
-      <MessageProfile src={image} alt="message-profile"></MessageProfile>
+      <MessageProfile src={image} alt="message-profile" />
       <MessageWrap>
         <MessageDescWrap>
           <div>
@@ -21,13 +21,13 @@ const UserMessageView = memo(function UserMessageView({
         <MessageNotifyWrap>
           <box-icon
             style={{
-              position: "relative",
+              position: 'relative',
             }}
             type="solid"
             name="message-rounded"
             color="rgb(128, 113, 252)"
             size="2rem"
-          ></box-icon>
+          />
           <MessageNotification>1</MessageNotification>
         </MessageNotifyWrap>
       </MessageWrap>
@@ -110,4 +110,3 @@ const MessageNotification = styled.span`
   top: 45%;
   transform: translate(-50%, -50%);
 `;
-export default UserMessageView;
