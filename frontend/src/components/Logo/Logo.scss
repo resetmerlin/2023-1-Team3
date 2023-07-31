@@ -1,0 +1,19 @@
+.logo__wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  width: 100%;
+  overflow: hidden;
+}
+
+.logo-img__medium {
+  width: 7rem;
+  height: 7rem;
+}
+
+.logo-img__large {
+  width: 13rem;
+  height: 13rem;
+}
