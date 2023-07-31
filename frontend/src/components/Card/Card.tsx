@@ -1,10 +1,9 @@
-import React from "react";
-import { CardBottomView } from "./bottom/CardBottomView";
-import CardTopView from "./top/CardTopView";
-import { styled } from "styled-components";
-import { BoxIconElement } from "boxicons";
+import React from 'react';
+import { styled } from 'styled-components';
+import CardBottomView from './bottom/CardBottomView';
+import CardTopView from './top/CardTopView';
 
-const Card = ({
+export default function Card({
   popupStyle,
   goNextSlideHandler,
   user,
@@ -14,7 +13,7 @@ const Card = ({
   age,
   imageSrc,
   popupCheckedHandler,
-}) => {
+}) {
   const topProps = {
     imageSrc: imageSrc,
   };
@@ -46,20 +45,12 @@ const Card = ({
 
   const props = {
     popupStyle: popupStyle,
-
     topProps: topProps,
     bottomProps: bottomProps,
   };
+
   return <CardView {...props} />;
-};
-const CardView = ({ bottomProps, topProps, popupStyle }) => {
-  return (
-    <CardWrap style={popupStyle}>
-      <CardTopView {...topProps} />
-      <CardBottomView {...bottomProps} />
-    </CardWrap>
-  );
-};
+}
 
 const CardWrap = styled.div`
   height: 100%;
@@ -71,4 +62,11 @@ const CardWrap = styled.div`
   align-items: center;
 `;
 
-export default Card;
+function CardView({ bottomProps, topProps, popupStyle }) {
+  return (
+    <CardWrap style={popupStyle}>
+      <CardTopView {...topProps} />
+      <CardBottomView {...bottomProps} />
+    </CardWrap>
+  );
+}
