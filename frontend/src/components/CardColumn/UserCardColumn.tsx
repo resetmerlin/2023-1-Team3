@@ -1,5 +1,5 @@
-import React, { memo, forwardRef } from "react";
-import { styled } from "styled-components";
+import React, { memo, forwardRef } from 'react';
+import { styled } from 'styled-components';
 
 const UserCardColumn = memo(
   forwardRef(({ user, checkedState, popupHandler, imageSrc }, ref) => {
