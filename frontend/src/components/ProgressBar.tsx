@@ -1,14 +1,14 @@
-import React from "react";
-import { styled } from "styled-components";
-const ProgressBar = ({ currentStep, totalSteps }) => {
+import { styled } from 'styled-components';
+
+export default function ProgressBar({ currentStep, totalSteps }) {
   const progress = (currentStep / totalSteps) * 100;
 
   return (
     <ProgressBarWrap>
-      <Progress style={{ width: `${progress}%` }}></Progress>
+      <Progress style={{ width: `${progress}%` }} />
     </ProgressBarWrap>
   );
-};
+}
 const ProgressBarWrap = styled.div`
   position: fixed;
   top: 0;
@@ -27,5 +27,3 @@ const Progress = styled.div`
   height: 0.7rem;
   background-color: rgb(128, 113, 252);
 `;
-
-export default ProgressBar;
