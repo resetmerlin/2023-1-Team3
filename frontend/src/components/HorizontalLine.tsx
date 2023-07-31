@@ -1,18 +1,15 @@
-import { styled } from "styled-components";
-export const HorizontalLine = () => {
+import { styled } from 'styled-components';
+
+export function HorizontalLine() {
   return <HorizontalSeparator>or</HorizontalSeparator>;
-};
+}
 
-export const MessageHorizontalLine = ({ date, time }) => {
-  const props = {
-    messageTime: date + " " + time,
-  };
+export function MessageHorizontalLine({ date, time }) {
+  const messageTime = `${date} ${time}`;
 
-  return <MessageHorizontalLineView {...props} />;
-};
-const MessageHorizontalLineView = ({ messageTime }) => {
   return <MessageHorizontalSeparator>{messageTime}</MessageHorizontalSeparator>;
-};
+}
+
 const HorizontalSeparator = styled.span`
   display: flex;
   flex-direction: row;
@@ -21,7 +18,7 @@ const HorizontalSeparator = styled.span`
 
   &:before,
   &:after {
-    content: "";
+    content: '';
     flex: 1 1;
     border-bottom: 1px solid #9a9a9a;
     margin: auto;
@@ -43,7 +40,7 @@ const MessageHorizontalSeparator = styled.span`
 
   &:before,
   &:after {
-    content: "";
+    content: '';
     flex: 1 1;
     border-bottom: 1px solid rgb(128, 113, 252);
     margin: auto;
