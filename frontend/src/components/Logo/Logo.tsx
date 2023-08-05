@@ -1,7 +1,9 @@
+import './Logo.scss';
+
 export function LogoLargeSize() {
   return (
     <div className="logo__wrap">
-      <img src="/logo.svg" alt="logo-white" className="logo-img__large" />;
+      <img src="/logo.svg" alt="logo-white" className="logo-img__large" />
     </div>
   );
 }
