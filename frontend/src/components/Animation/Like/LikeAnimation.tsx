@@ -1,4 +1,3 @@
-import React from 'react';
 import './LikeAnimation.scss';
 
 export default function LikeAnimation() {
