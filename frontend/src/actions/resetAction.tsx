@@ -2,14 +2,14 @@ import {
   SECURITY_GET_PERSONALINFO_RESET,
   SECURITY_PERSONALINFO_RESET,
   SECURITY_UPLOAD_PROFILE_RESET,
-} from "../constants/securityEditConstants";
+} from '../constants/securityEditConstants';
 import {
   USER_REGISTER_RESET,
   USER_EMAIL_RESET,
   USER_VERIFY_RESET,
-} from "../constants/userConstants";
+} from '../constants/userConstants';
 
-import { MESSAGE_GET_HISTORY_RESET } from "../constants/messageConstants";
+import { MESSAGE_GET_HISTORY_RESET } from '../constants/messageConstants';
 /** 회원가입 state 초기화하는 Action */
 export const registerResetAction = () => async (dispatch) => {
   dispatch({ type: USER_REGISTER_RESET });
