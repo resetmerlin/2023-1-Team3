@@ -5,18 +5,19 @@ import { loginAction } from '../../actions/userAction';
 import { LoginFormHook } from '../../hooks/FormHoooks';
 import { loginSchema } from '../../components/Form/Schema';
 import { selectLoginToken } from '../../hooks/MemoizedRedux';
-import { LogoLargeSize } from '../../components/Logo';
+import { LogoLargeSize } from '../../components/Logo/Logo';
 import Loading from '../../components/Loading';
 import { styled } from 'styled-components';
-const LoginSceen = () => {
+
+export default function LoginSceen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  /** Get loginInfo from Redux(loginInfo를 redux에서 가져옴)*/
+  /** Get loginInfo from Redux(loginInfo를 redux에서 가져옴) */
   const loginInfo = useSelector(selectLoginToken);
 
   const onSubmit = useCallback(
-    (data) => {
+    (data: { email: string; password: string }) => {
       dispatch(
         loginAction({
           mail: data.email,
@@ -46,10 +47,10 @@ const LoginSceen = () => {
           />
         </FormWrap>
       </Suspense>
-      <div className="form__background"></div>
+      <div className="form__background" />
     </LoginSection>
   );
-};
+}
 
 export const FormWrap = styled.div`
   height: auto;
@@ -79,5 +80,3 @@ const LoginSection = styled.section`
   -webkit-box-shadow: -1px 0px 12px 7px rgb(236, 234, 247, 1);
   -moz-box-shadow: -1px 0px 12px 7px rgb(236, 234, 247, 1);
 `;
-
-export default LoginSceen;
