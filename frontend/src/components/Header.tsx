@@ -2,9 +2,8 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
-
-import { LogoMediumImg } from './Logo';
 import { HeaderBackButton } from './Button';
+import { LogoMediumImg } from './Logo/Logo';
 const Header = () => {
   const location = useLocation().pathname;
   return (
@@ -37,7 +36,6 @@ export const HomeHeader = ({ navigate, style }) => {
 
       <Link to="/">
         <LogoMediumImg />
-        {/* <img src="/logo.svg" alt="logo-white-1" className="logo__medium" />; */}
       </Link>
     </HeaderLogoWrap>
   );
