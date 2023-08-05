@@ -30,7 +30,6 @@ export default function HomeScreen() {
 
   const splideRef = useRef(null);
   const previousSplideRef = useRef(-1);
-  const splideRefController = splideRef?.current?.splide.Components.Controller;
 
   /** Redux에서 가져온 유저 리스트 */
   const peopleListInfo = useSelector((state) => state.peopleListInfo);
@@ -78,35 +77,39 @@ export default function HomeScreen() {
   const nextPeopleListsHandler = useCallback(() => {
     getPeopleList();
     previousSplideRef.current = -1;
-    splideRefController.go(0);
-  }, [getPeopleList, splideRefController]);
+    splideRef?.current?.splide.Components.Controller.go(0);
+  }, [getPeopleList]);
 
   /** 슬라이드시 페이지 값 갱신 */
-  const slidePageHandler = useCallback(() => {
-    const currentPage = splideRefController.getIndex();
-    const lastPage = splideRefController.getEnd();
+  const slidePageHandler = useCallback(
+    (splide) => {
+      const currentPage = splide?.Components?.Controller.getIndex();
+      const lastPage = splide?.Components?.Controller.getEnd();
 
-    if (currentPage !== previousSplideRef?.current) {
-      previousSplideRef.current = currentPage;
-    } else if (
-      /** 마지막 페이지에 있는데 슬라이드를 할 경우 */
-      previousSplideRef?.current === lastPage
-    ) {
-      nextPeopleListsHandler();
-    }
-  }, [previousSplideRef, nextPeopleListsHandler, splideRefController]);
+      if (currentPage !== previousSplideRef?.current) {
+        previousSplideRef.current = currentPage;
+      } else if (
+        /** 마지막 페이지에 있는데 슬라이드를 할 경우 */
+        previousSplideRef?.current === lastPage
+      ) {
+        nextPeopleListsHandler();
+      }
+    },
+    [previousSplideRef, nextPeopleListsHandler]
+  );
 
   /** 다음 슬라이드로 이동 */
   const goNextSlideHandler = useCallback(() => {
-    const getNextPage = splideRefController.getNext();
-    const lastPage = splideRefController.getEnd();
+    const getNextPage =
+      splideRef?.current?.splide.Components.Controller.getNext();
+    const lastPage = splideRef?.current?.splide.Components.Controller.getEnd();
 
     if (previousSplideRef?.current === lastPage) {
       nextPeopleListsHandler();
     } else {
-      splideRefController.go(getNextPage);
+      splideRef?.current?.splide.Components.Controller.go(getNextPage);
     }
-  }, [previousSplideRef, nextPeopleListsHandler, splideRefController]);
+  }, [previousSplideRef, nextPeopleListsHandler]);
 
   const startMessage = async (memberId: string) => {
     const userInfo = peopleListStatus?.memberResponses
