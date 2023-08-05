@@ -1,16 +1,17 @@
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import React from 'react';
+import { styled } from 'styled-components';
+import { useFormContext } from 'react-hook-form';
 import {
   EmailInputChunk,
   DefaultInputChunk,
-} from "../../../components/Input/InputChunk";
-import { GoToRegisterButton, SubmitButton } from "../../../components/Button";
+} from '../../../components/Input/InputChunk';
+import { GoToRegisterButton, SubmitButton } from '../../../components/Button';
 import {
   emailInput,
   passwordInput,
-} from "../../../components/Input/InputsDefine";
-import { styled } from "styled-components";
-const LoginForm = ({ loginInfo, onSubmit, navigate }) => {
+} from '../../../components/Input/InputsDefine';
+
+function LoginForm({ loginInfo, onSubmit, navigate }) {
   const {
     handleSubmit,
     formState: { errors },
@@ -31,13 +32,12 @@ const LoginForm = ({ loginInfo, onSubmit, navigate }) => {
         errors={errors}
       />
       <ButtonWrap>
-        <SubmitButton page={"login"} />
-
-        <GoToRegisterButton page={"register "} navigate={navigate} />
+        <SubmitButton page="login" />
+        <GoToRegisterButton page="register" navigate={navigate} />
       </ButtonWrap>
     </Form>
   );
-};
+}
 
 export const Form = styled.form`
   display: flex;
