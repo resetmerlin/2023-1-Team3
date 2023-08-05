@@ -2,8 +2,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import RegisterScreen from './screens/register/RegisterScreen';
 import './sass/index.css';
 import RequireAuth from './components/RequireAuth';
-import MissingPage from './components/MissingPage';
-import Unauthorized from './components/Unauthorized';
+
+import { PageNotFound, Unauthorized } from './components/Error/Error';
 import { Suspense, lazy } from 'react';
 import ConversationScreen from './screens/conversation/ConversationScreen';
 import Loading from './components/Loading';
@@ -26,7 +26,7 @@ function App() {
       <div className="container">
         <DesktopBlock />
         <Routes>
-          <Route path="*" element={<MissingPage />} />
+          <Route path="*" element={<PageNotFound />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
 
           <Route
