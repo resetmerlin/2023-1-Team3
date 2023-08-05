@@ -4,7 +4,11 @@ export function HorizontalLine() {
   return <HorizontalSeparator>or</HorizontalSeparator>;
 }
 
-export function MessageHorizontalLine({ date, time }) {
+type Props = {
+  date: string;
+  time: string;
+};
+export function MessageHorizontalLine({ date, time }: Props) {
   const messageTime = `${date} ${time}`;
 
   return <MessageHorizontalSeparator>{messageTime}</MessageHorizontalSeparator>;
