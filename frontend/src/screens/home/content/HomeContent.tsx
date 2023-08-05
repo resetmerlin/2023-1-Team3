@@ -1,17 +1,26 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { styled } from "styled-components";
-import { getImageSrc } from "../../../func/commonLogicHelper";
-import Card from "../../../components/Card/Card";
-import CardDetails from "../../../components/PopupCard/CardDetails";
-const HomeContent = ({
+import React, { useCallback, useState } from 'react';
+import { styled } from 'styled-components';
+import { getImageSrc } from '../../../func/commonLogicHelper';
+import Card from '../../../components/Card/Card';
+import CardDetails from '../../../components/PopupCard/CardDetails';
+
+type Props = {
+  user: unknown;
+  sendBlockUser: (memberId: string, blockBoolean: boolean) => void;
+  sendLikeUser: (memberId: string, saveBoolean: boolean) => void;
+  goNextSlideHandler: () => void;
+  getUserFromChild: (popupBoolean: boolean) => void;
+  startMessage: (memberId: string) => void;
+};
+
+export default function HomeContent({
   sendBlockUser,
   user,
   sendLikeUser,
-  peopleListLoading,
   goNextSlideHandler,
   getUserFromChild,
   startMessage,
-}) => {
+}: Props) {
   const age =
     new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
 
@@ -26,7 +35,7 @@ const HomeContent = ({
   const savAction = useCallback(() => {
     setSaveValue((save) => !save);
     sendLikeUser(user?.memberId, !saveValue);
-  });
+  }, [setSaveValue, sendLikeUser, saveValue, user]);
 
   /** 삭제 state를 변경 후 서버에 보냄 */
   const blockAction = useCallback(async () => {
@@ -40,50 +49,50 @@ const HomeContent = ({
     getUserFromChild(false);
   });
 
-  const popupStyle = { display: userChildCardPopup ? "none" : "flex" };
+  const popupStyle = { display: userChildCardPopup ? 'none' : 'flex' };
 
   const props = {
-    popupStyle: popupStyle,
-    goNextSlideHandler: goNextSlideHandler,
-    user: user,
-    saveValue: saveValue,
-    startMessage: startMessage,
-    savAction: savAction,
-    popupCheckedHandler: (e) => {
+    popupStyle,
+    goNextSlideHandler,
+    user,
+    saveValue,
+    startMessage,
+    savAction,
+    popupCheckedHandler: (e: React.ChangeEvent<HTMLInputElement>) => {
       setUserChildCardPopup(e.target.checked);
       getUserFromChild(e.target.checked);
     },
-
-    age: age,
+    age,
     imageSrc: getImageSrc(user),
   };
 
   const popupProps = {
-    user: user,
+    user,
     blockAction: () => {
       blockAction();
     },
     likeAction: () => {
       savAction(user?.memberId);
     },
-    age: age,
-    blockValue: blockValue,
-    saveValue: saveValue,
+    age,
+    blockValue,
+    saveValue,
     goBackToSlide: cancelPopup,
     imageSrc: getImageSrc(user),
   };
 
   return (
     <>
+      {/* eslint-disable-next-line @typescript-eslint/no-use-before-define  */}
       <HomeWrap style={popupStyle}>
         <Card {...props} />
       </HomeWrap>
       {userChildCardPopup && <CardDetails {...popupProps} />}
     </>
   );
-};
+}
 
-export const HomeWrap = styled.div`
+const HomeWrap = styled.div`
   position: absolute;
   height: 94%;
   width: 100%;
@@ -92,5 +101,3 @@ export const HomeWrap = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-export default HomeContent;
