@@ -1,7 +1,9 @@
 .conversation__content {
-  height: 84%;
+  height: 81%;
   width: 100%;
   overflow-y: scroll;
+  top: 9%;
+  position: absolute;
   display: flex;
   flex-direction: column;
   padding: 1rem;
