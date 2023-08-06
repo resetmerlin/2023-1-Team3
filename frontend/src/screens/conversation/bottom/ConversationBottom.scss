@@ -1,8 +1,10 @@
 .conversation__bottom {
   height: auto;
   width: 100%;
-  top: 93%;
+  bottom: 0;
+  position: fixed;
   display: flex;
+
   align-items: center;
   justify-content: center;
   background-color: white;
