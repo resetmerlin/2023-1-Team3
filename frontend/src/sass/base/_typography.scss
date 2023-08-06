@@ -29,9 +29,6 @@ html {
   }
 }
 
-:root {
-  --vh: 100%;
-}
 body {
   display: block;
   font-family:
@@ -74,24 +71,21 @@ body {
 .container {
   display: flex;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100); // Using --vh for height
 
   box-sizing: border-box;
   position: relative;
   flex-direction: column;
-  height: calc(var(--vh, 1vh) * 100);
 
   @include respond(smartphones-port) {
     min-width: 320px;
     max-width: 479px;
     height: 100%;
-    height: calc(var(--vh, 1vh) * 100);
   }
   @include respond(smartphones-land) {
     min-width: 480px;
     max-width: 599px;
     height: 100%;
-    height: calc(var(--vh, 1vh) * 100);
   }
 
   @include respond(tab-port) {
