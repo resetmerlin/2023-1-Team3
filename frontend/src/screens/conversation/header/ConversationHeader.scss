@@ -3,6 +3,9 @@
   width: 100%;
   display: flex;
   padding: 0.7rem 1rem;
+  position: fixed;
+  background-color: white;
+  z-index: 1000;
   align-items: center;
   box-shadow: -1px 1px 12px 5px rgb(236, 234, 247);
   -webkit-box-shadow: -1px 1px 12px 5px rgb(236, 234, 247);
