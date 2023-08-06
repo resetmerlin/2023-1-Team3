@@ -28,6 +28,10 @@ html {
     font-size: 118.75%; ///1rem = 19px 19/16*100 = 118.75
   }
 }
+
+:root {
+  --vh: 100%;
+}
 body {
   display: block;
   font-family:
@@ -75,6 +79,8 @@ body {
   box-sizing: border-box;
   position: relative;
   flex-direction: column;
+  height: calc(var(--vh, 1vh) * 100);
+
   @include respond(smartphones-port) {
     min-width: 320px;
     max-width: 479px;

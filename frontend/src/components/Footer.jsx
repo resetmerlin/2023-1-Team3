@@ -1,86 +1,86 @@
-import React, { memo } from "react";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { styled } from "styled-components";
-import { BoxIconElement } from "boxicons";
+import React, { memo } from 'react';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { BoxIconElement } from 'boxicons';
 
 const Footer = memo(function Footer({ style }) {
   const location = useLocation().pathname;
 
   return (
     <>
-      {location == "/register" ? (
+      {location == '/register' ? (
         <></>
-      ) : location == "/login" ? (
+      ) : location == '/login' ? (
         <></>
       ) : (
         <FooterContent style={style}>
-          <Link to="/" className="footer__link--home">
-            {location == "/" ? (
+          <Link to='/' className='footer__link--home'>
+            {location == '/' ? (
               <box-icon
-                name="home-alt-2"
-                color="rgb(128, 113, 252)"
-                size="2.3rem"
-                type="solid"
+                name='home-alt-2'
+                color='rgb(128, 113, 252)'
+                size='1.9rem'
+                type='solid'
               ></box-icon>
             ) : (
               <box-icon
-                name="home-alt-2"
-                color="rgb(198 200 205)"
-                size="2.3rem"
-                type="solid"
+                name='home-alt-2'
+                color='rgb(198 200 205)'
+                size='1.9rem'
+                type='solid'
               ></box-icon>
             )}
           </Link>
 
-          <Link to="/save" className="footer__link--heart">
-            {location == "/save" ? (
+          <Link to='/save' className='footer__link--heart'>
+            {location == '/save' ? (
               <box-icon
-                color="rgb(128, 113, 252)"
-                name="heart"
-                size="2.3rem"
-                type="solid"
+                color='rgb(128, 113, 252)'
+                name='heart'
+                size='1.9rem'
+                type='solid'
               ></box-icon>
             ) : (
               <box-icon
-                color="rgb(198 200 205)"
-                name="heart"
-                size="2.3rem"
-                type="solid"
+                color='rgb(198 200 205)'
+                name='heart'
+                size='1.9rem'
+                type='solid'
               ></box-icon>
             )}
           </Link>
-          <Link to="/message" className="footer__link--message">
-            {location == "/message" ? (
+          <Link to='/message' className='footer__link--message'>
+            {location == '/message' ? (
               <box-icon
-                color="rgb(128, 113, 252)"
-                name="message-rounded"
-                size="2.3rem"
-                type="solid"
+                color='rgb(128, 113, 252)'
+                name='message-rounded'
+                size='1.9rem'
+                type='solid'
               ></box-icon>
             ) : (
               <box-icon
-                color="rgb(198 200 205)"
-                name="message-rounded"
-                size="2.3rem"
-                type="solid"
+                color='rgb(198 200 205)'
+                name='message-rounded'
+                size='1.9rem'
+                type='solid'
               ></box-icon>
             )}
           </Link>
-          <Link to="/setting" className="footer__link--setting">
-            {location == "/setting" ? (
+          <Link to='/setting' className='footer__link--setting'>
+            {location == '/setting' ? (
               <box-icon
-                type="solid"
-                color="rgb(128, 113, 252)"
-                size="2.3rem"
-                name="user"
+                type='solid'
+                color='rgb(128, 113, 252)'
+                size='1.9rem'
+                name='user'
               ></box-icon>
             ) : (
               <box-icon
-                color="rgb(198 200 205)"
-                name="user"
-                size="2.3rem"
-                type="solid"
+                color='rgb(198 200 205)'
+                name='user'
+                size='1.9rem'
+                type='solid'
               ></box-icon>
             )}
           </Link>

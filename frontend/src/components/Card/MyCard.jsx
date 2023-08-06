@@ -1,9 +1,9 @@
-import React from "react";
-import { CardBottomView } from "./bottom/CardBottomView";
-import CardTopView from "./top/CardTopView";
-import { styled } from "styled-components";
-import { BoxIconElement } from "boxicons";
-import { BackToSlideCardButton } from "../Button";
+import React from 'react';
+import { CardBottomView } from './bottom/CardBottomView';
+import CardTopView from './top/CardTopView';
+import { styled } from 'styled-components';
+import { BoxIconElement } from 'boxicons';
+import { BackToSlideCardButton } from '../Button';
 
 const MyCard = ({
   user,
@@ -52,8 +52,8 @@ const MyCardWrap = styled.div`
 
   height: 100%;
   flex-direction: column;
-  width: 21.887rem;
-  height: 41.392rem;
+  width: 85%;
+  height: 72.38vh;
 
   display: flex;
   justify-content: center;

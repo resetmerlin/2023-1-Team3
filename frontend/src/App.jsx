@@ -4,7 +4,7 @@ import './sass/index.scss';
 import RequireAuth from './components/RequireAuth';
 import MissingPage from './components/MissingPage';
 import Unauthorized from './components/Unauthorized';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import ConversationScreen from './screens/conversation/ConversationScreen';
 import Loading from './components/Loading';
 import MessageScreen from './screens/message/MessageScreen';
@@ -20,7 +20,14 @@ const SecurityEditScreen = lazy(() =>
 const ProfileEditScreen = lazy(() =>
   import('./screens/profileEdit/personalInfoEdit/ProfileEditScreen')
 );
+
 function App() {
+  let vh = 0;
+
+  useEffect(() => {
+    vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }, []);
   return (
     <BrowserRouter>
       <div className='container'>

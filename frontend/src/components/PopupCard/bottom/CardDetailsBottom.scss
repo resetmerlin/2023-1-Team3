@@ -9,8 +9,7 @@
   z-index: 3000;
   position: absolute;
   bottom: 0;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+
   flex-direction: column;
 
   &__info {
@@ -22,14 +21,14 @@
     align-items: center;
     justify-content: space-between;
     &-main__name {
-      font-size: 2.3rem;
+      font-size: 2rem;
       display: flex;
       font-weight: 700;
     }
 
     &-main__age {
       margin-left: 0.6rem;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       display: flex;
       align-items: flex-end;
       font-weight: 500;
