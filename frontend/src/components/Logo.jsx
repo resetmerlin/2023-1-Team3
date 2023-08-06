@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export const LogoImageMedium = () => {
-  return <LogoImageM src="/logo.svg" alt="logo-white-1" />;
+  return <LogoImageM src='/logo.svg' alt='logo-white-1' />;
 };
 
 export const LogoImageLarge = () => {
-  return <LogoImageL src="/logo.svg" alt="logo-white-1" />;
+  return <LogoImageL src='/logo.svg' alt='logo-white-1' />;
 };
 export const LogoSizeL = () => {
   return (
@@ -35,8 +35,8 @@ const LogoWrap = styled.div`
 `;
 
 const LogoImageL = styled.img`
-  width: 13rem;
-  height: 13rem;
+  width: 11rem;
+  height: 11rem;
 `;
 
 const LogoImageM = styled.img`
