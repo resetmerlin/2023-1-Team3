@@ -85,11 +85,13 @@ body {
     min-width: 320px;
     max-width: 479px;
     height: 100%;
+    height: calc(var(--vh, 1vh) * 100);
   }
   @include respond(smartphones-land) {
     min-width: 480px;
     max-width: 599px;
     height: 100%;
+    height: calc(var(--vh, 1vh) * 100);
   }
 
   @include respond(tab-port) {
