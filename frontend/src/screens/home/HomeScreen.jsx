@@ -4,22 +4,22 @@ import React, {
   Suspense,
   useCallback,
   useState,
-} from "react";
-import Footer from "../../components/Footer";
-import HomeContent from "./content/HomeContent";
-import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import "@splidejs/react-splide/css";
-import { useDispatch, useSelector } from "react-redux";
-import { peopleListAction } from "../../actions/peopleAction";
-import Loading from "../../components/Loading";
-import { saveUserAction } from "../../actions/buttonAction";
-import { HomeHeader } from "../../components/Header";
-import NoValueUser from "../../components/NoValueUser";
-import { useNavigate, useParams } from "react-router-dom";
-import { blockUserAction } from "../../actions/buttonAction";
-import { PEOPLE_LIST_RESET } from "../../constants/peopleConstants";
-import { messageInitiateAction } from "../../actions/messageAction";
-import { getSaveListAction } from "../../actions/saveAction";
+} from 'react';
+import Footer from '../../components/Footer';
+import HomeContent from './content/HomeContent';
+import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
+import { useDispatch, useSelector } from 'react-redux';
+import { peopleListAction } from '../../actions/peopleAction';
+import Loading from '../../components/Loading';
+import { saveUserAction } from '../../actions/buttonAction';
+import { HomeHeader } from '../../components/Header';
+import NoValueUser from '../../components/NoValueUser';
+import { useNavigate, useParams } from 'react-router-dom';
+import { blockUserAction } from '../../actions/buttonAction';
+import { PEOPLE_LIST_RESET } from '../../constants/peopleConstants';
+import { messageInitiateAction } from '../../actions/messageAction';
+import { getSaveListAction } from '../../actions/saveAction';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -78,7 +78,7 @@ const HomeScreen = () => {
 
   const options = {
     rewind: false,
-    type: "slide",
+    type: 'slide',
     perPage: 1,
     perMove: 1,
     pagination: false,
@@ -152,10 +152,10 @@ const HomeScreen = () => {
 
   return (
     <>
-      <section className="home">
+      <section className='home'>
         <HomeHeader
           navigate={navigate}
-          style={{ display: userCardPopup ? "none" : "flex" }}
+          style={{ display: userCardPopup ? 'none' : 'flex' }}
         />
         {peopleListLoading ? (
           <Loading />
@@ -164,16 +164,16 @@ const HomeScreen = () => {
             ref={splideRef}
             hasTrack={false}
             options={{ ...options, drag: userCardPopup ? false : true }}
-            id="Splide"
+            id='Splide'
             onMoved={slidePageHandler}
-            style={{ height: userCardPopup ? "100vh" : "77vh" }}
+            style={{ height: userCardPopup ? '100%' : '77%' }}
           >
             <SplideTrack>
               {peopleListStatus &&
                 peopleListStatus?.memberResponses.map((user) => {
                   return (
                     <Suspense fallback={<Loading />} key={user.memberId}>
-                      <SplideSlide key={user.memberId} id="SplideSlide">
+                      <SplideSlide key={user.memberId} id='SplideSlide'>
                         <HomeContent
                           user={user}
                           key={user.memberId}
@@ -192,14 +192,14 @@ const HomeScreen = () => {
 
               {peopleListStatus?.endPageSignal && (
                 <SplideSlide>
-                  <NoValueUser getPeopleList={getPeopleList} />{" "}
+                  <NoValueUser getPeopleList={getPeopleList} />{' '}
                 </SplideSlide>
               )}
             </SplideTrack>
           </Splide>
         )}
 
-        <Footer style={{ display: userCardPopup ? "none" : "flex" }} />
+        <Footer style={{ display: userCardPopup ? 'none' : 'flex' }} />
       </section>
     </>
   );
