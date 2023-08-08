@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { styled } from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { SettingHeader } from "../../../components/Header";
-import { SecurityPaswordFormHook } from "../../../hooks/FormHoooks";
-import { securityEditPassword } from "../../../components/Form/Schema";
-import { useDispatch, useSelector } from "react-redux";
-import { passwordEditAction } from "../../../actions/securityEditAction";
-import { SECURITY_PASSWORD_RESET } from "../../../constants/securityEditConstants";
-import { getSaveListAction } from "../../../actions/saveAction";
+import React, { useEffect } from 'react';
+import { styled } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { SettingHeader } from '../../../components/Header';
+import { SecurityPaswordFormHook } from '../../../hooks/FormHoooks';
+import { securityEditPassword } from '../../../components/Form/Schema';
+import { useDispatch, useSelector } from 'react-redux';
+import { passwordEditAction } from '../../../actions/securityEditAction';
+import { SECURITY_PASSWORD_RESET } from '../../../constants/securityEditConstants';
+import { getSaveListAction } from '../../../actions/saveAction';
 
 const SecurityEditScreen = () => {
   const navigate = useNavigate();
@@ -48,20 +48,21 @@ const SecurityEditScreen = () => {
   }, []);
   return (
     <AccountSetting>
-      <SettingHeader navigate={navigate} name={"계정보안 설정"} />
+      <SettingHeader navigate={navigate} name={'계정보안 설정'} />
       <AccountSettingContent>
         <span
           style={{
-            fontSize: "1.5rem",
-            fontWeight: "600",
+            fontSize: '1.3rem',
+            marginTop: '0.7rem',
+            fontWeight: '600',
           }}
         >
           비밀번호 변경
         </span>
         <p
           style={{
-            fontSize: "1rem",
-            margin: "1rem 0",
+            fontSize: '1rem',
+            margin: '1rem 0',
           }}
         >
           비밀번호는 6자 이상이어야 하고 숫자, 영문, 특수기호의 조합을 포함해야
