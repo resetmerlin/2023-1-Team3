@@ -1,8 +1,8 @@
-import React from "react";
-import { styled } from "styled-components";
-import { getImageSrc } from "../../func/commonLogicHelper";
-import { Link } from "react-router-dom";
-import { LogoutButton } from "../../components/Button";
+import React from 'react';
+import { styled } from 'styled-components';
+import { getImageSrc } from '../../func/commonLogicHelper';
+import { Link } from 'react-router-dom';
+import { LogoutButton } from '../../components/Button';
 
 const SettingScreenView = ({
   profileProps,
@@ -28,26 +28,26 @@ const SettingUserProfile = ({
   getPopupStateFromChild,
 }) => {
   return (
-    <SettingUserContent htmlFor="my-card">
+    <SettingUserContent htmlFor='my-card'>
       <SettingUserImage
         key={memberId}
         src={imgSrc}
-        loading="lazy"
-        alt="mypage-profile"
+        loading='lazy'
+        alt='mypage-profile'
       ></SettingUserImage>
       <input
-        type="checkbox"
+        type='checkbox'
         onChange={getPopupStateFromChild}
-        id="my-card"
-        style={{ display: "none" }}
+        id='my-card'
+        style={{ display: 'none' }}
       />
       <SettingUserTextWrap>
-        <span style={{ fontSize: "1.4rem" }}>
+        <span style={{ fontSize: '1.4rem' }}>
           <SettingUserName>{name}</SettingUserName>
           {age}
         </span>
 
-        <span style={{ fontSize: ".9rem" }}>{department}</span>
+        <span style={{ fontSize: '.9rem' }}>{department}</span>
       </SettingUserTextWrap>
     </SettingUserContent>
   );
@@ -65,9 +65,9 @@ const SettingUserIntroduction = ({ introduction }) => {
 const SettingUserEdit = () => {
   return (
     <SettingAccountContent>
-      <Link to="/setting/personal-info">프로필 설정</Link>
+      <Link to='/setting/personal-info'>프로필 설정</Link>
 
-      <Link to="/setting/account-security">계정보안 설정</Link>
+      <Link to='/setting/account-security'>계정보안 설정</Link>
       <Link>문의</Link>
     </SettingAccountContent>
   );
@@ -78,9 +78,9 @@ const SettingUserAccount = ({ logoutHandler }) => {
     <SettingLastContent>
       <LogoutButton logout={logoutHandler} />
       <Link
-        to="/setting/account-management"
-        className="setting__button"
-        style={{ color: "red", textDecoration: "none" }}
+        to='/setting/account-management'
+        className='setting__button'
+        style={{ color: 'red', textDecoration: 'none' }}
       >
         계정에서 탈퇴
       </Link>
@@ -116,8 +116,8 @@ const SettingUserTextWrap = styled.div`
   }
 `;
 const SettingUserImage = styled.img`
-  height: 5.3rem;
-  width: 5.3rem;
+  height: 4.8rem;
+  width: 4.8rem;
   border-radius: 8px;
   display: flex;
   align-self: center;
