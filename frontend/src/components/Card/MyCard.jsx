@@ -51,8 +51,11 @@ const MyCardWrap = styled.div`
   transform: translate(-50%, -50%);
 
   flex-direction: column;
-  width: 85%;
+  width: auto;
+  aspect-ratio: 9/ 16;
   height: 72.38%;
+  border-radius: 12px;
+  background-color: white;
 
   display: flex;
   justify-content: center;
