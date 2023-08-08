@@ -89,8 +89,7 @@ const HomeContent = ({
 };
 
 export const HomeWrap = styled.div`
-  position: absolute;
-  height: 94%;
+  height: 98%;
   width: 100%;
   flex-direction: column;
   display: flex;
