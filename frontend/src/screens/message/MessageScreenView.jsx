@@ -1,8 +1,8 @@
-import React from "react";
-import { styled } from "styled-components";
-import UserMessage from "../../components/UserMessage/UserMessage";
-import { MessageHeader } from "../../components/Header";
-import Footer from "../../components/Footer";
+import React from 'react';
+import { styled } from 'styled-components';
+import UserMessage from '../../components/UserMessage/UserMessage';
+import { MessageHeader } from '../../components/Header';
+import Footer from '../../components/Footer';
 
 const MessageScreenView = ({ navigate, n, messageUserList, startMessage }) => {
   return (
@@ -41,7 +41,7 @@ const NewMessagesCount = styled.span`
 const Row = styled.div`
   display: flex;
   flex-direction: column;
-  height: 76vh;
+  height: 76%;
   width: 100%;
 
   padding: 2rem 1.3rem 0 1.3rem;

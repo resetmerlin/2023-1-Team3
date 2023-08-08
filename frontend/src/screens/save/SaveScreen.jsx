@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Footer from "../../components/Footer";
-import { useDispatch, useSelector, batch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { SaveHeader } from "../../components/Header";
-import { getSaveListAction } from "../../actions/saveAction";
-import { styled } from "styled-components";
-import { blockUserAction, saveUserAction } from "../../actions/buttonAction";
-import { SAVE_LIST_RESET } from "../../constants/saveConstants";
-import { BUTTON_SAVE_RESET } from "../../constants/buttonConstants";
-import SaveContent from "./SaveContent";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import Footer from '../../components/Footer';
+import { useDispatch, useSelector, batch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { SaveHeader } from '../../components/Header';
+import { getSaveListAction } from '../../actions/saveAction';
+import { styled } from 'styled-components';
+import { blockUserAction, saveUserAction } from '../../actions/buttonAction';
+import { SAVE_LIST_RESET } from '../../constants/saveConstants';
+import { BUTTON_SAVE_RESET } from '../../constants/buttonConstants';
+import SaveContent from './SaveContent';
 
 const SaveScreen = () => {
   const dispatch = useDispatch();
@@ -97,18 +97,18 @@ const SaveScreen = () => {
   }, [ScrollRowRef?.current, getSaveList, saveListStatus?.endPageSignal]);
 
   return (
-    <section className="save">
+    <section className='save'>
       <SaveHeader
         navigate={navigate}
-        style={{ display: childState ? "none" : "flex" }}
+        style={{ display: childState ? 'none' : 'flex' }}
       />
       <SaveRow
         style={{
-          height: childState ? "100vh" : "82vh",
-          marginTop: childState && "0",
-          top: childState && "0",
-          overflow: childState ? "hidden" : "scroll",
-          padding: childState && "0",
+          height: childState ? '100%' : '82%',
+          marginTop: childState && '0',
+          top: childState && '0',
+          overflow: childState ? 'hidden' : 'scroll',
+          padding: childState && '0',
         }}
       >
         {saveListStatus?.memberResponses &&
@@ -134,7 +134,7 @@ const SaveScreen = () => {
           })}
       </SaveRow>
 
-      <Footer style={{ display: childState ? "none" : "flex" }} />
+      <Footer style={{ display: childState ? 'none' : 'flex' }} />
     </section>
   );
 };
@@ -144,7 +144,7 @@ const SaveRow = styled.div`
   width: 100%;
   margin-top: 0.5rem;
   padding: 0 0.8rem;
-  height: 82vh;
+  height: 82%;
   position: absolute;
   align-items: start;
   overflow: scroll;
