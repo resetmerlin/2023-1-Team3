@@ -92,7 +92,7 @@ const Footer = memo(function Footer({ style }) {
 
 const FooterContent = styled.div`
   bottom: 0;
-  height: 10vh;
+  height: 10%;
   width: 100%;
   border-top: none;
   display: flex;
