@@ -20,7 +20,7 @@ const PersonalImageEdit = ({
   const [imgSrc, setImgSrc] = useState('');
   const [crop, setCrop] = useState('');
   const [completedCrop, setCompletedCrop] = useState('');
-  const aspect = 0.67 / 1;
+  const aspect = 4 / 5;
   /** 이미지를 로드하여 자동으로 crop해주는 함수 */
   const onImageLoad = (e) => {
     if (aspect) {
@@ -35,8 +35,8 @@ const PersonalImageEdit = ({
       makeAspectCrop(
         {
           unit: 'px',
-          width: 337.87,
-          height: 503.31,
+          width: 1080,
+          height: 1350,
         },
         aspect,
         mediaWidth,
@@ -73,7 +73,7 @@ const PersonalImageEdit = ({
     const options = {
       maxSizeMB: 5,
       fileType: 'image/jpeg',
-      maxWidthOrHeight: 620,
+      maxWidthOrHeight: 1350,
       useWebWorker: true,
       quality: 1.0,
     };
