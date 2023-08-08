@@ -62,8 +62,9 @@ const CardView = ({ bottomProps, topProps, popupStyle }) => {
 const CardWrap = styled.div`
   height: 100%;
   flex-direction: column;
-  width: 82%;
-
+  width: auto;
+  position: relative;
+  aspect-ratio: 9/16;
   display: flex;
   justify-content: center;
   align-items: center;
