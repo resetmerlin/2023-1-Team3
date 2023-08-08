@@ -1,6 +1,7 @@
 .card__top {
   height: 76%;
-  width: 100%;
+  width: auto;
+  aspect-ratio: 4/5;
 
   .blur-load {
     width: 100%;
