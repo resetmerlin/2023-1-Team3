@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { styled } from "styled-components";
-import { getImageSrc } from "../../../func/commonLogicHelper";
-import Card from "../../../components/Card/Card";
-import CardDetails from "../../../components/PopupCard/CardDetails";
+import React, { useCallback, useEffect, useState } from 'react';
+import { styled } from 'styled-components';
+import { getImageSrc } from '../../../func/commonLogicHelper';
+import Card from '../../../components/Card/Card';
+import CardDetails from '../../../components/PopupCard/CardDetails';
 const HomeContent = ({
   sendBlockUser,
   user,
@@ -40,14 +40,16 @@ const HomeContent = ({
     getUserFromChild(false);
   });
 
-  const popupStyle = { display: userChildCardPopup ? "none" : "flex" };
+  const popupStyle = { display: userChildCardPopup ? 'none' : 'flex' };
 
   const props = {
     popupStyle: popupStyle,
     goNextSlideHandler: goNextSlideHandler,
     user: user,
     saveValue: saveValue,
-    startMessage: startMessage,
+    startMessage: () => {
+      startMessage(user?.memberId);
+    },
     savAction: savAction,
     popupCheckedHandler: (e) => {
       setUserChildCardPopup(e.target.checked);
@@ -71,6 +73,9 @@ const HomeContent = ({
     saveValue: saveValue,
     goBackToSlide: cancelPopup,
     imageSrc: getImageSrc(user),
+    startMessage: () => {
+      startMessage(user?.memberId);
+    },
   };
 
   return (
