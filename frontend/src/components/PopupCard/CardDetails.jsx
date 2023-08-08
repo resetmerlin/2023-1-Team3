@@ -1,8 +1,8 @@
-import React from "react";
-import { BackToSlideCardButton } from "../Button";
-import CardDetailsTopView from "./top/CardDetailsTopView";
-import CardDetailsBottomView from "./bottom/CardDetailsBottomView";
-import { styled } from "styled-components";
+import React from 'react';
+import { BackToSlideCardButton } from '../Button';
+import CardDetailsTopView from './top/CardDetailsTopView';
+import CardDetailsBottomView from './bottom/CardDetailsBottomView';
+import { styled } from 'styled-components';
 
 const CardDetails = ({
   user,
@@ -47,9 +47,9 @@ const CardDetailsView = ({ goBackToSlide, topProps, bottomProps }) => {
 };
 
 const CardDetailsWrap = styled.div`
-  position: fixed;
+  position: absolute;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
