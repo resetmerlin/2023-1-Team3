@@ -1,18 +1,18 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Footer from "../../components/Footer";
-import { styled } from "styled-components";
-import { SettingHeader } from "../../components/Header";
-import { batch, useDispatch, useSelector } from "react-redux";
-import { logoutAction } from "../../actions/userAction";
-import { getPersonalInfoAction } from "../../actions/securityEditAction";
-import { SECURITY_GET_PERSONALINFO_RESET } from "../../constants/securityEditConstants";
-import SettingScreenView from "./SettingScreenView";
-import { getImageSrc } from "../../func/commonLogicHelper";
-import SettingScreenSkeleton from "./skeleton/SettingScreenSkeleton";
-import MyCard from "../../components/Card/MyCard";
-import CardDetails from "../../components/PopupCard/CardDetails";
-import { getSaveListAction } from "../../actions/saveAction";
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Footer from '../../components/Footer';
+import { styled } from 'styled-components';
+import { SettingHeader } from '../../components/Header';
+import { batch, useDispatch, useSelector } from 'react-redux';
+import { logoutAction } from '../../actions/userAction';
+import { getPersonalInfoAction } from '../../actions/securityEditAction';
+import { SECURITY_GET_PERSONALINFO_RESET } from '../../constants/securityEditConstants';
+import SettingScreenView from './SettingScreenView';
+import { getImageSrc } from '../../func/commonLogicHelper';
+import SettingScreenSkeleton from './skeleton/SettingScreenSkeleton';
+import MyCard from '../../components/Card/MyCard';
+import CardDetails from '../../components/PopupCard/CardDetails';
+import { getSaveListAction } from '../../actions/saveAction';
 
 const SettingScreen = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const SettingScreen = () => {
   const [userCardPopup, setUserCardPopup] = useState(false);
   const [cardDetailsPopup, setCardDetailsPopup] = useState(false);
 
-  const popupStyle = { display: userCardPopup ? "none" : "flex" };
+  const popupStyle = { display: userCardPopup ? 'none' : 'flex' };
   const age =
     new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
 
@@ -85,7 +85,7 @@ const SettingScreen = () => {
   return (
     <>
       <Setting>
-        <SettingHeader navigate={navigate} name={"마이페이지"} />
+        <SettingHeader navigate={navigate} name={'마이페이지'} />
         {loading ? <SettingScreenSkeleton /> : <SettingScreenView {...props} />}
 
         <Footer />
@@ -114,12 +114,12 @@ const Setting = styled.div`
   align-self: start;
 `;
 const MyCardBackground = styled.div`
-  position: fixed;
+  position: relative;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.6);
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;

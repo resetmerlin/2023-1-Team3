@@ -68,9 +68,9 @@ const LoginSection = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  height: 56%;
+  height: auto;
   font-size: 1rem;
-  position: fixed;
+  position: relative;
   top: 43%;
   left: 50%;
   transform: translate(-50%, -50%);
