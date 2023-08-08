@@ -1,5 +1,5 @@
-import React, { memo, forwardRef } from "react";
-import { styled } from "styled-components";
+import React, { memo, forwardRef } from 'react';
+import { styled } from 'styled-components';
 
 const UserCardColumn = memo(
   forwardRef(({ user, checkedState, popupHandler, imageSrc }, ref) => {
@@ -22,14 +22,14 @@ const UserCardColumnView = forwardRef(
     return (
       <ColumnBig ref={ref}>
         <input
-          type="checkbox"
+          type='checkbox'
           name={id}
           id={id}
           checked={checkedState}
           onChange={popupHandler}
         />
         <ColumnLabel htmlFor={id}>
-          <UserColumnProfile loading="lazy" src={imageSrc} alt="save-profile" />
+          <UserColumnProfile loading='lazy' src={imageSrc} alt='save-profile' />
 
           <UserColumnDescWrap>
             <UserColumnName>{name}</UserColumnName>
@@ -44,6 +44,7 @@ const UserCardColumnView = forwardRef(
 const ColumnBig = styled.div`
   display: flex;
   width: 47%;
+  aspect-ratio: 9 / 16;
   height: 45%;
   flex-direction: column;
   margin: 0.7rem 0.3rem;
@@ -72,6 +73,7 @@ const ColumnLabel = styled.label`
 const UserColumnProfile = styled.img`
   width: 100%;
   height: 75%;
+  aspect-ratio: 4/ 5;
   display: flex;
   align-items: center;
   border-radius: 8px;
