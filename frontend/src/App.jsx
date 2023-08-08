@@ -22,19 +22,6 @@ const ProfileEditScreen = lazy(() =>
 );
 
 function App() {
-  useEffect(() => {
-    function setVH() {
-      let vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-
-    setVH(); // Call initially
-    window.addEventListener('resize', setVH);
-
-    // Cleanup function to remove the listener
-    return () => window.removeEventListener('resize', setVH);
-  }, []);
-
   return (
     <BrowserRouter>
       <div className='container'>

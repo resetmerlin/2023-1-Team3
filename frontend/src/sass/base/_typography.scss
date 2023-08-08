@@ -71,7 +71,7 @@ body {
 .container {
   display: flex;
   width: 100%;
-  min-height: calc(var(--vh, 1vh) * 100); // Using --vh for height
+  height: 100dvh;
 
   box-sizing: border-box;
   position: relative;
@@ -80,12 +80,12 @@ body {
   @include respond(smartphones-port) {
     min-width: 320px;
     max-width: 479px;
-    height: 100%;
+    height: 100dvh;
   }
   @include respond(smartphones-land) {
     min-width: 480px;
     max-width: 599px;
-    height: 100%;
+    height: 100dvh;
   }
 
   @include respond(tab-port) {
