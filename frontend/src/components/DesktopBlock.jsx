@@ -1,10 +1,10 @@
-import React from "react";
-import { useMediaQuery } from "react-responsive";
-import { styled } from "styled-components";
+import React from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { styled } from 'styled-components';
 
 const DesktopBlock = () => {
   const isDesktopMinimum = useMediaQuery({
-    query: "(min-width: 599px)",
+    query: '(min-width: 599px)',
   });
   return (
     <>
@@ -12,16 +12,23 @@ const DesktopBlock = () => {
         <DesktopContainer>
           <ErrorPage>
             <ErrorPageWrap>
-              <NumberError>404</NumberError>
+              <ErrorPageNumberWrap>
+                <NumberError>404</NumberError>{' '}
+              </ErrorPageNumberWrap>
+
               <ErrorPageContent>
                 페이지를 <ErrorSpan>찾을 수 없습니다.</ErrorSpan>
               </ErrorPageContent>
+
               <ErrorPageSmall>
                 Destop 뷰는 현재 지원되지 않습니다. 모바일 기기를 사용해 주세요.
               </ErrorPageSmall>
             </ErrorPageWrap>
-
-            <ErrorLogo src="/404.svg" alt="404-image" />
+            <ErrorPageNumberWrap>
+              <ErrorLogo src='/404.svg' alt='404-image' />
+              <ErrorLogo src='./qr-code.png'></ErrorLogo>{' '}
+              <ErrorLogo src='/404.svg' alt='404-image' />
+            </ErrorPageNumberWrap>
           </ErrorPage>
         </DesktopContainer>
       )}
@@ -33,7 +40,11 @@ const ErrorSpan = styled.span`
   color: #8071fc;
   font-weight: 600;
 `;
-
+const ErrorPageNumberWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 const ErrorPage = styled.div`
   position: relative;
   height: 100vh;
@@ -76,8 +87,8 @@ const NumberError = styled.span`
 `;
 
 const ErrorLogo = styled.img`
-  height: 26rem;
-  width: 26rem;
+  height: 18rem;
+  width: 18rem;
   bottom: 0;
 `;
 const DesktopContainer = styled.div`

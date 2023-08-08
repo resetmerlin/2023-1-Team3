@@ -1,8 +1,8 @@
-import React from "react";
-import { CardBottomView } from "./bottom/CardBottomView";
-import CardTopView from "./top/CardTopView";
-import { styled } from "styled-components";
-import { BoxIconElement } from "boxicons";
+import React from 'react';
+import { CardBottomView } from './bottom/CardBottomView';
+import CardTopView from './top/CardTopView';
+import { styled } from 'styled-components';
+import { BoxIconElement } from 'boxicons';
 
 const Card = ({
   popupStyle,
@@ -38,9 +38,7 @@ const Card = ({
 
       saveValue: saveValue,
       memberId: user?.memberId,
-      startMessage: () => {
-        startMessage(user?.memberId);
-      },
+      startMessage,
     },
   };
 
@@ -64,7 +62,7 @@ const CardView = ({ bottomProps, topProps, popupStyle }) => {
 const CardWrap = styled.div`
   height: 100%;
   flex-direction: column;
-  width: 85%;
+  width: 82%;
 
   display: flex;
   justify-content: center;

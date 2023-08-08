@@ -1,6 +1,5 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { getImageSrc } from '../../func/commonLogicHelper';
 import { Link } from 'react-router-dom';
 import { LogoutButton } from '../../components/Button';
 
@@ -148,7 +147,7 @@ const SettingMiddlContent = styled.div`
 
 const SettingAccountContent = styled.div`
   height: 16%;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 88%;
   border-radius: 8px;
   margin: 0 0 1.2rem 0;
@@ -160,7 +159,7 @@ const SettingAccountContent = styled.div`
   align-self: center;
 
   a {
-    height: 25%;
+    height: auto;
     width: 100%;
     display: flex;
     align-items: center;
@@ -177,22 +176,21 @@ const SettingAccountContent = styled.div`
 `;
 
 const SettingLastContent = styled.div`
-  height: 12%;
+  height: 11%;
   width: 88%;
   border-radius: 8px;
-  padding: 1rem 0;
-  margin: 0;
+
   display: flex;
   flex-direction: column;
 
-  justify-content: center;
+  justify-content: space-evenly;
   box-shadow: -1px 0px 15px 7px rgb(236, 234, 247, 1);
   -webkit-box-shadow: -1px 0px 15px 7px rgb(236, 234, 247, 1);
   -moz-box-shadow: -1px 0px 15px 7px rgb(236, 234, 247, 1);
   align-self: center;
 
   .setting__button {
-    height: 50%;
+    height: auto;
     width: 100%;
     display: flex;
     align-items: center;

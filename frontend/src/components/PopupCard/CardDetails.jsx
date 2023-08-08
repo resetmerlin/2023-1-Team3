@@ -13,6 +13,7 @@ const CardDetails = ({
   saveValue,
   goBackToSlide,
   imageSrc,
+  startMessage,
 }) => {
   const bottomProps = {
     name: user?.name,
@@ -25,6 +26,7 @@ const CardDetails = ({
     introduction: user?.introduction,
     likeAction: likeAction,
     saveValue: saveValue,
+    startMessage,
   };
   const props = {
     goBackToSlide: goBackToSlide,
