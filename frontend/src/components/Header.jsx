@@ -1,24 +1,24 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
-import { styled } from "styled-components";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import { LogoImageMedium } from "./Logo";
-import { HeaderBackButton } from "./Button";
+import { LogoImageMedium } from './Logo';
+import { HeaderBackButton } from './Button';
 const Header = () => {
   const location = useLocation().pathname;
   return (
     <>
-      {location == "/message" ? (
-        <div className="header">
+      {location == '/message' ? (
+        <div className='header'>
           <h1>Message</h1>
         </div>
-      ) : location == "/save" ? (
-        <div className="header">
+      ) : location == '/save' ? (
+        <div className='header'>
           <h1>Save</h1>
         </div>
-      ) : location == "/setting" ? (
-        <div className="header">
+      ) : location == '/setting' ? (
+        <div className='header'>
           <h1>Setting</h1>
         </div>
       ) : (
@@ -35,7 +35,7 @@ export const HomeHeader = ({ navigate, style }) => {
         <HeaderBackButton navigate={navigate} />
       </HeaderButtonWrap>
 
-      <Link to="/">
+      <Link to='/'>
         <LogoImageMedium />
       </Link>
     </HeaderLogoWrap>
@@ -49,7 +49,7 @@ export const SaveHeader = ({ navigate, style }) => {
         <HeaderBackButton navigate={navigate} />
       </HeaderButtonWrap>
 
-      <div className="save-header__content">
+      <div className='save-header__content'>
         <span>Like</span>
       </div>
     </SaveHeaderWrap>
@@ -89,7 +89,7 @@ const HeaderWrap = styled.div`
   left: 3%;
 `;
 const SettingHeaderWrap = styled.div`
-  height: 12vh;
+  height: 12%;
   width: 100%;
   display: flex;
   position: relative;
@@ -103,7 +103,7 @@ const SettingHeaderWrap = styled.div`
   }
 `;
 const MessageHeaderWrap = styled.div`
-  height: 14vh;
+  height: 14%;
   width: 100%;
   display: flex;
   background-color: rgb(128, 113, 252);
@@ -127,7 +127,7 @@ const MessageHeaderWrap = styled.div`
   }
 `;
 const HeaderLogoWrap = styled.div`
-  height: 13vh;
+  height: 13%;
   width: 100%;
 
   display: flex;
@@ -156,7 +156,7 @@ const HeaderButtonWrap = styled.div`
   height: 100%;
 `;
 const SaveHeaderWrap = styled.div`
-  height: 10vh;
+  height: 10%;
   width: auto;
   display: flex;
   position: relative;

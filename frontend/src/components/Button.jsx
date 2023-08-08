@@ -1,28 +1,28 @@
-import styled from "styled-components";
-import React, { memo } from "react";
-import { BoxIconElement } from "boxicons";
-import { ButtonLoading } from "./Loader";
-import { ButtonChecked } from "./Checked";
-import LikeAnimation from "./Animation/Like/LikeAnimation";
+import styled from 'styled-components';
+import React, { memo } from 'react';
+import { BoxIconElement } from 'boxicons';
+import { ButtonLoading } from './Loader';
+import { ButtonChecked } from './Checked';
+import LikeAnimation from './Animation/Like/LikeAnimation';
 
 /**저장 버튼: 개인정보 재설정 저장용*/
 export const SaveButton = ({ loading, status }) => {
   const saveButtonStyle = {
-    backgroundColor: status && !loading ? "rgb(128, 113, 252)" : "white",
+    backgroundColor: status && !loading ? 'rgb(128, 113, 252)' : 'white',
     color:
       status && loading === false
-        ? "white"
+        ? 'white'
         : loading === undefined && status === undefined
-        ? "rgb(128, 113, 252)"
-        : "rgb(128, 113, 252)",
+        ? 'rgb(128, 113, 252)'
+        : 'rgb(128, 113, 252)',
   };
   return (
-    <PersonalInfoButton type="submit" style={saveButtonStyle}>
+    <PersonalInfoButton type='submit' style={saveButtonStyle}>
       {status && loading === false
-        ? "저장 완료!"
+        ? '저장 완료!'
         : loading === undefined && status === undefined
-        ? "저장"
-        : "저장"}
+        ? '저장'
+        : '저장'}
     </PersonalInfoButton>
   );
 };
@@ -32,7 +32,7 @@ export const ChangeProfileButton = ({ handleChangeProfile }) => {
   return (
     <PersonalInfoButton
       style={{
-        width: "5.5rem",
+        width: '5.5rem',
       }}
       onClick={(event) => {
         event.preventDefault();
@@ -49,9 +49,9 @@ export const ChangeProfileButton = ({ handleChangeProfile }) => {
 export const SaveProfileButton = () => {
   return (
     <PersonalInfoButton
-      type="submit"
+      type='submit'
       style={{
-        width: "5.5rem",
+        width: '5.5rem',
       }}
     >
       프로필 저장
@@ -63,16 +63,16 @@ export const SaveProfileButton = () => {
 export const CheckedButton = () => {
   return (
     <button
-      type="submit"
+      type='submit'
       style={{
-        position: "fixed",
-        top: "4.5%",
-        right: "3%",
-        backgroundColor: "white",
-        border: "none",
+        position: 'fixed',
+        top: '4.5%',
+        right: '3%',
+        backgroundColor: 'white',
+        border: 'none',
       }}
     >
-      <box-icon name="check" size="2rem"></box-icon>
+      <box-icon name='check' size='2rem'></box-icon>
     </button>
   );
 };
@@ -81,8 +81,8 @@ export const CheckedButton = () => {
 export const LogoutButton = ({ logout }) => {
   return (
     <SettingButton
-      type="button"
-      className="setting__button"
+      type='button'
+      className='setting__button'
       onClick={() => {
         logout();
       }}
@@ -93,46 +93,46 @@ export const LogoutButton = ({ logout }) => {
 };
 export const RegisterButton = ({ registerInfo }) => {
   const submitButtonStyle = {
-    backgroundColor: "rgb(128, 113, 252)",
-    width: "100%",
+    backgroundColor: 'rgb(128, 113, 252)',
+    width: '100%',
 
-    height: " 3.3rem",
+    height: ' 3.3rem',
   };
   return (
-    <DefaultFormButtom type="submit" style={submitButtonStyle}>
+    <DefaultFormButtom type='submit' style={submitButtonStyle}>
       {registerInfo?.loading === true ? (
         <ButtonLoading />
       ) : registerInfo?.loading === false && registerInfo?.registerStatus ? (
         <ButtonChecked />
       ) : (
-        "회원가입"
+        '회원가입'
       )}
     </DefaultFormButtom>
   );
 };
 export const SubmitButton = ({ page }) => {
   const submitButtonStyle = {
-    backgroundColor: "rgb(128, 113, 252)",
-    width: page == "register" ? "100%" : "47.5%",
+    backgroundColor: 'rgb(128, 113, 252)',
+    width: page == 'register' ? '100%' : '47.5%',
 
-    height: page == "register" ? " 3.3rem" : "2.5rem",
+    height: page == 'register' ? ' 3.3rem' : '2.5rem',
   };
   return (
-    <DefaultFormButtom type="submit" style={submitButtonStyle}>
-      {page == "login" ? "로그인 " : "회원가입"}
+    <DefaultFormButtom type='submit' style={submitButtonStyle}>
+      {page == 'login' ? '로그인 ' : '회원가입'}
     </DefaultFormButtom>
   );
 };
 export const GoToRegisterButton = ({ page, navigate }) => {
   return (
     <DefaultFormButtom
-      type="button"
-      style={{ backgroundColor: "#B1B1B1" }}
+      type='button'
+      style={{ backgroundColor: '#B1B1B1' }}
       onClick={() => {
         if (page) navigate(`/${page}`);
       }}
     >
-      {page == "login" ? "로그인 " : "회원가입"}{" "}
+      {page == 'login' ? '로그인 ' : '회원가입'}{' '}
     </DefaultFormButtom>
   );
 };
@@ -141,9 +141,9 @@ export const GoToRegisterButton = ({ page, navigate }) => {
 export const VerifyButton = ({ sendEmailData, getValues, emailInfo }) => {
   return (
     <VerifyStyleButton
-      type="submit"
+      type='submit'
       onClick={() => {
-        sendEmailData(getValues("email"));
+        sendEmailData(getValues('email'));
       }}
     >
       {!emailInfo?.error && emailInfo?.emailStatus === false ? (
@@ -153,7 +153,7 @@ export const VerifyButton = ({ sendEmailData, getValues, emailInfo }) => {
         emailInfo?.emailStatus ? (
         <ButtonChecked />
       ) : (
-        "전송"
+        '전송'
       )}
     </VerifyStyleButton>
   );
@@ -171,7 +171,7 @@ export const VerifyCodeButton = ({
       onClick={() => {
         sendCodeData(getValueEmail, getValueCode);
       }}
-      type="button"
+      type='button'
     >
       {!codeInfo?.error && codeInfo?.codeBoolean === false ? (
         <ButtonLoading />
@@ -180,7 +180,7 @@ export const VerifyCodeButton = ({
         codeInfo?.codeBoolean ? (
         <ButtonChecked />
       ) : (
-        "인증"
+        '인증'
       )}
     </VerifyStyleButton>
   );
@@ -194,7 +194,7 @@ export const BackButton = memo(function BackButton({ navigate }) {
         navigate(-1);
       }}
     >
-      <box-icon name="chevron-left" color="black" size="2.5rem"></box-icon>
+      <box-icon name='chevron-left' color='black' size='2.5rem'></box-icon>
     </BackArrowButton>
   );
 });
@@ -203,15 +203,15 @@ export const HeaderBackButton = memo(function BackButton({ navigate }) {
   return (
     <BackArrowButton
       style={{
-        position: "fixed",
-        top: "4.5%",
-        left: "5%",
+        position: 'fixed',
+        top: '4.5%',
+        left: '3%',
       }}
       onClick={() => {
         navigate(-1);
       }}
     >
-      <box-icon name="chevron-left" color="black" size="2.5rem"></box-icon>
+      <box-icon name='chevron-left' color='black' size='2.5rem'></box-icon>
     </BackArrowButton>
   );
 });
@@ -219,8 +219,8 @@ export const HeaderBackButton = memo(function BackButton({ navigate }) {
 /*회입가입 스테이지 뒤로 가기 버튼 */
 export const BackFormButton = memo(function BackFormButton({ handlePrevious }) {
   return (
-    <BackArrowButton onClick={handlePrevious} style={{ top: "3%", left: "3%" }}>
-      <box-icon name="chevron-left" color="black" size="3rem"></box-icon>
+    <BackArrowButton onClick={handlePrevious} style={{ top: '3%', left: '3%' }}>
+      <box-icon name='chevron-left' color='black' size='3rem'></box-icon>
     </BackArrowButton>
   );
 });
@@ -233,16 +233,16 @@ export const BackToSlideCardButton = memo(function BackFormButton({
     <button
       onClick={goBackToSlide}
       style={{
-        position: "absolute",
-        background: "transparent",
-        border: "none",
+        position: 'absolute',
+        background: 'transparent',
+        border: 'none',
 
-        top: "1%",
-        right: "2%",
+        top: '1%',
+        right: '2%',
         zIndex: 1000,
       }}
     >
-      <box-icon name="x" color="black" size="3rem"></box-icon>{" "}
+      <box-icon name='x' color='black' size='3rem'></box-icon>{' '}
     </button>
   );
 });
@@ -251,9 +251,9 @@ export const SaveCheckButton = ({ sendImageToServer }) => {
   return (
     <button onClick={sendImageToServer}>
       <box-icon
-        name="check"
-        color="rgb(196, 196, 196)"
-        size="2.3rem"
+        name='check'
+        color='rgb(196, 196, 196)'
+        size='2.3rem'
       ></box-icon>
     </button>
   );
@@ -268,7 +268,7 @@ export const ImageRegisterButton = ({
   return (
     <NextButtonWrap>
       <NextButton
-        type="button"
+        type='button'
         onClick={async () => {
           handleNext();
           await sendImageToServer();
@@ -285,7 +285,7 @@ export const ImageUploadButton = ({ sendImageToServer, info }) => {
   return (
     <NextButtonWrap>
       <NextButton
-        type="button"
+        type='button'
         onClick={async () => {
           await sendImageToServer();
         }}
@@ -295,7 +295,7 @@ export const ImageUploadButton = ({ sendImageToServer, info }) => {
         ) : info?.loading === false && info?.profileEditStatus ? (
           <ButtonChecked />
         ) : (
-          "프로필 이미지로 설정"
+          '프로필 이미지로 설정'
         )}
       </NextButton>
     </NextButtonWrap>
@@ -306,7 +306,7 @@ export const AfterRegisterButton = ({ content, navigate }) => {
   return (
     <NextButtonWrap>
       <NextButton
-        type="button"
+        type='button'
         onClick={() => {
           navigate(`/login`);
         }}
@@ -322,7 +322,7 @@ export const NextStepButton = ({ handleNext, inputErrors, getValues }) => {
   return (
     <NextButtonWrap>
       <NextButton
-        type="submit"
+        type='submit'
         disabled={!getValues || inputErrors == true ? true : false}
         onClick={() => {
           if (!getValues || inputErrors == true) {
@@ -341,7 +341,7 @@ export const EmailNextStepButton = ({ handleNext, codeInfo, emailInfo }) => {
   return (
     <NextButtonWrap>
       <NextButton
-        type="submit"
+        type='submit'
         onClick={() => {
           if (
             !emailInfo?.loading &&
@@ -362,7 +362,7 @@ export const PreviousStepButton = memo(function PreviousStepButton({
 }) {
   return (
     <NextButton
-      className="page-handler-button"
+      className='page-handler-button'
       onClick={() => {
         handlePrevious();
       }}
@@ -377,8 +377,8 @@ export const UserDeleteButton = memo(function UserDeleteButton({
   goNextSlideHandler,
 }) {
   return (
-    <SmallUserButton type="button" onClick={goNextSlideHandler}>
-      <box-icon name="x" color="rgb(128, 113, 252)" size="2.5rem"></box-icon>
+    <SmallUserButton type='button' onClick={goNextSlideHandler}>
+      <box-icon name='x' color='rgb(128, 113, 252)' size='2.5rem'></box-icon>
     </SmallUserButton>
   );
 });
@@ -391,19 +391,19 @@ export const RecapUserListsButton = memo(function UserDeleteButton({
     <SmallNextButton>
       <NextButton
         style={{
-          fontSize: "1rem",
-          fontWeight: "800",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          fontSize: '1rem',
+          fontWeight: '800',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-        type="button"
+        type='button'
         onClick={() => {
           getPeopleList();
         }}
       >
         유저 다시보기
-        <box-icon name="chevron-right" color="white" size="2rem"></box-icon>
+        <box-icon name='chevron-right' color='white' size='2rem'></box-icon>
       </NextButton>
     </SmallNextButton>
   );
@@ -413,12 +413,12 @@ export const UserMessageButton = memo(function UserMessageButton({
   startMessage,
 }) {
   return (
-    <SmallUserButton type="button" onClick={startMessage}>
+    <SmallUserButton type='button' onClick={startMessage}>
       <box-icon
-        color="rgb(128, 113, 252)"
-        name="message-rounded"
-        size="2rem"
-        type="solid"
+        color='rgb(128, 113, 252)'
+        name='message-rounded'
+        size='2rem'
+        type='solid'
       ></box-icon>
     </SmallUserButton>
   );
@@ -427,19 +427,19 @@ export const UserDetailsMessageButton = memo(
   function UserDetailsMessageButton() {
     return (
       <UserDetailButton
-        type="button"
+        type='button'
         style={{
-          backgroundColor: "#868E96",
-          color: "white",
+          backgroundColor: '#868E96',
+          color: 'white',
         }}
       >
         <box-icon
-          color="white"
-          name="message-rounded"
-          size="2rem"
-          type="solid"
+          color='white'
+          name='message-rounded'
+          size='2rem'
+          type='solid'
           style={{
-            marginRight: "1rem",
+            marginRight: '1rem',
           }}
         ></box-icon>
         메세지 보내기
@@ -456,10 +456,10 @@ export const UserLikeButton = memo(function UserLikeButton({
   return (
     <>
       <MediumUserButton
-        type="button"
+        type='button'
         style={{
-          position: "relative",
-          transition: "all 0.1s ease-in-out",
+          position: 'relative',
+          transition: 'all 0.1s ease-in-out',
         }}
         onClick={likeAction}
       >
@@ -467,24 +467,24 @@ export const UserLikeButton = memo(function UserLikeButton({
 
         {saveValue == false ? (
           <box-icon
-            color="rgb(128, 113, 252)"
-            name="heart"
-            size="2rem"
-            type="solid"
+            color='rgb(128, 113, 252)'
+            name='heart'
+            size='2rem'
+            type='solid'
           ></box-icon>
         ) : saveValue == true ? (
           <box-icon
-            color="rgb(128, 113, 252)"
-            name="heart"
-            size="2.5rem"
-            type="solid"
+            color='rgb(128, 113, 252)'
+            name='heart'
+            size='2.5rem'
+            type='solid'
           ></box-icon>
         ) : (
           <box-icon
-            color="rgb(128, 113, 252)"
-            name="heart"
-            size="2rem"
-            type="solid"
+            color='rgb(128, 113, 252)'
+            name='heart'
+            size='2rem'
+            type='solid'
           ></box-icon>
         )}
       </MediumUserButton>
@@ -499,13 +499,13 @@ export const BlockButton = memo(function BlockButton({
 }) {
   return (
     <PopupButton
-      type="button"
+      type='button'
       style={{
-        color: blockValue ? "rgb(128, 113, 252)" : "black",
-        fontWeight: blockValue ? "600" : "400",
+        color: blockValue ? 'rgb(128, 113, 252)' : 'black',
+        fontWeight: blockValue ? '600' : '400',
 
-        borderBottomLeftRadius: "8px",
-        borderBottomRightRadius: "8px",
+        borderBottomLeftRadius: '8px',
+        borderBottomRightRadius: '8px',
       }}
       onClick={blockAction}
     >
@@ -521,33 +521,33 @@ export const UserDetailLikeButton = memo(function UserDetailLikeButton({
   return (
     <UserDetailButton
       style={{
-        backgroundColor: !saveValue ? "white" : "rgb(128, 113, 252)",
-        color: !saveValue ? "rgb(128, 113, 252)" : "white",
+        backgroundColor: !saveValue ? 'white' : 'rgb(128, 113, 252)',
+        color: !saveValue ? 'rgb(128, 113, 252)' : 'white',
       }}
       onClick={likeAction}
     >
       {saveValue == false ? (
         <>
           <box-icon
-            color="rgb(128, 113, 252)"
-            name="heart"
-            size="2.2rem"
+            color='rgb(128, 113, 252)'
+            name='heart'
+            size='2.2rem'
             style={{
-              marginRight: "1rem",
+              marginRight: '1rem',
             }}
-            type="solid"
+            type='solid'
           ></box-icon>
           Like에 저장
         </>
       ) : saveValue == true ? (
         <>
           <box-icon
-            color="white"
-            name="heart"
-            size="2.2rem"
-            type="solid"
+            color='white'
+            name='heart'
+            size='2.2rem'
+            type='solid'
             style={{
-              marginRight: "1rem",
+              marginRight: '1rem',
             }}
           ></box-icon>
           Like에서 삭제
@@ -555,13 +555,13 @@ export const UserDetailLikeButton = memo(function UserDetailLikeButton({
       ) : (
         <>
           <box-icon
-            color="rgb(128, 113, 252)"
-            name="heart"
-            size="2.2rem"
+            color='rgb(128, 113, 252)'
+            name='heart'
+            size='2.2rem'
             style={{
-              marginRight: "1rem",
+              marginRight: '1rem',
             }}
-            type="solid"
+            type='solid'
           ></box-icon>
           Like에 저장
         </>
@@ -589,14 +589,14 @@ export const FullStepButton = memo(function FullStepButton({
 export const GoFormButton = ({ page, navigate }) => {
   return (
     <>
-      <NextButtonWrap style={{ height: "1rem" }}>
+      <NextButtonWrap style={{ height: '1rem' }}>
         <GoAnotherForm
-          type="button"
+          type='button'
           onClick={() => {
             if (page) navigate(`/${page}`);
           }}
         >
-          {page == "login" ? "이미 가입을 하셨나요? " : "계정이 없나요?"}{" "}
+          {page == 'login' ? '이미 가입을 하셨나요? ' : '계정이 없나요?'}{' '}
         </GoAnotherForm>
       </NextButtonWrap>
     </>

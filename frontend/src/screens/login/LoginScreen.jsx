@@ -1,13 +1,13 @@
-import React, { useEffect, useCallback, Suspense } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { loginAction } from "../../actions/userAction";
-import { LoginFormHook } from "../../hooks/FormHoooks";
-import { loginSchema } from "../../components/Form/Schema";
-import { selectLoginToken } from "../../hooks/MemoizedRedux";
-import { LogoSizeL } from "../../components/Logo";
-import Loading from "../../components/Loading";
-import { styled } from "styled-components";
+import React, { useEffect, useCallback, Suspense } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { loginAction } from '../../actions/userAction';
+import { LoginFormHook } from '../../hooks/FormHoooks';
+import { loginSchema } from '../../components/Form/Schema';
+import { selectLoginToken } from '../../hooks/MemoizedRedux';
+import { LogoSizeL } from '../../components/Logo';
+import Loading from '../../components/Loading';
+import { styled } from 'styled-components';
 const LoginSceen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,12 +29,12 @@ const LoginSceen = () => {
 
   useEffect(() => {
     if (loginInfo?.sessfbs_ffa0934) {
-      navigate("/");
+      navigate('/');
     }
   }, [loginInfo?.sessfbs_ffa0934]);
 
   return (
-    <LoginSection className="form">
+    <LoginSection className='form'>
       <Suspense fallback={<Loading />}>
         <LogoSizeL />
         <FormWrap>
@@ -46,7 +46,7 @@ const LoginSceen = () => {
           />
         </FormWrap>
       </Suspense>
-      <div className="form__background"></div>
+      <div className='form__background'></div>
     </LoginSection>
   );
 };
@@ -70,7 +70,7 @@ const LoginSection = styled.section`
   padding: 1rem;
   height: 56%;
   font-size: 1rem;
-  position: absolute;
+  position: fixed;
   top: 43%;
   left: 50%;
   transform: translate(-50%, -50%);
