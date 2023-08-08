@@ -1,18 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getPersonalInfoAction } from "../../actions/securityEditAction";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPersonalInfoAction } from '../../actions/securityEditAction';
 import {
   getMessagesHistoryAction,
   sendMessageAction,
-} from "../../actions/messageAction";
-import { styled } from "styled-components";
-import ConversationContent from "./content/ConversationContent";
-import ConversationBottom from "./bottom/ConversationBottom";
-import ConversationHeader from "./header/ConversationHeader";
-import { getImageSrc, giveCurrentTime } from "../../func/commonLogicHelper";
-import { messageHistoryResetAction } from "../../actions/resetAction";
-import { getSaveListAction } from "../../actions/saveAction";
+} from '../../actions/messageAction';
+import { styled } from 'styled-components';
+import ConversationContent from './content/ConversationContent';
+import ConversationBottom from './bottom/ConversationBottom';
+import ConversationHeader from './header/ConversationHeader';
+import { getImageSrc, giveCurrentTime } from '../../func/commonLogicHelper';
+import { messageHistoryResetAction } from '../../actions/resetAction';
+import { getSaveListAction } from '../../actions/saveAction';
 
 const ConversationScreen = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const ConversationScreen = () => {
 
   // 메세지 보낼 상대의 memberId를 params에 가져옴
   const location = useLocation().search;
-  const opponentMemberId = +new URLSearchParams(location).get("user");
+  const opponentMemberId = +new URLSearchParams(location).get('user');
   const headers = { memberId: myAccountInfo?.memberId };
 
   // 웹 소켓 접속 여부의 체크해주는 state
@@ -63,6 +63,9 @@ const ConversationScreen = () => {
     if (!connected) {
       const socket = new SockJS(`${import.meta.env.VITE_API_URL}/chat`);
       client.current = Stomp.over(socket);
+
+      client.current.debug = function () {};
+
       client.current.connect({}, () => {
         setConnected(true);
         client.current.subscribe(
@@ -71,9 +74,9 @@ const ConversationScreen = () => {
             // 메세지 기록 redux에 저장하기 위해 dispatch
             if (response?.body) {
               const body = JSON.parse(response?.body);
-              if (body?.status === "FETCH" || body?.status === "GET") {
+              if (body?.status === 'FETCH' || body?.status === 'GET') {
                 dispatch(getMessagesHistoryAction(response, pageRef.current));
-              } else if (body?.status === "SEND" || body?.status === "OK") {
+              } else if (body?.status === 'SEND' || body?.status === 'OK') {
                 dispatch(sendMessageAction(response));
               }
             }
@@ -89,7 +92,7 @@ const ConversationScreen = () => {
   /** SEND/FETCH: 내가 접속하지 않을때 상대가 보낸 메세지들을 가져옴 */
   function fetchMessages(page) {
     client.current.send(
-      "/app/fetch",
+      '/app/fetch',
       {},
       JSON.stringify({
         memberId: myAccountInfo?.memberId,
@@ -107,7 +110,7 @@ const ConversationScreen = () => {
       return prevPage + 1;
     });
     client.current.send(
-      "/app/get",
+      '/app/get',
       {},
       JSON.stringify({
         fromMemberId: myAccountInfo?.memberId,
@@ -128,7 +131,7 @@ const ConversationScreen = () => {
       message: messages,
     };
 
-    await client.current.send("/app/send", {}, JSON.stringify(request));
+    await client.current.send('/app/send', {}, JSON.stringify(request));
     dispatch(sendMessageAction(JSON.stringify(request)));
   }
 
@@ -149,7 +152,7 @@ const ConversationScreen = () => {
       dispatch(messageHistoryResetAction());
       connectionInitiate();
     } else if (!userMessageStatus) {
-      navigate("/message");
+      navigate('/message');
     }
 
     return () => {

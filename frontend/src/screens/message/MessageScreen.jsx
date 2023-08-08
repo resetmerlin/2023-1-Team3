@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { useDispatch, useSelector } from "react-redux";
-import { getPersonalInfoAction } from "../../actions/securityEditAction";
+import { useDispatch, useSelector } from 'react-redux';
+import { getPersonalInfoAction } from '../../actions/securityEditAction';
 import {
   getMessageRelationAction,
   messageInitiateAction,
-} from "../../actions/messageAction";
+} from '../../actions/messageAction';
 
-import MessageScreenView from "./MessageScreenView";
-import { giveCurrentTime } from "../../func/commonLogicHelper";
-import { messageHistoryResetAction } from "../../actions/resetAction";
-import { getSaveListAction } from "../../actions/saveAction";
+import MessageScreenView from './MessageScreenView';
+import { giveCurrentTime } from '../../func/commonLogicHelper';
+import { messageHistoryResetAction } from '../../actions/resetAction';
+import { getSaveListAction } from '../../actions/saveAction';
 const MessageScreen = () => {
   const navigate = useNavigate(0);
 
@@ -37,6 +37,9 @@ const MessageScreen = () => {
   function connectionInitiate() {
     const socket = new SockJS(`${import.meta.env.VITE_API_URL}/chat`);
     client.current = Stomp.over(socket);
+
+    client.current.debug = function () {};
+
     client.current.connect({}, () => {
       setConnected(true);
 
@@ -47,7 +50,7 @@ const MessageScreen = () => {
   const getMessageFromServer = useCallback((response) => {
     const body = JSON.parse(response?.body);
 
-    if (body?.status == "LOG") {
+    if (body?.status == 'LOG') {
       dispatch(getMessageRelationAction(response));
     }
   });
@@ -70,7 +73,7 @@ const MessageScreen = () => {
   /** 메세지를 주고 받았던 사람들을 불러옴  */
   function getPersonMessageRelation() {
     client.current.send(
-      "/app/log",
+      '/app/log',
       {},
       JSON.stringify({
         memberId: myAccountInfo?.memberId,
