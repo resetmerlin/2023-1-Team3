@@ -1,10 +1,19 @@
-import React, { useState, useCallback, forwardRef } from "react";
-import UserCardColumn from "../../components/CardColumn/UserCardColumn";
-import { getImageSrc } from "../../func/commonLogicHelper";
-import CardDetails from "../../components/PopupCard/CardDetails";
+import React, { useState, useCallback, forwardRef } from 'react';
+import UserCardColumn from '../../components/CardColumn/UserCardColumn';
+import { getImageSrc } from '../../func/commonLogicHelper';
+import CardDetails from '../../components/PopupCard/CardDetails';
 
 const SaveContent = forwardRef(
-  ({ user, handleChildStateChange, sendBlockUser, sendSaveValue }, ref) => {
+  (
+    {
+      user,
+      handleChildStateChange,
+      sendBlockUser,
+      sendSaveValue,
+      startMessage,
+    },
+    ref
+  ) => {
     /** 유저 저장 state */
     const [saveValue, setSaveValue] = useState(true);
     const [blockValue, setBlockValue] = useState(false);
@@ -42,6 +51,9 @@ const SaveContent = forwardRef(
       blockAction: blockStatusHandler,
       likeAction: saveStatusHandler,
       blockValue: blockValue,
+      startMessage: () => {
+        startMessage(user?.memberId);
+      },
     };
 
     return (

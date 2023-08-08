@@ -9,6 +9,7 @@ import { blockUserAction, saveUserAction } from '../../actions/buttonAction';
 import { SAVE_LIST_RESET } from '../../constants/saveConstants';
 import { BUTTON_SAVE_RESET } from '../../constants/buttonConstants';
 import SaveContent from './SaveContent';
+import { messageInitiateAction } from '../../actions/messageAction';
 
 const SaveScreen = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,29 @@ const SaveScreen = () => {
     },
     [dispatch]
   );
+
+  const startMessage = async (memberId) => {
+    const user = saveListStatus?.memberResponses
+      .filter((member) => member.memberId == memberId)
+      .map((x) => x);
+
+    const userInfo = {
+      birth: user[0].birth,
+      department: user[0].department,
+      gender: user[0].gender,
+      image: user[0].image,
+      introduction: user[0].introduction,
+      memberId: user[0].memberId,
+
+      name: user[0].name,
+    };
+
+    if (userInfo) {
+      await dispatch(messageInitiateAction(userInfo));
+
+      navigate(`/message/id?user=${memberId}`);
+    }
+  };
 
   /** 유저 차단 및 삭제  */
   const sendBlockUser = useCallback(
@@ -121,6 +145,7 @@ const SaveScreen = () => {
                 sendSaveValue={sendSaveValue}
                 sendBlockUser={sendBlockUser}
                 handleChildStateChange={handleChildStateChange}
+                startMessage={startMessage}
               />
             ) : (
               <SaveContent
@@ -129,6 +154,7 @@ const SaveScreen = () => {
                 user={user}
                 sendBlockUser={sendBlockUser}
                 handleChildStateChange={handleChildStateChange}
+                startMessage={startMessage}
               />
             );
           })}
