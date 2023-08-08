@@ -423,30 +423,31 @@ export const UserMessageButton = memo(function UserMessageButton({
     </SmallUserButton>
   );
 });
-export const UserDetailsMessageButton = memo(
-  function UserDetailsMessageButton() {
-    return (
-      <UserDetailButton
-        type='button'
+export const UserDetailsMessageButton = memo(function UserDetailsMessageButton({
+  startMessage,
+}) {
+  return (
+    <UserDetailButton
+      type='button'
+      style={{
+        backgroundColor: '#868E96',
+        color: 'white',
+      }}
+      onClick={startMessage}
+    >
+      <box-icon
+        color='white'
+        name='message-rounded'
+        size='2rem'
+        type='solid'
         style={{
-          backgroundColor: '#868E96',
-          color: 'white',
+          marginRight: '1rem',
         }}
-      >
-        <box-icon
-          color='white'
-          name='message-rounded'
-          size='2rem'
-          type='solid'
-          style={{
-            marginRight: '1rem',
-          }}
-        ></box-icon>
-        메세지 보내기
-      </UserDetailButton>
-    );
-  }
-);
+      ></box-icon>
+      메세지 보내기
+    </UserDetailButton>
+  );
+});
 
 /** 유저 좋아요 버튼 */
 export const UserLikeButton = memo(function UserLikeButton({
