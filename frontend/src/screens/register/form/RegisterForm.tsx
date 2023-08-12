@@ -1,21 +1,21 @@
-import React, { Suspense } from "react";
-import { useFormContext } from "react-hook-form";
-import Step1 from "../progress/Step1";
-import Step3 from "../progress/Step3";
-import Step4 from "../progress/Step4";
-import Step5 from "../progress/Step5";
-import Loading from "../../../components/Loading";
-import { styled } from "styled-components";
-import Step2 from "../progress/Step2";
-import { Form } from "../../login/form/LoginForm";
-import { RegisterButton, SubmitButton } from "../../../components/Button";
+import React, { Suspense } from 'react';
+import { useFormContext } from 'react-hook-form';
+import Step1 from '../progress/Step1';
+import Step3 from '../progress/Step3';
+import Step4 from '../progress/Step4';
+import Step5 from '../progress/Step5';
+import Loading from '../../../components/Loading';
+import { styled } from 'styled-components';
+import Step2 from '../progress/Step2';
+import { Form } from '../../login/form/LoginForm';
 import {
   FormLoadingMessage,
   RegisterError,
-} from "../../../components/Input/InputError";
-import ImageRegister from "../afterRegister/ImageRegister";
-import PersonalDesc from "../afterRegister/PersonalDesc";
-import Final from "../progress/Final";
+} from '../../../components/Input/InputError';
+import ImageRegister from '../afterRegister/ImageRegister';
+import PersonalDesc from '../afterRegister/PersonalDesc';
+import Final from '../progress/Final';
+import { RegisterButton } from '../../../components/atoms/button/Button';
 
 const RegisterForm = ({
   onSubmit,
@@ -52,8 +52,8 @@ const RegisterForm = ({
             seconds={seconds}
             codeInfo={codeInfo}
             sendCodeData={sendCodeData}
-            getValueEmail={getValues("email")}
-            getValueCode={getValues("code")}
+            getValueEmail={getValues('email')}
+            getValueCode={getValues('code')}
             handleNext={handleNext}
           />
         )}
@@ -65,8 +65,8 @@ const RegisterForm = ({
             errors={errors}
             register={register}
             handleNext={handleNext}
-            getValueName={getValues("name")}
-            getValueBirth={getValues("birthday")}
+            getValueName={getValues('name')}
+            getValueBirth={getValues('birthday')}
           />
         )}
       </Suspense>
@@ -74,8 +74,8 @@ const RegisterForm = ({
         {currentStep == 3 && (
           <Step3
             errors={errors}
-            getValuePassword={getValues("password")}
-            getValueSecond={getValues("secondPassword")}
+            getValuePassword={getValues('password')}
+            getValueSecond={getValues('secondPassword')}
             register={register}
             handleNext={handleNext}
           />
@@ -88,7 +88,7 @@ const RegisterForm = ({
             setValue={setValue}
             register={register}
             handleNext={handleNext}
-            getValues={getValues("gender")}
+            getValues={getValues('gender')}
           />
         )}
       </Suspense>
@@ -97,7 +97,7 @@ const RegisterForm = ({
         {currentStep == 5 && (
           <Step5
             errors={errors}
-            getValueMajor={getValues("major")}
+            getValueMajor={getValues('major')}
             register={register}
             registerInfo={registerInfo}
             handleNext={handleNext}
@@ -114,9 +114,9 @@ const RegisterForm = ({
           {!registerInfo?.loading && registerInfo?.registerStatus ? (
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <FormLoadingMessage>

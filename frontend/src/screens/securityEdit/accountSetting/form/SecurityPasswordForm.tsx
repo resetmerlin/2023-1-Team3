@@ -1,21 +1,21 @@
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import {
   passwordInput,
   currentPasswordInput,
   secondPasswordInput,
-} from "../../../../components/Input/InputsDefine";
-import { Form } from "../../../login/form/LoginForm";
-import { CheckedButton } from "../../../../components/Button";
+} from '../../../../components/Input/InputsDefine';
+import { Form } from '../../../login/form/LoginForm';
 import {
   DefaultInput,
   DefaultPasswordInput,
-} from "../../../../components/Input/Input";
+} from '../../../../components/Input/Input';
 import {
   DefaultInputError,
   InputEmailError,
-} from "../../../../components/Input/InputError";
+} from '../../../../components/Input/InputError';
+import { CheckedButton } from '../../../../components/atoms/button/Button';
 
 const SecurityPasswordForm = ({ onSubmit, error, loading }) => {
   const passwordEditInfo = {
@@ -30,7 +30,7 @@ const SecurityPasswordForm = ({ onSubmit, error, loading }) => {
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      style={{ width: "100%", height: "rem" }}
+      style={{ width: '100%', height: 'rem' }}
     >
       <DefaultPasswordInput
         input={currentPasswordInput}
