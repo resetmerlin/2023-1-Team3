@@ -1,7 +1,7 @@
-import React, { useState, useCallback, forwardRef } from "react";
-import UserCardColumn from "../../components/CardColumn/UserCardColumn";
-import { getImageSrc } from "../../func/commonLogicHelper";
-import CardDetails from "../../components/PopupCard/CardDetails";
+import { useState, useCallback, forwardRef } from 'react';
+import UserCardColumn from '../../components/CardColumn/UserCardColumn';
+import { getImageSrc } from '../../func/commonLogicHelper';
+import CardDetails from '../../components/PopupCard/CardDetails';
 
 const SaveContent = forwardRef(
   ({ user, handleChildStateChange, sendBlockUser, sendSaveValue }, ref) => {
@@ -37,11 +37,11 @@ const SaveContent = forwardRef(
       imageSrc: getImageSrc(user),
       user: user,
       age: new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1,
-      saveValue: saveValue,
-      goBackToSlide: goBackToSlide,
+      saveValue,
+      goBackToSlide,
       blockAction: blockStatusHandler,
       likeAction: saveStatusHandler,
-      blockValue: blockValue,
+      blockValue,
     };
 
     return (
