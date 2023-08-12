@@ -5,7 +5,7 @@ import { loginAction } from '../../actions/userAction';
 import { LoginFormHook } from '../../hooks/FormHoooks';
 import { loginSchema } from '../../components/Form/Schema';
 import { selectLoginToken } from '../../hooks/MemoizedRedux';
-import { LogoLargeSize } from '../../components/Logo/Logo';
+import { LogoLargeSize } from '../../components/atoms/logo/Logo';
 import Loading from '../../components/Loading';
 import { styled } from 'styled-components';
 

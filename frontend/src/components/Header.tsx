@@ -2,8 +2,8 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { HeaderBackButton } from './Button';
-import { LogoMediumImg } from './Logo/Logo';
+import { HeaderBackButton } from './atoms/button/Button';
+import { LogoMediumImg } from './atoms/logo/Logo';
 const Header = () => {
   const location = useLocation().pathname;
   return (

@@ -5,11 +5,12 @@ import {
   EmailInputChunk,
   DefaultInputChunk,
 } from '../../../components/Input/InputChunk';
-import { GoToRegisterButton, SubmitButton } from '../../../components/Button';
+
 import {
   emailInput,
   passwordInput,
 } from '../../../components/Input/InputsDefine';
+import Button from '../../../components/atoms/button/InstanceMaker';
 
 function LoginForm({ loginInfo, onSubmit, navigate }) {
   const {
@@ -17,6 +18,8 @@ function LoginForm({ loginInfo, onSubmit, navigate }) {
     formState: { errors },
     register,
   } = useFormContext();
+
+  const goRegister = () => navigate('/register');
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -31,10 +34,12 @@ function LoginForm({ loginInfo, onSubmit, navigate }) {
         register={register}
         errors={errors}
       />
-      <ButtonWrap>
-        <SubmitButton page="login" />
-        <GoToRegisterButton page="register" navigate={navigate} />
-      </ButtonWrap>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Button nativeType="submit">로그인</Button>
+        <Button type="tertiary" onClick={goRegister}>
+          회원가입
+        </Button>
+      </div>
     </Form>
   );
 }

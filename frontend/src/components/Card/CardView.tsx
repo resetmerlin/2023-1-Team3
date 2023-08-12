@@ -1,4 +1,8 @@
-import { UserDeleteButton, UserLikeButton, UserMessageButton } from '../Button';
+import {
+  UserDeleteButton,
+  UserLikeButton,
+  UserMessageButton,
+} from '../atoms/button/Button';
 
 type Props = {
   memberId: string;
