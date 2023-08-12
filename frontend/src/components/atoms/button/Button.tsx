@@ -1,29 +1,30 @@
-import styled from "styled-components";
-import React, { memo } from "react";
-import { BoxIconElement } from "boxicons";
-import { ButtonLoading } from "./Loader";
-import { ButtonChecked } from "./Checked";
-import LikeAnimation from "./Animation/Like/LikeAnimation";
+import styled from 'styled-components';
+import React, { memo } from 'react';
+import { BoxIconElement } from 'boxicons';
+import { ButtonLoading } from '../../Loader';
+import { ButtonChecked } from '../../Checked';
+import LikeAnimation from '../../Animation/Like/LikeAnimation';
+import { SvgSolidHeart } from '../svgr/HeartSvg';
 
 /**저장 버튼: 개인정보 재설정 저장용*/
 export const SaveButton = ({ loading, status }) => {
   const saveButtonStyle = {
-    backgroundColor: status && !loading ? "rgb(128, 113, 252)" : "white",
+    backgroundColor: status && !loading ? 'rgb(128, 113, 252)' : 'white',
     color:
       status && loading === false
-        ? "white"
+        ? 'white'
         : loading === undefined && status === undefined
-        ? "rgb(128, 113, 252)"
-        : "rgb(128, 113, 252)",
+        ? 'rgb(128, 113, 252)'
+        : 'rgb(128, 113, 252)',
   };
   return (
-    <PersonalInfoButton type="submit" style={saveButtonStyle}>
+    <button className="setting-button" type="submit" style={saveButtonStyle}>
       {status && loading === false
-        ? "저장 완료!"
+        ? '저장 완료!'
         : loading === undefined && status === undefined
-        ? "저장"
-        : "저장"}
-    </PersonalInfoButton>
+        ? '저장'
+        : '저장'}
+    </button>
   );
 };
 
@@ -32,7 +33,7 @@ export const ChangeProfileButton = ({ handleChangeProfile }) => {
   return (
     <PersonalInfoButton
       style={{
-        width: "5.5rem",
+        width: '5.5rem',
       }}
       onClick={(event) => {
         event.preventDefault();
@@ -51,7 +52,7 @@ export const SaveProfileButton = () => {
     <PersonalInfoButton
       type="submit"
       style={{
-        width: "5.5rem",
+        width: '5.5rem',
       }}
     >
       프로필 저장
@@ -65,11 +66,11 @@ export const CheckedButton = () => {
     <button
       type="submit"
       style={{
-        position: "fixed",
-        top: "4.5%",
-        right: "3%",
-        backgroundColor: "white",
-        border: "none",
+        position: 'fixed',
+        top: '4.5%',
+        right: '3%',
+        backgroundColor: 'white',
+        border: 'none',
       }}
     >
       <box-icon name="check" size="2rem"></box-icon>
@@ -93,10 +94,10 @@ export const LogoutButton = ({ logout }) => {
 };
 export const RegisterButton = ({ registerInfo }) => {
   const submitButtonStyle = {
-    backgroundColor: "rgb(128, 113, 252)",
-    width: "100%",
+    backgroundColor: 'rgb(128, 113, 252)',
+    width: '100%',
 
-    height: " 3.3rem",
+    height: ' 3.3rem',
   };
   return (
     <DefaultFormButtom type="submit" style={submitButtonStyle}>
@@ -105,21 +106,21 @@ export const RegisterButton = ({ registerInfo }) => {
       ) : registerInfo?.loading === false && registerInfo?.registerStatus ? (
         <ButtonChecked />
       ) : (
-        "회원가입"
+        '회원가입'
       )}
     </DefaultFormButtom>
   );
 };
 export const SubmitButton = ({ page }) => {
   const submitButtonStyle = {
-    backgroundColor: "rgb(128, 113, 252)",
-    width: page == "register" ? "100%" : "47.5%",
+    backgroundColor: 'rgb(128, 113, 252)',
+    width: page == 'register' ? '100%' : '47.5%',
 
-    height: page == "register" ? " 3.3rem" : "2.5rem",
+    height: page == 'register' ? ' 3.3rem' : '2.5rem',
   };
   return (
     <DefaultFormButtom type="submit" style={submitButtonStyle}>
-      {page == "login" ? "로그인 " : "회원가입"}
+      {page == 'login' ? '로그인 ' : '회원가입'}
     </DefaultFormButtom>
   );
 };
@@ -127,12 +128,12 @@ export const GoToRegisterButton = ({ page, navigate }) => {
   return (
     <DefaultFormButtom
       type="button"
-      style={{ backgroundColor: "#B1B1B1" }}
+      style={{ backgroundColor: '#B1B1B1' }}
       onClick={() => {
         if (page) navigate(`/${page}`);
       }}
     >
-      {page == "login" ? "로그인 " : "회원가입"}{" "}
+      {page == 'login' ? '로그인 ' : '회원가입'}{' '}
     </DefaultFormButtom>
   );
 };
@@ -143,7 +144,7 @@ export const VerifyButton = ({ sendEmailData, getValues, emailInfo }) => {
     <VerifyStyleButton
       type="submit"
       onClick={() => {
-        sendEmailData(getValues("email"));
+        sendEmailData(getValues('email'));
       }}
     >
       {!emailInfo?.error && emailInfo?.emailStatus === false ? (
@@ -153,7 +154,7 @@ export const VerifyButton = ({ sendEmailData, getValues, emailInfo }) => {
         emailInfo?.emailStatus ? (
         <ButtonChecked />
       ) : (
-        "전송"
+        '전송'
       )}
     </VerifyStyleButton>
   );
@@ -180,7 +181,7 @@ export const VerifyCodeButton = ({
         codeInfo?.codeBoolean ? (
         <ButtonChecked />
       ) : (
-        "인증"
+        '인증'
       )}
     </VerifyStyleButton>
   );
@@ -203,9 +204,9 @@ export const HeaderBackButton = memo(function BackButton({ navigate }) {
   return (
     <BackArrowButton
       style={{
-        position: "fixed",
-        top: "4.5%",
-        left: "5%",
+        position: 'fixed',
+        top: '4.5%',
+        left: '5%',
       }}
       onClick={() => {
         navigate(-1);
@@ -219,7 +220,7 @@ export const HeaderBackButton = memo(function BackButton({ navigate }) {
 /*회입가입 스테이지 뒤로 가기 버튼 */
 export const BackFormButton = memo(function BackFormButton({ handlePrevious }) {
   return (
-    <BackArrowButton onClick={handlePrevious} style={{ top: "3%", left: "3%" }}>
+    <BackArrowButton onClick={handlePrevious} style={{ top: '3%', left: '3%' }}>
       <box-icon name="chevron-left" color="black" size="3rem"></box-icon>
     </BackArrowButton>
   );
@@ -233,16 +234,16 @@ export const BackToSlideCardButton = memo(function BackFormButton({
     <button
       onClick={goBackToSlide}
       style={{
-        position: "absolute",
-        background: "transparent",
-        border: "none",
+        position: 'absolute',
+        background: 'transparent',
+        border: 'none',
 
-        top: "1%",
-        right: "2%",
+        top: '1%',
+        right: '2%',
         zIndex: 1000,
       }}
     >
-      <box-icon name="x" color="black" size="3rem"></box-icon>{" "}
+      <box-icon name="x" color="black" size="3rem"></box-icon>{' '}
     </button>
   );
 });
@@ -295,7 +296,7 @@ export const ImageUploadButton = ({ sendImageToServer, info }) => {
         ) : info?.loading === false && info?.profileEditStatus ? (
           <ButtonChecked />
         ) : (
-          "프로필 이미지로 설정"
+          '프로필 이미지로 설정'
         )}
       </NextButton>
     </NextButtonWrap>
@@ -391,11 +392,11 @@ export const RecapUserListsButton = memo(function UserDeleteButton({
     <SmallNextButton>
       <NextButton
         style={{
-          fontSize: "1rem",
-          fontWeight: "800",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          fontSize: '1rem',
+          fontWeight: '800',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
         type="button"
         onClick={() => {
@@ -429,8 +430,8 @@ export const UserDetailsMessageButton = memo(
       <UserDetailButton
         type="button"
         style={{
-          backgroundColor: "#868E96",
-          color: "white",
+          backgroundColor: '#868E96',
+          color: 'white',
         }}
       >
         <box-icon
@@ -439,7 +440,7 @@ export const UserDetailsMessageButton = memo(
           size="2rem"
           type="solid"
           style={{
-            marginRight: "1rem",
+            marginRight: '1rem',
           }}
         ></box-icon>
         메세지 보내기
@@ -454,43 +455,53 @@ export const UserLikeButton = memo(function UserLikeButton({
   likeAction,
 }) {
   return (
-    <>
-      <MediumUserButton
-        type="button"
-        style={{
-          position: "relative",
-          transition: "all 0.1s ease-in-out",
-        }}
-        onClick={likeAction}
-      >
-        {saveValue && <LikeAnimation />}
-
-        {saveValue == false ? (
-          <box-icon
-            color="rgb(128, 113, 252)"
-            name="heart"
-            size="2rem"
-            type="solid"
-          ></box-icon>
-        ) : saveValue == true ? (
-          <box-icon
-            color="rgb(128, 113, 252)"
-            name="heart"
-            size="2.5rem"
-            type="solid"
-          ></box-icon>
-        ) : (
-          <box-icon
-            color="rgb(128, 113, 252)"
-            name="heart"
-            size="2rem"
-            type="solid"
-          ></box-icon>
-        )}
-      </MediumUserButton>
-    </>
+    <MediumUserButton
+      type="button"
+      style={{
+        position: 'relative',
+        transition: 'all 0.1s ease-in-out',
+      }}
+      onClick={likeAction}
+    >
+      {saveValue === false ? (
+        <SvgSolidHeart size="2rem" color="rgb(128, 113, 252)" />
+      ) : saveValue === true ? (
+        <SvgSolidHeart size="2.5rem" color="rgb(128, 113, 252)" />
+      ) : (
+        <SvgSolidHeart size="2rem" color="rgb(128, 113, 252)" />
+      )}
+    </MediumUserButton>
   );
 });
+
+/** 유저 좋아요 버튼 */
+// export const UserLikeButton = memo(function UserLikeButton({
+//   saveValue,
+//   likeAction,
+// }) {
+//   return (
+//     <>
+//       <MediumUserButton
+//         type="button"
+//         style={{
+//           position: 'relative',
+//           transition: 'all 0.1s ease-in-out',
+//         }}
+//         onClick={likeAction}
+//       >
+//         {saveValue && <LikeAnimation />}
+
+//         {saveValue === false ? (
+//           <SvgSolidHeart size="2rem" color="rgb(128, 113, 252)" />
+//         ) : saveValue === true ? (
+//           <SvgSolidHeart size="2.5rem" color="rgb(128, 113, 252)" />
+//         ) : (
+//           <SvgSolidHeart size="2rem" color="rgb(128, 113, 252)" />
+//         )}
+//       </MediumUserButton>
+//     </>
+//   );
+// });
 
 /** 유저 삭제 버튼 */
 export const BlockButton = memo(function BlockButton({
@@ -501,11 +512,11 @@ export const BlockButton = memo(function BlockButton({
     <PopupButton
       type="button"
       style={{
-        color: blockValue ? "rgb(128, 113, 252)" : "black",
-        fontWeight: blockValue ? "600" : "400",
+        color: blockValue ? 'rgb(128, 113, 252)' : 'black',
+        fontWeight: blockValue ? '600' : '400',
 
-        borderBottomLeftRadius: "8px",
-        borderBottomRightRadius: "8px",
+        borderBottomLeftRadius: '8px',
+        borderBottomRightRadius: '8px',
       }}
       onClick={blockAction}
     >
@@ -518,70 +529,54 @@ export const UserDetailLikeButton = memo(function UserDetailLikeButton({
   saveValue,
   likeAction,
 }) {
+  const dynamicButtonStyle = {
+    backgroundColor: !saveValue ? 'white' : 'rgb(128, 113, 252)',
+    color: !saveValue ? 'rgb(128, 113, 252)' : 'white',
+  };
   return (
-    <UserDetailButton
-      style={{
-        backgroundColor: !saveValue ? "white" : "rgb(128, 113, 252)",
-        color: !saveValue ? "rgb(128, 113, 252)" : "white",
-      }}
+    <button
+      className="detail-button"
+      type="button"
+      style={dynamicButtonStyle}
       onClick={likeAction}
     >
       {saveValue == false ? (
         <>
-          <box-icon
-            color="rgb(128, 113, 252)"
-            name="heart"
+          <SvgSolidHeart
             size="2.2rem"
+            color="rgb(128, 113, 252)"
             style={{
-              marginRight: "1rem",
+              marginRight: '1rem',
             }}
-            type="solid"
-          ></box-icon>
+          />
           Like에 저장
         </>
-      ) : saveValue == true ? (
+      ) : saveValue === true ? (
         <>
-          <box-icon
-            color="white"
-            name="heart"
+          <SvgSolidHeart
             size="2.2rem"
-            type="solid"
+            color="white"
             style={{
-              marginRight: "1rem",
+              marginRight: '1rem',
             }}
-          ></box-icon>
+          />
           Like에서 삭제
         </>
       ) : (
         <>
-          <box-icon
-            color="rgb(128, 113, 252)"
-            name="heart"
+          <SvgSolidHeart
             size="2.2rem"
+            color="rgb(128, 113, 252)"
             style={{
-              marginRight: "1rem",
+              marginRight: '1rem',
             }}
-            type="solid"
-          ></box-icon>
+          />
           Like에 저장
         </>
       )}
 
       {}
-    </UserDetailButton>
-  );
-});
-
-export const FullStepButton = memo(function FullStepButton({
-  handlePrevious,
-  handleNext,
-}) {
-  return (
-    <PageButtonWrap>
-      <PreviousStepButton handlePrevious={handlePrevious} />
-
-      <NextStepButton handleNext={handleNext} />
-    </PageButtonWrap>
+    </button>
   );
 });
 
@@ -589,14 +584,14 @@ export const FullStepButton = memo(function FullStepButton({
 export const GoFormButton = ({ page, navigate }) => {
   return (
     <>
-      <NextButtonWrap style={{ height: "1rem" }}>
+      <NextButtonWrap style={{ height: '1rem' }}>
         <GoAnotherForm
           type="button"
           onClick={() => {
             if (page) navigate(`/${page}`);
           }}
         >
-          {page == "login" ? "이미 가입을 하셨나요? " : "계정이 없나요?"}{" "}
+          {page == 'login' ? '이미 가입을 하셨나요? ' : '계정이 없나요?'}{' '}
         </GoAnotherForm>
       </NextButtonWrap>
     </>
@@ -656,9 +651,23 @@ const GoAnotherForm = styled.button`
   font-size: 0.9rem;
   cursor: pointer;
 `;
+const MediumUserButton = styled.button`
+  width: 3rem;
+  height: 3rem;
+
+  background-color: white;
+  border-radius: 50%;
+
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+`;
+
 const SmallUserButton = styled.button`
   background-color: white;
-
   width: auto;
   height: auto;
   cursor: pointer;
@@ -731,19 +740,6 @@ const VerifyStyleButton = styled.button`
   text-align: center;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-`;
-
-const MediumUserButton = styled.button`
-  background-color: white;
-  border-radius: 50%;
-  width: 3rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 3rem;
-  border: none;
   cursor: pointer;
 `;
 
