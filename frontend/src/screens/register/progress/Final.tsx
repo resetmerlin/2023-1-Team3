@@ -1,6 +1,6 @@
-import React from "react";
-import { AfterRegisterButton } from "../../../components/Button";
-import { styled } from "styled-components";
+import React from 'react';
+import { styled } from 'styled-components';
+import { AfterRegisterButton } from '../../../components/atoms/button/Button';
 
 const Final = ({ currentStep, navigate }) => {
   return (
@@ -9,11 +9,11 @@ const Final = ({ currentStep, navigate }) => {
       <img
         src="/가입완료.svg"
         alt="가입완료"
-        style={{ width: "60%", height: "90%" }}
+        style={{ width: '60%', height: '90%' }}
       />
       <AfterRegisterButton
         navigate={navigate}
-        content={"DLink 이용하러 가기"}
+        content={'DLink 이용하러 가기'}
         currentStep={currentStep}
       />
     </FinalRegisterWrap>

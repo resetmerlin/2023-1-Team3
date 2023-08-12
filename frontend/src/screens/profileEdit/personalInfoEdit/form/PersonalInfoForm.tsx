@@ -1,5 +1,5 @@
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import {
   nameInput,
   majorInput,
@@ -7,18 +7,21 @@ import {
   descriptionInput,
   femaleInput,
   maleInput,
-} from "../../../../components/Input/InputsDefine";
-import { Form } from "../../../login/form/LoginForm";
+} from '../../../../components/Input/InputsDefine';
+import { Form } from '../../../login/form/LoginForm';
 import {
   DefaultInput,
   DescriptionInput,
   GenderInput,
   Label,
   PersonalMajorInput,
-} from "../../../../components/Input/Input";
-import { DefaultInputError } from "../../../../components/Input/InputError";
-import { styled } from "styled-components";
-import { ChangeProfileButton, SaveButton } from "../../../../components/Button";
+} from '../../../../components/Input/Input';
+import { DefaultInputError } from '../../../../components/Input/InputError';
+import { styled } from 'styled-components';
+import {
+  ChangeProfileButton,
+  SaveButton,
+} from '../../../../components/atoms/button/Button';
 
 const PersonalInfoForm = ({
   onSubmit,
@@ -36,12 +39,12 @@ const PersonalInfoForm = ({
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <PersonInfoInputWrap>
-        {" "}
+        {' '}
         <DefaultInput input={nameInput} register={register} errors={errors} />
         <DefaultInputError errors={errors} input={nameInput} />
       </PersonInfoInputWrap>
       <PersonInfoInputWrap>
-        {" "}
+        {' '}
         <PersonalMajorInput
           input={majorInput}
           register={register}
@@ -51,7 +54,7 @@ const PersonalInfoForm = ({
         <DefaultInputError errors={errors} input={majorInput} />
       </PersonInfoInputWrap>
       <PersonInfoInputWrap>
-        {" "}
+        {' '}
         <DefaultInput
           input={birthdayInput}
           register={register}

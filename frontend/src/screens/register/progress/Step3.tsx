@@ -1,11 +1,11 @@
-import React from "react";
-import { DefaultInputChunk } from "../../../components/Input/InputChunk";
+import React from 'react';
+import { DefaultInputChunk } from '../../../components/Input/InputChunk';
 import {
   passwordInput,
   secondPasswordInput,
-} from "../../../components/Input/InputsDefine";
-import { NextStepButton } from "../../../components/Button";
-import { InputAndErrorWrap } from "../form/RegisterForm";
+} from '../../../components/Input/InputsDefine';
+import { InputAndErrorWrap } from '../form/RegisterForm';
+import { NextStepButton } from '../../../components/atoms/button/Button';
 const Step3 = ({
   errors,
   register,

@@ -1,10 +1,10 @@
-import React from "react";
-import { femaleInput, maleInput } from "../../../components/Input/InputsDefine";
-import { NextStepButton } from "../../../components/Button";
-import { ButtonWrap } from "../../login/form/LoginForm";
-import { GenderInput } from "../../../components/Input/Input";
-import { InputGenderError } from "../../../components/Input/InputError";
-import { styled } from "styled-components";
+import React from 'react';
+import { femaleInput, maleInput } from '../../../components/Input/InputsDefine';
+import { ButtonWrap } from '../../login/form/LoginForm';
+import { GenderInput } from '../../../components/Input/Input';
+import { InputGenderError } from '../../../components/Input/InputError';
+import { styled } from 'styled-components';
+import { NextStepButton } from '../../../components/atoms/button/Button';
 const Step4 = ({ errors, setValue, register, getValues, handleNext }) => {
   return (
     <>

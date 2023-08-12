@@ -1,34 +1,34 @@
-import React, { useState, useEffect, useCallback, Suspense } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RegisterFormHook } from "../../hooks/FormHoooks";
-import { registerSchema } from "../../components/Form/Schema";
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RegisterFormHook } from '../../hooks/FormHoooks';
+import { registerSchema } from '../../components/Form/Schema';
 import {
   sendEmailCodeAction,
   codeVerificationAction,
   registerAction,
   loginAction,
-} from "../../actions/userAction";
+} from '../../actions/userAction';
 
-import { batch } from "react-redux";
+import { batch } from 'react-redux';
 
-import ProgressBar from "../../components/ProgressBar";
-import { memoizedRegisterInfo } from "../../hooks/MemoizedRedux";
-import Loading from "../../components/Loading";
-import { styled } from "styled-components";
+import ProgressBar from '../../components/ProgressBar';
+import { memoizedRegisterInfo } from '../../hooks/MemoizedRedux';
+import Loading from '../../components/Loading';
+import { styled } from 'styled-components';
 import {
   BackButton,
   BackFormButton,
   GoFormButton,
-} from "../../components/Button";
-import { HorizontalLine } from "../../components/HorizontalLine";
+} from '../../components/atoms/button/Button';
+import { HorizontalLine } from '../../components/HorizontalLine';
 
 import {
   registerCodeResetAction,
   registerEmailResetAction,
   registerResetAction,
-} from "../../actions/resetAction";
-import { DefaultBackHeader } from "../../components/Header";
+} from '../../actions/resetAction';
+import { DefaultBackHeader } from '../../components/Header';
 const RegisterScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,12 +60,12 @@ const RegisterScreen = () => {
 
   /** 이메일 주소를 서버에 전송하기 위한 함수*/
   const sendEmailData = (emailValue) => {
-    emailInfo.error = "";
+    emailInfo.error = '';
 
     dispatch(sendEmailCodeAction({ mail: emailValue }));
 
     /** 리렌더 이후 60초 카운트 다운 대신 코드 에러 response값이 보이는 상황 방지*/
-    codeInfo.error = "";
+    codeInfo.error = '';
 
     /** countdown 60초로 설정 */
     setSeconds(60);
@@ -78,7 +78,7 @@ const RegisterScreen = () => {
   const sendCodeData = (emailValue, codeValue) => {
     /** 이메일이 유효한지 확인 */
 
-    codeInfo.error = "";
+    codeInfo.error = '';
 
     if (emailInfo.emailStatus) {
       dispatch(codeVerificationAction({ mail: emailValue, code: codeValue }));
@@ -104,7 +104,7 @@ const RegisterScreen = () => {
           password: data.password,
           name: data.name,
           gender: data.gender,
-          birth: data.birthday?.toISOString().split("T")[0],
+          birth: data.birthday?.toISOString().split('T')[0],
         })
       );
 
@@ -162,7 +162,7 @@ const RegisterScreen = () => {
         ) : currentStep !== 8 ? (
           <BackFormButton handlePrevious={handlePrevious} />
         ) : (
-          ""
+          ''
         )}
 
         <>
@@ -184,9 +184,9 @@ const RegisterScreen = () => {
             />
             {currentStep !== 8 && (
               <>
-                {" "}
+                {' '}
                 <HorizontalLine />
-                <GoFormButton page={"login"} navigate={navigate} />
+                <GoFormButton page={'login'} navigate={navigate} />
               </>
             )}
           </RegisterFormWrap>

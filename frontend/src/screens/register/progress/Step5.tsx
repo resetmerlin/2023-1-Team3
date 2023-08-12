@@ -1,6 +1,6 @@
-import React from "react";
-import { PersonalMajorInput } from "../../../components/Input/Input";
-import { NextStepButton } from "../../../components/Button";
+import React from 'react';
+import { PersonalMajorInput } from '../../../components/Input/Input';
+import { NextStepButton } from '../../../components/atoms/button/Button';
 const Step5 = ({ errors, register, getValueMajor, handleNext }) => {
   return (
     <>

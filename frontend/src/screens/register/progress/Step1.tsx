@@ -1,18 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
+import { emailInput, codeInput } from '../../../components/Input/InputsDefine';
+import { styled } from 'styled-components';
+import {
+  InputCodeError,
+  InputEmailRegisterError,
+} from '../../../components/Input/InputError';
+import { DefaultInput } from '../../../components/Input/Input';
 import {
   EmailNextStepButton,
   VerifyButton,
   VerifyCodeButton,
-} from "../../../components/Button";
-import { emailInput, codeInput } from "../../../components/Input/InputsDefine";
-import { styled } from "styled-components";
-import {
-  InputCodeError,
-  InputEmailRegisterError,
-} from "../../../components/Input/InputError";
-import { DefaultInput } from "../../../components/Input/Input";
+} from '../../../components/atoms/button/Button';
+import Button from '../../../components/atoms/button/InstanceMaker';
+import { ButtonLoading } from '../../../components/Loader';
+import { ButtonChecked } from '../../../components/Checked';
 const Step1 = ({
   errors,
   register,
@@ -27,6 +30,8 @@ const Step1 = ({
   getValueEmail,
   getValueCode,
 }) => {
+  const getEmailValue = () => sendEmailData(getValues('email'));
+
   return (
     <>
       <EmailWrap>
@@ -37,11 +42,17 @@ const Step1 = ({
           emailInfo={emailInfo}
         />
         {!errors?.email && (
-          <VerifyButton
-            getValues={getValues}
-            sendEmailData={sendEmailData}
-            emailInfo={emailInfo}
-          />
+          <Button nativeType="submit" size="m" onClick={getEmailValue}>
+            {!emailInfo?.error && emailInfo?.emailStatus === false ? (
+              <ButtonLoading />
+            ) : emailInfo?.loading === false &&
+              !emailInfo?.error &&
+              emailInfo?.emailStatus ? (
+              <ButtonChecked />
+            ) : (
+              '전송'
+            )}
+          </Button>
         )}
       </EmailWrap>
       <InputEmailRegisterError
@@ -77,9 +88,9 @@ const Step1 = ({
             seconds={seconds}
           />
         </>
-      )}{" "}
+      )}{' '}
       <LinkWrap>
-        <Link to="https://portal.dankook.ac.kr/web/portal" target={"_blank"}>
+        <Link to="https://portal.dankook.ac.kr/web/portal" target={'_blank'}>
           포털 바로가기
           <box-icon
             name="chevron-left"

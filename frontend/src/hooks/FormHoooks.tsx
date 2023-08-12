@@ -1,14 +1,14 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, FormProvider } from "react-hook-form";
-import LoginForm from "../screens/login/form/LoginForm";
-import RegisterForm from "../screens/register/form/RegisterForm";
-import SecurityPasswordForm from "../screens/securityEdit/accountSetting/form/SecurityPasswordForm";
-import PersonalInfoForm from "../screens/profileEdit/personalInfoEdit/form/PersonalInfoForm";
-import ResignForm from "../screens/account/form/ResignForm";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, FormProvider } from 'react-hook-form';
+import LoginForm from '../screens/login/form/LoginForm';
+import RegisterForm from '../screens/register/form/RegisterForm';
+import SecurityPasswordForm from '../screens/securityEdit/accountSetting/form/SecurityPasswordForm';
+import PersonalInfoForm from '../screens/profileEdit/personalInfoEdit/form/PersonalInfoForm';
+import ResignForm from '../screens/account/form/ResignForm';
 
 export const LoginFormHook = ({ schema, onSubmit, loginInfo, navigate }) => {
   const methods = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     resolver: yupResolver(schema),
   });
 
@@ -45,11 +45,11 @@ export const RegisterFormHook = ({
   dispatch,
 }) => {
   const defaultValues = {
-    major: { value: "국어국문학과" },
-    description: " ",
+    major: { value: '국어국문학과' },
+    description: ' ',
   };
   const methods = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues,
     resolver: yupResolver(schema),
   });
@@ -89,7 +89,7 @@ export const SecurityPaswordFormHook = ({
   loading,
 }) => {
   const methods = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     resolver: yupResolver(schema),
   });
 
@@ -116,7 +116,7 @@ export const SecurityResignFormHook = ({
   loading,
 }) => {
   const methods = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     resolver: yupResolver(schema),
   });
 
@@ -149,7 +149,7 @@ export const PersonalInfoFormHook = ({
     gender: user?.gender,
   };
   const methods = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues,
     resolver: yupResolver(schema),
   });
