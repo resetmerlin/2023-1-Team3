@@ -1,24 +1,23 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Footer from "../../components/Footer";
-import { useDispatch, useSelector, batch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { SaveHeader } from "../../components/Header";
-import { getSaveListAction } from "../../actions/saveAction";
-import { styled } from "styled-components";
-import { blockUserAction, saveUserAction } from "../../actions/buttonAction";
-import { SAVE_LIST_RESET } from "../../constants/saveConstants";
-import { BUTTON_SAVE_RESET } from "../../constants/buttonConstants";
-import SaveContent from "./SaveContent";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { styled } from 'styled-components';
+import { useDispatch, useSelector, batch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { SaveHeader } from '../../components/Header';
+import { getSaveListAction } from '../../actions/saveAction';
+import { blockUserAction, saveUserAction } from '../../actions/buttonAction';
+import { SAVE_LIST_RESET } from '../../constants/saveConstants';
+import { BUTTON_SAVE_RESET } from '../../constants/buttonConstants';
+import SaveContent from './SaveContent';
+import Footer from '../../components/Footer';
 
-const SaveScreen = () => {
+function SaveScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   /** Redux에서 가져온 유저의 save list 정보 */
   const saveListInfo = useSelector((state) => state.saveListInfo);
   const saveInfo = useSelector((state) => state.saveInfo);
-
-  const { loading, error, saveListStatus } = saveListInfo;
+  const { saveListStatus } = saveListInfo;
   const ScrollRowRef = useRef(null);
 
   /** getSaveListAction parameter용 페이지 state */
@@ -31,16 +30,16 @@ const SaveScreen = () => {
   };
   /** 저장된 좋아요 한 유저 리스트 불러오고 다음 Page를 1추가 함 */
   const getSaveList = useCallback(
-    async (savePage) => {
+    async (savePage: number) => {
       await dispatch(getSaveListAction(savePage));
       setSavePage(savePage + 1);
     },
-    [dispatch, saveListStatus?.endPageSignal]
+    [dispatch]
   );
 
   /** 서버에 유저 좋아요 state 전송  */
   const sendSaveValue = useCallback(
-    (memberId, saveBoolean) => {
+    (memberId: string, saveBoolean: boolean) => {
       dispatch(saveUserAction(memberId, saveBoolean));
     },
     [dispatch]
@@ -48,7 +47,7 @@ const SaveScreen = () => {
 
   /** 유저 차단 및 삭제  */
   const sendBlockUser = useCallback(
-    (memberId, blockBoolean) =>
+    (memberId: string, blockBoolean: boolean) =>
       dispatch(blockUserAction(memberId, blockBoolean)),
     [dispatch]
   );
@@ -100,44 +99,46 @@ const SaveScreen = () => {
     <section className="save">
       <SaveHeader
         navigate={navigate}
-        style={{ display: childState ? "none" : "flex" }}
+        style={{ display: childState ? 'none' : 'flex' }}
       />
       <SaveRow
         style={{
-          height: childState ? "100vh" : "82vh",
-          marginTop: childState && "0",
-          top: childState && "0",
-          overflow: childState ? "hidden" : "scroll",
-          padding: childState && "0",
+          height: childState ? '100vh' : '82vh',
+          marginTop: childState && '0',
+          top: childState && '0',
+          overflow: childState ? 'hidden' : 'scroll',
+          padding: childState && '0',
         }}
       >
         {saveListStatus?.memberResponses &&
-          saveListStatus?.memberResponses?.map((user, index) => {
-            return index == saveListStatus?.memberResponses?.length - 1 ? (
-              <SaveContent
-                key={user.memberId}
-                user={user}
-                ref={ScrollRowRef}
-                sendSaveValue={sendSaveValue}
-                sendBlockUser={sendBlockUser}
-                handleChildStateChange={handleChildStateChange}
-              />
-            ) : (
-              <SaveContent
-                key={user.memberId}
-                sendSaveValue={sendSaveValue}
-                user={user}
-                sendBlockUser={sendBlockUser}
-                handleChildStateChange={handleChildStateChange}
-              />
-            );
-          })}
+          saveListStatus?.memberResponses?.map(
+            (user: { memberId: string }, index: number) => {
+              return index === saveListStatus?.memberResponses?.length - 1 ? (
+                <SaveContent
+                  key={user.memberId}
+                  user={user}
+                  ref={ScrollRowRef}
+                  sendSaveValue={sendSaveValue}
+                  sendBlockUser={sendBlockUser}
+                  handleChildStateChange={handleChildStateChange}
+                />
+              ) : (
+                <SaveContent
+                  key={user.memberId}
+                  sendSaveValue={sendSaveValue}
+                  user={user}
+                  sendBlockUser={sendBlockUser}
+                  handleChildStateChange={handleChildStateChange}
+                />
+              );
+            }
+          )}
       </SaveRow>
 
-      <Footer style={{ display: childState ? "none" : "flex" }} />
+      <Footer style={{ display: childState ? 'none' : 'flex' }} />
     </section>
   );
-};
+}
 const SaveRow = styled.div`
   display: flex;
   flex-wrap: wrap;
