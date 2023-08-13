@@ -4,7 +4,6 @@ import { BoxIconElement } from 'boxicons';
 import { ButtonLoading } from '../../Loader';
 import { ButtonChecked } from '../../Checked';
 import LikeAnimation from '../../Animation/Like/LikeAnimation';
-import { SvgSolidHeart } from '../svgr/HeartSvg';
 
 /**저장 버튼: 개인정보 재설정 저장용*/
 export const SaveButton = ({ loading, status }) => {
