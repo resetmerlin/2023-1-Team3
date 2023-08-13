@@ -1,0 +1,31 @@
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  height: auto;
+  &__form-wrap {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    justify-content: flex-start;
+    width: 90%;
+    position: absolute;
+    top: 11%;
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      .button-wrap {
+        display: flex;
+        justify-content: space-around;
+        margin: 2rem 0;
+      }
+    }
+  }
+}
