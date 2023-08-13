@@ -1,16 +1,32 @@
 import React from 'react';
 import { PersonalMajorInput } from '../../../components/Input/Input';
 import { NextStepButton } from '../../../components/atoms/button/Button';
+import Button from '../../../components/atoms/button/InstanceMaker';
 const Step5 = ({ errors, register, getValueMajor, handleNext }) => {
+  const inputErrors = errors?.major ? true : false;
+
+  const disabled = !getValueMajor || inputErrors == true ? true : false;
+
+  const buttonHandler = () => {
+    if (!getValueMajor || inputErrors === true) {
+    } else {
+      handleNext();
+    }
+  };
+
   return (
     <>
       <PersonalMajorInput errors={errors} register={register} />
 
-      <NextStepButton
-        handleNext={handleNext}
-        getValues={getValueMajor}
-        inputErrors={errors?.major ? true : false}
-      />
+      <Button
+        onClick={buttonHandler}
+        disabled={disabled}
+        nativeType="submit"
+        className="marginTop-m"
+        size="xl"
+      >
+        다음
+      </Button>
     </>
   );
 };
