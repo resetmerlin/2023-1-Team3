@@ -1,8 +1,7 @@
 import React from 'react';
 import { CardBottomView } from './bottom/CardBottomView';
 import CardTopView from './top/CardTopView';
-import { styled } from 'styled-components';
-import { BoxIconElement } from 'boxicons';
+import './Card.scss';
 
 const Card = ({
   popupStyle,
@@ -52,22 +51,11 @@ const Card = ({
 };
 const CardView = ({ bottomProps, topProps, popupStyle }) => {
   return (
-    <CardWrap style={popupStyle}>
+    <div className='card' style={popupStyle}>
       <CardTopView {...topProps} />
       <CardBottomView {...bottomProps} />
-    </CardWrap>
+    </div>
   );
 };
-
-const CardWrap = styled.div`
-  height: 100%;
-  flex-direction: column;
-  width: auto;
-  position: relative;
-  aspect-ratio: 9/16;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 export default Card;
