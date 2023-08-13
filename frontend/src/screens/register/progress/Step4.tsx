@@ -1,11 +1,21 @@
-import React from 'react';
 import { femaleInput, maleInput } from '../../../components/Input/InputsDefine';
-import { ButtonWrap } from '../../login/form/LoginForm';
 import { GenderInput } from '../../../components/Input/Input';
 import { InputGenderError } from '../../../components/Input/InputError';
 import { styled } from 'styled-components';
 import { NextStepButton } from '../../../components/atoms/button/Button';
+import Button from '../../../components/atoms/button/InstanceMaker';
 const Step4 = ({ errors, setValue, register, getValues, handleNext }) => {
+  const inputErrors =
+    errors?.[femaleInput?.name] || errors?.[maleInput?.name] ? true : false;
+
+  const disabled = !getValues || inputErrors == true ? true : false;
+
+  const buttonHandler = () => {
+    if (!getValues || inputErrors === true) {
+    } else {
+      handleNext();
+    }
+  };
   return (
     <>
       <GenderLabel>성별을 고르세요</GenderLabel>
@@ -29,15 +39,15 @@ const Step4 = ({ errors, setValue, register, getValues, handleNext }) => {
       </ButtonWrap>
       <InputGenderError errors={errors} input={femaleInput} />
 
-      <NextStepButton
-        handleNext={handleNext}
-        getValues={getValues}
-        inputErrors={
-          errors?.[femaleInput?.name] || errors?.[maleInput?.name]
-            ? true
-            : false
-        }
-      />
+      <Button
+        onClick={buttonHandler}
+        disabled={disabled}
+        nativeType="submit"
+        className="marginTop-m"
+        size="xl"
+      >
+        다음
+      </Button>
     </>
   );
 };
@@ -47,5 +57,12 @@ const GenderLabel = styled.span`
   font-weight: 600;
   color: rgb(128, 113, 252);
   font-size: 1rem;
+`;
+const ButtonWrap = styled.div`
+display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
 `;
 export default Step4;
