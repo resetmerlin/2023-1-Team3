@@ -1,3 +1,5 @@
+import CardDetailsView from './CardDetailsView';
+import './CardDetails.scss';
 export default function CardDetails({
   user,
   blockAction,
