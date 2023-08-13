@@ -6,6 +6,7 @@ import {
 } from '../../../components/Input/InputsDefine';
 import { InputAndErrorWrap } from '../form/RegisterForm';
 import { NextStepButton } from '../../../components/atoms/button/Button';
+import Button from '../../../components/atoms/button/InstanceMaker';
 const Step3 = ({
   errors,
   register,
@@ -13,6 +14,21 @@ const Step3 = ({
   getValuePassword,
   getValueSecond,
 }) => {
+  const inputErrors =
+    errors?.[passwordInput?.name] || errors?.[secondPasswordInput?.name]
+      ? true
+      : false;
+
+  const getValues = !getValuePassword || !getValueSecond ? false : true;
+
+  const disabled = !getValues || inputErrors == true ? true : false;
+
+  const buttonHandler = () => {
+    if (!getValues || inputErrors === true) {
+    } else {
+      handleNext();
+    }
+  };
   return (
     <>
       <InputAndErrorWrap>
@@ -30,15 +46,16 @@ const Step3 = ({
           register={register}
         />
       </InputAndErrorWrap>
-      <NextStepButton
-        handleNext={handleNext}
-        getValues={!getValuePassword || !getValueSecond ? false : true}
-        inputErrors={
-          errors?.[passwordInput?.name] || errors?.[secondPasswordInput?.name]
-            ? true
-            : false
-        }
-      />
+
+      <Button
+        onClick={buttonHandler}
+        disabled={disabled}
+        nativeType="submit"
+        className="marginTop-m"
+        size="xl"
+      >
+        다음
+      </Button>
     </>
   );
 };
