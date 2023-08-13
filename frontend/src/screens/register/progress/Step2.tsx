@@ -1,11 +1,10 @@
-import React from 'react';
 import { DefaultInputChunk } from '../../../components/Input/InputChunk';
 import {
   nameInput,
   birthdayInput,
 } from '../../../components/Input/InputsDefine';
 import { InputAndErrorWrap } from '../form/RegisterForm';
-import { NextStepButton } from '../../../components/atoms/button/Button';
+import Button from '../../../components/atoms/button/InstanceMaker';
 
 const Step2 = ({
   errors,
@@ -14,6 +13,19 @@ const Step2 = ({
   getValueName,
   getValueBirth,
 }) => {
+  const inputErrors =
+    errors?.[nameInput?.name] || errors?.[birthdayInput?.name] ? true : false;
+
+  const getValues = !getValueBirth || !getValueName ? false : true;
+
+  const disabled = !getValues || inputErrors == true ? true : false;
+
+  const buttonHandler = () => {
+    if (!getValues || inputErrors === true) {
+    } else {
+      handleNext();
+    }
+  };
   return (
     <>
       <InputAndErrorWrap>
@@ -32,15 +44,15 @@ const Step2 = ({
         />
       </InputAndErrorWrap>
 
-      <NextStepButton
-        getValues={!getValueBirth || !getValueName ? false : true}
-        handleNext={handleNext}
-        inputErrors={
-          errors?.[nameInput?.name] || errors?.[birthdayInput?.name]
-            ? true
-            : false
-        }
-      />
+      <Button
+        onClick={buttonHandler}
+        disabled={disabled}
+        nativeType="submit"
+        className="marginTop-m"
+        size="xl"
+      >
+        다음
+      </Button>
     </>
   );
 };
