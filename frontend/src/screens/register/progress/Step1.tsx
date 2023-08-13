@@ -10,7 +10,6 @@ import {
 import { DefaultInput } from '../../../components/Input/Input';
 import {
   EmailNextStepButton,
-  VerifyButton,
   VerifyCodeButton,
 } from '../../../components/atoms/button/Button';
 import Button from '../../../components/atoms/button/InstanceMaker';
