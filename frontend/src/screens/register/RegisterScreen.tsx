@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Register.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { RegisterFormHook } from '../../hooks/FormHoooks';
 import { registerSchema } from '../../components/Form/Schema';
@@ -15,7 +16,6 @@ import { batch } from 'react-redux';
 import ProgressBar from '../../components/ProgressBar';
 import { memoizedRegisterInfo } from '../../hooks/MemoizedRedux';
 import Loading from '../../components/Loading';
-import { styled } from 'styled-components';
 import {
   BackButton,
   BackFormButton,
@@ -154,7 +154,7 @@ const RegisterScreen = () => {
   }, [seconds, isCountdown, emailInfo?.emailStatus]);
 
   return (
-    <RegisterSection>
+    <section className="register">
       <Suspense fallback={<Loading />}>
         <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
         {currentStep == 1 ? (
@@ -166,7 +166,7 @@ const RegisterScreen = () => {
         )}
 
         <>
-          <RegisterFormWrap>
+          <div className="register__form-wrap">
             <RegisterFormHook
               schema={registerSchema}
               onSubmit={onSubmit}
@@ -189,33 +189,11 @@ const RegisterScreen = () => {
                 <GoFormButton page={'login'} navigate={navigate} />
               </>
             )}
-          </RegisterFormWrap>
+          </div>
         </>
       </Suspense>
-
-      <div className="form__background"></div>
-    </RegisterSection>
+    </section>
   );
 };
-const RegisterSection = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  height: auto;
-`;
 
-const RegisterFormWrap = styled.div`
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-  justify-content: flex-start;
-  width: 90%;
-  position: absolute;
-  top: 11%;
-`;
 export default RegisterScreen;
