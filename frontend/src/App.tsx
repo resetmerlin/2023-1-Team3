@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import RegisterScreen from './screens/register/RegisterScreen';
-import './sass/index.css';
+import './sass/index.scss';
 import RequireAuth from './components/RequireAuth';
 
 import { PageNotFound, Unauthorized } from './components/Error/Error';
