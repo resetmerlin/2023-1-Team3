@@ -1,8 +1,7 @@
-import {
-  UserDeleteButton,
-  UserLikeButton,
-  UserMessageButton,
-} from '../atoms/button/Button';
+import Button from '../atoms/button/InstanceMaker';
+import { IconHeartSolid } from '../atoms/icon/IconHeart';
+import IconMessageSolid from '../atoms/icon/IconMessage';
+import IconX from '../atoms/icon/IconX';
 
 type Props = {
   memberId: string;
@@ -11,7 +10,7 @@ type Props = {
   department: string;
   likeAction: () => void;
   goNextSlideHandler: () => void;
-  startMessage: (memberId: string) => void;
+  startMessage: () => void;
   saveValue: boolean;
   imageSrc: string;
   setChecked: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -63,16 +62,19 @@ export default function CardView({
           </div>
 
           <div className="card__bottom__buttons">
-            <UserDeleteButton goNextSlideHandler={goNextSlideHandler} />
-            <UserLikeButton
-              likeAction={likeAction}
-              saveValue={saveValue}
-              memberId={memberId}
-            />
-            <UserMessageButton
-              startMessage={startMessage}
-              memberId={memberId}
-            />
+            <Button onClick={goNextSlideHandler} division="icon" size="xl">
+              <IconX size="1.5rem" />
+            </Button>
+            <Button
+              onClick={likeAction}
+              division="icon"
+              size={saveValue ? 'xl' : 'l'}
+            >
+              <IconHeartSolid size={saveValue ? '1.4rem' : '1.3rem'} />
+            </Button>
+            <Button onClick={startMessage} division="icon">
+              <IconMessageSolid size="1.3rem" />
+            </Button>
           </div>
         </div>
       </div>
