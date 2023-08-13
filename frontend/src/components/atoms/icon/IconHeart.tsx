@@ -1,11 +1,12 @@
-export function SvgEmptyHeart(props) {
+export function IconHeartEmpty({ size = '1rem', color = 'white', ...props }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={24}
-      height={24}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
       style={{
-        fill: '#000',
+        fill: color,
       }}
       {...props}
     >
@@ -14,14 +15,15 @@ export function SvgEmptyHeart(props) {
   );
 }
 
-export function SvgSolidHeart(props) {
+export function IconHeartSolid({ size = '1rem', color = 'white', ...props }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={24}
-      height={24}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
       style={{
-        fill: '#000',
+        fill: color,
       }}
       {...props}
     >
