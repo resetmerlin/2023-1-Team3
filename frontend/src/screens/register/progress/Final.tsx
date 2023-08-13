@@ -1,8 +1,10 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import { AfterRegisterButton } from '../../../components/atoms/button/Button';
+import Button from '../../../components/atoms/button/InstanceMaker';
 
-const Final = ({ currentStep, navigate }) => {
+const Final = ({ navigate }) => {
+  const buttonHandler = () => navigate(`/login`);
   return (
     <FinalRegisterWrap>
       <FinalRegisterSpan> 가입 완료!</FinalRegisterSpan>
@@ -11,11 +13,10 @@ const Final = ({ currentStep, navigate }) => {
         alt="가입완료"
         style={{ width: '60%', height: '90%' }}
       />
-      <AfterRegisterButton
-        navigate={navigate}
-        content={'DLink 이용하러 가기'}
-        currentStep={currentStep}
-      />
+
+      <Button onClick={buttonHandler} className="marginTop-m" size="xl">
+        DLink 이용하러 가기
+      </Button>
     </FinalRegisterWrap>
   );
 };
