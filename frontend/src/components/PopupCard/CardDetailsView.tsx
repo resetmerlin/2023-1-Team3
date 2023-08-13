@@ -1,3 +1,12 @@
+import {
+  BackToSlideCardButton,
+  BlockButton,
+  UserDetailsMessageButton,
+} from '../atoms/button/Button';
+import Button from '../atoms/button/InstanceMaker';
+import { IconHeartSolid } from '../atoms/icon/IconHeart';
+import IconMessageSolid from '../atoms/icon/IconMessage';
+
 interface Props {
   name: string;
   age: string;
@@ -66,13 +75,28 @@ export default function CardDetailsView({
           </span>
         </div>
         <div className="card-details__bottom__buttons">
-          <UserDetailLikeButton
-            likeAction={likeAction}
-            saveValue={saveValue}
-            memberId={memberId}
-          />
+          <Button
+            type={saveValue ? 'primary' : 'secondary'}
+            className="center"
+            size="l"
+            onClick={likeAction}
+          >
+            <IconHeartSolid
+              size="1.6rem"
+              color={saveValue ? 'white' : 'rgb(128, 113, 252)'}
+            />
+            <span>{saveValue ? 'Like에서 삭제' : 'Like에 저장'}</span>
+          </Button>
 
-          <UserDetailsMessageButton />
+          <Button
+            type="tertiary"
+            className="center"
+            size="l"
+            onClick={likeAction}
+          >
+            <IconMessageSolid size="1.6rem" />
+            <span>메세지 보내기</span>
+          </Button>
         </div>
       </div>
     </div>
