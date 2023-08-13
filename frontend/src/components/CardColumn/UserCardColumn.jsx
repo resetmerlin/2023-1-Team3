@@ -43,7 +43,7 @@ const UserCardColumnView = forwardRef(
 
 const ColumnBig = styled.div`
   display: flex;
-  width: 47%;
+  width: 46%;
   aspect-ratio: 9 / 16;
   height: 45%;
   flex-direction: column;
