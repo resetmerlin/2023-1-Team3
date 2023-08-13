@@ -38,11 +38,16 @@ const UserMessageView = memo(function UserMessageView({
 const MessageProfile = styled.img`
   padding: 0;
   margin: 0;
-  width: 4rem;
-  height: 4rem;
+  width: 3.8rem;
+  height: 3.8rem;
   border-radius: 50%;
   margin-right: 1.5rem;
   object-fit: cover;
+
+  @media screen and (min-width: 320px) and (max-width: 479px) {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 `;
 
 const MessageWrap = styled.div`
