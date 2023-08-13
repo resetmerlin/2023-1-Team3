@@ -136,6 +136,12 @@
       height: auto;
       display: flex;
       justify-content: space-evenly;
+
+      button {
+        width: 40%;
+        display: flex;
+        justify-content: space-evenly;
+      }
     }
   }
 }
