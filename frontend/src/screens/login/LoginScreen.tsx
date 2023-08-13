@@ -1,4 +1,6 @@
 import React, { useEffect, useCallback, Suspense } from 'react';
+import './Login.scss';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginAction } from '../../actions/userAction';
@@ -7,7 +9,6 @@ import { loginSchema } from '../../components/Form/Schema';
 import { selectLoginToken } from '../../hooks/MemoizedRedux';
 import { LogoLargeSize } from '../../components/atoms/logo/Logo';
 import Loading from '../../components/Loading';
-import { styled } from 'styled-components';
 
 export default function LoginSceen() {
   const navigate = useNavigate();
@@ -35,48 +36,18 @@ export default function LoginSceen() {
   }, [loginInfo?.sessfbs_ffa0934]);
 
   return (
-    <LoginSection className="form">
+    <section className="login">
       <Suspense fallback={<Loading />}>
         <LogoLargeSize />
-        <FormWrap>
+        <div className="login__form-wrap">
           <LoginFormHook
             schema={loginSchema}
             onSubmit={onSubmit}
             loginInfo={loginInfo}
             navigate={navigate}
           />
-        </FormWrap>
+        </div>
       </Suspense>
-      <div className="form__background" />
-    </LoginSection>
+    </section>
   );
 }
-
-export const FormWrap = styled.div`
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-  justify-content: flex-start;
-  width: 100%;
-`;
-const LoginSection = styled.section`
-  display: flex;
-  justify-content: center;
-  border-radius: 10px;
-  align-items: center;
-  width: 90%;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  height: 56%;
-  font-size: 1rem;
-  position: absolute;
-  top: 43%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  box-shadow: -1px 0px 12px 7px rgb(236, 234, 247, 1);
-  -webkit-box-shadow: -1px 0px 12px 7px rgb(236, 234, 247, 1);
-  -moz-box-shadow: -1px 0px 12px 7px rgb(236, 234, 247, 1);
-`;
