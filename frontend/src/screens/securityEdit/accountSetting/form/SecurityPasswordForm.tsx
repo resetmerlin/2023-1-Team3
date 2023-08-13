@@ -28,9 +28,14 @@ const SecurityPasswordForm = ({ onSubmit, error, loading }) => {
     register,
   } = useFormContext();
   return (
-    <Form
+    <form
       onSubmit={handleSubmit(onSubmit)}
-      style={{ width: '100%', height: 'rem' }}
+      style={{
+        width: '100%',
+        height: 'rem',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
     >
       <DefaultPasswordInput
         input={currentPasswordInput}
@@ -60,7 +65,7 @@ const SecurityPasswordForm = ({ onSubmit, error, loading }) => {
       />
       <DefaultInputError errors={errors} input={secondPasswordInput} />
       <CheckedButton />
-    </Form>
+    </form>
   );
 };
 
