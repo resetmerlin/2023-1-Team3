@@ -7,7 +7,6 @@ import Step5 from '../progress/Step5';
 import Loading from '../../../components/Loading';
 import { styled } from 'styled-components';
 import Step2 from '../progress/Step2';
-import { Form } from '../../login/form/LoginForm';
 import {
   FormLoadingMessage,
   RegisterError,
@@ -15,7 +14,9 @@ import {
 import ImageRegister from '../afterRegister/ImageRegister';
 import PersonalDesc from '../afterRegister/PersonalDesc';
 import Final from '../progress/Final';
-import { RegisterButton } from '../../../components/atoms/button/Button';
+import Button from '../../../components/atoms/button/InstanceMaker';
+import { ButtonLoading } from '../../../components/Loader';
+import { ButtonChecked } from '../../../components/Checked';
 
 const RegisterForm = ({
   onSubmit,
@@ -35,14 +36,13 @@ const RegisterForm = ({
     handleSubmit,
     getValues,
     setValue,
-
     formState: { errors },
   } = useFormContext();
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Suspense fallback={<Loading />}>
-        {currentStep == 1 && (
+        {currentStep === 1 && (
           <Step1
             errors={errors}
             register={register}
@@ -60,7 +60,7 @@ const RegisterForm = ({
       </Suspense>
 
       <Suspense fallback={<Loading />}>
-        {currentStep == 2 && (
+        {currentStep === 2 && (
           <Step2
             errors={errors}
             register={register}
@@ -71,7 +71,7 @@ const RegisterForm = ({
         )}
       </Suspense>
       <Suspense fallback={<Loading />}>
-        {currentStep == 3 && (
+        {currentStep === 3 && (
           <Step3
             errors={errors}
             getValuePassword={getValues('password')}
@@ -82,7 +82,7 @@ const RegisterForm = ({
         )}
       </Suspense>
       <Suspense fallback={<Loading />}>
-        {currentStep == 4 && (
+        {currentStep === 4 && (
           <Step4
             errors={errors}
             setValue={setValue}
@@ -94,7 +94,7 @@ const RegisterForm = ({
       </Suspense>
 
       <Suspense fallback={<Loading />}>
-        {currentStep == 5 && (
+        {currentStep === 5 && (
           <Step5
             errors={errors}
             getValueMajor={getValues('major')}
@@ -106,19 +106,22 @@ const RegisterForm = ({
       </Suspense>
 
       <Suspense fallback={<Loading />}>
-        {currentStep == 6 && <PersonalDesc register={register} />}
+        {currentStep === 6 && <PersonalDesc register={register} />}
       </Suspense>
-      {currentStep == 6 && (
+      {currentStep === 6 && (
         <>
-          <RegisterButton registerInfo={registerInfo} />
+          <Button nativeType="submit" size="xl">
+            {registerInfo?.loading === true ? (
+              <ButtonLoading />
+            ) : registerInfo?.loading === false &&
+              registerInfo?.registerStatus ? (
+              <ButtonChecked />
+            ) : (
+              '회원가입'
+            )}
+          </Button>
           {!registerInfo?.loading && registerInfo?.registerStatus ? (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+            <div className="center">
               <FormLoadingMessage>
                 회원가입을 성공하였습니다!
               </FormLoadingMessage>
@@ -133,7 +136,7 @@ const RegisterForm = ({
       )}
 
       <Suspense fallback={<Loading />}>
-        {currentStep == 7 &&
+        {currentStep === 7 &&
           !registerInfo?.loading &&
           registerInfo?.registerStatus && (
             <ImageRegister handleNext={handleNext} dispatch={dispatch} />
@@ -141,13 +144,13 @@ const RegisterForm = ({
       </Suspense>
 
       <Suspense fallback={<Loading />}>
-        {currentStep == 8 &&
+        {currentStep === 8 &&
           !registerInfo?.loading &&
           registerInfo?.registerStatus && (
             <Final currentStep={currentStep} navigate={navigate} />
           )}
       </Suspense>
-    </Form>
+    </form>
   );
 };
 export const InputAndErrorWrap = styled.div`
