@@ -1,10 +1,3 @@
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 .btn {
   cursor: pointer;
   border: none;
@@ -22,15 +15,13 @@
 .btn-m {
   width: 6rem;
   height: 3rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin: 0.5rem;
 }
 
 .btn-l {
-  width: 47.5%;
-  height: 2.5rem;
-  font-size: 1.2rem;
-  margin: 2.2rem 0;
+  height: 2.9rem;
+  font-size: 1.1rem;
 }
 
 .btn-xl {
@@ -42,13 +33,35 @@
 .btn-primary {
   background-color: rgb(128, 113, 252);
   color: white;
+  border: 1px solid white;
 }
 
 .btn-secondary {
   background-color: white;
   color: rgb(128, 113, 252);
+  border: 1px solid rgb(128, 113, 252);
 }
 .btn-tertiary {
   background-color: #b1b1b1;
   color: white;
+
+  border: 1px solid white;
+}
+
+.icon {
+  cursor: pointer;
+  border: none;
+  margin: 0 0.5rem;
+}
+
+.icon-l {
+}
+.icon-xl {
+}
+
+.icon-primary {
+  background-color: white;
+  svg {
+    fill: rgb(128, 113, 252) !important;
+  }
 }
