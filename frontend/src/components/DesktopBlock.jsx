@@ -21,7 +21,8 @@ const DesktopBlock = () => {
               </ErrorPageContent>
 
               <ErrorPageSmall>
-                Destop 뷰는 현재 지원되지 않습니다. 모바일 기기를 사용해 주세요.
+                Desktop 뷰는 현재 지원되지 않습니다. 모바일 기기를 사용해
+                주세요.
               </ErrorPageSmall>
             </ErrorPageWrap>
             <ErrorPageNumberWrap>
