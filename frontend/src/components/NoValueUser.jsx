@@ -1,21 +1,21 @@
-import React, { memo } from "react";
-import { styled } from "styled-components";
-import { HomeWrap } from "../screens/home/content/HomeContent";
-import { RecapUserListsButton } from "./Button";
-const NoValueUser = memo(function NoValueUser({ getPeopleList }) {
+import React, { memo } from 'react';
+import { styled } from 'styled-components';
+import { HomeWrap } from '../screens/home/content/HomeContent';
+import { RecapUserListsButton } from './Button';
+const NoValueUser = memo(function NoValueUser({ navigate }) {
   return (
     <HomeWrap>
       <NoValueWrap>
         <NoValueImageWrap>
-          <NoValueImage src="/no-value.png" alt="no-value-image" />
+          <NoValueImage src='/no-value.png' alt='no-value-image' />
         </NoValueImageWrap>
 
         <NoValueTextWrap>
           <NoValueTextBig>더 볼 유저가 없습니다.. </NoValueTextBig>
           <NoValueTextSmall>처음부터 유저를 다시 볼까요?</NoValueTextSmall>
         </NoValueTextWrap>
-        <NoValueTextWrap style={{ height: "27%" }}>
-          <RecapUserListsButton getPeopleList={getPeopleList} />
+        <NoValueTextWrap style={{ height: '27%' }}>
+          <RecapUserListsButton navigate={navigate} />
 
           {/* <NoValueTextSmall
             style={{
