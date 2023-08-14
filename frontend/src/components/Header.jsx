@@ -154,6 +154,7 @@ const HeaderButtonWrap = styled.div`
   justify-content: flex-start;
   align-items: center;
   height: 100%;
+  z-index: 1000;
 `;
 const SaveHeaderWrap = styled.div`
   height: 10%;
