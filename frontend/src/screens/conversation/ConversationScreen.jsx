@@ -137,9 +137,10 @@ const ConversationScreen = () => {
 
   // 웹 소켓 Disconnect
   function disconnect() {
-    if (connected) {
-      client.current.disconnect();
+    if (connected && client.current) {
+      client.current?.disconnect();
     }
+    return;
   }
   useEffect(() => {
     dispatch(getSaveListAction(0));
