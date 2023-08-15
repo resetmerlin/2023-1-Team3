@@ -385,7 +385,7 @@ export const UserDeleteButton = memo(function UserDeleteButton({
 
 /** 이미 다 본 유저 다시보는 버튼 */
 export const RecapUserListsButton = memo(function UserDeleteButton({
-  getPeopleList,
+  navigate,
 }) {
   return (
     <SmallNextButton>
@@ -399,7 +399,7 @@ export const RecapUserListsButton = memo(function UserDeleteButton({
         }}
         type='button'
         onClick={() => {
-          getPeopleList();
+          navigate('/save');
         }}
       >
         유저 다시보기

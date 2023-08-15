@@ -12,7 +12,7 @@ import {
   MESSAGE_GET_HISTORY_SUCCESS,
   MESSAGE_GET_HISTORY_REQUEST,
   MESSAGE_GET_HISTORY_FAIL,
-} from "../constants/messageConstants";
+} from '../constants/messageConstants';
 
 export const messageInitiateAction = (user) => async (dispatch) => {
   dispatch({ type: MESSAGE_INITIATE, payload: user });
@@ -31,7 +31,7 @@ export const getMessagesHistoryAction =
 
       const chatMessageResponse = JSON.parse(messageResponse.body);
 
-      if (chatMessageResponse.status === "FETCH") {
+      if (chatMessageResponse.status === 'FETCH') {
         if (
           chatMessageResponse.count !== 0 &&
           page !== messageFetchStatus?.page
@@ -41,7 +41,7 @@ export const getMessagesHistoryAction =
               page: page,
               endPageSignal: false,
 
-              recvMemberId: userMessageStatus?.opponentMemberId,
+              recvMemberId: userMessageStatus?.memberId,
               messages: [
                 ...chatMessageResponse?.chatMessages,
                 ...messageFetchStatus?.user.messages,
@@ -51,7 +51,7 @@ export const getMessagesHistoryAction =
 
           dispatch({ type: MESSAGE_GET_HISTORY_SUCCESS, payload: data });
         }
-      } else if (chatMessageResponse.status === "GET") {
+      } else if (chatMessageResponse.status === 'GET') {
         if (page !== messageFetchStatus?.page) {
           const data = {
             user: {
@@ -60,7 +60,7 @@ export const getMessagesHistoryAction =
                 chatMessageResponse?.chatUsers[0]?.chatMessages.length == 0
                   ? true
                   : false,
-              recvMemberId: userMessageStatus?.opponentMemberId,
+              recvMemberId: userMessageStatus?.memberId,
               messages: [
                 ...chatMessageResponse?.chatUsers[0]?.chatMessages,
                 ...messageFetchStatus?.user.messages,
@@ -107,19 +107,26 @@ export const getMessageRelationAction =
 export const sendMessageAction = (response) => async (dispatch, getState) => {
   const {
     messageSendInfo: { messageSendStatus },
+    userMessageInfo: { userMessageStatus },
   } = getState();
+
   try {
     dispatch({ type: MESSAGE_SEND_REQUEST });
 
     if (response?.body) {
       const chatMessageResponse = JSON.parse(response.body);
 
-      if (chatMessageResponse.status === "SEND") {
-        const data = {
-          message: [chatMessageResponse?.chatUsers[0].chatMessages[0]],
-        };
-        dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
-      } else if (chatMessageResponse.status === "OK") {
+      if (chatMessageResponse.status === 'SEND') {
+        if (
+          chatMessageResponse?.chatUsers[0]?.memberId ===
+          userMessageStatus?.memberId
+        ) {
+          const data = {
+            message: [chatMessageResponse?.chatUsers[0].chatMessages[0]],
+          };
+          dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
+        }
+      } else if (chatMessageResponse.status === 'OK') {
         messageSendStatus[messageSendStatus.length - 1] = {
           ...messageSendStatus[messageSendStatus.length - 1],
           ok: true,
@@ -129,7 +136,7 @@ export const sendMessageAction = (response) => async (dispatch, getState) => {
       const messageRequest = JSON.parse(response);
 
       const data = {
-        message: [{ ...messageRequest, ok: "loading" }],
+        message: [{ ...messageRequest, ok: 'loading' }],
       };
 
       dispatch({ type: MESSAGE_SEND_SUCCESS, payload: data });
