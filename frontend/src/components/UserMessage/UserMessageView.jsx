@@ -73,6 +73,7 @@ const MessageDescWrap = styled.div`
     text-decoration: none;
     span {
       font-size: 1.3rem;
+      color: black;
 
       font-weight: 500;
     }
