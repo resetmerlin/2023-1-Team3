@@ -5,7 +5,6 @@ import {
   secondPasswordInput,
 } from '../../../components/Input/InputsDefine';
 import { InputAndErrorWrap } from '../form/RegisterForm';
-import { NextStepButton } from '../../../components/atoms/button/Button';
 import Button from '../../../components/atoms/button/InstanceMaker';
 const Step3 = ({
   errors,

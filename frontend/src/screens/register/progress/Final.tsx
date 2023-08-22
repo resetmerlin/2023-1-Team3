@@ -1,6 +1,5 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { AfterRegisterButton } from '../../../components/atoms/button/Button';
 import Button from '../../../components/atoms/button/InstanceMaker';
 
 const Final = ({ navigate }) => {

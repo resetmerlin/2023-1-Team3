@@ -1,6 +1,4 @@
-import React from 'react';
 import { PersonalMajorInput } from '../../../components/Input/Input';
-import { NextStepButton } from '../../../components/atoms/button/Button';
 import Button from '../../../components/atoms/button/InstanceMaker';
 const Step5 = ({ errors, register, getValueMajor, handleNext }) => {
   const inputErrors = errors?.major ? true : false;

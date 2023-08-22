@@ -2,7 +2,6 @@ import { femaleInput, maleInput } from '../../../components/Input/InputsDefine';
 import { GenderInput } from '../../../components/Input/Input';
 import { InputGenderError } from '../../../components/Input/InputError';
 import { styled } from 'styled-components';
-import { NextStepButton } from '../../../components/atoms/button/Button';
 import Button from '../../../components/atoms/button/InstanceMaker';
 const Step4 = ({ errors, setValue, register, getValues, handleNext }) => {
   const inputErrors =
