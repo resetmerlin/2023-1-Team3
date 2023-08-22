@@ -2,8 +2,9 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { HeaderBackButton } from './atoms/button/Button';
 import { LogoMediumImg } from './atoms/logo/Logo';
+import Button from './atoms/button/InstanceMaker';
+import { IconChevronLeft } from './atoms/icon/IconChevron';
 const Header = () => {
   const location = useLocation().pathname;
   return (
@@ -31,7 +32,16 @@ export const HomeHeader = ({ navigate, style }) => {
   return (
     <HeaderLogoWrap style={style}>
       <HeaderButtonWrap>
-        <HeaderBackButton navigate={navigate} />
+        <Button
+          size="xl"
+          division="icon"
+          type="tertiary"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <IconChevronLeft />
+        </Button>
       </HeaderButtonWrap>
 
       <Link to="/">
@@ -45,7 +55,16 @@ export const SaveHeader = ({ navigate, style }) => {
   return (
     <SaveHeaderWrap style={style}>
       <HeaderButtonWrap>
-        <HeaderBackButton navigate={navigate} />
+        <Button
+          size="xl"
+          division="icon"
+          type="tertiary"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <IconChevronLeft />
+        </Button>
       </HeaderButtonWrap>
 
       <div className="save-header__content">
@@ -57,7 +76,18 @@ export const SaveHeader = ({ navigate, style }) => {
 export const MessageHeader = ({ navigate }) => {
   return (
     <MessageHeaderWrap>
-      <HeaderBackButton navigate={navigate} />
+      <HeaderButtonWrap>
+        <Button
+          size="xl"
+          division="icon"
+          type="tertiary"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <IconChevronLeft />
+        </Button>
+      </HeaderButtonWrap>
       <span>Message</span>
     </MessageHeaderWrap>
   );
@@ -66,20 +96,22 @@ export const SettingHeader = ({ navigate, name }) => {
   return (
     <SettingHeaderWrap>
       <HeaderButtonWrap>
-        <HeaderBackButton navigate={navigate} />
+        <Button
+          size="xl"
+          division="icon"
+          type="tertiary"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <IconChevronLeft />
+        </Button>
       </HeaderButtonWrap>
       <span>{name}</span>
     </SettingHeaderWrap>
   );
 };
 
-export const DefaultBackHeader = ({ navigate }) => {
-  return (
-    <HeaderWrap>
-      <HeaderBackButton navigate={navigate} />
-    </HeaderWrap>
-  );
-};
 const HeaderWrap = styled.div`
   height: auto;
   display: flex;
@@ -144,15 +176,17 @@ const HeaderLogoWrap = styled.div`
 `;
 const HeaderButtonWrap = styled.div`
   position: absolute;
-  top: 0%;
-  left: 3%;
   background-color: transparent;
   border: none;
   cursor: pointer;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 100%;
+  button {
+    position: fixed;
+    top: 4.5%;
+    left: 3%;
+  }
 `;
 const SaveHeaderWrap = styled.div`
   height: 10vh;
