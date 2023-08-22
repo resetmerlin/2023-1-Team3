@@ -19,7 +19,7 @@ import {
   SECURITY_ACCOUNT_RESIGN_SUCCESS,
   SECURITY_ACCOUNT_RESIGN_FAIL,
   SECURITY_ACCOUNT_RESIGN_RESET,
-} from "../constants/securityEditConstants";
+} from '../constants/securityEditConstants';
 
 /** 유저들 불러오기 reducers */
 export const passwordEditReducers = (state = {}, action) => {
@@ -74,7 +74,7 @@ export const personalInfoEditReducers = (state = {}, action) => {
     case SECURITY_PERSONALINFO_SUCCESS:
       return {
         loading: false,
-        personalInfoEditStatus: action.payload,
+        personalInfoEditStatus: true,
       };
 
     case SECURITY_PERSONALINFO_FAIL:
