@@ -5,23 +5,18 @@ import {
   majorInput,
   birthdayInput,
   descriptionInput,
-  femaleInput,
-  maleInput,
 } from '../../../../components/Input/InputsDefine';
 import { Form } from '../../../login/form/LoginForm';
 import {
   DefaultInput,
   DescriptionInput,
-  GenderInput,
   Label,
   PersonalMajorInput,
 } from '../../../../components/Input/Input';
 import { DefaultInputError } from '../../../../components/Input/InputError';
 import { styled } from 'styled-components';
-import {
-  ChangeProfileButton,
-  SaveButton,
-} from '../../../../components/atoms/button/Button';
+
+import Button from '../../../../components/atoms/button/InstanceMaker';
 
 const PersonalInfoForm = ({
   onSubmit,
@@ -36,6 +31,14 @@ const PersonalInfoForm = ({
     register,
   } = useFormContext();
 
+  const status = info?.personalInfoEditStatus;
+  const loading = info?.loading;
+
+  const changeProfileHandler = (event) => {
+    event.preventDefault();
+
+    handleChangeProfile();
+  };
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <PersonInfoInputWrap>
@@ -74,13 +77,21 @@ const PersonalInfoForm = ({
       </PersonInfoInputWrap>
 
       <PersonalInfoButtonWrap>
-        <SaveButton
-          error={info?.error}
-          loading={info?.loading}
-          status={info?.personalInfoEditStatus}
-        />
+        <Button
+          nativeType="submit"
+          size="s"
+          type={status && !loading ? 'primary' : 'secondary'}
+        >
+          {status && loading === false
+            ? '저장 완료!'
+            : loading === undefined && status === undefined
+            ? '저장'
+            : '저장'}
+        </Button>
 
-        <ChangeProfileButton handleChangeProfile={handleChangeProfile} />
+        <Button size="s" type="secondary" onClick={changeProfileHandler}>
+          프로필 변경
+        </Button>
       </PersonalInfoButtonWrap>
     </Form>
   );
@@ -100,6 +111,7 @@ const PersonalInfoButtonWrap = styled.div`
   justify-content: space-between;
   button {
     margin: 0 0.3rem;
+    border: none;
   }
 `;
 const PersonalInfoDescWrap = styled.div`
