@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { styled } from 'styled-components';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { SaveHeader } from '../../components/Header';
@@ -9,6 +8,7 @@ import { SAVE_LIST_RESET } from '../../constants/saveConstants';
 import { BUTTON_SAVE_RESET } from '../../constants/buttonConstants';
 import SaveContent from './SaveContent';
 import Footer from '../../components/Footer';
+import './Save.scss';
 
 function SaveScreen() {
   const dispatch = useDispatch();
@@ -101,7 +101,8 @@ function SaveScreen() {
         navigate={navigate}
         style={{ display: childState ? 'none' : 'flex' }}
       />
-      <SaveRow
+      <div
+        className="save__row"
         style={{
           height: childState ? '100vh' : '82vh',
           marginTop: childState && '0',
@@ -133,45 +134,11 @@ function SaveScreen() {
               );
             }
           )}
-      </SaveRow>
+      </div>
 
       <Footer style={{ display: childState ? 'none' : 'flex' }} />
     </section>
   );
 }
-const SaveRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-top: 0.5rem;
-  padding: 0 0.8rem;
-  height: 82vh;
-  position: absolute;
-  align-items: start;
-  overflow: scroll;
-  justify-content: start;
-  flex: 1;
-  top: 9%;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 
-  .example {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-
-  // .save-column:nth-child(2n) {
-  //   height: 40%;
-  // }
-  .save-column:nth-child(2) {
-  }
-  // .flex-item:nth-child(1) {
-  //   order: 2; /* Change the order of the first flex item */
-  // }
-
-  // .flex-item:nth-child(2) {
-  //   order: 3; /* Change the order of the second flex item */
-  // }
-`;
 export default SaveScreen;
