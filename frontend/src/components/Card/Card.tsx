@@ -37,9 +37,7 @@ export default function Card({
     },
     saveValue,
     memberId: user?.memberId,
-    startMessage: () => {
-      startMessage(user?.memberId);
-    },
+    startMessage,
   };
 
   return <CardView {...props} />;
