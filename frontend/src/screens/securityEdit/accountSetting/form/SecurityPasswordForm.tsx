@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -6,16 +5,13 @@ import {
   currentPasswordInput,
   secondPasswordInput,
 } from '../../../../components/Input/InputsDefine';
-import { Form } from '../../../login/form/LoginForm';
-import {
-  DefaultInput,
-  DefaultPasswordInput,
-} from '../../../../components/Input/Input';
+import { DefaultPasswordInput } from '../../../../components/Input/Input';
 import {
   DefaultInputError,
   InputEmailError,
 } from '../../../../components/Input/InputError';
-import { CheckedButton } from '../../../../components/atoms/button/Button';
+import Button from '../../../../components/atoms/button/InstanceMaker';
+import IconCheck from '../../../../components/atoms/icon/IconCheck';
 
 const SecurityPasswordForm = ({ onSubmit, error, loading }) => {
   const passwordEditInfo = {
@@ -28,15 +24,7 @@ const SecurityPasswordForm = ({ onSubmit, error, loading }) => {
     register,
   } = useFormContext();
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      style={{
-        width: '100%',
-        height: 'rem',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <DefaultPasswordInput
         input={currentPasswordInput}
         register={register}
@@ -64,7 +52,11 @@ const SecurityPasswordForm = ({ onSubmit, error, loading }) => {
         errors={errors}
       />
       <DefaultInputError errors={errors} input={secondPasswordInput} />
-      <CheckedButton />
+      <div className="check-button-wrap">
+        <Button nativeType="submit" type="tertiary" division="icon">
+          <IconCheck />
+        </Button>
+      </div>
     </form>
   );
 };

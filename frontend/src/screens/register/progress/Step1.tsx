@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { emailInput, codeInput } from '../../../components/Input/InputsDefine';
 import { styled } from 'styled-components';
 import {
@@ -8,13 +7,10 @@ import {
   InputEmailRegisterError,
 } from '../../../components/Input/InputError';
 import { DefaultInput } from '../../../components/Input/Input';
-import {
-  EmailNextStepButton,
-  VerifyCodeButton,
-} from '../../../components/atoms/button/Button';
 import Button from '../../../components/atoms/button/InstanceMaker';
 import { ButtonLoading } from '../../../components/Loader';
 import { ButtonChecked } from '../../../components/Checked';
+
 const Step1 = ({
   errors,
   register,
@@ -30,6 +26,20 @@ const Step1 = ({
   getValueCode,
 }) => {
   const getEmailValue = () => sendEmailData(getValues('email'));
+
+  const getVerified = () => {
+    sendCodeData(getValueEmail, getValueCode);
+  };
+
+  const emailNextButton = () => {
+    if (
+      !emailInfo?.loading &&
+      emailInfo?.emailStatus &&
+      codeInfo?.codeBoolean == true &&
+      !codeInfo?.loading
+    )
+      handleNext();
+  };
 
   return (
     <>
@@ -71,12 +81,17 @@ const Step1 = ({
             />
 
             {!emailInfo?.emailLoading && !emailInfo?.emailError && (
-              <VerifyCodeButton
-                sendCodeData={sendCodeData}
-                getValueEmail={getValueEmail}
-                getValueCode={getValueCode}
-                codeInfo={codeInfo}
-              />
+              <Button size="m" onClick={getVerified}>
+                {!codeInfo?.error && codeInfo?.codeBoolean === false ? (
+                  <ButtonLoading />
+                ) : codeInfo?.loading === false &&
+                  !codeInfo?.error &&
+                  codeInfo?.codeBoolean ? (
+                  <ButtonChecked />
+                ) : (
+                  '인증'
+                )}
+              </Button>
             )}
           </EmailWrap>
           <InputCodeError
@@ -100,11 +115,9 @@ const Step1 = ({
           ></box-icon>
         </Link>
       </LinkWrap>
-      <EmailNextStepButton
-        handleNext={handleNext}
-        codeInfo={codeInfo}
-        emailInfo={emailInfo}
-      />
+      <Button nativeType="submit" size="xl" onClick={emailNextButton}>
+        다음
+      </Button>
     </>
   );
 };
