@@ -1,6 +1,7 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { styled } from 'styled-components';
-import { RecapUserListsButton } from './atoms/button/Button';
+import Button from './atoms/button/InstanceMaker';
+import { IconChevronRight } from './atoms/icon/IconChevron';
 
 const NoValueUser = memo(function NoValueUser({ getPeopleList }) {
   return (
@@ -15,17 +16,10 @@ const NoValueUser = memo(function NoValueUser({ getPeopleList }) {
           <NoValueTextSmall>처음부터 유저를 다시 볼까요?</NoValueTextSmall>
         </NoValueTextWrap>
         <NoValueTextWrap style={{ height: '27%' }}>
-          <RecapUserListsButton getPeopleList={getPeopleList} />
-
-          {/* <NoValueTextSmall
-            style={{
-              fontSize: "0.8rem",
-              color: "rgb(128, 113, 252)",
-              marginTop: "1rem",
-            }}
-          >
-            다시보기가 되지 않으면 저장화면에 가보세요!
-          </NoValueTextSmall> */}
+          <Button size="xl" onClick={getPeopleList} className="center">
+            유저 다시보기
+            <IconChevronRight size="2rem" color="white" />
+          </Button>
         </NoValueTextWrap>
       </NoValueWrap>
     </HomeWrap>
@@ -53,6 +47,11 @@ const NoValueTextWrap = styled.div`
   align-items: center;
   width: 100%;
   height: 23%;
+
+  button {
+    width: 47%;
+    font-size: 1rem;
+  }
 `;
 const NoValueTextSmall = styled.span`
   font-size: 1.1rem;
