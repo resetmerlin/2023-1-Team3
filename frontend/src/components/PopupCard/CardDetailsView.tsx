@@ -1,16 +1,12 @@
-import {
-  BackToSlideCardButton,
-  BlockButton,
-  UserDetailsMessageButton,
-} from '../atoms/button/Button';
 import Button from '../atoms/button/InstanceMaker';
+import IconDotHorizontal from '../atoms/icon/IconDot';
 import { IconHeartSolid } from '../atoms/icon/IconHeart';
 import IconMessageSolid from '../atoms/icon/IconMessage';
+import IconX from '../atoms/icon/IconX';
 
 interface Props {
   name: string;
   age: string;
-  memberId: string;
   department: string;
   imageSrc: string;
 }
@@ -18,20 +14,28 @@ interface Props {
 export default function CardDetailsView({
   name,
   age,
-  memberId,
   blockAction,
-  blockValue,
   introduction,
   likeAction,
   saveValue,
   department,
   goBackToSlide,
   imageSrc,
+  startMessage,
 }: Props) {
   return (
     <div className="card-details">
-      <BackToSlideCardButton goBackToSlide={goBackToSlide} />
       <div className="card-details__top">
+        <div className="button__wrap">
+          <Button
+            onClick={goBackToSlide}
+            division="icon"
+            type="tertiary"
+            size="xl"
+          >
+            <IconX />
+          </Button>
+        </div>
         <img
           className="card-details__profile"
           loading="lazy"
@@ -48,21 +52,17 @@ export default function CardDetailsView({
           </div>
 
           <label htmlFor="popup-dot" className="card-details__dot">
-            <box-icon
-              name="dots-horizontal-rounded"
-              color="black"
-              size="3rem"
-            />
+            <IconDotHorizontal />
           </label>
           <input type="checkbox" id="popup-dot" name="popup-dot" />
 
           <div className="card-details__popup-box">
-            <button type="button"> 신고하기</button>
-            <BlockButton
-              memberId={memberId}
-              blockValue={blockValue}
-              blockAction={blockAction}
-            />
+            <Button size="s" type="secondary">
+              신고하기
+            </Button>
+            <Button onClick={blockAction} size="s" type="secondary">
+              삭제하기
+            </Button>
           </div>
         </div>
         <div className="card-details__bottom__info-sub__major">
@@ -92,7 +92,7 @@ export default function CardDetailsView({
             type="tertiary"
             className="center"
             size="l"
-            onClick={likeAction}
+            onClick={startMessage}
           >
             <IconMessageSolid size="1.6rem" />
             <span>메세지 보내기</span>
