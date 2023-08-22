@@ -34,7 +34,7 @@ const UserCardColumnView = forwardRef(
           checked={checkedState}
           onChange={popupHandler}
         />
-        <div className="card-column__label" htmlFor={id}>
+        <label className="card-column__label" htmlFor={id}>
           <img
             className="card-column__profile"
             loading="lazy"
@@ -46,7 +46,7 @@ const UserCardColumnView = forwardRef(
             <span className="card-column__name">{name}</span>
             <span className="card-column__major">{department}</span>
           </div>
-        </div>
+        </label>
       </div>
     );
   }
