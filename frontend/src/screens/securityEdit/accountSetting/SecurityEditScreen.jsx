@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
-import { styled } from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { SettingHeader } from "../../../components/Header";
-import { SecurityPaswordFormHook } from "../../../hooks/FormHoooks";
-import { securityEditPassword } from "../../../components/Form/Schema";
-import { useDispatch, useSelector } from "react-redux";
-import { passwordEditAction } from "../../../actions/securityEditAction";
-import { SECURITY_PASSWORD_RESET } from "../../../constants/securityEditConstants";
-import { getSaveListAction } from "../../../actions/saveAction";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { SettingHeader } from '../../../components/Header';
+import { SecurityPaswordFormHook } from '../../../hooks/FormHoooks';
+import { securityEditPassword } from '../../../components/Form/Schema';
+import { useDispatch, useSelector } from 'react-redux';
+import { passwordEditAction } from '../../../actions/securityEditAction';
+import { SECURITY_PASSWORD_RESET } from '../../../constants/securityEditConstants';
+import { getSaveListAction } from '../../../actions/saveAction';
+import './SecurityEdit.scss';
 
-const SecurityEditScreen = () => {
+export default function SecurityEditScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ const SecurityEditScreen = () => {
     if (password === secondPassword) {
       dispatch(
         passwordEditAction({
-          currentPassword: currentPassword,
+          currentPassword,
           futurePassword: password,
         })
       );
@@ -46,24 +46,13 @@ const SecurityEditScreen = () => {
     dispatch({ type: SECURITY_PASSWORD_RESET });
     dispatch(getSaveListAction(0));
   }, []);
+
   return (
-    <AccountSetting>
-      <SettingHeader navigate={navigate} name={"계정보안 설정"} />
-      <AccountSettingContent>
-        <span
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: "600",
-          }}
-        >
-          비밀번호 변경
-        </span>
-        <p
-          style={{
-            fontSize: "1rem",
-            margin: "1rem 0",
-          }}
-        >
+    <section className="setting-account">
+      <SettingHeader navigate={navigate} name="계정보안 설정" />
+      <div className="setting-account__content">
+        <span className="setting-account__content__title">비밀번호 변경</span>
+        <p className="setting-account__content__sub-title">
           비밀번호는 6자 이상이어야 하고 숫자, 영문, 특수기호의 조합을 포함해야
           합니다.
         </p>
@@ -75,39 +64,11 @@ const SecurityEditScreen = () => {
           loading={loading}
         />
         {passwordEditStatus && !loading && (
-          <PasswordEditResponse>비밀번호 변경완료!</PasswordEditResponse>
+          <span className="setting-account__content__notification">
+            비밀번호 변경완료!
+          </span>
         )}
-      </AccountSettingContent>
-    </AccountSetting>
+      </div>
+    </section>
   );
-};
-
-const AccountSetting = styled.div`
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-  align-items: center;
-  justify-content: center;
-`;
-
-const AccountSettingContent = styled.div`
-  height: 100%;
-  width: 87%;
-  display: flex;
-  flex-direction: column;
-  font-size: 1.2rem;
-  align-items: start;
-`;
-
-const PasswordEditResponse = styled.span`
-  width: 100%;
-  margin-top: 1rem;
-  color: rgb(128, 113, 252);
-  display: flex;
-  justify-content: center;
-  font-weight: 600;
-`;
-export default SecurityEditScreen;
+}

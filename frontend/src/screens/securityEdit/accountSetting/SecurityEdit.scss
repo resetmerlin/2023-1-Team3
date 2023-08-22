@@ -1,0 +1,51 @@
+.setting-account {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  align-items: center;
+  justify-content: center;
+
+  &__content {
+    height: 100%;
+    width: 87%;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    align-items: start;
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    &__sub-title {
+      font-size: 1rem;
+      margin: 1rem 0;
+    }
+
+    &__notification {
+      width: 100%;
+      margin-top: 1rem;
+      color: rgb(128, 113, 252);
+      display: flex;
+      justify-content: center;
+      font-weight: 600;
+    }
+  }
+}
+
+.check-button-wrap {
+  position: fixed;
+  top: 4.5%;
+  right: 3%;
+  background-color: transparent;
+  border: none;
+}
