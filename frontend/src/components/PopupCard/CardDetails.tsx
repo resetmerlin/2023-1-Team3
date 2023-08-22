@@ -9,6 +9,7 @@ export default function CardDetails({
   saveValue,
   goBackToSlide,
   imageSrc,
+  startMessage,
 }) {
   const props = {
     goBackToSlide,
@@ -22,6 +23,7 @@ export default function CardDetails({
     introduction: user?.introduction,
     likeAction,
     saveValue,
+    startMessage,
   };
   return <CardDetailsView {...props} />;
 }
