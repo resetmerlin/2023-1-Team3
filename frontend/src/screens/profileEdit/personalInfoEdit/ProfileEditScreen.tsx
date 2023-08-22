@@ -1,26 +1,25 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { batch, useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
-import { PersonalInfoFormHook } from "../../../hooks/FormHoooks";
-import { personalInfoSchema } from "../../../components/Form/Schema";
-import { DefaultBackHeader } from "../../../components/Header";
+import React, { useCallback, useEffect, useState } from 'react';
+import { batch, useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { PersonalInfoFormHook } from '../../../hooks/FormHoooks';
+import { personalInfoSchema } from '../../../components/Form/Schema';
 import {
   getPersonalInfoAction,
   personalInfoEditAction,
-} from "../../../actions/securityEditAction";
-import { ChangeProfileButton } from "../../../components/Button";
+} from '../../../actions/securityEditAction';
 
-import PersonalImageEdit from "./imageEdit/PersonalImageEdit";
-import { BackFormButton } from "../../../components/Button";
+import PersonalImageEdit from './imageEdit/PersonalImageEdit';
 import {
   securityUserInfoEditResetAction,
   securityUserInfoResetAction,
   securityUserProfileResetAction,
-} from "../../../actions/resetAction";
-import Loading from "../../../components/Loading";
-import { getImageSrc } from "../../../func/commonLogicHelper";
-import { getSaveListAction } from "../../../actions/saveAction";
+} from '../../../actions/resetAction';
+import Loading from '../../../components/Loading';
+import { getImageSrc } from '../../../func/commonLogicHelper';
+import { getSaveListAction } from '../../../actions/saveAction';
+import Button from '../../../components/atoms/button/InstanceMaker';
+import IconChevronLeft from '../../../components/atoms/icon/IconChevron';
 
 const ProfileEditScreen = () => {
   const dispatch = useDispatch();
@@ -51,7 +50,7 @@ const ProfileEditScreen = () => {
         introduction: data.description,
         name: data.name,
         gender: data.gender,
-        birth: data.birthday?.toISOString().split("T")[0],
+        birth: data.birthday?.toISOString().split('T')[0],
       })
     );
   };
@@ -61,16 +60,33 @@ const ProfileEditScreen = () => {
   const handleChangeProfile = useCallback(() => {
     setChangeProfile((prev) => !prev);
   });
-
+  const goPrevious = () => {
+    navigate(-1);
+  };
   return (
     <PersonalInfo>
       {!changeProfile ? (
-        <DefaultBackHeader navigate={navigate} />
+        <PersonalInfoButtonWrap>
+          <Button
+            onClick={goPrevious}
+            division="icon"
+            size="xl"
+            type="tertiary"
+          >
+            <IconChevronLeft />
+          </Button>
+        </PersonalInfoButtonWrap>
       ) : (
-        <GoBackToProfile>
-          {" "}
-          <BackFormButton handlePrevious={handleChangeProfile} />
-        </GoBackToProfile>
+        <PersonalInfoButtonWrap>
+          <Button
+            onClick={handleChangeProfile}
+            division="icon"
+            size="xl"
+            type="tertiary"
+          >
+            <IconChevronLeft />
+          </Button>
+        </PersonalInfoButtonWrap>
       )}
 
       {loading ? (
@@ -93,7 +109,7 @@ const ProfileEditScreen = () => {
             />
           )}
 
-          <PersonalInfoContent style={{ display: changeProfile && "none" }}>
+          <PersonalInfoContent style={{ display: changeProfile && 'none' }}>
             <PersonalInfoFormHook
               schema={personalInfoSchema}
               info={personalEditInfo}
@@ -110,16 +126,12 @@ const ProfileEditScreen = () => {
 };
 const PersonalInfoButtonWrap = styled.div`
   width: auto;
-  // width: 12rem;
-
   height: auto;
   position: absolute;
-  top: 43%;
-  right: 3%;
-  display: flex;
-  justify-content: space-between;
   button {
-    margin: 0;
+    position: fixed;
+    top: 4.5%;
+    left: 3%;
   }
 `;
 
@@ -132,13 +144,6 @@ const PersonalInfo = styled.div`
   font-size: 1rem;
 
   align-self: start;
-`;
-
-const GoBackToProfile = styled.div`
-  position: absolute;
-  top: 4%;
-  left: 3%;
-  z-index: 1000;
 `;
 
 const PersonalInfoImage = styled.img`

@@ -1,25 +1,27 @@
-import React, { useState, useRef } from "react";
-import imageCompression from "browser-image-compression";
-import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
-import { styled } from "styled-components";
-import "react-image-crop/dist/ReactCrop.css";
-import { AfterRegisterImageInput } from "../../../../components/Input/Input";
-import { ImageUploadButton } from "../../../../components/Button";
-import { profileEditAction } from "../../../../actions/securityEditAction";
-import { checkIsBlob, cropImageHandler } from "../../../../hooks/ImageHandle";
-import { profileInput } from "../../../../components/Input/InputsDefine";
+import React, { useState, useRef } from 'react';
+import imageCompression from 'browser-image-compression';
+import ReactCrop, { centerCrop, makeAspectCrop } from 'react-image-crop';
+import { styled } from 'styled-components';
+import 'react-image-crop/dist/ReactCrop.css';
+import { AfterRegisterImageInput } from '../../../../components/Input/Input';
+import { profileEditAction } from '../../../../actions/securityEditAction';
+import { checkIsBlob, cropImageHandler } from '../../../../hooks/ImageHandle';
+import { profileInput } from '../../../../components/Input/InputsDefine';
+import { ButtonLoading } from '../../../../components/Loader';
+import { ButtonChecked } from '../../../../components/Checked';
+import Button from '../../../../components/atoms/button/InstanceMaker';
 
 const PersonalImageEdit = ({
   dispatch,
   getPersonalInfoAction,
   profileEditInfo,
 }) => {
-  const canvasRef = useRef("");
+  const canvasRef = useRef('');
   const imgRef = useRef(null);
 
-  const [imgSrc, setImgSrc] = useState("");
-  const [crop, setCrop] = useState("");
-  const [completedCrop, setCompletedCrop] = useState("");
+  const [imgSrc, setImgSrc] = useState('');
+  const [crop, setCrop] = useState('');
+  const [completedCrop, setCompletedCrop] = useState('');
   const aspect = 0.69 / 1;
   /** 이미지를 로드하여 자동으로 crop해주는 함수 */
   const onImageLoad = (e) => {
@@ -34,7 +36,7 @@ const PersonalImageEdit = ({
     return centerCrop(
       makeAspectCrop(
         {
-          unit: "px",
+          unit: 'px',
           width: 408,
           height: 591.09,
         },
@@ -51,8 +53,8 @@ const PersonalImageEdit = ({
       setCrop(undefined);
 
       const reader = new FileReader();
-      reader.addEventListener("load", () =>
-        setImgSrc(reader.result?.toString() || "")
+      reader.addEventListener('load', () =>
+        setImgSrc(reader.result?.toString() || '')
       );
       reader.readAsDataURL(e.target.files[0]);
     }
@@ -72,7 +74,7 @@ const PersonalImageEdit = ({
   const handleImageUpload = async (imgFile) => {
     const options = {
       maxSizeMB: 5,
-      fileType: "image/jpeg",
+      fileType: 'image/jpeg',
       maxWidthOrHeight: 620,
       useWebWorker: true,
       quality: 1.0,
@@ -87,13 +89,17 @@ const PersonalImageEdit = ({
       throw new Error(error);
     }
   };
+
+  const imageUploadHandler = async () => {
+    await sendImageToServer();
+  };
   return (
     <>
       {imgSrc && (
         <SetImageDefault
           type="button"
           onClick={() => {
-            setImgSrc("");
+            setImgSrc('');
           }}
         >
           <box-icon name="x" color="black" size="3rem"></box-icon>
@@ -113,7 +119,7 @@ const PersonalImageEdit = ({
 
         {!!imgSrc && (
           <ReactCrop
-            style={{ height: "26rem", width: "100%" }}
+            style={{ height: '26rem', width: '100%' }}
             crop={crop}
             onChange={(crop, _) => {
               setCrop(crop);
@@ -122,7 +128,7 @@ const PersonalImageEdit = ({
             aspect={aspect}
           >
             <img
-              style={{ height: "100%", width: "100%", scale: "1" }}
+              style={{ height: '100%', width: '100%', scale: '1' }}
               ref={imgRef}
               alt="Crop me"
               src={imgSrc}
@@ -132,17 +138,22 @@ const PersonalImageEdit = ({
         )}
         {!!completedCrop && (
           <canvas
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
             ref={canvasRef}
             width={completedCrop.width}
             height={completedCrop.width}
           ></canvas>
         )}
-
-        <ImageUploadButton
-          sendImageToServer={sendImageToServer}
-          info={profileEditInfo}
-        />
+        <Button size="xl" onClick={imageUploadHandler}>
+          {profileEditInfo?.loading === true ? (
+            <ButtonLoading />
+          ) : profileEditInfo?.loading === false &&
+            profileEditInfo?.profileEditStatus ? (
+            <ButtonChecked />
+          ) : (
+            '프로필 이미지로 설정'
+          )}
+        </Button>
       </ProfileEditWrap>
     </>
   );
@@ -176,6 +187,9 @@ const ProfileEditWrap = styled.div`
   padding: 0 1.5rem;
   z-index: 0;
   margin-top: 2rem;
+  button {
+    margin-top: 2rem;
+  }
 `;
 
 export default PersonalImageEdit;
