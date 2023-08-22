@@ -1,26 +1,28 @@
-import React from "react";
-import { styled } from "styled-components";
+import React from 'react';
+import { styled } from 'styled-components';
+import Button from '../../../components/atoms/button/InstanceMaker';
 
 const ResignPopup = () => {
   return (
     <SettingQuit className="setting-quit-popup">
-      {" "}
+      {' '}
       <SettingQuitWrap>
         <SettingQuitIconWrap>
           <box-icon name="trash" size="2rem" color="white"></box-icon>
         </SettingQuitIconWrap>
 
         <SettingQuitTitle>정말 탈퇴하시겠어요?</SettingQuitTitle>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <SettingQuitParagraph>탈퇴 버튼 선택 시</SettingQuitParagraph>
           <SettingQuitParagraph>
             계정은 삭제되며 복구되지 않습니다.
           </SettingQuitParagraph>
         </div>
         <SettingQuitButtonWrap>
-          <SettingQuitButton id="account-quit-button" type="submit">
+          <Button nativeType="submit" id="account-quit-button">
             탈퇴
-          </SettingQuitButton>{" "}
+          </Button>
+
           <SettingQuitLabel htmlFor="account-drop">취소</SettingQuitLabel>
         </SettingQuitButtonWrap>
       </SettingQuitWrap>
@@ -84,13 +86,6 @@ const SettingQuitButtonWrap = styled.div`
     border-radius: 0.4rem;
     font-weight: 500;
   }
-`;
-const SettingQuitButton = styled.button`
-  width: 100%;
-  height: 3rem;
-  font-size: 1rem;
-  border: none;
-  background-color: white;
 `;
 
 const SettingQuitLabel = styled.label`
