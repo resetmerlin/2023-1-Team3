@@ -1,3 +1,4 @@
+// btn division button
 .btn {
   cursor: pointer;
   border: none;
@@ -44,24 +45,58 @@
 .btn-tertiary {
   background-color: #b1b1b1;
   color: white;
-
   border: 1px solid white;
 }
 
+// icon division button
 .icon {
   cursor: pointer;
   border: none;
   margin: 0 0.5rem;
 }
 
+.icon-m {
+  svg {
+    height: 1rem;
+    width: 1rem;
+  }
+}
+.icon-s {
+  svg {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+}
 .icon-l {
+  svg {
+    height: 2rem;
+    width: 2rem;
+  }
 }
 .icon-xl {
+  svg {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
 }
 
 .icon-primary {
   background-color: white;
   svg {
     fill: rgb(128, 113, 252) !important;
+  }
+}
+
+.icon-secondary {
+  background-color: rgb(128, 113, 252);
+  svg {
+    fill: white !important;
+  }
+}
+
+.icon-tertiary {
+  background-color: transparent;
+  svg {
+    fill: black !important;
   }
 }
