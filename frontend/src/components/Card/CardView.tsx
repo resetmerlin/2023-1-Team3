@@ -62,18 +62,18 @@ export default function CardView({
           </div>
 
           <div className="card__bottom__buttons">
-            <Button onClick={goNextSlideHandler} division="icon" size="xl">
-              <IconX size="1.5rem" />
+            <Button onClick={goNextSlideHandler} division="icon" size="l">
+              <IconX />
             </Button>
             <Button
               onClick={likeAction}
               division="icon"
               size={saveValue ? 'xl' : 'l'}
             >
-              <IconHeartSolid size={saveValue ? '1.4rem' : '1.3rem'} />
+              <IconHeartSolid />
             </Button>
             <Button onClick={startMessage} division="icon">
-              <IconMessageSolid size="1.3rem" />
+              <IconMessageSolid />
             </Button>
           </div>
         </div>
