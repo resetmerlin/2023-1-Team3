@@ -56,7 +56,9 @@ export default function HomeContent({
     goNextSlideHandler,
     user,
     saveValue,
-    startMessage,
+    startMessage: () => {
+      startMessage(user?.memberId);
+    },
     savAction,
     popupCheckedHandler: (e: React.ChangeEvent<HTMLInputElement>) => {
       setUserChildCardPopup(e.target.checked);
@@ -67,6 +69,9 @@ export default function HomeContent({
   };
 
   const popupProps = {
+    startMessage: () => {
+      startMessage(user?.memberId);
+    },
     user,
     blockAction: () => {
       blockAction();
