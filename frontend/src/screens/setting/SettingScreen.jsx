@@ -1,18 +1,19 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Footer from "../../components/Footer";
-import { styled } from "styled-components";
-import { SettingHeader } from "../../components/Header";
-import { batch, useDispatch, useSelector } from "react-redux";
-import { logoutAction } from "../../actions/userAction";
-import { getPersonalInfoAction } from "../../actions/securityEditAction";
-import { SECURITY_GET_PERSONALINFO_RESET } from "../../constants/securityEditConstants";
-import SettingScreenView from "./SettingScreenView";
-import { getImageSrc } from "../../func/commonLogicHelper";
-import SettingScreenSkeleton from "./skeleton/SettingScreenSkeleton";
-import MyCard from "../../components/Card/MyCard";
-import CardDetails from "../../components/PopupCard/CardDetails";
-import { getSaveListAction } from "../../actions/saveAction";
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Footer from '../../components/Footer';
+import { styled } from 'styled-components';
+import { SettingHeader } from '../../components/Header';
+import { batch, useDispatch, useSelector } from 'react-redux';
+import { logoutAction } from '../../actions/userAction';
+import { getPersonalInfoAction } from '../../actions/securityEditAction';
+import { SECURITY_GET_PERSONALINFO_RESET } from '../../constants/securityEditConstants';
+import SettingScreenView from './SettingScreenView';
+import { getImageSrc } from '../../func/commonLogicHelper';
+import SettingScreenSkeleton from './skeleton/SettingScreenSkeleton';
+import MyCard from '../../components/Card/MyCard';
+import CardDetails from '../../components/PopupCard/CardDetails';
+import { getSaveListAction } from '../../actions/saveAction';
+import './Setting.scss';
 
 const SettingScreen = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const SettingScreen = () => {
   /** 비밀번호 재설정 후 받는 response값 */
   const personalInfo = useSelector((state) => state.personalInfo);
 
-  const { error, loading, personalInfoStatus: user } = personalInfo;
+  const { loading, personalInfoStatus: user } = personalInfo;
 
   const logoutHandler = () => {
     dispatch(logoutAction());
@@ -39,7 +40,7 @@ const SettingScreen = () => {
   const [userCardPopup, setUserCardPopup] = useState(false);
   const [cardDetailsPopup, setCardDetailsPopup] = useState(false);
 
-  const popupStyle = { display: userCardPopup ? "none" : "flex" };
+  const popupStyle = { display: userCardPopup ? 'none' : 'flex' };
   const age =
     new Date().getFullYear() - new Date(user?.birth).getFullYear() + 1;
 
@@ -54,20 +55,14 @@ const SettingScreen = () => {
   const imgURL = getImageSrc(user);
 
   const props = {
-    profileProps: {
-      memberId: user?.memberId,
-      getPopupStateFromChild: getPopupStateFromChild,
-      imgSrc: imgURL,
-      name: user?.name,
-      age: age,
-      department: user?.department,
-    },
-    introductionProps: {
-      introduction: user?.introduction,
-    },
-    accountProps: {
-      logoutHandler: logoutHandler,
-    },
+    memberId: user?.memberId,
+    getPopupStateFromChild: getPopupStateFromChild,
+    imgSrc: imgURL,
+    name: user?.name,
+    age: age,
+    department: user?.department,
+    introduction: user?.introduction,
+    logoutHandler: logoutHandler,
   };
 
   const cardProps = {
@@ -84,12 +79,12 @@ const SettingScreen = () => {
   };
   return (
     <>
-      <Setting>
-        <SettingHeader navigate={navigate} name={"마이페이지"} />
+      <section className="setting">
+        <SettingHeader navigate={navigate} name={'마이페이지'} />
         {loading ? <SettingScreenSkeleton /> : <SettingScreenView {...props} />}
 
         <Footer />
-      </Setting>
+      </section>
       {userCardPopup && (
         <MyCardBackground>
           {cardDetailsPopup ? (
@@ -103,16 +98,6 @@ const SettingScreen = () => {
   );
 };
 
-const Setting = styled.div`
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-
-  align-self: start;
-`;
 const MyCardBackground = styled.div`
   position: fixed;
   left: 50%;
