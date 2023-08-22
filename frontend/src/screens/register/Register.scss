@@ -7,6 +7,13 @@
   align-items: center;
   padding: 1rem;
   height: auto;
+
+  .back-button-wrap {
+    background-color: transparent;
+    position: absolute;
+    top: 4.5%;
+    left: 1%;
+  }
   &__form-wrap {
     height: auto;
     display: flex;
@@ -26,6 +33,11 @@
         justify-content: space-around;
         margin: 2rem 0;
       }
+    }
+    .login-navigator {
+      border: none;
+      font-weight: 600;
+      font-size: 0.9rem;
     }
   }
 }
