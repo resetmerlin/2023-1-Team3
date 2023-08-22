@@ -7,7 +7,7 @@ import { styled } from 'styled-components';
 import { checkIsBlob, cropImageHandler } from '../../../hooks/ImageHandle';
 import { profileEditAction } from '../../../actions/securityEditAction';
 import 'react-image-crop/dist/ReactCrop.css';
-import { ImageRegisterButton } from '../../../components/atoms/button/Button';
+import Button from '../../../components/atoms/button/InstanceMaker';
 
 const ImageRegister = ({ handleNext, dispatch }) => {
   const canvasRef = useRef('');
@@ -80,6 +80,11 @@ const ImageRegister = ({ handleNext, dispatch }) => {
       throw new Error(error);
     }
   };
+
+  const imageUploadHandler = async () => {
+    handleNext();
+    await sendImageToServer();
+  };
   return (
     <>
       <SetImageDefault
@@ -128,12 +133,11 @@ const ImageRegister = ({ handleNext, dispatch }) => {
           height={completedCrop.width}
         ></canvas>
       )}
-
-      <ImageRegisterButton
-        handleNext={handleNext}
-        sendImageToServer={sendImageToServer}
-        content={imgSrc ? '프로필 이미지로 설정' : '건너뛰기'}
-      />
+      <div className="button-wrap ">
+        <Button size="xl" onClick={imageUploadHandler}>
+          {imgSrc ? '프로필 이미지로 설정' : '건너뛰기'}
+        </Button>
+      </div>
     </>
   );
 };
