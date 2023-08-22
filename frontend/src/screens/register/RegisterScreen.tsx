@@ -16,11 +16,6 @@ import { batch } from 'react-redux';
 import ProgressBar from '../../components/ProgressBar';
 import { memoizedRegisterInfo } from '../../hooks/MemoizedRedux';
 import Loading from '../../components/Loading';
-import {
-  BackButton,
-  BackFormButton,
-  GoFormButton,
-} from '../../components/atoms/button/Button';
 import { HorizontalLine } from '../../components/HorizontalLine';
 
 import {
@@ -28,7 +23,8 @@ import {
   registerEmailResetAction,
   registerResetAction,
 } from '../../actions/resetAction';
-import { DefaultBackHeader } from '../../components/Header';
+import Button from '../../components/atoms/button/InstanceMaker';
+import { IconChevronLeft } from '../../components/atoms/icon/IconChevron';
 const RegisterScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -153,14 +149,39 @@ const RegisterScreen = () => {
     }
   }, [seconds, isCountdown, emailInfo?.emailStatus]);
 
+  const goPrevious = () => {
+    navigate(-1);
+  };
+
+  const goLoginPage = () => {
+    navigate('/login');
+  };
   return (
     <section className="register">
       <Suspense fallback={<Loading />}>
         <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
         {currentStep == 1 ? (
-          <DefaultBackHeader navigate={navigate} />
+          <div className="back-button-wrap">
+            <Button
+              onClick={goPrevious}
+              division="icon"
+              size="xl"
+              type="tertiary"
+            >
+              <IconChevronLeft />
+            </Button>
+          </div>
         ) : currentStep !== 8 ? (
-          <BackFormButton handlePrevious={handlePrevious} />
+          <div className="back-button-wrap">
+            <Button
+              onClick={handlePrevious}
+              division="icon"
+              size="xl"
+              type="tertiary"
+            >
+              <IconChevronLeft />
+            </Button>
+          </div>
         ) : (
           ''
         )}
@@ -184,9 +205,15 @@ const RegisterScreen = () => {
             />
             {currentStep !== 8 && (
               <>
-                {' '}
                 <HorizontalLine />
-                <GoFormButton page={'login'} navigate={navigate} />
+                <Button
+                  type="secondary"
+                  size="xl"
+                  onClick={goLoginPage}
+                  className="login-navigator"
+                >
+                  이미 가입을 하셨나요?
+                </Button>
               </>
             )}
           </div>
