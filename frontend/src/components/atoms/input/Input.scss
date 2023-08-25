@@ -1,0 +1,16 @@
+.input {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.1s ease;
+  padding: 0 0.5rem;
+  height: 3rem;
+}
+.label {
+  &::first-letter {
+    text-transform: uppercase;
+  }
+  color: rgb(128, 113, 252);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
