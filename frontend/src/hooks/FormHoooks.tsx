@@ -6,7 +6,13 @@ import SecurityPasswordForm from '../screens/securityEdit/accountSetting/form/Se
 import PersonalInfoForm from '../screens/profileEdit/personalInfoEdit/form/PersonalInfoForm';
 import ResignForm from '../screens/account/form/ResignForm';
 
-export const LoginFormHook = ({ schema, onSubmit, loginInfo, navigate }) => {
+export const LoginFormHook = ({
+  schema,
+  onSubmit,
+  loginInfo,
+  navigate,
+  goRegisterPage,
+}) => {
   const methods = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -24,6 +30,7 @@ export const LoginFormHook = ({ schema, onSubmit, loginInfo, navigate }) => {
         onSubmit={onSubmit}
         loginInfo={loginInfo}
         navigate={navigate}
+        goRegisterPage={goRegisterPage}
       />
     </FormProvider>
   );
