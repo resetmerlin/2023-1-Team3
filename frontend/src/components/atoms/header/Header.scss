@@ -1,0 +1,98 @@
+.header-s {
+  height: 10vh;
+}
+.header-m {
+  height: 12vh;
+}
+
+.header-l {
+  height: 13vh;
+}
+
+.header-xl {
+  height: 14vh;
+}
+.header__title {
+  font-weight: 600;
+}
+
+.setting-header {
+  .header__title {
+    margin-top: 1rem;
+    font-size: 1.7rem;
+
+    color: black;
+  }
+}
+
+.message-header {
+  background-color: rgb(128, 113, 252);
+  .header__title {
+    font-size: 2.5rem;
+    position: absolute;
+    color: white;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  button {
+    position: absolute;
+    left: 3%;
+    top: 5%;
+  }
+}
+
+.home-header {
+  margin: 0 2rem;
+  a {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.save-header {
+  width: auto;
+  .save-header__content {
+    position: absolute;
+    height: 100%;
+    width: 90%;
+    display: flex;
+    border-bottom: 1.9px solid rgb(128, 113, 252);
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .header__title {
+    font-size: 1.8rem;
+    position: absolute;
+    top: 47%;
+  }
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  button {
+    position: fixed;
+    top: 4.5%;
+    left: 3%;
+    z-index: 10000;
+  }
+}
+
+.true-header {
+  display: flex;
+}
+
+.false-header {
+  display: none;
+}
