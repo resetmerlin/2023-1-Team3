@@ -14,6 +14,8 @@ export default function LoginSceen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const goRegisterPage = () => navigate('/register');
+
   /** Get loginInfo from Redux(loginInfo를 redux에서 가져옴) */
   const loginInfo = useSelector(selectLoginToken);
 
@@ -45,6 +47,7 @@ export default function LoginSceen() {
             onSubmit={onSubmit}
             loginInfo={loginInfo}
             navigate={navigate}
+            goRegisterPage={goRegisterPage}
           />
         </div>
       </Suspense>
