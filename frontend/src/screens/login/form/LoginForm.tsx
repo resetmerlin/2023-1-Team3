@@ -10,15 +10,12 @@ import {
 } from '../../../components/Input/InputsDefine';
 import Button from '../../../components/atoms/button/InstanceMaker';
 import { styled } from 'styled-components';
-
-function LoginForm({ loginInfo, onSubmit, navigate }) {
+function LoginForm({ loginInfo, onSubmit, goRegisterPage }) {
   const {
     handleSubmit,
     formState: { errors },
     register,
   } = useFormContext();
-
-  const goRegister = () => navigate('/register');
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -35,7 +32,7 @@ function LoginForm({ loginInfo, onSubmit, navigate }) {
       />
       <div className="button-wrap">
         <Button nativeType="submit">로그인</Button>
-        <Button type="tertiary" onClick={goRegister}>
+        <Button type="tertiary" onClick={goRegisterPage}>
           회원가입
         </Button>
       </div>
@@ -46,5 +43,4 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
 `;
-
 export default LoginForm;
