@@ -19,7 +19,7 @@ import Loading from '../../../components/Loading';
 import { getImageSrc } from '../../../func/commonLogicHelper';
 import { getSaveListAction } from '../../../actions/saveAction';
 import Button from '../../../components/atoms/button/InstanceMaker';
-import IconChevronLeft from '../../../components/atoms/icon/IconChevron';
+import { IconChevronLeft } from '../../../components/atoms/icon/IconChevron';
 
 const ProfileEditScreen = () => {
   const dispatch = useDispatch();
