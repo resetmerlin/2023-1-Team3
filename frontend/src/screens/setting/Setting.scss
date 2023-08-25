@@ -136,4 +136,20 @@
       text-decoration: none;
     }
   }
+
+  .my-card {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div {
+      box-shadow: none;
+    }
+  }
 }
