@@ -5,7 +5,7 @@ import Card from '../../../components/Card/Card';
 import CardDetails from '../../../components/PopupCard/CardDetails';
 
 type Props = {
-  user: unknown;
+  user: { memberId: string; birth: Date };
   sendBlockUser: (memberId: string, blockBoolean: boolean) => void;
   sendLikeUser: (memberId: string, saveBoolean: boolean) => void;
   goNextSlideHandler: () => void;
@@ -76,9 +76,7 @@ export default function HomeContent({
     blockAction: () => {
       blockAction();
     },
-    likeAction: () => {
-      savAction(user?.memberId);
-    },
+    likeAction: savAction,
     age,
     blockValue,
     saveValue,
