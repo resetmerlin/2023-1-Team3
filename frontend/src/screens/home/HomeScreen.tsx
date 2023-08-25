@@ -7,32 +7,43 @@ import React, {
 } from 'react';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
-import { useDispatch, useSelector } from 'react-redux';
 import { peopleListAction } from '../../actions/peopleAction';
 import Loading from '../../components/Loading';
 import { saveUserAction } from '../../actions/buttonAction';
-import { HomeHeader } from '../../components/Header';
 import NoValueUser from '../../components/NoValueUser';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { blockUserAction } from '../../actions/buttonAction';
 import { PEOPLE_LIST_RESET } from '../../constants/peopleConstants';
 import { messageInitiateAction } from '../../actions/messageAction';
 import { getSaveListAction } from '../../actions/saveAction';
-import Footer from '../../components/Footer';
 import HomeContent from './content/HomeContent';
+import { useAppDispatch, useAppSelector } from '../../hooks/ReduxHooks';
+import Header from '../../components/atoms/header/InstanceMaker';
+import Button from '../../components/atoms/button/InstanceMaker';
+import { IconChevronLeft } from '../../components/atoms/icon/IconChevron';
+import { LogoMediumImg } from '../../components/atoms/logo/Logo';
+import Footer from '../../components/atoms/footer/InstanceMaker';
 
+type User = {
+  memberId: number;
+  name: string;
+  birth: Date;
+  image: string | URL;
+  department: string;
+  introduction: string;
+};
 export default function HomeScreen() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   /** Popup 여부에 따라 동적으로 다른 html element에 스타일 적용하기 */
-  const [userCardPopup, setUserCardPopup] = useState(false);
+  const [userCardPopup, setUserCardPopup] = useState<boolean>(false);
 
   const splideRef = useRef(null);
   const previousSplideRef = useRef(-1);
 
   /** Redux에서 가져온 유저 리스트 */
-  const peopleListInfo = useSelector((state) => state.peopleListInfo);
+  const peopleListInfo = useAppSelector((state) => state.peopleListInfo);
   const { peopleListStatus, loading: peopleListLoading } = peopleListInfo;
 
   /** splide option */
@@ -53,14 +64,14 @@ export default function HomeScreen() {
 
   /** 유저 좋아요 혹은 저장하기 */
   const sendLikeUser = useCallback(
-    (memberId: string, saveBoolean: boolean) =>
+    (memberId: User['memberId'], saveBoolean: boolean) =>
       dispatch(saveUserAction(memberId, saveBoolean)),
     [dispatch]
   );
 
   /** 유저 차단 혹은 삭제하기  */
   const sendBlockUser = useCallback(
-    (memberId: string, blockBoolean: boolean) =>
+    (memberId: User['memberId'], blockBoolean: boolean) =>
       dispatch(blockUserAction(memberId, blockBoolean)),
     [dispatch]
   );
@@ -111,10 +122,10 @@ export default function HomeScreen() {
     }
   }, [previousSplideRef, nextPeopleListsHandler]);
 
-  const startMessage = async (memberId: string) => {
+  const startMessage = async (memberId: User['memberId']) => {
     const userInfo = peopleListStatus?.memberResponses
-      .filter((users: { memberId: string }) => users.memberId === memberId)
-      .map((user) => user);
+      .filter((users: User) => users.memberId === memberId)
+      .map((user: User) => user);
 
     if (userInfo) {
       await dispatch(
@@ -145,10 +156,22 @@ export default function HomeScreen() {
 
   return (
     <section className="home">
-      <HomeHeader
-        navigate={navigate}
-        style={{ display: userCardPopup ? 'none' : 'flex' }}
-      />
+      <Header page="home" popup={userCardPopup}>
+        <Button
+          size="xl"
+          division="icon"
+          type="tertiary"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <IconChevronLeft />
+        </Button>
+        <Link to="/">
+          <LogoMediumImg />
+        </Link>
+      </Header>
+
       {peopleListLoading ? (
         <Loading />
       ) : (
@@ -162,27 +185,25 @@ export default function HomeScreen() {
         >
           <SplideTrack>
             {peopleListStatus &&
-              peopleListStatus?.memberResponses.map(
-                (user: { memberId: string }) => {
-                  return (
-                    <Suspense fallback={<Loading />} key={user.memberId}>
-                      <SplideSlide key={user.memberId} id="SplideSlide">
-                        <HomeContent
-                          user={user}
-                          key={user.memberId}
-                          peopleListLoading={peopleListLoading}
-                          sendLikeUser={sendLikeUser}
-                          startMessage={startMessage}
-                          goNextSlideHandler={goNextSlideHandler}
-                          userCardPopup={userCardPopup}
-                          sendBlockUser={sendBlockUser}
-                          getUserFromChild={getUserFromChild}
-                        />
-                      </SplideSlide>
-                    </Suspense>
-                  );
-                }
-              )}
+              peopleListStatus?.memberResponses.map((user: User) => {
+                return (
+                  <Suspense fallback={<Loading />} key={user.memberId}>
+                    <SplideSlide key={user.memberId} id="SplideSlide">
+                      <HomeContent
+                        user={user}
+                        key={user.memberId}
+                        peopleListLoading={peopleListLoading}
+                        sendLikeUser={sendLikeUser}
+                        startMessage={startMessage}
+                        goNextSlideHandler={goNextSlideHandler}
+                        userCardPopup={userCardPopup}
+                        sendBlockUser={sendBlockUser}
+                        getUserFromChild={getUserFromChild}
+                      />
+                    </SplideSlide>
+                  </Suspense>
+                );
+              })}
 
             {peopleListStatus?.endPageSignal && (
               <SplideSlide>
@@ -192,8 +213,7 @@ export default function HomeScreen() {
           </SplideTrack>
         </Splide>
       )}
-
-      <Footer style={{ display: userCardPopup ? 'none' : 'flex' }} />
+      <Footer page="home" popup={userCardPopup} />
     </section>
   );
 }
