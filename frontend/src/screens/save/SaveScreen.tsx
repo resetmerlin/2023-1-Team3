@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { SaveHeader } from '../../components/Header';
 import { getSaveListAction } from '../../actions/saveAction';
 import { blockUserAction, saveUserAction } from '../../actions/buttonAction';
 import { SAVE_LIST_RESET } from '../../constants/saveConstants';
 import { BUTTON_SAVE_RESET } from '../../constants/buttonConstants';
 import SaveContent from './SaveContent';
-import Footer from '../../components/Footer';
 import './Save.scss';
+import Header from '../../components/atoms/header/InstanceMaker';
+import Button from '../../components/atoms/button/InstanceMaker';
+import { IconChevronLeft } from '../../components/atoms/icon/IconChevron';
+import Footer from '../../components/atoms/footer/InstanceMaker';
 
 function SaveScreen() {
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ function SaveScreen() {
   const [savePage, setSavePage] = useState(0);
 
   /** child component state값 저장 */
-  const [childState, setChildState] = useState(null);
+  const [childState, setChildState] = useState(false);
   const handleChildStateChange = (newState) => {
     setChildState(newState);
   };
@@ -97,10 +99,22 @@ function SaveScreen() {
 
   return (
     <section className="save">
-      <SaveHeader
-        navigate={navigate}
-        style={{ display: childState ? 'none' : 'flex' }}
-      />
+      <Header page="save" size="s" popup={childState}>
+        <Button
+          size="xl"
+          division="icon"
+          type="tertiary"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <IconChevronLeft />
+        </Button>
+        <div className="save-header__content">
+          <span className="header__title">Like</span>
+        </div>
+      </Header>
+
       <div
         className="save__row"
         style={{
@@ -136,7 +150,7 @@ function SaveScreen() {
           )}
       </div>
 
-      <Footer style={{ display: childState ? 'none' : 'flex' }} />
+      <Footer page="save" popup={childState} />
     </section>
   );
 }
