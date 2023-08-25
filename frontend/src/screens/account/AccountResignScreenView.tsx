@@ -1,7 +1,10 @@
-import React from "react";
-import { styled } from "styled-components";
-import { SettingHeader } from "../../components/Header";
-import { SecurityResignFormHook } from "../../hooks/FormHoooks";
+import React from 'react';
+import { styled } from 'styled-components';
+import { SettingHeader } from '../../components/Header';
+import { SecurityResignFormHook } from '../../hooks/FormHoooks';
+import Header from '../../components/atoms/header/InstanceMaker';
+import Button from '../../components/atoms/button/InstanceMaker';
+import { IconChevronLeft } from '../../components/atoms/icon/IconChevron';
 
 const AccountResignScreenView = ({
   navigate,
@@ -12,12 +15,25 @@ const AccountResignScreenView = ({
 }) => {
   return (
     <AccountSetting>
-      <SettingHeader navigate={navigate} name={"계정 탈퇴 설정"} />
+      <Header page="message" size="xl">
+        <Button
+          size="xl"
+          division="icon"
+          type="tertiary"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <IconChevronLeft />
+        </Button>
+        <span className="header__title">계정 탈퇴 설정</span>
+      </Header>
+
       <AccountSettingContent>
         <p
           style={{
-            fontSize: "1rem",
-            margin: "1rem 0",
+            fontSize: '1rem',
+            margin: '1rem 0',
           }}
         >
           탈퇴 버튼 선택 시 계정은 삭제되며 복구되지 않습니다. 현재 비밀번호를
