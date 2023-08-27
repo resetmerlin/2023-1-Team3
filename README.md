@@ -14,3 +14,14 @@
 => 친목도모 대학생 매칭 웹 서비스, 새로운 대학생 친구를 만나고 싶다면 DLink를 이용해보세요!
 
 ## 🖥 뷰 소개
+
+
+
+## 👥 DLink 팀원들을 소개합니다 :)
+<div style="max-width: 50%">
+
+|[Merlin(프론트엔드)](https://github.com/resetmerlin)|[HongdeokKim(백엔드)](https://github.com/HongdeokKim)|[KanghoLim(백엔드)](https://github.com/limkangho)
+|------|------|------|
+|<img src="https://avatars.githubusercontent.com/u/108568153?v=4" width="520" alt="resetmerlin"/>|<img src="https://avatars.githubusercontent.com/u/76855335?v=4" width="520" alt="HongdeokKim"/>|<img src="https://avatars.githubusercontent.com/u/49905142?v=4" width="520" alt="KanghoLim"/>|
+
+</div>
