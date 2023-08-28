@@ -36,3 +36,8 @@
 |Formatting|![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white)|
 |Version Control|![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) |
 |Deploy|![AWS](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)|
+|Cross Browser Testing|<img src="https://github.com/resetmerlin/DLink/assets/108568153/3c10eea3-3e6f-4eb8-b315-8f37a1f33295" width="200"/>|
+|Task management|![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)|
+|Communication| ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)|`  
+|Tools|<img src="https://github.com/resetmerlin/DLink/assets/108568153/1dbab3e6-c460-4199-9073-a7a58ddaca16" width="200" alt="earser-io"/>|`  
+
