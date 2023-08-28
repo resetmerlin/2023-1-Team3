@@ -15,15 +15,9 @@
 
 ## 🖥 뷰 소개
 
-       
-<img src="https://github.com/resetmerlin/DLink/assets/108568153/cc7c90f4-5d35-4d45-ba9b-f3002b2a11e1" width="300" alt="login-view" />
-<img src="https://github.com/resetmerlin/DLink/assets/108568153/8a9a9bf6-09ef-4c1d-b1a1-d970c8c665df" width="300" alt="home-view"/>
-<img src="https://github.com/resetmerlin/DLink/assets/108568153/8a1f542d-5bdb-44b4-9d01-85e52bfb0641" width="300" alt="home-view-noValue"/>
-<img src="https://github.com/resetmerlin/DLink/assets/108568153/07723da3-5fdc-436f-afd8-9e6e680c716b" width="300" alt="home-view-popup"/>
-<img src="https://github.com/resetmerlin/DLink/assets/108568153/cdda21d1-8aee-49bf-9162-63172d18d73a" width="300" alt="save-view"/>
 
 
-[Testing in Real device](https://github.com/resetmerlin/DLink/assets/108568153/95e647f1-e12f-4f3f-b310-206b8f70f83a)
+
 
 ## 👥 DLink 팀원들을 소개합니다 :)
 <div style="max-width: 50%">
@@ -48,4 +42,11 @@
 |Task management|![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)|
 |Communication| ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)|`  
 |Tools|<img src="https://github.com/resetmerlin/DLink/assets/108568153/1dbab3e6-c460-4199-9073-a7a58ddaca16" width="200" alt="earser-io"/>|`  
+
+
+## Architecture
+![image](https://github.com/resetmerlin/DLink/assets/108568153/1c334f84-ef5d-4048-8214-991fd02a5420)
+
+
+
 
