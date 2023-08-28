@@ -23,6 +23,7 @@
 <img src="https://github.com/resetmerlin/DLink/assets/108568153/cdda21d1-8aee-49bf-9162-63172d18d73a" width="300" alt="save-view"/>
 
 
+[Testing in Real device](https://github.com/resetmerlin/DLink/assets/108568153/95e647f1-e12f-4f3f-b310-206b8f70f83a)
 
 ## 👥 DLink 팀원들을 소개합니다 :)
 <div style="max-width: 50%">
