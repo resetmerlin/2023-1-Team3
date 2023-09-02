@@ -1,4 +1,5 @@
 
+
 ## DLink
 ### 친목도모 대학생 매칭 서비스 DLink!
 **📍 1. 비대면 지속으로 인한 사람들 간 교류 감소**
@@ -23,7 +24,9 @@
 
 
 
-<video src="https://github.com/resetmerlin/DLink/assets/108568153/5fc88ec9-e4f9-44c0-a0ae-93a42fc13011"  width="200"/>
+
+https://github.com/DKU-D-Coding-teams/2023-1-Team3/assets/108568153/c52d54d3-a719-4b00-a3df-b0c1ecbd7478
+
 
 
 
@@ -40,12 +43,24 @@
 
 ## ⚙️ Stack
 
-|역할|종류|
-|-|-|
+### Backend 
+|역할|종류|  
+|-|- |
+|1| 1 |
+|2| 2 |
+|3 | 3|
+
+### Frontend 
+|역할|종류|  
+|-|- |
 |Styling|![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)|
 |State Management|![React-Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)|
 |Programming Language|![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)|
 |Formatting|![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white)|
+
+### Team
+|역할|종류|  
+|-|-|
 |Version Control|![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) |
 |Deploy|![AWS](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)|
 |Cross Browser Testing|<img src="https://github.com/resetmerlin/DLink/assets/108568153/3c10eea3-3e6f-4eb8-b315-8f37a1f33295" width="200"/>|
@@ -54,9 +69,9 @@
 |Tools|<img src="https://github.com/resetmerlin/DLink/assets/108568153/1dbab3e6-c460-4199-9073-a7a58ddaca16" width="200" alt="earser-io"/>|`  
 
 
+
+
 ## Architecture
 ![image](https://github.com/resetmerlin/DLink/assets/108568153/1c334f84-ef5d-4048-8214-991fd02a5420)
-
-
 
 
