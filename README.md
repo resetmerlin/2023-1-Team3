@@ -15,6 +15,16 @@
 
 ## 🖥 뷰 소개
 
+<img src="https://github.com/resetmerlin/DLink/assets/108568153/90c021a7-cdb0-45f9-be85-8b99b96c4137" width="300" alt="view-1"/>
+<img src="https://github.com/resetmerlin/DLink/assets/108568153/2345d7c5-c569-49df-8d3d-480d48a27102" width="300" alt="view-2"/>
+<img src="https://github.com/resetmerlin/DLink/assets/108568153/3e514f5d-0c7f-467b-bc41-d75c0c64a393" width="300" alt="view-3"/>
+<img src="https://github.com/resetmerlin/DLink/assets/108568153/338c052e-898f-43b5-9c65-d1a4bc7c514c" width="300" alt="view-4"/>
+<img src="https://github.com/resetmerlin/DLink/assets/108568153/213f6a3a-23b5-4c73-ac43-1cba69e5df2c" width="300" alt="view-5"/>
+
+
+
+<video src="https://github.com/resetmerlin/DLink/assets/108568153/5fc88ec9-e4f9-44c0-a0ae-93a42fc13011"  width="200"/>
+
 
 
 
